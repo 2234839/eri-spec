@@ -217,7 +217,7 @@ description: 工具描述
     <table>
       <thead><tr><th>角色</th><th>规则</th></tr></thead>
       <tbody>
-        <tr><td><span class="tag tag-platform">平台</span></td><td>为 iframe 添加 <code>sandbox="allow-scripts"</code>。仅在嵌入页面需要自身 cookie/storage 时才添加 <code>allow-same-origin</code>（注意：此组合实际上取消了沙箱限制）。不得将用户凭证传递给第三方 iframe。如果平台使用 Content Security Policy，需将嵌入页面的 origin 加入 <code>frame-src</code>。</td></tr>
+        <tr><td><span class="tag tag-platform">平台</span></td><td>为 iframe 添加 <code>sandbox="allow-scripts"</code>。<strong>警告：<code>allow-same-origin</code> 与 <code>allow-scripts</code> 组合实际上取消了沙箱限制</strong>——仅在嵌入页面需要自身 cookie/storage 时使用。不得将用户凭证传递给第三方 iframe。如果平台使用 Content Security Policy，需将嵌入页面的 origin 加入 <code>frame-src</code>。</td></tr>
         <tr><td><span class="tag tag-provider">提供者</span></td><td>不依赖 <code>document.cookie</code>（沙箱环境可能不可用）。不使用 <code>window.opener</code> 或 <code>window.top</code> 做导航/DOM 访问（Level 2 的 <code>window.parent.postMessage</code> 是安全的）。所有输入做 XSS 防护。<strong>绝不在 URL hash/query 参数中放置 PII 或敏感数据</strong>——URL 会被记录在浏览器历史、代理日志和 Referrer 头中。对于敏感数据，应在 URL 中传递短期令牌，由嵌入页面通过 API 调用获取实际数据。</td></tr>
       </tbody>
     </table>

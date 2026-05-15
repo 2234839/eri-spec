@@ -217,7 +217,7 @@ description: What this Skill does
     <table>
       <thead><tr><th>Role</th><th>Rules</th></tr></thead>
       <tbody>
-        <tr><td><span class="tag tag-platform">Platform</span></td><td>Add <code>sandbox="allow-scripts"</code> to iframes. Use <code>allow-same-origin</code> only if the embed page needs its own cookies/storage (note: this combo effectively removes the sandbox restriction). Never pass user credentials to third-party iframes. If the platform uses Content Security Policy, add the embed page's origin to <code>frame-src</code>.</td></tr>
+        <tr><td><span class="tag tag-platform">Platform</span></td><td>Add <code>sandbox="allow-scripts"</code> to iframes. <strong>Warning: adding <code>allow-same-origin</code> together with <code>allow-scripts</code> effectively removes the sandbox restriction</strong> — only use it if the embed page needs its own cookies/storage. Never pass user credentials to third-party iframes. If the platform uses Content Security Policy, add the embed page's origin to <code>frame-src</code>.</td></tr>
         <tr><td><span class="tag tag-provider">Provider</span></td><td>Don't rely on <code>document.cookie</code> (may be unavailable in sandbox). Don't use <code>window.opener</code> or <code>window.top</code> for navigation/DOM access (<code>window.parent.postMessage</code> for Level 2 is safe). Sanitize all inputs against XSS. <strong>Never place PII or sensitive data in URL hash/query params</strong> — URLs are logged in browser history, proxy logs, and referrer headers. For sensitive data, pass a short-lived token in the URL and fetch actual data via an API call inside the embed page.</td></tr>
       </tbody>
     </table>
