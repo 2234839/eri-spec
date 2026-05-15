@@ -317,6 +317,7 @@ const data = await fetch('/api/results/' + token).then(r =&gt; r.json());</code>
     <p>ERI 的纯文本降级不是缺陷——它是基线。每个 ERI 输出都应包含文本摘要，确保用户无论 iframe 是否渲染都能获得价值。</p>
 
     <h2 id="industry-landscape">11. 行业格局</h2>
+    <p>ERI 工作在<em>输出层</em>——Agent 如何向用户展示结果。它与工具调用协议（MCP、Function Calling、REST）互补——后者工作在<em>输入层</em>，即 Agent 如何调用外部系统。ERI 的 skill.md 可以使用任何工具调用机制；规范对 API 如何被调用不做限定。</p>
     <p>交互式 Agent 输出存在三种方案：</p>
     <table>
       <thead><tr><th></th><th>ERI</th><th><a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a></th><th><a href="https://github.com/google/a2ui">A2UI</a> (Google)</th></tr></thead>

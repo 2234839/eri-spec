@@ -317,6 +317,7 @@ const data = await fetch('/api/results/' + token).then(r =&gt; r.json());</code>
     <p>ERI's text fallback is not a bug — it's the baseline. Every ERI output should include a text summary so the user always gets value regardless of iframe rendering.</p>
 
     <h2 id="industry-landscape">11. Industry Landscape</h2>
+    <p>ERI operates at the <em>output</em> layer — how the Agent presents results to the user. It is complementary to tool invocation protocols (MCP, Function Calling, REST) which operate at the <em>input</em> layer — how the Agent calls external systems. An ERI skill.md can use any tool invocation mechanism; the spec is agnostic about how the API is called.</p>
     <p>Three approaches exist for interactive Agent output:</p>
     <table>
       <thead><tr><th></th><th>ERI</th><th><a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a></th><th><a href="https://github.com/google/a2ui">A2UI</a> (Google)</th></tr></thead>
