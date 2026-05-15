@@ -165,14 +165,8 @@ description: 工具描述
         <tr><td>自包含</td><td>页面内所有交互自行处理，不依赖宿主</td></tr>
         <tr><td>响应式</td><td>适应不同宽度的嵌入容器</td></tr>
         <tr><td>无外部依赖</td><td>不依赖宿主页面的 JS/CSS</td></tr>
-      </tbody>
-    </table>
-    <p>可选增强：</p>
-    <table>
-      <thead><tr><th>能力</th><th>说明</th></tr></thead>
-      <tbody>
-        <tr><td><code>postMessage</code> 通信</td><td>iframe 内变化可通过 postMessage 通知宿主</td></tr>
-        <tr><td>主题适配</td><td>读取 URL 参数或宿主颜色方案适配明暗主题</td></tr>
+        <tr><td><code>postMessage</code> <em>（可选）</em></td><td>iframe 内变化可通过 postMessage 通知宿主</td></tr>
+        <tr><td>主题适配 <em>（可选）</em></td><td>读取 URL 参数或宿主颜色方案适配明暗主题</td></tr>
       </tbody>
     </table>
 
@@ -238,7 +232,7 @@ iframe.contentWindow.postMessage({
     <p><strong>适合</strong>：计算工具、表单/问卷、数据可视化、文档编辑、设计工具、代码编辑器——任何用户想要<em>微调</em> Agent 输出的场景。</p>
     <p><strong>不适合</strong>：纯信息查询（不需要交互）、长文本生成、实时同步（ERI 是快照式的）。</p>
 
-    <h2>10. 行业格局</h2>
+    <h2>9. 行业格局</h2>
     <p>交互式 Agent 输出存在三种方案：</p>
     <ul>
       <li><strong>ERI</strong> — 通过 URL 嵌入任何 Web 应用。在<em>所有</em>平台上都能用。你控制 UI。</li>

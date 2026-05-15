@@ -165,14 +165,8 @@ description: What this Skill does
         <tr><td>Self-contained</td><td>Handle all interactions internally, no host dependencies</td></tr>
         <tr><td>Responsive</td><td>Adapt to different embed container widths</td></tr>
         <tr><td>No external deps</td><td>Don't depend on host page's JS/CSS</td></tr>
-      </tbody>
-    </table>
-    <p>Optional enhancements:</p>
-    <table>
-      <thead><tr><th>Capability</th><th>Description</th></tr></thead>
-      <tbody>
-        <tr><td><code>postMessage</code></td><td>Notify host of changes inside the iframe</td></tr>
-        <tr><td>Theme adaptation</td><td>Read URL params or host colors to match light/dark theme</td></tr>
+        <tr><td><code>postMessage</code> <em>(optional)</em></td><td>Notify host of changes inside the iframe</td></tr>
+        <tr><td>Theme adaptation <em>(optional)</em></td><td>Read URL params or host colors to match light/dark theme</td></tr>
       </tbody>
     </table>
 
@@ -238,7 +232,7 @@ iframe.contentWindow.postMessage({
     <p><strong>Fits</strong>: Calculators, forms/surveys, data visualization, document editing, design tools, code editors — any scenario where the user wants to <em>tweak</em> the Agent's output.</p>
     <p><strong>Does not fit</strong>: Pure information queries (no interaction needed), long-form text generation, real-time sync (ERI is snapshot-based).</p>
 
-    <h2>10. Industry Landscape</h2>
+    <h2>9. Industry Landscape</h2>
     <p>Three approaches exist for interactive Agent output:</p>
     <ul>
       <li><strong>ERI</strong> — embed any web app via URL. Works on <em>all</em> platforms. You control the UI.</li>
