@@ -107,6 +107,7 @@
 
     <h2 id="definition">1. Definition</h2>
     <p>AI Agents output text. ERI (Embedded Result Interface) lets them output interactive UI instead. After processing a user request, the Agent embeds a web app (iframe) — using only a <code>skill.md</code> and a URL.</p>
+    <p><strong>Design principles:</strong> no new protocol, no runtime dependency, works on any platform that renders iframes. The embed page is a regular HTTPS page — build it once, deploy it everywhere.</p>
     <table>
       <thead><tr><th>Role</th><th>Responsibility</th></tr></thead>
       <tbody>
@@ -204,16 +205,17 @@ description: What this Skill does
 &lt;body&gt;
 &lt;div id="out" style="font-size:24px"&gt;&lt;/div&gt;
 &lt;script&gt;
-  /** Agent passes JSON via hash: {"expr":"99.5*3","result":298.5} */
-  const data = JSON.parse(
-    decodeURIComponent(location.hash.slice(1))
-  );
-  document.getElementById('out').textContent =
-    data.expr + ' = ' + data.result;
+  const raw = decodeURIComponent(location.hash.slice(1));
+  if (!raw) { document.getElementById('out').textContent = 'No data'; }
+  else {
+    const data = JSON.parse(raw);
+    document.getElementById('out').textContent =
+      data.expr + ' = ' + data.result;
+  }
 &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-    <p>This minimal example renders a result. A production embed page adds responsive layout, input validation, error states, and theme adaptation.</p>
+    <p>This minimal example renders a result and handles empty state. A production embed page adds responsive layout, error handling, and theme adaptation.</p>
 
     <h2 id="security">6. Security</h2>
     <table>

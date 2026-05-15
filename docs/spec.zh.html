@@ -107,6 +107,7 @@
 
     <h2 id="definition">1. 定义</h2>
     <p>AI Agent 输出文字。ERI（嵌入式结果界面）让它们输出可交互的 UI。Agent 处理用户请求后，嵌入一个 Web 应用（iframe）——只需一个 <code>skill.md</code> 和一个 URL。</p>
+    <p><strong>设计原则：</strong>无新协议，无运行时依赖，任何能渲染 iframe 的平台都可用。嵌入页面就是一个普通的 HTTPS 页面——构建一次，到处部署。</p>
     <table>
       <thead><tr><th>角色</th><th>职责</th></tr></thead>
       <tbody>
@@ -204,16 +205,17 @@ description: 工具描述
 &lt;body&gt;
 &lt;div id="out" style="font-size:24px"&gt;&lt;/div&gt;
 &lt;script&gt;
-  /** Agent 通过 hash 传入 JSON: {"expr":"99.5*3","result":298.5} */
-  const data = JSON.parse(
-    decodeURIComponent(location.hash.slice(1))
-  );
-  document.getElementById('out').textContent =
-    data.expr + ' = ' + data.result;
+  const raw = decodeURIComponent(location.hash.slice(1));
+  if (!raw) { document.getElementById('out').textContent = '无数据'; }
+  else {
+    const data = JSON.parse(raw);
+    document.getElementById('out').textContent =
+      data.expr + ' = ' + data.result;
+  }
 &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-    <p>此最小示例仅渲染结果。生产级嵌入页面还需添加响应式布局、输入验证、错误状态和主题适配。</p>
+    <p>此最小示例渲染结果并处理空状态。生产级嵌入页面还需添加响应式布局、错误处理和主题适配。</p>
 
     <h2 id="security">6. 安全</h2>
     <table>
