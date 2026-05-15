@@ -679,11 +679,11 @@ Always show the iframe embed after your text explanation so the user can interac
         ? 'ERI Demo — Embedded Result Interface'
         : 'ERI 演示 — 嵌入式结果界面';
 
-      // Re-render demo messages in new language
+      // Re-render demo messages in new language (only if no real user messages)
       const chatMain = document.querySelector('.chat-main');
-      if (chatMain && chatMain.querySelector('.message')) {
+      const hasRealMessages = chatMain && chatMain.querySelectorAll('.user-msg:not(.demo-msg)').length > 0;
+      if (chatMain && !hasRealMessages) {
         chatMain.querySelectorAll('.message').forEach(el => el.remove());
-        conversationHistory.length = 0;
         renderDemo();
       }
     }
@@ -811,9 +811,14 @@ Always show the iframe embed after your text explanation so the user can interac
       return NOTECALC_EMBED_BASE + '#' + encodeURIComponent(expressions.replace(/\n/g, '\\n'));
     }
 
-    function addMessage(role, content, embedExpressions) {
+    /** Escape HTML special characters to prevent XSS */
+    function escapeHtml(str) {
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function addMessage(role, content, embedExpressions, isDemo) {
       const div = document.createElement('div');
-      div.className = `message ${role === 'user' ? 'user-msg' : 'assistant-msg'}`;
+      div.className = `message ${role === 'user' ? 'user-msg' : 'assistant-msg'}${isDemo ? ' demo-msg' : ''}`;
 
       const icon = role === 'user' ? '👤' : '🤖';
       const t = I18N[currentLang];
@@ -826,9 +831,10 @@ Always show the iframe embed after your text explanation so the user can interac
         </div>
         <div class="message-body">
           ${content.split('\n').map(line => {
-            if (line.startsWith('- **')) return `<p>${line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</p>`;
-            if (line.startsWith(' ')) return `<p><code>${line.trim()}</code></p>`;
-            return line ? `<p>${line}</p>` : '';
+            const escaped = escapeHtml(line);
+            if (escaped.startsWith('- **')) return `<p>${escaped.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</p>`;
+            if (escaped.startsWith(' ')) return `<p><code>${escaped.trim()}</code></p>`;
+            return escaped ? `<p>${escaped}</p>` : '';
           }).join('')}
       `;
 
@@ -859,7 +865,7 @@ Always show the iframe embed after your text explanation so the user can interac
       div.innerHTML = `
         <div class="message-header">
           <div class="icon">🤖</div>
-          Agent
+          ${I18N[currentLang]['msg.agent']}
         </div>
         <div class="message-body">
           <div class="loading"><span></span><span></span><span></span></div>
@@ -874,16 +880,11 @@ Always show the iframe embed after your text explanation so the user can interac
       if (el) el.remove();
     }
 
-    async function callNoteCalcApi(expressions) {
-      const resp = await fetch(NOTECALC_API, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify([{ content: expressions }])
-      });
-      return resp.json();
-    }
+    /** Guard against concurrent sends */
+    let sending = false;
 
     async function sendMessage() {
+      if (sending) return;
       const text = userInput.value.trim();
       if (!text) return;
 
@@ -901,14 +902,17 @@ Always show the iframe embed after your text explanation so the user can interac
       addMessage('user', text);
       conversationHistory.push({ role: 'user', content: text });
       userInput.value = '';
+      sending = true;
       sendBtn.disabled = true;
 
       addLoadingMessage();
 
       try {
+        /** Keep last 20 messages to stay within context limits */
+        const recentHistory = conversationHistory.slice(-20);
         const messages = [
           { role: 'system', content: getSkillPrompt() },
-          ...conversationHistory
+          ...recentHistory
         ];
 
         const resp = await fetch(apiEndpoint, {
@@ -926,12 +930,13 @@ Always show the iframe embed after your text explanation so the user can interac
         removeLoadingMessage();
 
         // Extract iframe src if present
-        const iframeMatch = assistantContent.match(/<iframe[^>]+src="([^"]+)"[^>]*>/i);
-        const embedUrl = iframeMatch ? iframeMatch[1] : null;
+        const iframeMatch = assistantContent.match(/<iframe[^>]+src=["']([^"']+)["'][^>]*>/i);
+        let embedUrl = iframeMatch ? iframeMatch[1] : null;
+        if (embedUrl && !embedUrl.startsWith(NOTECALC_EMBED_BASE)) embedUrl = null;
 
         // Clean content: remove iframe tag, clean up markdown
         let cleanContent = assistantContent
-          .replace(/<iframe[^>]*><\/iframe>/gi, '')
+          .replace(/<iframe[^>]*>\s*<\/iframe>/gi, '')
           .trim();
 
         addMessage('assistant', cleanContent, embedUrl ? decodeURIComponent(embedUrl.split('#')[1]?.replace(/\\n/g, '\n')) : null);
@@ -943,13 +948,14 @@ Always show the iframe embed after your text explanation so the user can interac
       }
 
       sendBtn.disabled = false;
+      sending = false;
     }
 
     // Render pre-filled demo messages
     function renderDemo() {
       const msgs = getDemoMessages();
       for (const msg of msgs) {
-        addMessage(msg.role, msg.content, msg.embedExpressions);
+        addMessage(msg.role, msg.content, msg.embedExpressions, true);
         conversationHistory.push({ role: msg.role, content: msg.content });
       }
     }
