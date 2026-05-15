@@ -108,7 +108,8 @@ description: Math calculator with variables and unit conversion.
 ## Workflow
 1. Parse user request into expressions
 2. Call POST /api/calculate with expressions
-3. Embed result as iframe: https://app.com/embed#encoded_expr</code></pre>
+3. Embed result as iframe: https://app.com/embed#encoded_expr
+4. Output as iframe (fallback to plain text)</code></pre>
     <p>10 minutes to write. Half a day for the embed page. Zero platform changes. Ship today. <a href="https://2234839.github.io/eri-spec/">Try it now</a>.</p>
 
     <h2>Three Paths to Interactive Agent Output</h2>
@@ -121,7 +122,7 @@ description: Math calculator with variables and unit conversion.
         <tr><td><strong>Platform needs</strong></td><td>Render iframes (already done)</td><td>MCP runtime + sandbox</td><td>A2UI renderer + widget catalog</td></tr>
         <tr><td><strong>Third party needs</strong></td><td>An HTTPS embed page</td><td>MCP-compatible app package</td><td>Component catalog + A2UI schema</td></tr>
         <tr><td><strong>Works today?</strong></td><td>Yes — zero integration</td><td>Requires MCP adoption</td><td>Requires renderer</td></tr>
-        <tr><td><strong>Effort</strong></td><td>10 min</td><td>Days</td><td>Days</td></tr>
+        <tr><td><strong>Effort</strong></td><td>&lt; 1 day</td><td>Days</td><td>Days</td></tr>
       </tbody>
     </table>
     <p><strong>ERI</strong> works on <em>all</em> platforms today. One embed page, one skill file — your app appears in ChatGPT, Claude, Gemini, and any future Agent. Just a URL. Ship today, adopt MCP Apps or A2UI later when your platforms support them.</p>

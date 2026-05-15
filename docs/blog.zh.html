@@ -108,7 +108,8 @@ description: 数学计算器，支持变量和单位转换。
 ## 工作流
 1. 将用户请求转化为表达式
 2. 调用 POST /api/calculate 传入表达式
-3. 以 iframe 嵌入结果: https://app.com/embed#encoded_expr</code></pre>
+3. 以 iframe 嵌入结果: https://app.com/embed#encoded_expr
+4. 输出为 iframe（平台无法渲染时降级为纯文本）</code></pre>
     <p>10 分钟写完。半天做好嵌入页面。零平台改动。今天就能上线。<a href="https://2234839.github.io/eri-spec/">现在试试</a>。</p>
 
     <h2>三条路径到交互式 Agent 输出</h2>
@@ -121,7 +122,7 @@ description: 数学计算器，支持变量和单位转换。
         <tr><td><strong>平台需要</strong></td><td>渲染 iframe（已经有了）</td><td>MCP 运行时 + 沙箱</td><td>A2UI 渲染器 + 组件目录</td></tr>
         <tr><td><strong>第三方需要</strong></td><td>一个 HTTPS 嵌入页面</td><td>MCP 兼容的应用包</td><td>组件目录 + A2UI Schema</td></tr>
         <tr><td><strong>今天能用？</strong></td><td>是——零集成</td><td>需要 MCP 采用</td><td>需要渲染器</td></tr>
-        <tr><td><strong>成本</strong></td><td>10 分钟</td><td>数天</td><td>数天</td></tr>
+        <tr><td><strong>成本</strong></td><td>&lt; 1 天</td><td>数天</td><td>数天</td></tr>
       </tbody>
     </table>
     <p><strong>ERI</strong> 在<em>所有</em>平台上都能用。一个嵌入页面，一个 skill 文件——你的应用就能出现在 ChatGPT、Claude、Gemini 以及任何未来的 Agent 上。一个 URL。今天就能用，等目标平台支持 MCP Apps 或 A2UI 时再采用。</p>

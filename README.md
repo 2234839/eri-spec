@@ -51,7 +51,7 @@ description: Math calculator with variables and unit conversion.
 | **Platform needs** | Render iframes (already done) | MCP runtime + sandbox | A2UI renderer + widget catalog |
 | **Third party needs** | An HTTPS embed page | MCP-compatible app package | Component catalog + A2UI schema |
 | **Works today?** | Yes — zero integration | Requires MCP adoption | Requires renderer |
-| **Effort** | 10 min | Days | Days |
+| **Effort** | < 1 day | Days | Days |
 
 **Key advantage for third-party providers**: ERI works on ALL Agent platforms (ChatGPT, Claude, Gemini) — no per-platform integration. One embed page, one skill file, everywhere.
 
