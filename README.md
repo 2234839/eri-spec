@@ -40,7 +40,7 @@ description: Math calculator with variables and unit conversion.
 
 1. **Add an embed page** — Create a stripped-down version of your app that reads initial state from URL params. ~40 lines of code.
 2. **Write a skill.md** — Tell the Agent how to call your API and construct the embed URL. 10 minutes.
-3. **Ship it** — iframe embedding works on most Agent platforms today. Add postMessage bidirectional communication when ready.
+3. **Ship it** — iframe embedding works on ChatGPT, Claude, Gemini today. Add postMessage bidirectional communication when ready.
 
 ## How It's Different
 

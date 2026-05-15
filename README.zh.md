@@ -40,7 +40,7 @@ description: 数学计算器，支持变量和单位转换。
 
 1. **添加嵌入页面** — 创建一个精简版应用，从 URL 参数读取初始状态。约 40 行代码。
 2. **写一个 skill.md** — 告诉 Agent 如何调用你的 API 和构造嵌入 URL。10 分钟。
-3. **上线** — iframe 嵌入在大多数 Agent 平台上都能用。需要时再加 postMessage 双向通信。
+3. **上线** — iframe 嵌入在 ChatGPT、Claude、Gemini 上都能用。需要时再加 postMessage 双向通信。
 
 ## 有什么不同
 
