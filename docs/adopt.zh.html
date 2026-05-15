@@ -6,10 +6,10 @@
   <meta name="theme-color" content="#0f0f0f">
   <link rel="icon" href="/eri-spec/favicon.svg" type="image/svg+xml">
   <title>采用 ERI — 团队指南</title>
-  <meta name="description" content="5 分钟体验 ERI。采用清单、决策矩阵、内部推介模板，以及常见疑问解答。">
+  <meta name="description" content="把你的 Web 应用嵌入 AI Agent 对话。采用清单、决策矩阵、推介模板和常见疑问——一天内让团队开始使用。">
   <meta name="keywords" content="ERI, 采用指南, 团队指南, AI Agent, 交互式 UI, 嵌入 iframe, 实施清单">
   <meta property="og:title" content="采用 ERI — 团队指南">
-  <meta property="og:description" content="5 分钟验证 ERI。清单、决策矩阵和推介模板，助团队快速采用。">
+  <meta property="og:description" content="把你的 Web 应用嵌入 AI Agent 对话。清单、决策矩阵和推介模板，助团队快速采用。">
   <meta property="og:url" content="https://2234839.github.io/eri-spec/docs/adopt.zh.html">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="ERI Spec">
@@ -33,7 +33,44 @@
     "datePublished": "2026-05-15",
     "dateModified": "2026-05-16",
     "version": "1.0",
-    "license": "https://opensource.org/licenses/MIT"
+    "license": "https://opensource.org/licenses/MIT",
+    "mainEntity": {
+      "@type": "ItemList",
+      "itemListElement": [
+        {
+          "@type": "Question",
+          "name": "iframe 不是过时了吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "iframe 是所有主要平台（YouTube、Stripe、Google Maps）嵌入第三方内容的方式。ChatGPT、Claude、Gemini 都在 Agent 输出中渲染 iframe。Web 并没有淘汰 iframe——而是通过 sandbox 属性将其标准化和安全化。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "安全怎么办？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "平台对 iframe 加沙箱（sandbox=\"allow-scripts\"）——无法访问父页面 cookie、token 或 DOM。遵循标准 XSS 防护即可。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "MCP Apps 不是会替代这个吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "MCP Apps 只在 MCP 平台上运行。ERI 只是一个 URL——今天大多数平台通用。你为 ERI 构建的嵌入页面构成日后打包给 MCP Apps 的核心，所以现在采用 ERI 不是一次性工作。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "API 需要认证，Agent 怎么传凭证？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Agent 从服务端调用你的 API，不是从用户浏览器。提供一个公开 API 端点供 Agent 访问——限流、限定为安全操作。敏感操作让用户在嵌入页面内自行认证。"
+          }
+        }
+      ]
+    }
   }
   </script>
   <style>

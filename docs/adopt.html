@@ -6,10 +6,10 @@
   <meta name="theme-color" content="#0f0f0f">
   <link rel="icon" href="/eri-spec/favicon.svg" type="image/svg+xml">
   <title>Adopting ERI — Team Guide</title>
-  <meta name="description" content="5-minute ERI experience. Adoption checklist, decision matrix, internal pitch template, and common objections addressed.">
+  <meta name="description" content="Embed your web app inside AI Agent conversations. Adoption checklist, decision matrix, pitch template, and common objections — get your team started in under a day.">
   <meta name="keywords" content="ERI, adoption guide, team guide, AI Agent, interactive UI, embed iframe, implementation checklist">
   <meta property="og:title" content="Adopting ERI — Team Guide">
-  <meta property="og:description" content="Validate ERI in 5 minutes. Checklist, decision matrix, and pitch template for your team.">
+  <meta property="og:description" content="Embed your web app inside AI Agent conversations. Checklist, decision matrix, and pitch template for your team.">
   <meta property="og:url" content="https://2234839.github.io/eri-spec/docs/adopt.html">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="ERI Spec">
@@ -33,7 +33,44 @@
     "datePublished": "2026-05-15",
     "dateModified": "2026-05-16",
     "version": "1.0",
-    "license": "https://opensource.org/licenses/MIT"
+    "license": "https://opensource.org/licenses/MIT",
+    "mainEntity": {
+      "@type": "ItemList",
+      "itemListElement": [
+        {
+          "@type": "Question",
+          "name": "Isn't iframe outdated?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "iframe is how every major platform (YouTube, Stripe, Google Maps) embeds third-party content. ChatGPT, Claude, and Gemini all render iframes in Agent output today. The web hasn't replaced iframes — it standardized them with sandbox attributes for security."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What about security?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Platforms sandbox iframes (sandbox=\"allow-scripts\") — no access to parent cookies, tokens, or DOM. Follow standard XSS prevention."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "MCP Apps will replace this, right?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "MCP Apps only work on MCP-enabled platforms. ERI is a URL — works on most platforms today. The embed page you build for ERI forms the core of what you'd package for MCP Apps later, so adopting ERI now is not throwaway work."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the Agent pass credentials for authenticated APIs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The Agent calls your API from its server, not from the user's browser. Provide a dedicated public API endpoint for Agent access — rate-limited, scoped to safe operations. For sensitive operations, let users authenticate within the embed page itself."
+          }
+        }
+      ]
+    }
   }
   </script>
   <style>
