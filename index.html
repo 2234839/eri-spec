@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0f0f0f">
   <title>ERI — Embed any web app inside AI Agent conversations</title>
   <meta name="description" content="Embed your web app inside AI Agent conversations — ChatGPT, Claude, Gemini. One skill.md, one URL, all platforms.">
   <meta name="keywords" content="ERI, Embedded Result Interface, AI Agent, interactive UI, iframe embed, agent output, MCP Apps, A2UI, skill pattern, embed third-party app">
-  <meta property="og:title" content="ERI — Embed your web app inside any AI Agent conversation">
+  <meta property="og:title" content="ERI — Embed any web app inside AI Agent conversations">
   <meta property="og:description" content="Embed any web app inside AI Agent conversations. One skill.md, one URL, all platforms.">
   <meta property="og:url" content="https://2234839.github.io/eri-spec/">
   <meta property="og:type" content="website">
@@ -485,7 +486,7 @@
   <main class="chat-area" id="chatArea">
     <div class="chat-main" id="chatMain">
       <div class="info-banner" data-i18n-html="banner.info">
-        <strong>This calculator is a live third-party app, embedded by the Agent via ERI.</strong> Edit the numbers — results update instantly. <a href="./docs/spec.html">Read the spec</a> · <a href="./docs/adopt.html">Adopt in your team</a>
+        <strong>This calculator is a live third-party app, embedded by the Agent via ERI.</strong> Edit the numbers — results update instantly. <a href="./docs/spec.html">Spec</a> · <a href="./docs/adopt.html">Adopt</a>
       </div>
       <!-- Messages will be rendered here -->
     </div>
@@ -547,7 +548,7 @@ description: What it does
         'nav.blog': 'Blog',
         'nav.adopt': 'Adopt',
         'nav.settings': 'Settings',
-        'banner.info': '<strong>This calculator is a live third-party app, embedded by the Agent via ERI.</strong> Edit the numbers — results update instantly. <a href="./docs/spec.html">Read the spec</a> · <a href="./docs/adopt.html">Adopt in your team</a>',
+        'banner.info': '<strong>This calculator is a live third-party app, embedded by the Agent via ERI.</strong> Edit the numbers — results update instantly. <a href="./docs/spec.html">Spec</a> · <a href="./docs/adopt.html">Adopt</a>',
         'input.placeholder': 'Ask me to calculate something... (e.g. "Calculate 3 items at $99.5 each")',
         'input.send': 'Send',
         'settings.endpoint': 'LLM API Endpoint',
@@ -592,7 +593,7 @@ Always show the iframe embed after your text explanation so the user can interac
         'nav.blog': '博客',
         'nav.adopt': '采用',
         'nav.settings': '设置',
-        'banner.info': '<strong>这个计算器是一个实时第三方应用，Agent 通过 ERI 嵌入。</strong>直接编辑数字——结果即时更新。<a href="./docs/spec.zh.html">阅读规范</a> · <a href="./docs/adopt.zh.html">团队采用</a>',
+        'banner.info': '<strong>这个计算器是一个实时第三方应用，Agent 通过 ERI 嵌入。</strong>直接编辑数字——结果即时更新。<a href="./docs/spec.zh.html">规范</a> · <a href="./docs/adopt.zh.html">采用</a>',
         'input.placeholder': '问我任何计算问题...（例如："计算单价 $99.5 的商品 3 件合计"）',
         'input.send': '发送',
         'settings.endpoint': 'LLM API 地址',
@@ -672,9 +673,9 @@ Always show the iframe embed after your text explanation so the user can interac
         : 'ERI 演示 — 嵌入式结果界面';
 
       // Re-render demo messages in new language
-      const chatArea = document.querySelector('.chat-area');
-      if (chatArea && chatArea.querySelector('.message')) {
-        chatArea.innerHTML = '';
+      const chatMain = document.querySelector('.chat-main');
+      if (chatMain && chatMain.querySelector('.message')) {
+        chatMain.querySelectorAll('.message').forEach(el => el.remove());
         conversationHistory.length = 0;
         renderDemo();
       }
@@ -794,8 +795,6 @@ Always show the iframe embed after your text explanation so the user can interac
         }
       ];
     }
-
-    const DEMO_MESSAGES = getDemoMessages();
 
     function toggleSettings() {
       document.getElementById('settings').classList.toggle('open');
@@ -939,7 +938,8 @@ Always show the iframe embed after your text explanation so the user can interac
 
     // Render pre-filled demo messages
     function renderDemo() {
-      for (const msg of DEMO_MESSAGES) {
+      const msgs = getDemoMessages();
+      for (const msg of msgs) {
         addMessage(msg.role, msg.content, msg.embedExpressions);
         conversationHistory.push({ role: msg.role, content: msg.content });
       }

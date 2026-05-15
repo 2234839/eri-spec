@@ -1,6 +1,6 @@
 # ERI — Embedded Result Interface
 
-> AI Agent 能调用任何 API，但输出仍然是文字。
+> Agent 解决了输入，输出仍是文字。ERI 改变这一点。
 
 **[在线演示](https://2234839.github.io/eri-spec/)** · [规范](https://2234839.github.io/eri-spec/docs/spec.zh.html) · [博客](https://2234839.github.io/eri-spec/docs/blog.zh.html) · [采用](https://2234839.github.io/eri-spec/docs/adopt.zh.html) · [English](./README.md)
 
@@ -49,6 +49,7 @@ description: 数学计算器，支持变量和单位转换。
 |---|---|---|---|
 | **今天可用？** | **是——所有平台** | 需要 MCP 采用 | 需要渲染器 |
 | **需要构建** | 一个 HTTPS 嵌入页面 | MCP 兼容的应用包 | 组件目录 + A2UI Schema |
+| **丰富能力** | 仅标准 Web | 平台 API、实时通信 | 原生渲染 |
 | **成本** | < 1 天 | 数天 | 数天 |
 
 ## 文档

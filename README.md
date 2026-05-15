@@ -1,6 +1,6 @@
 # ERI — Embedded Result Interface
 
-> AI Agents can call any API. Their output is still text.
+> Agents solve input. Their output is still text. ERI solves output.
 
 **[Try the Live Demo](https://2234839.github.io/eri-spec/)** · [Spec](https://2234839.github.io/eri-spec/docs/spec.html) · [Blog](https://2234839.github.io/eri-spec/docs/blog.html) · [Adopt](https://2234839.github.io/eri-spec/docs/adopt.html) · [中文](./README.zh.md)
 
@@ -49,6 +49,7 @@ description: Math calculator with variables and unit conversion.
 |---|---|---|---|
 | **Works today?** | **Yes — all platforms** | Requires MCP adoption | Requires renderer |
 | **What you build** | An HTTPS embed page | MCP-compatible app package | Component catalog + A2UI schema |
+| **Rich capabilities** | Standard web only | Platform APIs, real-time sync | Native rendering |
 | **Effort** | < 1 day | Days | Days |
 
 ## Documentation
