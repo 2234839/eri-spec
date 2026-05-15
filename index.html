@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ERI — Embedded Result Interface: Interactive AI Agent Output</title>
   <meta name="description" content="ERI (Embedded Result Interface) lets AI Agents embed interactive UI in conversations instead of plain text. Try the live demo — no SDKs, no protocols, just a URL.">
-  <meta name="keywords" content="ERI, Embedded Result Interface, AI Agent, interactive UI, iframe embed, agent output, A2UI, skill pattern">
+  <meta name="keywords" content="ERI, Embedded Result Interface, AI Agent, interactive UI, iframe embed, agent output, MCP Apps, A2UI, skill pattern, embed third-party app">
   <meta property="og:title" content="ERI — Embedded Result Interface">
   <meta property="og:description" content="See how AI Agents can embed interactive UI instead of plain text. Live demo with NoteCalc calculator.">
   <meta property="og:url" content="https://2234839.github.io/eri-spec/">
@@ -466,8 +466,8 @@
   <div class="chat-area" id="chatArea">
     <div class="chat-main" id="chatMain">
       <div class="info-banner" data-i18n-html="banner.info">
-        <strong>ERI (Embedded Result Interface)</strong> demo — see how an AI Agent can embed interactive UI instead of plain text. The calculator below is fully editable. Try changing the numbers!<br>
-        This page has pre-filled demo messages. Enter your API key in ⚙ Settings to chat with a real LLM.
+        <strong>ERI (Embedded Result Interface)</strong> — an AI Agent embeds an interactive calculator instead of plain text. Edit the numbers below!<br>
+        Pre-filled demo. Enter your API key in ⚙ Settings to chat live.
       </div>
       <!-- Messages will be rendered here -->
     </div>
@@ -475,10 +475,10 @@
       <div class="sidebar-card">
         <div class="sidebar-card-header">🔗 ERI</div>
         <div class="sidebar-card-body" data-i18n-html="sidebar.body">
-          <p><span class="highlight">What you see below</span> is not part of this website.</p>
-          <p>The interactive calculator is an <b>embedded UI</b> from a third-party service called <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a>.</p>
-          <p>This is the core idea of <b>ERI</b>: instead of showing plain text, the AI Agent embeds a live, working app directly in the conversation.</p>
-          <p>You can edit values and see results instantly — no waiting for another round trip.</p>
+          <p><span class="highlight">The calculator below is not part of this website.</span></p>
+          <p>It's a live, working app — <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a> — embedded from a third party. The AI Agent just built a URL and dropped it in.</p>
+          <p>This is <b>ERI</b>: the fastest way to get interactive UI into Agent output. No SDKs, no protocols, no platform changes. Just a <code>skill.md</code> and a URL.</p>
+          <p>Edit the numbers below — results update instantly. No round trip needed.</p>
         </div>
       </div>
     </aside>
@@ -509,7 +509,7 @@
         'nav.spec': 'Spec',
         'nav.blog': 'Blog',
         'nav.settings': 'Settings',
-        'banner.info': '<strong>ERI (Embedded Result Interface)</strong> demo — see how an AI Agent can embed interactive UI instead of plain text. The calculator below is fully editable. Try changing the numbers!<br>This page has pre-filled demo messages. Enter your API key in ⚙ Settings to chat with a real LLM.',
+        'banner.info': '<strong>ERI (Embedded Result Interface)</strong> — an AI Agent embeds an interactive calculator instead of plain text. Edit the numbers below!<br>Pre-filled demo. Enter your API key in ⚙ Settings to chat live.',
         'input.placeholder': 'Ask me to calculate something... (e.g. "Calculate 3 items at $99.5 each")',
         'input.send': 'Send',
         'settings.endpoint': 'LLM API Endpoint',
@@ -518,7 +518,7 @@
         'settings.model': 'Model',
         'embed.header': 'NoteCalc — Interactive Calculator (ERI)',
         'thirdParty.badge': '🔗 <b>Third-party service</b><br>This interactive UI is provided by <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a>, not by this page. This is the essence of ERI: the Agent embeds an external app\'s UI directly.',
-        'sidebar.body': '<p><span class="highlight">What you see below</span> is not part of this website.</p><p>The interactive calculator is an <b>embedded UI</b> from a third-party service called <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a>.</p><p>This is the core idea of <b>ERI</b>: instead of showing plain text, the AI Agent embeds a live, working app directly in the conversation.</p><p>You can edit values and see results instantly — no waiting for another round trip.</p>',
+        'sidebar.body': '<p><span class="highlight">The calculator below is not part of this website.</span></p><p>It\'s a live, working app — <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a> — embedded from a third party. The AI Agent just built a URL and dropped it in.</p><p>This is <b>ERI</b>: the fastest way to get interactive UI into Agent output. No SDKs, no protocols, no platform changes. Just a <code>skill.md</code> and a URL.</p><p>Edit the numbers below — results update instantly. No round trip needed.</p>',
         'msg.you': 'You',
         'msg.agent': 'Agent',
         'demo.user1': 'Calculate 3 items at $99.5 each, then add 8% tax',
@@ -551,7 +551,7 @@ Always show the iframe embed after your text explanation so the user can interac
         'nav.spec': '规范',
         'nav.blog': '博客',
         'nav.settings': '设置',
-        'banner.info': '<strong>ERI（嵌入式结果界面）</strong> 演示 — 看看 AI Agent 如何嵌入交互式 UI 而非纯文本输出。下方的计算器完全可编辑，试试修改数字！<br>本页面预填充了演示消息。在 ⚙ 设置中输入你的 API Key 即可与真实 LLM 对话。',
+        'banner.info': '<strong>ERI（嵌入式结果界面）</strong> — AI Agent 嵌入了一个可交互的计算器，而非纯文本。试试修改下方的数字！<br>预填充演示。在 ⚙ 设置中输入 API Key 即可实时对话。',
         'input.placeholder': '问我任何计算问题...（例如："计算单价 $99.5 的商品 3 件合计"）',
         'input.send': '发送',
         'settings.endpoint': 'LLM API 地址',
@@ -560,7 +560,7 @@ Always show the iframe embed after your text explanation so the user can interac
         'settings.model': '模型',
         'embed.header': 'NoteCalc — 交互式计算器（ERI）',
         'thirdParty.badge': '🔗 <b>第三方服务</b><br>此交互式 UI 由 <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a> 提供，并非本站自带。这正是 ERI 的精髓：Agent 直接嵌入第三方应用的界面。',
-        'sidebar.body': '<p><span class="highlight">下方看到的计算器</span>并非本站的组成部分。</p><p>这个交互式计算器是来自名为 <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a> 的第三方服务的 <b>嵌入式 UI</b>。</p><p>这就是 <b>ERI</b> 的核心理念：AI Agent 不再只输出纯文本，而是直接在对话中嵌入一个可交互的实时应用。</p><p>你可以直接编辑数值、即时看到结果 —— 无需再等一轮对话。</p>',
+        'sidebar.body': '<p><span class="highlight">下方的计算器并非本站的组成部分。</span></p><p>它是一个来自第三方 <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a> 的实时应用。AI Agent 只是构造了一个 URL，然后把它放进对话中。</p><p>这就是 <b>ERI</b>：将交互式 UI 放入 Agent 输出的最快路径。无需 SDK、无需协议、无需平台改动。只需一个 <code>skill.md</code> 和一个 URL。</p><p>直接编辑下方的数字——结果即时更新，无需等待。</p>',
         'msg.you': '你',
         'msg.agent': 'Agent',
         'demo.user1': '计算单价 $99.5 的商品 3 件，再加 8% 税费',
