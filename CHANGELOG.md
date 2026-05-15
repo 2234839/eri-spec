@@ -4,6 +4,17 @@ All notable changes to the ERI specification are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.7] - 2026-05-16
+
+### Changed
+- README EN/ZH: embedded minimal embed page code snippet directly in "Start in 3 Steps" (was a text description + link).
+- Blog EN/ZH: A2UI availability wording unified to "A2UI-enabled only" / "仅 A2UI 平台" (was "A2UI renderer required" / "需要 A2UI 渲染器").
+
+### Added
+- Demo page (index.html): footer with links to Spec, Blog, Adopt, GitHub.
+
+[1.0.7]: https://github.com/2234839/eri-spec/compare/v1.0.6...v1.0.7
+
 ## [1.0.6] - 2026-05-16
 
 ### Changed
