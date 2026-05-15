@@ -151,6 +151,9 @@
     <h3>"MCP Apps 不是会替代这个吗？"</h3>
     <p>MCP Apps 需要平台集成——你的应用只能在支持 MCP 的平台上运行。ERI 只是一个 URL，在<em>所有</em>平台上都能用。作为第三方提供者，ERI 让你以最小代价获得最广覆盖。</p>
 
+    <h3>"我们的 API 需要认证——Agent 怎么传凭证？"</h3>
+    <p>Agent 从服务端调用你的 API，不是从用户浏览器。在 <code>skill.md</code> 的工作流说明中包含 API Key，或者为 Agent 面向的 API 使用公开端点。嵌入页面（iframe）只负责渲染结果——它不直接调用你的 API。</p>
+
     <h3>"如果我们的平台不支持 iframe 怎么办？"</h3>
     <p>ERI 会降级为纯文本输出——Agent 仍然通过文字提供价值。大多数主流平台（ChatGPT、Claude、Gemini）今天都支持渲染 iframe，所以这很少成为问题。</p>
 

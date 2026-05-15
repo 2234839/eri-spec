@@ -117,7 +117,7 @@
     <p>Steps 1 and 3 are the Agent's natural capabilities — extracting intent from user input and building URLs from templates. The two steps that involve external systems are:</p>
 
     <h3>2.1 Call API <span class="tag tag-agent">Agent</span></h3>
-    <p>The Agent calls the third-party app's API to compute results. Standard HTTP, structured JSON.</p>
+    <p>The Agent calls the third-party app's API from the server side (not from the user's browser). Standard HTTP, structured JSON. No CORS configuration needed.</p>
     <pre><code>POST /api/calculate
 Body: {"content": "99.5 * 3"}
 Response: {"result": 298.5}</code></pre>
@@ -143,7 +143,8 @@ Agent: Reads context last_result=298.5, computes 298.5 * 1.08
        [outputs new iframe: 298.5 * 1.08 = 322.38]</code></pre>
 
     <h2>4. Skill Authoring <span class="tag tag-provider">Provider</span></h2>
-    <p>A minimal ERI Skill in <code>skill.md</code>:</p>
+    <p>A <code>skill.md</code> file is placed where the Agent can discover it — as a custom instruction, a GPT action, a Claude skill file, or any mechanism the platform provides for defining Agent behavior. The format is the same across all platforms.</p>
+    <p>A minimal ERI Skill:</p>
     <pre><code>---
 name: tool-name
 description: What this Skill does
@@ -153,7 +154,7 @@ description: What this Skill does
 2. Call API: POST https://api.example.com/calculate
    Body: {"expr": "expression"}
 3. Construct embed URL: https://app.example.com/embed#URLEncoded(expr)
-4. Output UI (priority: iframe &gt; plain text)</code></pre>
+4. Output as iframe (fallback to plain text if platform cannot render)</code></pre>
     <p>The Agent reads this workflow, executes each step, and outputs an iframe.</p>
 
     <h2>5. Embed Page Requirements <span class="tag tag-provider">Provider</span></h2>

@@ -117,7 +117,7 @@
     <p>步骤 1 和 3 是 Agent 的天然能力——从用户输入中提取意图，按模板拼接 URL。涉及外部系统的两个步骤是：</p>
 
     <h3>2.1 调用 API <span class="tag tag-agent">Agent</span></h3>
-    <p>Agent 调用第三方应用的 API 获取结果。标准 HTTP，结构化 JSON。</p>
+    <p>Agent 从服务端调用第三方应用的 API（不是从用户浏览器）。标准 HTTP，结构化 JSON。无需配置 CORS。</p>
     <pre><code>POST /api/calculate
 Body: {"content": "99.5 * 3"}
 Response: {"result": 298.5}</code></pre>
@@ -143,7 +143,8 @@ Agent: 读取上下文 last_result=298.5，计算 298.5 * 1.08
        [输出新 iframe: 298.5 * 1.08 = 322.38]</code></pre>
 
     <h2>4. Skill 编写 <span class="tag tag-provider">提供者</span></h2>
-    <p>一个最小化的 ERI Skill（<code>skill.md</code>）：</p>
+    <p><code>skill.md</code> 放在 Agent 能发现的位置——可以是自定义指令、GPT Action、Claude 技能文件，或平台提供的任何 Agent 行为定义机制。格式在所有平台上都一样。</p>
+    <p>一个最小化的 ERI Skill：</p>
     <pre><code>---
 name: 工具名称
 description: 工具描述
@@ -153,7 +154,7 @@ description: 工具描述
 2. 调用 API：POST https://api.example.com/calculate
    Body: {"expr": "表达式"}
 3. 构造嵌入 URL：https://app.example.com/embed#URLEncoded(expr)
-4. 输出 UI（优先级：iframe &gt; 纯文本）</code></pre>
+4. 输出为 iframe（平台无法渲染时降级为纯文本）</code></pre>
     <p>Agent 读取这个工作流，执行每一步，输出 iframe。</p>
 
     <h2>5. 嵌入式页面要求 <span class="tag tag-provider">提供者</span></h2>

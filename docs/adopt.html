@@ -151,6 +151,9 @@
     <h3>"MCP Apps will replace this, right?"</h3>
     <p>MCP Apps require platform integration — your app only works on MCP-enabled platforms. ERI works on <em>every</em> platform because it's just a URL. As a third-party provider, ERI gives you the broadest reach with the least effort.</p>
 
+    <h3>"Our API requires authentication — how does the Agent pass credentials?"</h3>
+    <p>The Agent calls your API from its server, not from the user's browser. Include an API key in the <code>skill.md</code> workflow instructions, or use a public endpoint for the Agent-facing API. The embed page (iframe) is read-only — it renders results, it doesn't call your API directly.</p>
+
     <h3>"What if our platform doesn't support iframes?"</h3>
     <p>ERI falls back to plain text output — the Agent still provides value via text. Most major platforms (ChatGPT, Claude, Gemini) render iframes today, so this is rarely an issue.</p>
 
