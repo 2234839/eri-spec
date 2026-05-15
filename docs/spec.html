@@ -87,10 +87,10 @@
   </div>
   <div class="doc-content">
     <h1>ERI Specification — Embedded Result Interface</h1>
-    <p class="meta"><strong>Version</strong>: 1.0 &nbsp;|&nbsp; <strong>Status</strong>: Stable &nbsp;|&nbsp; <strong>License</strong>: MIT</p>
+    <p class="meta"><strong>Version</strong>: 1.0 &nbsp;|&nbsp; <strong>Status</strong>: Stable &nbsp;|&nbsp; <strong>Type</strong>: Convention &nbsp;|&nbsp; <strong>License</strong>: MIT</p>
 
     <h2>1. Definition</h2>
-    <p>ERI (Embedded Result Interface) is a Skill authoring pattern. After an Agent processes a user request, it outputs an interactive embedded UI (iframe) instead of (or in addition to) plain text.</p>
+    <p>ERI (Embedded Result Interface) is a convention-based specification — a Skill authoring pattern that defines how Agents embed interactive UI. It introduces no new protocols or fields; it works through agreed-upon conventions in <code>skill.md</code>. After an Agent processes a user request, it outputs an interactive embedded UI (iframe) instead of (or in addition to) plain text.</p>
     <p>Who does what in ERI:</p>
     <ul>
       <li><span class="tag tag-agent">Agent</span> <strong>Understands intent, calls API, constructs embed URL, outputs UI</strong> — this is what any AI Agent already does (read a skill, call APIs, output text). No platform change needed.</li>
@@ -99,7 +99,7 @@
     </ul>
     <p>Core constraints:</p>
     <ul>
-      <li><strong>No new protocol, no new fields</strong> — implemented through conventions in <code>skill.md</code></li>
+      <li><strong>Convention, not protocol</strong> — no new fields, no runtime requirements, just a shared pattern</li>
       <li><strong>Snapshot-based</strong> — the Agent does not monitor the output UI. Each new instruction generates a fresh UI (see Section 3)</li>
       <li><strong>Third-party app runs independently</strong> — only needs to provide an HTTPS page</li>
     </ul>
@@ -180,17 +180,23 @@ description: What this Skill does
 &lt;script&gt;
   const expr = decodeURIComponent(location.hash.slice(1));
   document.getElementById('expr').value = expr;
+  function safeEval(s) {
+    return /^[0-9+\-*/().%\s]+$/.test(s)
+      ? Function('"use strict"; return (' + s + ')')()
+      : NaN;
+  }
   function update() {
     const v = document.getElementById('expr').value;
-    try { document.getElementById('result').textContent = eval(v); }
-    catch(e) { document.getElementById('result').textContent = ''; }
+    const r = safeEval(v);
+    document.getElementById('result').textContent =
+      isNaN(r) ? '' : r;
   }
   document.getElementById('expr').oninput = update;
   update();
 &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-    <p>20 lines. Reads from URL hash, self-contained, instant interaction. Deploy this to any HTTPS host and you have a working ERI embed page.</p>
+    <p>24 lines. Reads from URL hash, validates input with a whitelist regex, self-contained. Deploy to any HTTPS host and you have a working ERI embed page.</p>
 
     <h2>6. Security</h2>
     <h3>Agent platform side <span class="tag tag-platform">Platform</span></h3>
@@ -234,7 +240,15 @@ iframe.contentWindow.postMessage({
     <p><strong>Fits</strong>: Calculators, forms/surveys, data visualization, document editing, design tools, code editors — any scenario where the user wants to <em>tweak</em> the Agent's output.</p>
     <p><strong>Does not fit</strong>: Pure information queries (no interaction needed), long-form text generation, real-time sync (ERI is snapshot-based).</p>
 
-    <h2>9. Industry Landscape</h2>
+    <h2>9. Limitations</h2>
+    <ul>
+      <li><strong>Snapshot-based</strong> — the Agent does not see user edits inside the iframe. Each turn produces a fresh embed. For real-time sync, use Level 2 postMessage.</li>
+      <li><strong>No native device access</strong> — iframes cannot access GPS, camera, or other device APIs beyond standard browser capabilities.</li>
+      <li><strong>Mobile performance</strong> — complex embed pages may perform poorly on mobile Agent apps. Keep embed pages lightweight.</li>
+      <li><strong>No SEO indexing</strong> — content inside iframes is not indexed by search engines. This is irrelevant for Agent output, but worth noting.</li>
+    </ul>
+
+    <h2>10. Industry Landscape</h2>
     <p>Three approaches exist for interactive Agent output:</p>
     <ul>
       <li><strong>ERI</strong> — embed any web app via URL. Works on <em>all</em> platforms. You control the UI.</li>

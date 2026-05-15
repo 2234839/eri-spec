@@ -87,10 +87,10 @@
   </div>
   <div class="doc-content">
     <h1>ERI 规范 — Embedded Result Interface</h1>
-    <p class="meta"><strong>版本</strong>：1.0 &nbsp;|&nbsp; <strong>状态</strong>：Stable &nbsp;|&nbsp; <strong>许可</strong>：MIT</p>
+    <p class="meta"><strong>版本</strong>：1.0 &nbsp;|&nbsp; <strong>状态</strong>：Stable &nbsp;|&nbsp; <strong>类型</strong>：Convention &nbsp;|&nbsp; <strong>许可</strong>：MIT</p>
 
     <h2>1. 定义</h2>
-    <p>ERI（Embedded Result Interface，嵌入式结果界面）是一种 Skill 编写模式。Agent 处理用户请求后，输出一个可交互的嵌入式 UI（iframe），而不是（或不仅是）纯文本。</p>
+    <p>ERI（Embedded Result Interface，嵌入式结果界面）是一种基于约定的规范——一种定义 Agent 如何嵌入交互式 UI 的 Skill 编写模式。它不引入新协议或新字段，而是通过 <code>skill.md</code> 中的共识性约定实现。Agent 处理用户请求后，输出一个可交互的嵌入式 UI（iframe），而不是（或不仅是）纯文本。</p>
     <p>ERI 中谁做什么：</p>
     <ul>
       <li><span class="tag tag-agent">Agent</span> <strong>理解意图、调用 API、构造嵌入 URL、输出 UI</strong>——这是任何 AI Agent 已有的能力（读取 skill、调用 API、输出文本）。不需要平台改动。</li>
@@ -99,7 +99,7 @@
     </ul>
     <p>核心约束：</p>
     <ul>
-      <li><strong>无新协议、无新字段</strong>——仅通过 <code>skill.md</code> 中的约定写法实现</li>
+      <li><strong>约定而非协议</strong>——无新字段、无运行时要求，只是一个共享模式</li>
       <li><strong>快照式输出</strong>——Agent 不监听已输出的界面，每次新指令生成全新界面（见第 3 节）</li>
       <li><strong>第三方应用独立运行</strong>——只需提供一个 HTTPS 页面</li>
     </ul>
@@ -180,17 +180,23 @@ description: 工具描述
 &lt;script&gt;
   const expr = decodeURIComponent(location.hash.slice(1));
   document.getElementById('expr').value = expr;
+  function safeEval(s) {
+    return /^[0-9+\-*/().%\s]+$/.test(s)
+      ? Function('"use strict"; return (' + s + ')')()
+      : NaN;
+  }
   function update() {
     const v = document.getElementById('expr').value;
-    try { document.getElementById('result').textContent = eval(v); }
-    catch(e) { document.getElementById('result').textContent = ''; }
+    const r = safeEval(v);
+    document.getElementById('result').textContent =
+      isNaN(r) ? '' : r;
   }
   document.getElementById('expr').oninput = update;
   update();
 &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-    <p>20 行代码。从 URL hash 读取、自包含、即时交互。部署到任意 HTTPS 主机即可获得一个可用的 ERI 嵌入页面。</p>
+    <p>24 行代码。从 URL hash 读取、用白名单正则校验输入、自包含。部署到任意 HTTPS 主机即可获得一个安全的 ERI 嵌入页面。</p>
 
     <h2>6. 安全</h2>
     <h3>Agent 平台侧 <span class="tag tag-platform">平台</span></h3>
@@ -234,7 +240,15 @@ iframe.contentWindow.postMessage({
     <p><strong>适合</strong>：计算工具、表单/问卷、数据可视化、文档编辑、设计工具、代码编辑器——任何用户想要<em>微调</em> Agent 输出的场景。</p>
     <p><strong>不适合</strong>：纯信息查询（不需要交互）、长文本生成、实时同步（ERI 是快照式的）。</p>
 
-    <h2>9. 行业格局</h2>
+    <h2>9. 局限性</h2>
+    <ul>
+      <li><strong>快照式输出</strong>——Agent 看不到 iframe 内的用户编辑。每轮对话生成全新的嵌入界面。如需实时同步，使用 Level 2 的 postMessage。</li>
+      <li><strong>无法访问设备原生能力</strong>——iframe 无法使用 GPS、摄像头等超出标准浏览器能力的设备 API。</li>
+      <li><strong>移动端性能</strong>——复杂的嵌入页面在移动端 Agent 应用中可能性能不佳。保持嵌入页面轻量。</li>
+      <li><strong>不可被搜索引擎索引</strong>——iframe 内的内容不会被搜索引擎抓取。这对 Agent 输出场景无关，但值得了解。</li>
+    </ul>
+
+    <h2>10. 行业格局</h2>
     <p>交互式 Agent 输出存在三种方案：</p>
     <ul>
       <li><strong>ERI</strong> — 通过 URL 嵌入任何 Web 应用。在<em>所有</em>平台上都能用。你控制 UI。</li>
