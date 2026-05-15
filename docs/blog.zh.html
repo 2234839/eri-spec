@@ -127,9 +127,9 @@ description: 数学计算器，支持变量和单位转换。
         <tr><td><strong>成本</strong></td><td>10 分钟</td><td>数天</td><td>数天</td></tr>
       </tbody>
     </table>
-    <p><strong>MCP Apps</strong>（Anthropic &amp; OpenAI, 2025）在 MCP 生态中标准化交互式 UI——沙箱 iframe 表现为小应用。适合 MCP 优先的平台。</p>
-    <p><strong>A2UI</strong>（Google, 2025）走声明式、跨平台路线——Agent 发送 JSON 组件描述，客户端库（Flutter、Web Components）原生渲染。适合构建自己渲染管线的平台。</p>
-    <p><strong>ERI</strong> 走最简单的路——嵌入已有的东西。一个已有 Web UI 的应用，半天就能出现在 Agent 对话中。没有 SDK、没有 Schema、没有渲染器、不需要 MCP 集成。一个 URL。今天就能用，以后再采用 MCP Apps 或 A2UI。三条路收敛到同一个终点。</p>
+    <p><strong>MCP Apps</strong>（Anthropic &amp; OpenAI, 2025）在 MCP 生态中标准化交互式 UI——沙箱 iframe 表现为小应用。只在支持 MCP 的平台上可用。</p>
+    <p><strong>A2UI</strong>（Google, 2025）走声明式、跨平台路线——Agent 发送 JSON 组件描述，客户端库（Flutter、Web Components）原生渲染。只在支持 A2UI 的平台上可用。</p>
+    <p><strong>ERI</strong> 在<em>所有</em>平台上都能用。作为第三方服务提供者，你只需写一个嵌入页面和一个 skill 文件——你的应用就能出现在 ChatGPT、Claude、Gemini 以及任何未来的 Agent 上。无需 SDK、无需 Schema、无需平台特定代码。一个 URL。今天就能用，等目标平台支持 MCP Apps 或 A2UI 时再采用。三条路收敛到同一个终点。</p>
     <div class="arch">
       <div class="arch-layer">
         <div class="arch-level"><span class="arch-level-tag">Level 2</span>
