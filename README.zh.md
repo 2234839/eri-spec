@@ -32,7 +32,7 @@ description: 数学计算器，支持变量和单位转换。
 
 ## 在线演示
 
-**[2234839.github.io/eri-spec/](https://2234839.github.io/eri-spec/)** — 完全静态的演示页面。使用自己的 LLM API Key，无服务器参与。嵌入的计算器是真实的 NoteCalc 实例。
+**[2234839.github.io/eri-spec/](https://2234839.github.io/eri-spec/)** — 完全静态的演示页面（API Key 仅用于演示的实时对话功能，ERI 本身不需要）。嵌入的计算器是真实的 NoteCalc 实例。
 
 ## 三步开始
 

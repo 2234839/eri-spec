@@ -90,7 +90,7 @@
     <p class="meta"><strong>版本</strong>：1.0 &nbsp;|&nbsp; <strong>状态</strong>：Stable &nbsp;|&nbsp; <strong>许可</strong>：MIT</p>
 
     <h2>1. 定义</h2>
-    <p>ERI（Embedded Result Interface，嵌入式结果界面）是一种 Skill 编写模式。Agent 处理用户请求后，输出一个可交互的嵌入式 UI（iframe），而不是（或不仅是）纯文本。用户可以直接在该 UI 上进行交互。</p>
+    <p>ERI（Embedded Result Interface，嵌入式结果界面）是一种 Skill 编写模式。Agent 处理用户请求后，输出一个可交互的嵌入式 UI（iframe），而不是（或不仅是）纯文本。</p>
     <p>ERI 中谁做什么：</p>
     <ul>
       <li><span class="tag tag-agent">Agent</span> <strong>理解意图、调用 API、构造嵌入 URL、输出 UI</strong>——这是任何 AI Agent 已有的能力（读取 skill、调用 API、输出文本）。不需要平台改动。</li>
@@ -100,7 +100,7 @@
     <p>核心约束：</p>
     <ul>
       <li><strong>无新协议、无新字段</strong>——仅通过 <code>skill.md</code> 中的约定写法实现</li>
-      <li><strong>Agent 不主动监听</strong>已输出的界面——每次新指令生成全新界面</li>
+      <li><strong>快照式输出</strong>——Agent 不监听已输出的界面，每次新指令生成全新界面（见第 3 节）</li>
       <li><strong>第三方应用独立运行</strong>——只需提供一个 HTTPS 页面</li>
     </ul>
 
@@ -214,19 +214,20 @@ description: 工具描述
         <tr><td>2</td><td>双向通信</td><td>Level 1 + <span class="tag tag-provider">提供者</span> <span class="tag tag-platform">平台</span> 双方实现 postMessage</td></tr>
       </tbody>
     </table>
-    <p>Level 2 的 postMessage 协议：</p>
+    <p>Level 0 是基线——一个返回文字结果的 skill.md。Level 1 才是 ERI 的起点：同样的工作流，但 Agent 嵌入可交互的 iframe，而不仅是文字。</p>
+    <p>Level 2 的 postMessage 协议（使用具体 origin，不要用 <code>"*"</code>）：</p>
     <pre><code>// iframe → Agent 平台
 window.parent.postMessage({
   type: "eri:valueChanged",
   path: "field.path",
   value: newValue
-}, "*");
+}, "https://agent-platform.example.com");
 
 // Agent 平台 → iframe（可选）
 iframe.contentWindow.postMessage({
   type: "eri:update",
   data: { ... }
-}, "*");</code></pre>
+}, "https://your-app.example.com");</code></pre>
 
     <h2>8. 适用场景</h2>
     <p><strong>适合</strong>：计算工具、表单/问卷、数据可视化、文档编辑、设计工具、代码编辑器——任何用户想要<em>微调</em> Agent 输出的场景。</p>

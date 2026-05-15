@@ -99,7 +99,7 @@
 
     <h2>采用清单</h2>
 
-    <h3>第一阶段：试点（1 天）</h3>
+    <h3>第一阶段：试点（共 1 天：skill.md 约 10 分钟，其余是嵌入页面）</h3>
     <ul class="checklist">
       <li>选择一个现有 Web 应用进行嵌入</li>
       <li>创建一个精简的 <code>/embed</code> 路由（约 40 行代码）
@@ -146,7 +146,7 @@
     <p>没有——每个主要的 Agent 平台（ChatGPT、Claude、Gemini）今天都在渲染 iframe。iframe 是 Web 嵌入东西的方式。它能用。</p>
 
     <h3>"安全怎么办？"</h3>
-    <p>Agent 平台会对 iframe 加沙箱。你的嵌入页面在受限环境中运行。遵循<a href="./spec.zh.html">安全指南</a>就没问题。</p>
+    <p>Agent 平台对 iframe 加沙箱——你的嵌入页面以受限权限运行（<code>sandbox="allow-scripts allow-same-origin"</code>）。无法访问父页面的 cookie、token 或 DOM。你只需遵循标准的 XSS 防护。详见<a href="./spec.zh.html">安全章节</a>。</p>
 
     <h3>"MCP Apps 不是会替代这个吗？"</h3>
     <p>MCP Apps 需要平台集成——你的应用只能在支持 MCP 的平台上运行。ERI 只是一个 URL，在<em>所有</em>平台上都能用。作为第三方提供者，ERI 让你以最小代价获得最广覆盖。</p>

@@ -99,7 +99,7 @@
 
     <h2>Adoption Checklist</h2>
 
-    <h3>Phase 1: Pilot (1 day)</h3>
+    <h3>Phase 1: Pilot (1 day total: ~10 min for skill.md, the rest is the embed page)</h3>
     <ul class="checklist">
       <li>Pick one existing web app to embed</li>
       <li>Create a stripped-down <code>/embed</code> route (~40 lines)
@@ -146,7 +146,7 @@
     <p>No — every major Agent platform (ChatGPT, Claude, Gemini) renders iframes today. iframe is how the web embeds things. It works.</p>
 
     <h3>"What about security?"</h3>
-    <p>Agent platforms sandbox iframes. Your embed page runs in a restricted context. Follow the <a href="./spec.html">security guidelines</a> and you're fine.</p>
+    <p>Agent platforms sandbox iframes — your embed page runs with restricted permissions (<code>sandbox="allow-scripts allow-same-origin"</code>). No access to parent cookies, tokens, or DOM. Your embed page just needs to follow standard XSS prevention. See the <a href="./spec.html">security section</a> for the full checklist.</p>
 
     <h3>"MCP Apps will replace this, right?"</h3>
     <p>MCP Apps require platform integration — your app only works on MCP-enabled platforms. ERI works on <em>every</em> platform because it's just a URL. As a third-party provider, ERI gives you the broadest reach with the least effort.</p>

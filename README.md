@@ -32,7 +32,7 @@ description: Math calculator with variables and unit conversion.
 
 ## Live Demo
 
-**[2234839.github.io/eri-spec/](https://2234839.github.io/eri-spec/)** — a fully static demo. Bring your own LLM API key, no server involved. The embedded calculator is a real NoteCalc instance.
+**[2234839.github.io/eri-spec/](https://2234839.github.io/eri-spec/)** — a fully static demo (the API key is for the demo's live chat feature, not for ERI itself). The embedded calculator is a real NoteCalc instance.
 
 ## Start in 3 Steps
 

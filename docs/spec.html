@@ -90,7 +90,7 @@
     <p class="meta"><strong>Version</strong>: 1.0 &nbsp;|&nbsp; <strong>Status</strong>: Stable &nbsp;|&nbsp; <strong>License</strong>: MIT</p>
 
     <h2>1. Definition</h2>
-    <p>ERI (Embedded Result Interface) is a Skill authoring pattern. After an Agent processes a user request, it outputs an interactive embedded UI (iframe) instead of (or in addition to) plain text. The user can directly interact with this UI.</p>
+    <p>ERI (Embedded Result Interface) is a Skill authoring pattern. After an Agent processes a user request, it outputs an interactive embedded UI (iframe) instead of (or in addition to) plain text.</p>
     <p>Who does what in ERI:</p>
     <ul>
       <li><span class="tag tag-agent">Agent</span> <strong>Understands intent, calls API, constructs embed URL, outputs UI</strong> — this is what any AI Agent already does (read a skill, call APIs, output text). No platform change needed.</li>
@@ -100,7 +100,7 @@
     <p>Core constraints:</p>
     <ul>
       <li><strong>No new protocol, no new fields</strong> — implemented through conventions in <code>skill.md</code></li>
-      <li><strong>Agent does not actively monitor</strong> the output UI — each new instruction generates a fresh UI</li>
+      <li><strong>Snapshot-based</strong> — the Agent does not monitor the output UI. Each new instruction generates a fresh UI (see Section 3)</li>
       <li><strong>Third-party app runs independently</strong> — only needs to provide an HTTPS page</li>
     </ul>
 
@@ -214,19 +214,20 @@ description: What this Skill does
         <tr><td>2</td><td>Bidirectional communication</td><td>Level 1 + <span class="tag tag-provider">Provider</span> <span class="tag tag-platform">Platform</span> both implement postMessage</td></tr>
       </tbody>
     </table>
-    <p>Level 2 postMessage protocol:</p>
+    <p>Level 0 is the baseline — a skill.md that returns text results. Level 1 is where ERI begins: the same workflow, but the Agent embeds an interactive iframe instead of (or in addition to) text.</p>
+    <p>Level 2 postMessage protocol (use specific origin, not <code>"*"</code>):</p>
     <pre><code>// iframe → Agent platform
 window.parent.postMessage({
   type: "eri:valueChanged",
   path: "field.path",
   value: newValue
-}, "*");
+}, "https://agent-platform.example.com");
 
 // Agent platform → iframe (optional, Level 2)
 iframe.contentWindow.postMessage({
   type: "eri:update",
   data: { ... }
-}, "*");</code></pre>
+}, "https://your-app.example.com");</code></pre>
 
     <h2>8. Use Cases</h2>
     <p><strong>Fits</strong>: Calculators, forms/surveys, data visualization, document editing, design tools, code editors — any scenario where the user wants to <em>tweak</em> the Agent's output.</p>
