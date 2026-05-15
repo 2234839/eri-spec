@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ERI Hello World</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f0f0f; color: #e4e4e4; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+    .card { background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 24px; max-width: 400px; width: 90%; text-align: center; }
+    h1 { font-size: 1.4em; margin-bottom: 8px; color: #818cf8; }
+    .greeting { font-size: 1.2em; margin: 16px 0; }
+    input { background: #242424; border: 1px solid #333; color: #e4e4e4; padding: 8px 12px; border-radius: 6px; width: 100%; font-size: 1em; margin: 8px 0; }
+    .badge { display: inline-block; background: rgba(99,102,241,0.15); color: #818cf8; padding: 4px 10px; border-radius: 4px; font-size: 0.8em; margin-top: 12px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Hello from ERI</h1>
+    <p style="color:#888">This is a minimal embed page. It reads a name from the URL.</p>
+    <div class="greeting">Hello, <strong id="name">World</strong>!</div>
+    <input type="text" id="nameInput" placeholder="Type a name..." oninput="updateName()">
+    <div class="badge">ERI Level 1</div>
+  </div>
+  <script>
+    /** Read initial state from URL params */
+    const params = new URLSearchParams(window.location.search);
+    const initialName = params.get('name') || params.get('data') || 'World';
+
+    /** Sanitize: strip HTML tags */
+    function sanitize(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    /** Display the sanitized name */
+    function updateName() {
+      const raw = document.getElementById('nameInput').value;
+      document.getElementById('name').textContent = raw || 'World';
+    }
+
+    /** Initialize */
+    document.getElementById('nameInput').value = initialName;
+    document.getElementById('name').textContent = sanitize(initialName);
+  </script>
+</body>
+</html>
