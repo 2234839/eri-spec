@@ -373,10 +373,9 @@ const data = await fetch('/api/results/' + token).then(r =&gt; r.json());</code>
       </tbody>
     </table>
     <p><a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a> and <a href="https://github.com/google/a2ui">A2UI</a> offer richer capabilities (native APIs, real-time sync, platform integrations) — ERI trades those for universal availability today.</p>
-    <p><strong>Key insight:</strong> MCP Apps also render inside sandboxed iframes — an ERI embed page is already structurally compatible with the MCP Apps runtime. Moreover, ERI Level 2 uses the same <code>ui/*</code> JSON-RPC 2.0 host bridge as MCP Apps, so a Level 2 embed page is directly portable. Start with ERI; the embed page and its bridge code carry forward unchanged.</p>
-    <p><strong>What ERI adds over a plain iframe</strong>:</p>
+    <p>MCP Apps also render inside sandboxed iframes — an ERI embed page is already structurally compatible with the MCP Apps runtime. ERI Level 2 uses the same <code>ui/*</code> JSON-RPC 2.0 host bridge, so the embed page and its bridge code carry forward unchanged. What ERI adds over a plain ad-hoc iframe:</p>
     <table>
-      <thead><tr><th></th><th>Without ERI (ad-hoc iframe)</th><th>With ERI</th></tr></thead>
+      <thead><tr><th></th><th>Without ERI</th><th>With ERI</th></tr></thead>
       <tbody>
         <tr><td><strong>Discovery</strong></td><td>Agent doesn't know your app exists</td><td><code>skill.md</code> tells the Agent when and how to use your app</td></tr>
         <tr><td><strong>API contract</strong></td><td>Each Agent–provider pair is custom-built</td><td>Standardized: call API → encode result → embed URL</td></tr>

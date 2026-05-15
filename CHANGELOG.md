@@ -4,6 +4,16 @@ All notable changes to the ERI specification are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.11] - 2026-05-16
+
+### Changed
+- Spec EN/ZH: merged "Key insight" paragraph and "What ERI adds" table into one compact section — removed redundant bold labels and heading.
+- Spec EN/ZH: "Without ERI (ad-hoc iframe)" column header shortened to "Without ERI" / "没有 ERI（临时 iframe）" → "没有 ERI".
+- Template, spec, adopt EN/ZH: Claude deployment guidance now distinguishes Claude Code (`CLAUDE.md`/`.claude/` skill files) from Claude.ai (Project instructions).
+- Template: Gemini deployment row now includes "(Gemini API or Google AI Studio)" matching spec.
+
+[1.0.11]: https://github.com/2234839/eri-spec/compare/v1.0.10...v1.0.11
+
 ## [1.0.10] - 2026-05-16
 
 ### Added

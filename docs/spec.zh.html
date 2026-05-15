@@ -373,10 +373,9 @@ const data = await fetch('/api/results/' + token).then(r =&gt; r.json());</code>
       </tbody>
     </table>
     <p><a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a> 和 <a href="https://github.com/google/a2ui">A2UI</a> 提供更丰富的能力（原生 API、实时同步、平台集成）——ERI 用这些换取今天的通用可用性。</p>
-    <p><strong>关键洞察：</strong>MCP Apps 同样在沙箱 iframe 中渲染——ERI 嵌入页面天然与 MCP Apps 运行时结构兼容。此外，ERI Level 2 使用与 MCP Apps 相同的 <code>ui/*</code> JSON-RPC 2.0 宿主桥，因此 Level 2 嵌入页面可直接移植。从 ERI 开始；嵌入页面及其桥接代码无需修改即可沿用。</p>
-    <p><strong>ERI 相比普通 iframe 增加了什么</strong>：</p>
+    <p>MCP Apps 同样在沙箱 iframe 中渲染——ERI 嵌入页面天然与 MCP Apps 运行时结构兼容。ERI Level 2 使用与 MCP Apps 相同的 <code>ui/*</code> JSON-RPC 2.0 宿主桥，嵌入页面及其桥接代码无需修改即可沿用。ERI 相比普通临时 iframe 增加了什么：</p>
     <table>
-      <thead><tr><th></th><th>没有 ERI（临时 iframe）</th><th>有 ERI</th></tr></thead>
+      <thead><tr><th></th><th>没有 ERI</th><th>有 ERI</th></tr></thead>
       <tbody>
         <tr><td><strong>可发现性</strong></td><td>Agent 不知道你的应用存在</td><td><code>skill.md</code> 告诉 Agent 何时、如何使用你的应用</td></tr>
         <tr><td><strong>API 契约</strong></td><td>每个 Agent-提供者对都是定制开发</td><td>标准化：调用 API → 编码结果 → 嵌入 URL</td></tr>
