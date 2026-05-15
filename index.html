@@ -235,7 +235,7 @@
       border-radius: 8px;
       overflow: hidden;
       border: 1px solid var(--border);
-      background: #fff;
+      background: var(--surface-2);
     }
     .eri-embed-header {
       padding: 6px 12px;
@@ -640,6 +640,14 @@ Always show the iframe embed after your text explanation so the user can interac
       document.title = currentLang === 'en'
         ? 'ERI Demo — Embedded Result Interface'
         : 'ERI 演示 — 嵌入式结果界面';
+
+      // Re-render demo messages in new language
+      const chatArea = document.querySelector('.chat-area');
+      if (chatArea && chatArea.querySelector('.message')) {
+        chatArea.innerHTML = '';
+        conversationHistory.length = 0;
+        renderDemo();
+      }
     }
 
     /** Toggle between en and zh */
