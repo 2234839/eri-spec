@@ -115,16 +115,16 @@
     <p class="meta">发布日期：2026-05-15</p>
 
     <h2>文字陷阱</h2>
-    <p>AI Agent 都有同样的问题。你让它算个东西，它回复：</p>
+    <p>每个主流 AI Agent——ChatGPT、Claude、Gemini——都有同样的输出局限。你让它算个东西，它回复：</p>
     <pre><code>99.5 × 3 = 298.5</code></pre>
     <p>对的。但你想看 4 件是多少。或者 5 件。或者加 8% 的税。每次变化都意味着又一轮对话——描述想改什么，等回复，再描述下一个。</p>
     <p>问题不是准确性。问题是媒介。不只是计算——图表需要可调的坐标轴，表单需要可编辑的字段，配色需要可拖动的滑块。每次 Agent 都把你逼回文字。</p>
-    <blockquote>生态解决了输入，没解决输出。</blockquote>
+    <blockquote>生态解决了输入（MCP、Function Calling、REST），没解决输出。</blockquote>
 
     <h2>引入 ERI</h2>
     <p>ERI（嵌入式结果界面）让你的 Web 应用以实时可编辑的 UI 出现在任何 Agent 对话中——ChatGPT、Claude、Gemini。用户直接交互——无需等待 Agent 来回。</p>
     <p>你写一个 <code>skill.md</code>，告诉 Agent 如何调用你的 API、嵌入哪个 URL。<a href="./spec.zh.html#skill-authoring">见规范</a>中的最小示例，或直接使用<a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">可复制模板</a>。</p>
-    <p>从零到可运行嵌入，不到一天。<a href="https://2234839.github.io/eri-spec/">现在试试</a>。</p>
+    <p>从零到可运行嵌入，不到一天——NoteCalc 参考实现中，<a href="https://github.com/2234839/eri-spec/blob/main/examples/notecalc.md">skill.md</a> 约十分钟，嵌入页面一个下午。<a href="https://2234839.github.io/eri-spec/">现在试试</a>。</p>
 
     <h2>你当然可以直接嵌入 iframe</h2>
     <p>没错。你可以直接告诉 Agent "嵌入这个 URL"，它会生成一个 iframe。那为什么还需要一个规范？</p>

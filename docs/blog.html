@@ -115,16 +115,16 @@
     <p class="meta">Published: 2026-05-15</p>
 
     <h2>The Text Trap</h2>
-    <p>Every AI Agent has the same problem. You ask it to calculate something, and it responds with:</p>
+    <p>Every major AI Agent — ChatGPT, Claude, Gemini — has the same output limitation. You ask it to calculate something, and it responds with:</p>
     <pre><code>99.5 × 3 = 298.5</code></pre>
     <p>Correct. But now you want to see 4 items. Or 5. Or with 8% tax. Each variation means another round of conversation — describe what changed, wait for a response, describe the next change.</p>
     <p>The problem isn't accuracy. The problem is the medium. Not just calculations — charts need adjustable axes, forms need editable fields, color palettes need draggable sliders. Every time, the Agent forces you back into text.</p>
-    <blockquote>The ecosystem has solved input. It hasn't solved output.</blockquote>
+    <blockquote>The ecosystem has solved input (MCP, Function Calling, REST). It hasn't solved output.</blockquote>
 
     <h2>Enter ERI</h2>
     <p>ERI (Embedded Result Interface) lets your web app appear as a live, editable UI inside any Agent conversation — ChatGPT, Claude, Gemini. The user interacts directly — no Agent round trips needed.</p>
     <p>You write a <code>skill.md</code> telling the Agent how to call your API and which URL to embed. <a href="./spec.html#skill-authoring">See the spec</a> for a minimal example, or grab the <a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">copy-paste template</a>.</p>
-    <p>Under a day from zero to working embed. <a href="https://2234839.github.io/eri-spec/">Try it now</a>.</p>
+    <p>Under a day from zero to working embed — the NoteCalc reference took ~10 min for the <a href="https://github.com/2234839/eri-spec/blob/main/examples/notecalc.md">skill.md</a> and an afternoon for the embed page. <a href="https://2234839.github.io/eri-spec/">Try it now</a>.</p>
 
     <h2>Yes, You Can Already Embed an Iframe</h2>
     <p>Right. You can tell an Agent "embed this URL" and it will produce an iframe. So why a spec?</p>
