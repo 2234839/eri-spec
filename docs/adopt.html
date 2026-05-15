@@ -114,7 +114,7 @@
     .checklist { list-style: none; margin-left: 0 !important; padding-left: 0; }
     .checklist li { padding-left: 24px; position: relative; }
     .checklist li::before { content: '☐'; position: absolute; left: 0; color: var(--text-dim); }
-    @media (max-width: 640px) { .doc-content { padding: 20px 12px 60px; } .header { padding: 8px 12px; flex-wrap: wrap; gap: 6px; } .header-right { gap: 4px; flex-wrap: wrap; } .header a, .header button { font-size: 11px; padding: 3px 6px; } .doc-content h1 { font-size: 1.4em; } .doc-content h2 { font-size: 1.2em; } }
+    @media (max-width: 640px) { .doc-content table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; } .doc-content { padding: 20px 12px 60px; } .header { padding: 8px 12px; flex-wrap: wrap; gap: 6px; } .header-right { gap: 4px; flex-wrap: wrap; } .header a, .header button { font-size: 11px; padding: 3px 6px; } .doc-content h1 { font-size: 1.4em; } .doc-content h2 { font-size: 1.2em; } }
     .skip-link { position: absolute; top: -40px; left: 0; background: var(--accent); color: #fff; padding: 8px 16px; z-index: 100; font-size: 14px; }
     .skip-link:focus { top: 0; }
   </style>
@@ -272,6 +272,7 @@ description: What it does.
       document.documentElement.setAttribute('data-theme', next);
       localStorage.setItem('eri-theme', next);
       document.getElementById('themeBtn').textContent = next === 'dark' ? '🌙' : '☀️';
+      document.querySelector('meta[name="theme-color"]').content = next === 'dark' ? '#0f0f0f' : '#f5f5f5';
     }
     document.getElementById('themeBtn').textContent =
       document.documentElement.getAttribute('data-theme') === 'dark' ? '🌙' : '☀️';
