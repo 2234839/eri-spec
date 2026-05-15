@@ -231,7 +231,7 @@ iframe.contentWindow.postMessage({
     <ul>
       <li><strong>快照式输出</strong>——Agent 无法实时看到 iframe 内的编辑。使用 Level 2 postMessage 可实现双向同步。</li>
       <li><strong>设备能力受限</strong>——沙箱 iframe 对设备 API（GPS、摄像头等）的访问受限。仅支持标准 Web 能力。</li>
-      <li><strong>不可被搜索引擎索引</strong>——iframe 内容对搜索引擎不可见（对 Agent 输出场景无影响）。</li>
+      <li><strong>URL 大小限制</strong>——编码到 URL hash 中的状态受浏览器 URL 长度限制（安全范围约 2KB，上限约 8KB）。数据量较大时，应在嵌入页面内通过 API 调用获取数据。</li>
     </ul>
 
     <h2 id="industry-landscape">10. 行业格局</h2>

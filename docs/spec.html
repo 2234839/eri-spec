@@ -231,7 +231,7 @@ iframe.contentWindow.postMessage({
     <ul>
       <li><strong>Snapshot-based</strong> — Agent cannot see iframe edits in real time. Use Level 2 postMessage for bidirectional sync.</li>
       <li><strong>Limited device access</strong> — sandboxed iframes have restricted access to device APIs (GPS, camera, etc.). Expect standard web capabilities only.</li>
-      <li><strong>No SEO indexing</strong> — iframe content is invisible to search engines (irrelevant for Agent output).</li>
+      <li><strong>URL size limits</strong> — state encoded in the URL hash is subject to browser URL length limits (~2KB safe, ~8KB max). For larger datasets, use an API call to fetch data inside the embed page.</li>
     </ul>
 
     <h2 id="industry-landscape">10. Industry Landscape</h2>
