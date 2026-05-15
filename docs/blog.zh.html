@@ -78,20 +78,7 @@
     .doc-content strong { color: var(--text); }
     .doc-content blockquote { border-left: 3px solid var(--accent); padding: 12px 16px; margin: 12px 0; background: var(--surface-2); border-radius: 0 8px 8px 0; }
     .meta { color: var(--text-dim); font-size: 0.9em; margin: 4px 0 16px; }
-    .arch { margin: 20px 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-    .arch-layer { padding: 14px 18px; }
-    .arch-layer-title { font-size: 0.85em; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; }
-    .arch-level { display: flex; align-items: center; gap: 8px; margin: 6px 0; }
-    .arch-level-tag { font-size: 0.8em; font-weight: 600; color: var(--text-dim); min-width: 85px; flex-shrink: 0; }
-    .arch-boxes { display: flex; gap: 10px; flex-wrap: wrap; }
-    .arch-box { background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; font-size: 0.85em; }
-    .arch-box b { display: block; margin-bottom: 2px; }
-    .arch-box span { color: var(--text-dim); font-size: 0.9em; }
-    .arch-box.eri { border-color: var(--accent); }
-    .arch-sep { border-top: 1px solid var(--border); }
-    .arch-tools { display: flex; gap: 12px; font-size: 0.85em; color: var(--text-dim); }
-    .arch-tools span { color: var(--text); font-weight: 500; }
-    @media (max-width: 640px) { .doc-content table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; } .doc-content { padding: 20px 12px 60px; } .arch-box { padding: 6px 10px; } .header { padding: 8px 12px; flex-wrap: wrap; gap: 6px; } .header-right { gap: 4px; flex-wrap: wrap; } .header a, .header button { font-size: 11px; padding: 3px 6px; } .doc-content h1 { font-size: 1.4em; } .doc-content h2 { font-size: 1.2em; } }
+    @media (max-width: 640px) { .doc-content table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; } .doc-content { padding: 20px 12px 60px; } .header { padding: 8px 12px; flex-wrap: wrap; gap: 6px; } .header-right { gap: 4px; flex-wrap: wrap; } .header a, .header button { font-size: 11px; padding: 3px 6px; } .doc-content h1 { font-size: 1.4em; } .doc-content h2 { font-size: 1.2em; } }
     .skip-link { position: absolute; top: -40px; left: 0; background: var(--accent); color: #fff; padding: 8px 16px; z-index: 100; font-size: 14px; }
     .skip-link:focus { top: 0; }
   </style>
@@ -149,22 +136,6 @@
     <p><strong>零协议承诺。</strong>你的嵌入页面是独立的 HTTPS 应用——ERI 不是运行时依赖。当你准备好接入 MCP Apps 时，将它包装在 manifest 中，通过 MCP 运行时暴露同一个页面。同样的 UI、同样的 API，额外的平台能力。投入会持续累积。</p>
     <p>代价：快照式输出（每轮用户对话产生全新嵌入），无原生设备 API，URL 大小限制。详见<a href="./spec.zh.html#limitations">规范局限性</a>和<a href="./spec.zh.html#large-data-pattern">大数据集模式</a>。</p>
     <p><strong>被说服了？</strong><a href="https://2234839.github.io/eri-spec/">试试演示</a>，或阅读<a href="./adopt.zh.html">团队采用指南</a>。</p>
-    <div class="arch">
-      <div class="arch-layer">
-        <div class="arch-level"><span class="arch-level-tag">可交互</span>
-          <div class="arch-boxes">
-            <div class="arch-box eri"><b>ERI</b><span>嵌入 URL → iframe</span></div>
-            <div class="arch-box"><b>MCP Apps</b><span>沙箱 iframe 小应用 (Anthropic/OpenAI)</span></div>
-            <div class="arch-box"><b>A2UI</b><span>JSON Schema + 渲染器 (Google)</span></div>
-          </div>
-        </div>
-        <div class="arch-level"><span class="arch-level-tag">兜底</span> 纯文本（现状）</div>
-      </div>
-      <div class="arch-layer arch-sep">
-        <div class="arch-layer-title">工具调用层 <span style="font-weight:400;font-size:0.9em">（互补——非竞争）</span></div>
-        <div class="arch-tools"><span>MCP</span> · <span>Function Calling</span> · <span>REST</span></div>
-      </div>
-    </div>
 
     <h2>分享这篇文章</h2>
     <p>觉得有用？帮忙传播：</p>

@@ -78,20 +78,7 @@
     .doc-content strong { color: var(--text); }
     .doc-content blockquote { border-left: 3px solid var(--accent); padding: 12px 16px; margin: 12px 0; background: var(--surface-2); border-radius: 0 8px 8px 0; }
     .meta { color: var(--text-dim); font-size: 0.9em; margin: 4px 0 16px; }
-    .arch { margin: 20px 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-    .arch-layer { padding: 14px 18px; }
-    .arch-layer-title { font-size: 0.85em; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; }
-    .arch-level { display: flex; align-items: center; gap: 8px; margin: 6px 0; }
-    .arch-level-tag { font-size: 0.8em; font-weight: 600; color: var(--text-dim); min-width: 85px; flex-shrink: 0; }
-    .arch-boxes { display: flex; gap: 10px; flex-wrap: wrap; }
-    .arch-box { background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; font-size: 0.85em; }
-    .arch-box b { display: block; margin-bottom: 2px; }
-    .arch-box span { color: var(--text-dim); font-size: 0.9em; }
-    .arch-box.eri { border-color: var(--accent); }
-    .arch-sep { border-top: 1px solid var(--border); }
-    .arch-tools { display: flex; gap: 12px; font-size: 0.85em; color: var(--text-dim); }
-    .arch-tools span { color: var(--text); font-weight: 500; }
-    @media (max-width: 640px) { .doc-content table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; } .doc-content { padding: 20px 12px 60px; } .arch-box { padding: 6px 10px; } .header { padding: 8px 12px; flex-wrap: wrap; gap: 6px; } .header-right { gap: 4px; flex-wrap: wrap; } .header a, .header button { font-size: 11px; padding: 3px 6px; } .doc-content h1 { font-size: 1.4em; } .doc-content h2 { font-size: 1.2em; } }
+    @media (max-width: 640px) { .doc-content table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; } .doc-content { padding: 20px 12px 60px; } .header { padding: 8px 12px; flex-wrap: wrap; gap: 6px; } .header-right { gap: 4px; flex-wrap: wrap; } .header a, .header button { font-size: 11px; padding: 3px 6px; } .doc-content h1 { font-size: 1.4em; } .doc-content h2 { font-size: 1.2em; } }
     .skip-link { position: absolute; top: -40px; left: 0; background: var(--accent); color: #fff; padding: 8px 16px; z-index: 100; font-size: 14px; }
     .skip-link:focus { top: 0; }
   </style>
@@ -149,22 +136,6 @@
     <p><strong>Zero protocol commitment.</strong> Your embed page is a standalone HTTPS app — ERI is not a runtime dependency. When you're ready for MCP Apps, wrap it in a manifest and expose the same page through the MCP runtime. Same UI, same API, additional platform capabilities. The investment compounds.</p>
     <p>Trade-offs: snapshot-based output (each user turn produces a fresh embed), no native device APIs, URL size limits for encoded data. See <a href="./spec.html#limitations">spec limitations</a> and <a href="./spec.html#large-data-pattern">large data pattern</a> for mitigations.</p>
     <p><strong>Convinced?</strong> <a href="https://2234839.github.io/eri-spec/">Try the demo</a> or read the <a href="./adopt.html">team adoption guide</a>.</p>
-    <div class="arch">
-      <div class="arch-layer">
-        <div class="arch-level"><span class="arch-level-tag">Interactive</span>
-          <div class="arch-boxes">
-            <div class="arch-box eri"><b>ERI</b><span>embed URL → iframe</span></div>
-            <div class="arch-box"><b>MCP Apps</b><span>sandboxed iframe apps (Anthropic/OpenAI)</span></div>
-            <div class="arch-box"><b>A2UI</b><span>JSON schema + renderer (Google)</span></div>
-          </div>
-        </div>
-        <div class="arch-level"><span class="arch-level-tag">Fallback</span> Plain text (status quo)</div>
-      </div>
-      <div class="arch-layer arch-sep">
-        <div class="arch-layer-title">Tool Invocation Layer <span style="font-weight:400;font-size:0.9em">(complementary — not competing)</span></div>
-        <div class="arch-tools"><span>MCP</span> · <span>Function Calling</span> · <span>REST</span></div>
-      </div>
-    </div>
 
     <h2>Share This</h2>
     <p>Found this useful? Help spread the word:</p>
