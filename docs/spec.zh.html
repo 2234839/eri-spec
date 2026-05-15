@@ -95,17 +95,15 @@
 
     <h2 id="definition">1. 定义</h2>
     <p>ERI（Embedded Result Interface，嵌入式结果界面）是一种让 Agent 输出变为可交互的约定。Agent 处理用户请求后，输出嵌入式 UI（iframe）而非纯文本——只需一个 <code>skill.md</code> 和一个 URL。无需新协议，无需 SDK。</p>
-    <p>ERI 中谁做什么：</p>
-    <ul>
-      <li><span class="tag tag-agent">Agent</span> <strong>理解意图、调用 API、构造嵌入 URL、输出 UI</strong></li>
-      <li><span class="tag tag-provider">提供者</span> <strong>编写 <code>skill.md</code> 并提供一个 HTTPS 嵌入页面</strong>（约 40 行）</li>
-      <li><span class="tag tag-platform">平台</span> <strong>渲染 iframe</strong>（大多数已支持）</li>
-    </ul>
-    <p>核心约束：</p>
-    <ul>
-      <li><strong>快照式输出</strong>——Agent 不监听已输出的界面，每次新指令生成全新界面（见第 3 节）</li>
-      <li><strong>第三方应用独立运行</strong>——只需提供一个 HTTPS 页面</li>
-    </ul>
+    <table>
+      <thead><tr><th>角色</th><th>职责</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag tag-agent">Agent</span></td><td>理解意图、调用 API、构造嵌入 URL、输出 UI</td></tr>
+        <tr><td><span class="tag tag-provider">提供者</span></td><td>编写 <code>skill.md</code> 并提供一个 HTTPS 嵌入页面（约 40 行）</td></tr>
+        <tr><td><span class="tag tag-platform">平台</span></td><td>渲染 iframe（大多数已支持）</td></tr>
+      </tbody>
+    </table>
+    <p><strong>快照式输出</strong>——Agent 不监听已输出的界面，每次新指令生成全新嵌入（见<a href="#conversation-flow">第 3 节</a>）。第三方应用独立运行——只需提供一个 HTTPS 页面。</p>
 
     <h2 id="workflow">2. 工作流</h2>
     <div class="flow">
@@ -215,7 +213,7 @@ description: 工具描述
         <tr><td>2</td><td>双向通信</td><td>Level 1 + <span class="tag tag-provider">提供者</span> <span class="tag tag-platform">平台</span> 双方实现 postMessage</td></tr>
       </tbody>
     </table>
-    <p>Level 2 的 postMessage 协议——使用具体 origin，绝不使用 <code>"*"</code>：</p>
+    <p>Level 2 适用于平台需要对 iframe 内的用户编辑做出响应的场景（如自动保存、实时预览）。使用 <code>postMessage</code> 并指定具体 origin——绝不使用 <code>"*"</code>：</p>
     <pre><code>// iframe → Agent 平台：通知用户修改了某个值
 window.parent.postMessage({
   type: "eri:valueChanged",  // 必须以 "eri:" 开头

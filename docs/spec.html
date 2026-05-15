@@ -95,17 +95,15 @@
 
     <h2 id="definition">1. Definition</h2>
     <p>ERI (Embedded Result Interface) is a convention for making Agent output interactive. After processing a user request, the Agent outputs an embedded UI (iframe) instead of plain text — using only a <code>skill.md</code> and a URL. No new protocols, no SDKs.</p>
-    <p>Who does what in ERI:</p>
-    <ul>
-      <li><span class="tag tag-agent">Agent</span> <strong>Understands intent, calls API, constructs embed URL, outputs UI</strong></li>
-      <li><span class="tag tag-provider">Provider</span> <strong>Writes <code>skill.md</code> and provides an HTTPS embed page</strong> (~40 lines)</li>
-      <li><span class="tag tag-platform">Platform</span> <strong>Renders iframes</strong> (most already do)</li>
-    </ul>
-    <p>Core constraints:</p>
-    <ul>
-      <li><strong>Snapshot-based</strong> — the Agent does not monitor the output UI. Each new instruction generates a fresh UI (see Section 3)</li>
-      <li><strong>Third-party app runs independently</strong> — only needs to provide an HTTPS page</li>
-    </ul>
+    <table>
+      <thead><tr><th>Role</th><th>Responsibility</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag tag-agent">Agent</span></td><td>Understands intent, calls API, constructs embed URL, outputs UI</td></tr>
+        <tr><td><span class="tag tag-provider">Provider</span></td><td>Writes <code>skill.md</code> and provides an HTTPS embed page (~40 lines)</td></tr>
+        <tr><td><span class="tag tag-platform">Platform</span></td><td>Renders iframes (most already do)</td></tr>
+      </tbody>
+    </table>
+    <p><strong>Snapshot-based</strong> — the Agent does not monitor the output UI. Each new instruction generates a fresh embed (see <a href="#conversation-flow">Section 3</a>). The third-party app runs independently — it only needs to provide an HTTPS page.</p>
 
     <h2 id="workflow">2. Workflow</h2>
     <div class="flow">
@@ -215,7 +213,7 @@ description: What this Skill does
         <tr><td>2</td><td>Bidirectional communication</td><td>Level 1 + <span class="tag tag-provider">Provider</span> <span class="tag tag-platform">Platform</span> both implement postMessage</td></tr>
       </tbody>
     </table>
-    <p>Level 2 postMessage protocol — use specific origin, never <code>"*"</code>:</p>
+    <p>Level 2 is needed when the platform must react to user edits inside the iframe (e.g. auto-save, live previews). It uses <code>postMessage</code> with a specific origin — never <code>"*"</code>:</p>
     <pre><code>// iframe → Agent platform: notify that user changed a value
 window.parent.postMessage({
   type: "eri:valueChanged",  // required prefix: "eri:"
