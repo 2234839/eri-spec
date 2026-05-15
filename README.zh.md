@@ -33,7 +33,7 @@ description: 数学计算器，支持变量和单位转换。
 
 ## 在线演示
 
-**[2234839.github.io/eri-spec/](https://2234839.github.io/eri-spec/)** — 与嵌入的计算器直接交互。演示使用真实 LLM 端到端模拟 Agent 流程。
+**[2234839.github.io/eri-spec/](https://2234839.github.io/eri-spec/)** — 与嵌入的计算器直接交互。演示使用真实 LLM 模拟完整 Agent 流程。
 
 ## 三步开始
 

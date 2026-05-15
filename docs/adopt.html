@@ -11,6 +11,7 @@
   <meta property="og:url" content="https://2234839.github.io/eri-spec/docs/adopt.html">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="ERI Spec">
+  <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Adopting ERI — Team Guide">
   <meta name="twitter:description" content="Evaluate and adopt ERI in your organization. Checklist, decision matrix, and pitch template.">
@@ -24,6 +25,7 @@
     "headline": "Adopting ERI — Team Guide",
     "description": "Evaluate and adopt ERI in your organization.",
     "datePublished": "2026-05-15",
+    "dateModified": "2026-05-16",
     "version": "1.0",
     "license": "https://opensource.org/licenses/MIT"
   }
@@ -182,8 +184,12 @@
   </div>
   <script>
     (function() {
-      const t = localStorage.getItem('eri-theme');
-      if (t) document.documentElement.setAttribute('data-theme', t);
+      const saved = localStorage.getItem('eri-theme');
+      if (saved) {
+        document.documentElement.setAttribute('data-theme', saved);
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
     })();
     function toggleTheme() {
       const cur = document.documentElement.getAttribute('data-theme');

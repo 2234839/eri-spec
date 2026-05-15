@@ -11,6 +11,7 @@
   <meta property="og:url" content="https://2234839.github.io/eri-spec/docs/spec.zh.html">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="ERI Spec">
+  <meta property="og:locale" content="zh_CN">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="ERI 规范 — 嵌入式结果界面 v1.0">
   <meta name="twitter:description" content="让 Agent 输出变为可交互。嵌入任何 Web 应用——无需协议、无需 SDK。">
@@ -24,6 +25,7 @@
     "headline": "ERI 规范 — 嵌入式结果界面 v1.0",
     "description": "一种让 Agent 输出变为可交互的约定。通过 skill.md 和 URL 嵌入任何 Web 应用。",
     "datePublished": "2026-05-15",
+    "dateModified": "2026-05-16",
     "version": "1.0",
     "license": "https://opensource.org/licenses/MIT"
   }
@@ -253,8 +255,12 @@ iframe.contentWindow.postMessage({
   </div>
   <script>
     (function() {
-      const t = localStorage.getItem('eri-theme');
-      if (t) document.documentElement.setAttribute('data-theme', t);
+      const saved = localStorage.getItem('eri-theme');
+      if (saved) {
+        document.documentElement.setAttribute('data-theme', saved);
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
     })();
     function toggleTheme() {
       const cur = document.documentElement.getAttribute('data-theme');

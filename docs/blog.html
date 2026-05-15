@@ -11,6 +11,7 @@
   <meta property="og:url" content="https://2234839.github.io/eri-spec/docs/blog.html">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="ERI Spec">
+  <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Beyond Text: Why AI Agents Need Interactive UI">
   <meta name="twitter:description" content="AI Agents solved input. Output is still text. ERI changes that — embed any web app, no SDKs, just a URL.">
@@ -23,7 +24,8 @@
     "@type": "BlogPosting",
     "headline": "Beyond Text: Why AI Agents Need Interactive UI",
     "description": "The ecosystem solved input. ERI solves output — embed any web app inside AI Agent conversations.",
-    "datePublished": "2026-05-15"
+    "datePublished": "2026-05-15",
+    "dateModified": "2026-05-16"
   }
   </script>
   <style>
@@ -139,8 +141,12 @@
   </div>
   <script>
     (function() {
-      const t = localStorage.getItem('eri-theme');
-      if (t) document.documentElement.setAttribute('data-theme', t);
+      const saved = localStorage.getItem('eri-theme');
+      if (saved) {
+        document.documentElement.setAttribute('data-theme', saved);
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
     })();
     function toggleTheme() {
       const cur = document.documentElement.getAttribute('data-theme');
