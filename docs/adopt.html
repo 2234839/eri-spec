@@ -269,6 +269,24 @@ description: What it does.
       </tbody>
     </table>
 
+    <h2>Cost Comparison</h2>
+    <table>
+      <thead><tr><th></th><th>ERI</th><th>Per-platform native integration</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Development</strong></td><td>~1 day (embed page + skill.md)</td><td>5–10 days per platform × 3 platforms = 15–30 days</td></tr>
+        <tr><td><strong>SDK / approval</strong></td><td>None</td><td>Platform SDK, developer account, approval process</td></tr>
+        <tr><td><strong>Maintenance</strong></td><td>~0 (static page + Markdown)</td><td>Ongoing per-platform updates</td></tr>
+        <tr><td><strong>Coverage</strong></td><td>Most platforms today</td><td>Only the platform you built for</td></tr>
+      </tbody>
+    </table>
+
+    <h2>When NOT to Use ERI</h2>
+    <ul>
+      <li><strong>No web interface</strong> — if your product is a pure API with no visual component, ERI adds nothing. Stick with MCP tools or Function Calling.</li>
+      <li><strong>Real-time collaboration</strong> — ERI is snapshot-based (one embed per turn). For live multi-user editing or streaming data, use MCP Apps or a custom solution.</li>
+      <li><strong>Native device access</strong> — sandboxed iframes can't access GPS, camera, or Bluetooth. If you need device APIs, use A2UI or a native app.</li>
+    </ul>
+
     <h2>Common Objections</h2>
 
     <h3>"Isn't iframe outdated?"</h3>

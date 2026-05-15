@@ -4,7 +4,9 @@
 
 **[Try the Live Demo](https://2234839.github.io/eri-spec/)** · [Spec](https://2234839.github.io/eri-spec/docs/spec.html) · [Blog](https://2234839.github.io/eri-spec/docs/blog.html) · [Adopt](https://2234839.github.io/eri-spec/docs/adopt.html) · [中文](./README.zh.md) · [![ERI v1.0](https://img.shields.io/badge/ERI-v1.0_Stable-6366f1)](https://2234839.github.io/eri-spec/)
 
-Works on **ChatGPT, Claude, Gemini** — any platform that renders iframes.
+**ERI is to Agent output what MCP is to Agent input.** MCP (Model Context Protocol) lets Agents call your API. ERI lets Agents present your UI. They work at different layers — use them together.
+
+Works on **ChatGPT, Claude, Gemini** — any platform that renders iframes. No SDK, no platform approval. For web developers and SaaS teams who want their product inside Agent conversations.
 
 ---
 

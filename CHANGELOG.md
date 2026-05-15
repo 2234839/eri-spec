@@ -4,6 +4,16 @@ All notable changes to the ERI specification are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.8] - 2026-05-16
+
+### Changed
+- README EN/ZH: added positioning sentence ("ERI is to Agent output what MCP is to Agent input") and target audience description.
+- Adopt EN/ZH: added Cost Comparison table (ERI ~1 day vs per-platform 15–30 days) and "When NOT to Use ERI" section.
+- notecalc.md: added `sandbox="allow-scripts"` to iframe output, fixed "fallback" wording to "baseline".
+- hello-world.html: badge text changed from "ERI Level 1" to "ERI Embed Page" (more accurate — the page itself is the embed).
+
+[1.0.8]: https://github.com/2234839/eri-spec/compare/v1.0.7...v1.0.8
+
 ## [1.0.7] - 2026-05-16
 
 ### Changed

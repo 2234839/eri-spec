@@ -4,7 +4,9 @@
 
 **[在线演示](https://2234839.github.io/eri-spec/)** · [规范](https://2234839.github.io/eri-spec/docs/spec.zh.html) · [博客](https://2234839.github.io/eri-spec/docs/blog.zh.html) · [采用](https://2234839.github.io/eri-spec/docs/adopt.zh.html) · [English](./README.md) · [![ERI v1.0](https://img.shields.io/badge/ERI-v1.0_Stable-6366f1)](https://2234839.github.io/eri-spec/)
 
-适用于 **ChatGPT、Claude、Gemini**——任何能渲染 iframe 的平台。
+**ERI 对 Agent 输出，就像 MCP 对 Agent 输入。** MCP（模型上下文协议）让 Agent 调用你的 API；ERI 让 Agent 展示你的 UI。它们工作在不同层——配合使用。
+
+适用于 **ChatGPT、Claude、Gemini**——任何能渲染 iframe 的平台。无需 SDK，无需平台审批。面向想把产品放进 Agent 对话的 Web 开发者和 SaaS 团队。
 
 ---
 

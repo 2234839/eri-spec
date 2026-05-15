@@ -267,6 +267,24 @@ description: 工具描述
       </tbody>
     </table>
 
+    <h2>成本对比</h2>
+    <table>
+      <thead><tr><th></th><th>ERI</th><th>逐平台原生集成</th></tr></thead>
+      <tbody>
+        <tr><td><strong>开发</strong></td><td>约 1 天（嵌入页面 + skill.md）</td><td>每平台 5–10 天 × 3 个平台 = 15–30 天</td></tr>
+        <tr><td><strong>SDK / 审批</strong></td><td>无</td><td>平台 SDK、开发者账号、审批流程</td></tr>
+        <tr><td><strong>维护</strong></td><td>约 0（静态页面 + Markdown）</td><td>持续逐平台更新</td></tr>
+        <tr><td><strong>覆盖</strong></td><td>大多数平台今天就能用</td><td>仅为你构建的那个平台</td></tr>
+      </tbody>
+    </table>
+
+    <h2>什么时候不适合用 ERI</h2>
+    <ul>
+      <li><strong>没有 Web 界面</strong>——如果你的产品是纯 API、没有可视化组件，ERI 不增加价值。继续使用 MCP 工具或 Function Calling。</li>
+      <li><strong>实时协作</strong>——ERI 是快照式的（每轮一个嵌入）。需要多人实时编辑或流式数据，请用 MCP Apps 或自定义方案。</li>
+      <li><strong>原生设备访问</strong>——沙箱 iframe 无法访问 GPS、摄像头或蓝牙。需要设备 API，请用 A2UI 或原生应用。</li>
+    </ul>
+
     <h2>常见疑问</h2>
 
     <h3>"iframe 不是过时了吗？"</h3>
