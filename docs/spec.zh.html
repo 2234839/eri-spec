@@ -136,14 +136,8 @@ Response: {"result": 298.5}</code></pre>
 
     <h3>2.4 输出 UI</h3>
     <p class="role-note"><span class="tag tag-agent">Agent</span> 输出标记。<span class="tag tag-platform">平台</span> 负责渲染。</p>
-    <p>优先级：<strong>iframe &gt; 纯文本</strong></p>
-
-    <p><strong>iframe 模式</strong></p>
     <pre><code>&lt;iframe src="https://app.example.com/embed#encoded_data" width="100%" height="400"&gt;&lt;/iframe&gt;</code></pre>
-    <p>安全属性由 Agent 平台自动添加（<code>sandbox</code> 等）。</p>
-
-    <p><strong>纯文本模式（兜底）</strong></p>
-    <p>直接输出文本结果（退化为传统 Agent 输出）。</p>
+    <p>安全属性（<code>sandbox</code> 等）由 Agent 平台自动添加。如果平台无法渲染 iframe，则降级为纯文本输出。</p>
 
     <h2>3. 对话流程</h2>
     <p>用户在嵌入式界面上的修改不会自动通知 Agent。当用户发起新一轮对话时：</p>
@@ -174,13 +168,6 @@ description: 工具描述
 3. 构造嵌入 URL：https://app.example.com/embed#URLEncoded(expr)
 4. 输出 UI（优先级：iframe &gt; 纯文本）</code></pre>
     <p>Agent 读取这个工作流，执行每一步，输出 iframe。</p>
-
-    <h3>API 契约</h3>
-    <p>Agent 像任何 HTTP 客户端一样调用第三方 API：</p>
-    <pre><code>POST https://api.example.com/calculate
-Content-Type: application/json
-{"expr": "99.5 * 3"}
-→ {"result": 298.5}</code></pre>
 
     <h2>5. 嵌入式页面要求 <span class="tag tag-provider">提供者</span></h2>
     <table>
@@ -240,38 +227,18 @@ iframe.contentWindow.postMessage({
 }, "*");</code></pre>
 
     <h2>8. 适用场景</h2>
-    <table>
-      <thead><tr><th>场景</th><th>示例</th></tr></thead>
-      <tbody>
-        <tr><td>计算工具</td><td>数学表达式、单位转换、货币换算</td></tr>
-        <tr><td>表单/问卷</td><td>Agent 生成表单，用户微调</td></tr>
-        <tr><td>数据可视化</td><td>Agent 生成图表，用户调整参数</td></tr>
-        <tr><td>文档编辑</td><td>Agent 生成草稿，用户直接编辑</td></tr>
-        <tr><td>设计工具</td><td>Agent 生成配色/布局，用户微调</td></tr>
-        <tr><td>代码编辑器</td><td>Agent 生成代码片段，用户修改</td></tr>
-      </tbody>
-    </table>
-
-    <h2>9. 反模式</h2>
-    <ul>
-      <li>纯信息查询——不需要交互</li>
-      <li>长文本生成——嵌入式编辑器不适合</li>
-      <li>需要实时同步的场景——ERI 是"快照式"输出，不是实时同步</li>
-    </ul>
+    <p><strong>适合</strong>：计算工具、表单/问卷、数据可视化、文档编辑、设计工具、代码编辑器——任何用户想要<em>微调</em> Agent 输出的场景。</p>
+    <p><strong>不适合</strong>：纯信息查询（不需要交互）、长文本生成、实时同步（ERI 是快照式的）。</p>
 
     <h2>10. 行业格局</h2>
     <p>交互式 Agent 输出存在三种方案：</p>
-    <table>
-      <thead><tr><th></th><th>ERI</th><th>MCP Apps</th><th>A2UI (Google)</th></tr></thead>
-      <tbody>
-        <tr><td><strong>机制</strong></td><td>URL → iframe</td><td>MCP 中的沙箱小应用</td><td>JSON 组件 → 原生渲染</td></tr>
-        <tr><td><strong>集成</strong></td><td>无</td><td>MCP 服务器 + 沙箱</td><td>渲染器 + 组件目录</td></tr>
-        <tr><td><strong>平台覆盖</strong></td><td><strong>所有平台</strong>（ChatGPT、Claude、Gemini…）</td><td>仅支持 MCP 的平台</td><td>仅支持 A2UI 的平台</td></tr>
-        <tr><td><strong>谁控制 UI</strong></td><td><strong>你</strong>（第三方提供者）</td><td>平台 + MCP 规范</td><td>平台 + A2UI 规范</td></tr>
-        <tr><td><strong>适用场景</strong></td><td>已有 Web 应用，想让它在所有平台上运行</td><td>构建 MCP 生态</td><td>自有平台</td></tr>
-      </tbody>
-    </table>
+    <ul>
+      <li><strong>ERI</strong> — 通过 URL 嵌入任何 Web 应用。在<em>所有</em>平台上都能用。你控制 UI。</li>
+      <li><strong>MCP Apps</strong>（Anthropic &amp; OpenAI）— MCP 生态中的沙箱小应用。仅在支持 MCP 的平台上可用。</li>
+      <li><strong>A2UI</strong>（Google）— Agent 以 JSON 声明 UI，客户端原生渲染。仅在支持 A2UI 的平台上可用。</li>
+    </ul>
     <p>ERI 不与 MCP Apps 或 A2UI 对立——它是入口。作为第三方提供者，ERI 让你以最小代价获得最广覆盖。今天嵌入，等平台支持更丰富的协议时再升级。</p>
+    <p>详细对比见<a href="./blog.zh.html">博客文章</a>。</p>
   </div>
   <script>
     (function() {
