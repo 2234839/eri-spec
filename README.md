@@ -47,10 +47,10 @@ description: Math calculator with variables and unit conversion.
 
 | | ERI | MCP Apps (Anthropic / OpenAI) | A2UI (Google) |
 |---|---|---|---|
-| **Works today?** | **Yes — all platforms** | Requires MCP adoption | Requires renderer |
+| **Works today?** | **Yes — all platforms** | MCP-enabled only | A2UI-enabled only |
 | **What you build** | An HTTPS embed page | MCP-compatible app package | Component catalog + A2UI schema |
 | **Rich capabilities** | Standard web only | Platform APIs, real-time sync | Native rendering |
-| **Effort** | < 1 day | Days | Days |
+| **Effort** | **< 1 day** | Days | Days |
 
 ## Documentation
 
