@@ -93,7 +93,7 @@
   <main class="doc-content">
     <h1>ERI Specification — Embedded Result Interface</h1>
     <p class="meta"><strong>Version</strong>: 1.0 &nbsp;|&nbsp; <strong>Status</strong>: Stable &nbsp;|&nbsp; <strong>License</strong>: MIT</p>
-    <p class="toc"><a href="#definition">1. Definition</a> · <a href="#workflow">2. Workflow</a> · <a href="#conversation-flow">3. Conversation Flow</a> · <a href="#skill-authoring">4. Skill Authoring</a> · <a href="#embed-page">5. Embed Page</a> · <a href="#security">6. Security</a> · <a href="#progressive-levels">7. Levels</a> · <a href="#use-cases">8. Use Cases</a> · <a href="#limitations">9. Limitations</a> · <a href="#industry-landscape">10. Landscape</a></p>
+    <p class="toc"><a href="#definition">1. Definition</a> · <a href="#workflow">2. Workflow</a> · <a href="#conversation-flow">3. Conversation Flow</a> · <a href="#skill-authoring">4. Skill Authoring</a> · <a href="#embed-page">5. Embed Page</a> · <a href="#security">6. Security</a> · <a href="#progressive-levels">7. Levels</a> · <a href="#use-cases">8. Use Cases</a> · <a href="#limitations">9. Limitations</a> · <a href="#error-handing">10. Error Handling</a> · <a href="#industry-landscape">11. Landscape</a></p>
 
     <h2 id="definition">1. Definition</h2>
     <p>ERI (Embedded Result Interface) is a convention for interactive Agent output. After processing a user request, the Agent outputs an embedded UI (iframe) instead of plain text — using only a <code>skill.md</code> and a URL. No new protocols, no SDKs.</p>
@@ -106,7 +106,7 @@
       </tbody>
     </table>
     <p><strong>Snapshot-based</strong> — the Agent does not monitor the output UI. Each new instruction generates a fresh embed (see <a href="#conversation-flow">Section 3</a>). The third-party app runs independently — it only needs to provide an HTTPS page.</p>
-    <p><strong>Conformance</strong> — an implementation is ERI-compliant at <a href="#progressive-levels">Level 1</a> when the Provider serves an HTTPS embed page and the Agent follows the <a href="#workflow">four-step workflow</a> defined above. No registration, no certification.</p>
+    <p><strong>Conformance</strong> — an implementation is ERI-compliant at <a href="#progressive-levels">Level 1</a> when: (1) the Provider serves an HTTPS embed page that reads initial state from URL parameters; (2) the Agent follows the <a href="#workflow">four-step workflow</a>; (3) the Platform renders the iframe with <code>sandbox="allow-scripts"</code>. No registration, no certification.</p>
 
     <h2 id="workflow">2. Workflow</h2>
     <div class="flow">
@@ -195,7 +195,7 @@ description: What this Skill does
       <thead><tr><th>Role</th><th>Rules</th></tr></thead>
       <tbody>
         <tr><td><span class="tag tag-platform">Platform</span></td><td>Add <code>sandbox="allow-scripts"</code> to iframes. Use <code>allow-same-origin</code> only if the embed page needs its own cookies/storage (note: this combo effectively removes the sandbox restriction). Never pass user credentials to third-party iframes.</td></tr>
-        <tr><td><span class="tag tag-provider">Provider</span></td><td>Don't rely on <code>document.cookie</code> (may be unavailable in sandbox). Don't use <code>window.opener</code> or <code>window.top</code> for navigation/DOM access (<code>window.parent.postMessage</code> for Level 2 is safe). Sanitize all inputs against XSS.</td></tr>
+        <tr><td><span class="tag tag-provider">Provider</span></td><td>Don't rely on <code>document.cookie</code> (may be unavailable in sandbox). Don't use <code>window.opener</code> or <code>window.top</code> for navigation/DOM access (<code>window.parent.postMessage</code> for Level 2 is safe). Sanitize all inputs against XSS. <strong>Never place PII or sensitive data in URL hash/query params</strong> — URLs are logged in browser history, proxy logs, and referrer headers. For sensitive data, pass a short-lived token in the URL and fetch actual data via an API call inside the embed page.</td></tr>
       </tbody>
     </table>
 
@@ -239,7 +239,19 @@ iframe.contentWindow.postMessage({
       <li><strong>URL size limits</strong> — state encoded in the URL hash is subject to browser URL length limits (~2KB safe, ~8KB max). For larger datasets, use an API call to fetch data inside the embed page.</li>
     </ul>
 
-    <h2 id="industry-landscape">10. Industry Landscape</h2>
+    <h2 id="error-handing">10. Error Handling</h2>
+    <table>
+      <thead><tr><th>Failure</th><th>Agent behavior</th></tr></thead>
+      <tbody>
+        <tr><td>API returns error or timeout</td><td>Report the error in plain text. Do not embed an iframe with error state.</td></tr>
+        <tr><td>Embed URL unreachable</td><td>Output plain text fallback. The user still receives the API result.</td></tr>
+        <tr><td>Platform blocks iframe</td><td>Degraded to plain text — the Agent's text output remains visible.</td></tr>
+        <tr><td>URL-encoded data exceeds limits</td><td>Provider should design embed page to accept a short token and fetch data server-side.</td></tr>
+      </tbody>
+    </table>
+    <p>ERI's text fallback is not a bug — it's the baseline. Every ERI output should include a text summary so the user always gets value regardless of iframe rendering.</p>
+
+    <h2 id="industry-landscape">11. Industry Landscape</h2>
     <p>Three approaches exist for interactive Agent output:</p>
     <table>
       <thead><tr><th></th><th>ERI</th><th>MCP Apps</th><th>A2UI (Google)</th></tr></thead>
@@ -247,9 +259,11 @@ iframe.contentWindow.postMessage({
         <tr><td><strong>How</strong></td><td>Embed via URL</td><td>Sandboxed mini-apps</td><td>Agent declares UI as JSON</td></tr>
         <tr><td><strong>Platform needs</strong></td><td>Render iframes (already done)</td><td>MCP runtime</td><td>A2UI renderer</td></tr>
         <tr><td><strong>Works today</strong></td><td>All platforms</td><td>MCP-enabled only</td><td>A2UI-enabled only</td></tr>
+        <tr><td><strong>Rich capabilities</strong></td><td>Standard web only</td><td>Platform APIs, real-time</td><td>Native rendering</td></tr>
       </tbody>
     </table>
-    <p>ERI is the on-ramp: broadest reach, least effort. The embed page you build for ERI is the one you'd package for MCP Apps later. Embed today, adopt richer protocols when your platforms support them.</p>
+    <p>MCP Apps and A2UI offer richer capabilities — native APIs, real-time sync, platform integrations. ERI trades those for universal availability today. As MCP and A2UI adoption grows, ERI's "works everywhere" advantage narrows — but its simplicity remains: one embed page, no platform-specific packaging. Start with ERI, adopt richer protocols when your target platforms support them.</p>
+    <p><strong>What ERI adds over a plain iframe</strong>: ERI defines a repeatable, cross-platform pattern — <code>skill.md</code> instructs the Agent to call a specific API, encode the result, and embed a specific URL with a text fallback. Without this convention, every Agent-provider integration is ad-hoc. ERI makes it consistent and discoverable.</p>
 
     <hr>
     <p class="meta"><a href="./adopt.html">Adopt in your team</a> · <a href="./blog.html">Read the blog</a> · <a href="https://2234839.github.io/eri-spec/">Try the demo</a></p>

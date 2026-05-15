@@ -93,7 +93,7 @@
   <main class="doc-content">
     <h1>ERI 规范 — Embedded Result Interface</h1>
     <p class="meta"><strong>版本</strong>：1.0 &nbsp;|&nbsp; <strong>状态</strong>：Stable &nbsp;|&nbsp; <strong>许可</strong>：MIT</p>
-    <p class="toc"><a href="#definition">1. 定义</a> · <a href="#workflow">2. 工作流</a> · <a href="#conversation-flow">3. 对话流程</a> · <a href="#skill-authoring">4. Skill 编写</a> · <a href="#embed-page">5. 嵌入页面</a> · <a href="#security">6. 安全</a> · <a href="#progressive-levels">7. 等级</a> · <a href="#use-cases">8. 场景</a> · <a href="#limitations">9. 局限性</a> · <a href="#industry-landscape">10. 格局</a></p>
+    <p class="toc"><a href="#definition">1. 定义</a> · <a href="#workflow">2. 工作流</a> · <a href="#conversation-flow">3. 对话流程</a> · <a href="#skill-authoring">4. Skill 编写</a> · <a href="#embed-page">5. 嵌入页面</a> · <a href="#security">6. 安全</a> · <a href="#progressive-levels">7. 等级</a> · <a href="#use-cases">8. 场景</a> · <a href="#limitations">9. 局限性</a> · <a href="#error-handing">10. 错误处理</a> · <a href="#industry-landscape">11. 格局</a></p>
 
     <h2 id="definition">1. 定义</h2>
     <p>ERI（Embedded Result Interface，嵌入式结果界面）是一种让 Agent 输出变为可交互的约定。Agent 处理用户请求后，输出嵌入式 UI（iframe）而非纯文本——只需一个 <code>skill.md</code> 和一个 URL。无需新协议，无需 SDK。</p>
@@ -106,7 +106,7 @@
       </tbody>
     </table>
     <p><strong>快照式输出</strong>——Agent 不监听已输出的界面，每次新指令生成全新嵌入（见<a href="#conversation-flow">第 3 节</a>）。第三方应用独立运行——只需提供一个 HTTPS 页面。</p>
-    <p><strong>符合性</strong>——当提供者提供 HTTPS 嵌入页面、且 Agent 遵循上述<a href="#workflow">四步工作流</a>时，即视为达到 ERI <a href="#progressive-levels">Level 1</a> 合规。无需注册，无需认证。</p>
+    <p><strong>符合性</strong>——满足以下条件即达到 ERI <a href="#progressive-levels">Level 1</a> 合规：（1）提供者提供从 URL 参数读取初始状态的 HTTPS 嵌入页面；（2）Agent 遵循<a href="#workflow">四步工作流</a>；（3）平台以 <code>sandbox="allow-scripts"</code> 渲染 iframe。无需注册，无需认证。</p>
 
     <h2 id="workflow">2. 工作流</h2>
     <div class="flow">
@@ -195,7 +195,7 @@ description: 工具描述
       <thead><tr><th>角色</th><th>规则</th></tr></thead>
       <tbody>
         <tr><td><span class="tag tag-platform">平台</span></td><td>为 iframe 添加 <code>sandbox="allow-scripts"</code>。仅在嵌入页面需要自身 cookie/storage 时才添加 <code>allow-same-origin</code>（注意：此组合实际上取消了沙箱限制）。不得将用户凭证传递给第三方 iframe。</td></tr>
-        <tr><td><span class="tag tag-provider">提供者</span></td><td>不依赖 <code>document.cookie</code>（沙箱环境可能不可用）。不使用 <code>window.opener</code> 或 <code>window.top</code> 做导航/DOM 访问（Level 2 的 <code>window.parent.postMessage</code> 是安全的）。所有输入做 XSS 防护。</td></tr>
+        <tr><td><span class="tag tag-provider">提供者</span></td><td>不依赖 <code>document.cookie</code>（沙箱环境可能不可用）。不使用 <code>window.opener</code> 或 <code>window.top</code> 做导航/DOM 访问（Level 2 的 <code>window.parent.postMessage</code> 是安全的）。所有输入做 XSS 防护。<strong>绝不在 URL hash/query 参数中放置 PII 或敏感数据</strong>——URL 会被记录在浏览器历史、代理日志和 Referrer 头中。对于敏感数据，应在 URL 中传递短期令牌，由嵌入页面通过 API 调用获取实际数据。</td></tr>
       </tbody>
     </table>
 
@@ -239,7 +239,19 @@ iframe.contentWindow.postMessage({
       <li><strong>URL 大小限制</strong>——编码到 URL hash 中的状态受浏览器 URL 长度限制（安全范围约 2KB，上限约 8KB）。数据量较大时，应在嵌入页面内通过 API 调用获取数据。</li>
     </ul>
 
-    <h2 id="industry-landscape">10. 行业格局</h2>
+    <h2 id="error-handing">10. 错误处理</h2>
+    <table>
+      <thead><tr><th>故障</th><th>Agent 行为</th></tr></thead>
+      <tbody>
+        <tr><td>API 返回错误或超时</td><td>以纯文本报告错误。不嵌入包含错误状态的 iframe。</td></tr>
+        <tr><td>嵌入 URL 不可达</td><td>输出纯文本降级。用户仍然获得 API 结果。</td></tr>
+        <tr><td>平台阻止 iframe</td><td>降级为纯文本——Agent 的文字输出仍然可见。</td></tr>
+        <tr><td>URL 编码数据超出限制</td><td>提供者应设计嵌入页面接受短期令牌，并通过服务端 API 获取数据。</td></tr>
+      </tbody>
+    </table>
+    <p>ERI 的纯文本降级不是缺陷——它是基线。每个 ERI 输出都应包含文本摘要，确保用户无论 iframe 是否渲染都能获得价值。</p>
+
+    <h2 id="industry-landscape">11. 行业格局</h2>
     <p>交互式 Agent 输出存在三种方案：</p>
     <table>
       <thead><tr><th></th><th>ERI</th><th>MCP Apps</th><th>A2UI (Google)</th></tr></thead>
@@ -247,9 +259,11 @@ iframe.contentWindow.postMessage({
         <tr><td><strong>方式</strong></td><td>通过 URL 嵌入</td><td>沙箱小应用</td><td>Agent 以 JSON 声明 UI</td></tr>
         <tr><td><strong>平台要求</strong></td><td>渲染 iframe（已有）</td><td>MCP 运行时</td><td>A2UI 渲染器</td></tr>
         <tr><td><strong>今天可用</strong></td><td>所有平台</td><td>仅 MCP 平台</td><td>仅 A2UI 平台</td></tr>
+        <tr><td><strong>丰富能力</strong></td><td>仅标准 Web</td><td>平台 API、实时通信</td><td>原生渲染</td></tr>
       </tbody>
     </table>
-    <p>ERI 是入口：最广覆盖、最小代价。你为 ERI 构建的嵌入页面，就是日后打包给 MCP Apps 的同一个页面。今天嵌入，等平台支持更丰富的协议时再升级。</p>
+    <p>MCP Apps 和 A2UI 提供更丰富的能力——原生 API、实时同步、平台集成。ERI 用这些能力换取了今天的通用可用性。随着 MCP 和 A2UI 的采用增长，ERI 的"处处可用"优势会收窄——但其简洁性不会：一个嵌入页面，无需平台特定的打包。从 ERI 开始，等目标平台支持更丰富的协议时再升级。</p>
+    <p><strong>ERI 相比普通 iframe 增加了什么</strong>：ERI 定义了一个可复用、跨平台的模式——<code>skill.md</code> 指导 Agent 调用特定 API、编码结果、嵌入特定 URL，并提供纯文本降级。没有这个约定，每个 Agent-提供者集成都是临时拼凑。ERI 使其一致且可发现。</p>
 
     <hr>
     <p class="meta"><a href="./adopt.zh.html">团队采用</a> · <a href="./blog.zh.html">阅读博客</a> · <a href="https://2234839.github.io/eri-spec/">在线演示</a></p>

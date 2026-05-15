@@ -830,6 +830,7 @@ Always show the iframe embed after your text explanation so the user can interac
 
       if (embedExpressions) {
         const embedUrl = makeEmbedUrl(embedExpressions);
+        /** NoteCalc requires allow-same-origin for its own storage. Per ERI spec, use allow-scripts only in production. */
         html += `
           <div class="eri-embed">
             <div class="eri-embed-header">

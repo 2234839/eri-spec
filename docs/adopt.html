@@ -104,7 +104,7 @@
     <h3>Phase 1: Pilot (1 day total: ~10 min for skill.md, the rest is the embed page)</h3>
     <ul class="checklist">
       <li>Pick one existing web app to embed</li>
-      <li>Create a stripped-down <code>/embed</code> route (~40 lines)
+      <li>Create a stripped-down <code>/embed</code> route (<a href="./spec.html#minimal-example">see minimal example</a>)
         <ul>
           <li>Reads initial state from URL hash or query params</li>
           <li>Self-contained — no dependency on host page</li>
@@ -172,7 +172,7 @@
       <tbody>
         <tr><td><strong>Speed</strong></td><td>Working demo in under a day. No platform approval cycle.</td></tr>
         <tr><td><strong>Coverage</strong></td><td>One implementation reaches ChatGPT, Claude, Gemini — and future platforms.</td></tr>
-        <tr><td><strong>Cost</strong></td><td>~40 lines of embed code + one <code>skill.md</code>. No SDK license, no vendor lock-in.</td></tr>
+        <tr><td><strong>Cost</strong></td><td>One embed page + one <code>skill.md</code>. No SDK license, no vendor lock-in.</td></tr>
         <tr><td><strong>Risk</strong></td><td>Zero protocol commitment. The embed page we build today is the one we'd package for MCP Apps tomorrow. ERI is the on-ramp, not a dead end.</td></tr>
         <tr><td><strong>User experience</strong></td><td>Users tweak results directly — change a number, drag a slider — without waiting for Agent round trips.</td></tr>
         <tr><td><strong>Business value</strong></td><td>Our product lives inside the Agent conversation — users never leave. First-mover advantage in the Agent ecosystem.</td></tr>
