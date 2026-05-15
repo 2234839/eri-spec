@@ -17,7 +17,7 @@ Agent: [嵌入一个实时计算器]
        用户加运费：不需要 Agent 参与
 ```
 
-Agent 写一个 `skill.md`：调这个 API，嵌入这个 URL。就这样。
+提供者写一个 `skill.md`：调这个 API，嵌入这个 URL。就这样。
 
 ```markdown
 ---

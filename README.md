@@ -17,7 +17,7 @@ Agent: [embeds a live calculator]
        User adds shipping: no Agent needed
 ```
 
-The Agent writes a `skill.md` that says: call this API, embed this URL. That's it.
+The provider writes a `skill.md` that says: call this API, embed this URL. That's it.
 
 ```markdown
 ---
