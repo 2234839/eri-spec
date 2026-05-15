@@ -309,15 +309,15 @@ const data = await fetch('/api/results/' + token).then(r =&gt; r.json());</code>
     <h2 id="industry-landscape">11. Industry Landscape</h2>
     <p>Three approaches exist for interactive Agent output:</p>
     <table>
-      <thead><tr><th></th><th>ERI</th><th>MCP Apps</th><th>A2UI (Google)</th></tr></thead>
+      <thead><tr><th></th><th>ERI</th><th><a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a></th><th><a href="https://github.com/google/a2ui">A2UI</a> (Google)</th></tr></thead>
       <tbody>
-        <tr><td><strong>How</strong></td><td>Embed via URL</td><td>Sandboxed mini-apps</td><td>Agent declares UI as JSON</td></tr>
+        <tr><td><strong>How</strong></td><td>Embed via URL</td><td>Sandboxed iframe mini-apps</td><td>Declarative JSON UI schema</td></tr>
         <tr><td><strong>Platform needs</strong></td><td>Render iframes (already done)</td><td>MCP runtime</td><td>A2UI renderer</td></tr>
         <tr><td><strong>Works today?</strong></td><td><strong>Yes — most platforms</strong></td><td>MCP-enabled only</td><td>A2UI-enabled only</td></tr>
         <tr><td><strong>Capabilities</strong></td><td>Full web platform</td><td>Platform APIs, real-time sync</td><td>Native rendering</td></tr>
       </tbody>
     </table>
-    <p>MCP Apps and A2UI offer richer capabilities — native APIs, real-time sync, platform integrations. ERI trades those for universal availability today. As MCP and A2UI adoption grows, ERI's "works everywhere" advantage narrows — but its simplicity remains: one embed page, no platform-specific packaging. Start with ERI; the embed page forms the core you'd later package for richer protocols.</p>
+    <p><a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a> (shipped January 2026, now under the <a href="https://modelcontextprotocol.io/">Linux Foundation</a>) and <a href="https://github.com/google/a2ui">A2UI</a> (open-sourced by Google, December 2025) offer richer capabilities — native APIs, real-time sync, platform integrations. Notably, MCP Apps also render inside sandboxed iframes — so an ERI embed page is already structurally compatible with the MCP Apps runtime. ERI trades richer capabilities for universal availability today. Start with ERI; the embed page forms the core you'd later package for richer protocols.</p>
     <p><strong>What ERI adds over a plain iframe</strong>: ERI defines a repeatable, cross-platform pattern — <code>skill.md</code> instructs the Agent to call a specific API, encode the result, and embed a specific URL with a text fallback. Without this convention, every Agent-provider integration is ad-hoc. ERI makes it consistent and discoverable.</p>
 
     <hr>

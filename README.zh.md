@@ -39,7 +39,7 @@ description: 数学计算器，支持变量和单位转换。
 
 ## 有什么不同
 
-| | ERI | MCP Apps (Anthropic / OpenAI) | A2UI (Google) |
+| | ERI | [MCP Apps](https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/) (Anthropic / OpenAI) | [A2UI](https://github.com/google/a2ui) (Google) |
 |---|---|---|---|
 | **今天可用？** | **是——大多数平台** | 仅 MCP 平台 | 仅 A2UI 平台 |
 | **需要构建** | 一个 HTTPS 嵌入页面 + 一个 skill.md | MCP 兼容的应用包 | 组件目录 + A2UI Schema |

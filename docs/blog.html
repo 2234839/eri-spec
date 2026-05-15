@@ -123,13 +123,14 @@
     <h2>Three Paths to Interactive Agent Output</h2>
     <p>The industry is converging on the same problem from three directions:</p>
     <p><strong>ERI</strong> — embed your web app via URL. Works on every platform today because it uses iframes. You build an HTTPS page, write a <code>skill.md</code>, and ship. The trade-off: full web platform (HTML/CSS/JS/Canvas/WebGL), but no native device APIs or real-time sync.</p>
-    <p><strong>MCP Apps</strong> (Anthropic / OpenAI) — sandboxed mini-apps with platform APIs and real-time communication. Richer capabilities, but only on MCP-enabled platforms. Requires packaging in a platform-specific format.</p>
-    <p><strong>A2UI</strong> (Google) — the Agent declares UI as JSON, and a platform renderer turns it into native controls. Native rendering quality, but requires an A2UI renderer that most platforms don't have yet.</p>
+    <p><strong><a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a></strong> (Anthropic / OpenAI) — sandboxed mini-apps with platform APIs and real-time communication. Richer capabilities, but only on MCP-enabled platforms. Requires packaging in a platform-specific format.</p>
+    <p><strong><a href="https://github.com/google/a2ui">A2UI</a></strong> (Google) — the Agent declares UI as JSON, and a platform renderer turns it into native controls. Native rendering quality, but requires an A2UI renderer that most platforms don't have yet.</p>
 
     <h2>Why ERI First</h2>
     <p><strong>Ship today, upgrade later.</strong> ERI works on most platforms today because it uses what platforms already have: iframe rendering. When your target platforms support MCP Apps or A2UI, your embed page carries forward — it becomes the core you package for those protocols. You're building an asset, not a throwaway prototype.</p>
     <p><strong>One implementation, all platforms.</strong> ChatGPT, Claude, and Gemini all render iframes in Agent output. One embed page + one <code>skill.md</code> reaches all three. No per-platform SDK, no platform approval cycle, no vendor-specific packaging.</p>
     <p><strong>Zero protocol commitment.</strong> ERI is not a runtime dependency. Your embed page runs independently — it's a regular HTTPS page. If you decide to migrate to MCP Apps or A2UI, the embed page doesn't change. You add a packaging layer on top.</p>
+    <p><strong>Migration path:</strong> Your ERI embed page is already an HTTPS web app. When MCP Apps arrive, you wrap it in a manifest and expose the same page through the MCP runtime. Same UI, same API, additional platform capabilities. The investment compounds.</p>
     <p>Trade-offs: snapshot-based output (each user turn produces a fresh embed), no native device APIs, URL size limits for encoded data. See <a href="./spec.html#limitations">spec limitations</a> and <a href="./spec.html#large-data-pattern">large data pattern</a> for mitigations.</p>
     <div class="arch">
       <div class="arch-layer">

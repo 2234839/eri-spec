@@ -309,15 +309,15 @@ const data = await fetch('/api/results/' + token).then(r =&gt; r.json());</code>
     <h2 id="industry-landscape">11. 行业格局</h2>
     <p>交互式 Agent 输出存在三种方案：</p>
     <table>
-      <thead><tr><th></th><th>ERI</th><th>MCP Apps</th><th>A2UI (Google)</th></tr></thead>
+      <thead><tr><th></th><th>ERI</th><th><a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a></th><th><a href="https://github.com/google/a2ui">A2UI</a> (Google)</th></tr></thead>
       <tbody>
-        <tr><td><strong>方式</strong></td><td>通过 URL 嵌入</td><td>沙箱小应用</td><td>Agent 以 JSON 声明 UI</td></tr>
+        <tr><td><strong>方式</strong></td><td>通过 URL 嵌入</td><td>沙箱 iframe 小应用</td><td>声明式 JSON UI Schema</td></tr>
         <tr><td><strong>平台要求</strong></td><td>渲染 iframe（已有）</td><td>MCP 运行时</td><td>A2UI 渲染器</td></tr>
         <tr><td><strong>今天可用？</strong></td><td><strong>是——大多数平台</strong></td><td>仅 MCP 平台</td><td>仅 A2UI 平台</td></tr>
         <tr><td><strong>能力</strong></td><td>完整 Web 平台</td><td>平台 API、实时通信</td><td>原生渲染</td></tr>
       </tbody>
     </table>
-    <p>MCP Apps 和 A2UI 提供更丰富的能力——原生 API、实时同步、平台集成。ERI 用这些能力换取了今天的通用可用性。随着 MCP 和 A2UI 的采用增长，ERI 的"处处可用"优势会收窄——但其简洁性不会：一个嵌入页面，无需平台特定的打包。从 ERI 开始；嵌入页面构成日后打包给更丰富协议的核心。</p>
+    <p><a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a>（2026 年 1 月发布，现隶属于 <a href="https://modelcontextprotocol.io/">Linux Foundation</a>）和 <a href="https://github.com/google/a2ui">A2UI</a>（Google 于 2025 年 12 月开源）提供更丰富的能力——原生 API、实时同步、平台集成。值得注意的是，MCP Apps 同样在沙箱 iframe 中渲染——因此 ERI 嵌入页面天然与 MCP Apps 运行时结构兼容。ERI 用更丰富的能力换取今天的通用可用性。从 ERI 开始；嵌入页面构成日后打包给更丰富协议的核心。</p>
     <p><strong>ERI 相比普通 iframe 增加了什么</strong>：ERI 定义了一个可复用、跨平台的模式——<code>skill.md</code> 指导 Agent 调用特定 API、编码结果、嵌入特定 URL，并提供纯文本降级。没有这个约定，每个 Agent-提供者集成都是临时拼凑。ERI 使其一致且可发现。</p>
 
     <hr>

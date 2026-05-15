@@ -39,7 +39,7 @@ description: Math calculator with variables and unit conversion.
 
 ## How It's Different
 
-| | ERI | MCP Apps (Anthropic / OpenAI) | A2UI (Google) |
+| | ERI | [MCP Apps](https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/) (Anthropic / OpenAI) | [A2UI](https://github.com/google/a2ui) (Google) |
 |---|---|---|---|
 | **Works today?** | **Yes — most platforms** | MCP-enabled only | A2UI-enabled only |
 | **What you build** | An HTTPS embed page + a skill.md | MCP-compatible app package | Component catalog + A2UI schema |

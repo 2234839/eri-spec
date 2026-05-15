@@ -123,13 +123,14 @@
     <h2>三条路径到交互式 Agent 输出</h2>
     <p>业界从三个方向收敛到同一个问题：</p>
     <p><strong>ERI</strong>——通过 URL 嵌入你的 Web 应用。因为用的是 iframe，今天大多数平台都能用。你构建一个 HTTPS 页面，写一个 <code>skill.md</code>，然后上线。代价：完整 Web 平台（HTML/CSS/JS/Canvas/WebGL），但没有原生设备 API 或实时同步。</p>
-    <p><strong>MCP Apps</strong>（Anthropic / OpenAI）——沙箱小应用，拥有平台 API 和实时通信。能力更丰富，但只能在支持 MCP 的平台上运行。需要按平台特定的格式打包。</p>
-    <p><strong>A2UI</strong>（Google）——Agent 以 JSON 声明 UI，平台渲染器将其转为原生控件。原生渲染质量，但需要 A2UI 渲染器——大多数平台还没有。</p>
+    <p><strong><a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a></strong>（Anthropic / OpenAI）——沙箱小应用，拥有平台 API 和实时通信。能力更丰富，但只能在支持 MCP 的平台上运行。需要按平台特定的格式打包。</p>
+    <p><strong><a href="https://github.com/google/a2ui">A2UI</a></strong>（Google）——Agent 以 JSON 声明 UI，平台渲染器将其转为原生控件。原生渲染质量，但需要 A2UI 渲染器——大多数平台还没有。</p>
 
     <h2>为什么先选 ERI</h2>
     <p><strong>今天就上线，以后再升级。</strong>ERI 利用平台已有的能力——iframe 渲染——所以今天大多数平台都能用。等目标平台支持 MCP Apps 或 A2UI，你的嵌入页面可以直接沿用——它构成打包给更丰富协议的核心。你在构建资产，不是一次性原型。</p>
     <p><strong>一次实现，所有平台。</strong>ChatGPT、Claude、Gemini 都在 Agent 输出中渲染 iframe。一个嵌入页面 + 一个 <code>skill.md</code> 覆盖三个平台。无需逐平台 SDK，无需平台审批流程，无需供应商特定的打包。</p>
     <p><strong>零协议承诺。</strong>ERI 不是运行时依赖。你的嵌入页面独立运行——它就是一个普通的 HTTPS 页面。如果日后决定迁移到 MCP Apps 或 A2UI，嵌入页面不用改。你只需在上面加一层打包。</p>
+      <p><strong>迁移路径：</strong>你的 ERI 嵌入页面本身就是一个 HTTPS Web 应用。当 MCP Apps 到来时，你只需将它包装在 manifest 中，通过 MCP 运行时暴露同一个页面。同样的 UI、同样的 API，额外的平台能力。投入会持续累积。</p>
     <p>代价：快照式输出（每轮用户对话产生全新嵌入），无原生设备 API，URL 大小限制。详见<a href="./spec.zh.html#limitations">规范局限性</a>和<a href="./spec.zh.html#large-data-pattern">大数据集模式</a>。</p>
     <div class="arch">
       <div class="arch-layer">
