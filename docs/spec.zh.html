@@ -156,6 +156,7 @@ description: 工具描述
 3. 构造嵌入 URL：https://app.example.com/embed#URLEncoded(expr)
 4. 输出为 iframe（平台无法渲染时降级为纯文本）</code></pre>
     <p>Agent 读取这个工作流，执行每一步，输出 iframe。</p>
+    <p>Frontmatter（<code>name</code>、<code>description</code>）遵循标准 YAML 约定。<code>## 工作流</code> 部分是自由格式——用 Agent 能理解的自然语言编写即可。无需特殊语法。</p>
 
     <h2>5. 嵌入式页面要求 <span class="tag tag-provider">提供者</span></h2>
     <table>
