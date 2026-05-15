@@ -47,11 +47,8 @@ description: 数学计算器，支持变量和单位转换。
 
 | | ERI | MCP Apps (Anthropic / OpenAI) | A2UI (Google) |
 |---|---|---|---|
-| **路径** | 通过 URL 嵌入已有应用 | MCP 生态中的沙箱 iframe 小应用 | Agent 以 JSON 声明 UI，客户端渲染 |
-| **Agent 需要** | 一个 `skill.md` | MCP 服务器 + 应用清单 | SDK + Schema 定义 |
-| **平台需要** | 渲染 iframe（已经有了） | MCP 运行时 + 沙箱 | A2UI 渲染器 + 组件目录 |
-| **第三方需要** | 一个 HTTPS 嵌入页面 | MCP 兼容的应用包 | 组件目录 + A2UI Schema |
-| **今天能用？** | 是——零集成 | 需要 MCP 采用 | 需要渲染器 |
+| **今天可用？** | **是——所有平台** | 需要 MCP 采用 | 需要渲染器 |
+| **需要构建** | 一个 HTTPS 嵌入页面 | MCP 兼容的应用包 | 组件目录 + A2UI Schema |
 | **成本** | < 1 天 | 数天 | 数天 |
 
 ## 文档

@@ -47,11 +47,8 @@ description: Math calculator with variables and unit conversion.
 
 | | ERI | MCP Apps (Anthropic / OpenAI) | A2UI (Google) |
 |---|---|---|---|
-| **Approach** | Embed existing apps via URL | Sandboxed iframe mini-apps in MCP | Agent declares UI as JSON, client renders |
-| **Agent needs** | A `skill.md` file | MCP server + app manifest | SDK + schema definition |
-| **Platform needs** | Render iframes (already done) | MCP runtime + sandbox | A2UI renderer + widget catalog |
-| **Third party needs** | An HTTPS embed page | MCP-compatible app package | Component catalog + A2UI schema |
-| **Works today?** | Yes — zero integration | Requires MCP adoption | Requires renderer |
+| **Works today?** | **Yes — all platforms** | Requires MCP adoption | Requires renderer |
+| **What you build** | An HTTPS embed page | MCP-compatible app package | Component catalog + A2UI schema |
 | **Effort** | < 1 day | Days | Days |
 
 ## Documentation
