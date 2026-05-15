@@ -281,17 +281,14 @@ description: What it does.
     <h3>"What about PII and compliance?"</h3>
     <p>Never place PII in URL hash or query params — URLs are logged in browser history, proxy logs, and referrer headers. For data that involves PII, pass a short-lived token in the URL and fetch actual data via an API call inside the embed page. The embed page runs under the platform's iframe sandbox — no access to parent cookies or tokens.</p>
 
-    <h3>"What if our platform doesn't support iframes?"</h3>
-    <p>ERI falls back to plain text — the Agent still provides value. Most major platforms (ChatGPT, Claude, Gemini) render iframes today, so this is rarely an issue.</p>
-
-    <h3>"What happens if the Agent sends bad data or a malformed URL?"</h3>
-    <p>Your embed page should validate and sanitize all URL-sourced inputs — never <code>eval()</code> or directly render user data. If the data is unusable, show a graceful error state (e.g., "Unable to load results. Please retry."). The spec's <a href="./spec.html#error-handling">error handling section</a> covers this pattern. The Agent is an unreliable narrator — your embed page must be defensive.</p>
+    <h3>"What if our platform doesn't support iframes — or our embed page goes down?"</h3>
+    <p>Either way, the Agent always includes a plain text fallback — the user still gets value. Most major platforms (ChatGPT, Claude, Gemini) render iframes today. Treat your embed page like any HTTPS endpoint: monitor uptime, maintain an SLO. The fallback means a degraded experience, not a broken one.</p>
 
     <h3>"How do we roll out incrementally?"</h3>
     <p>Version your embed page URL (e.g., <code>/embed/v1/</code>, <code>/embed/v2/</code>). Update <code>skill.md</code> to point to the new version when ready. Old URLs keep working — no breaking changes. Start with one internal team, gather feedback, then expand. The skill.md format is small enough to iterate quickly.</p>
 
-    <h3>"What about SLAs — what if our embed page goes down?"</h3>
-    <p>The Agent always includes a plain text fallback alongside the iframe. If your embed page is unreachable, the user still sees the text result. Treat your embed page like any other HTTPS endpoint: monitor uptime, set up alerts, and maintain an SLO. The fallback means a degraded experience, not a broken one.</p>
+    <h3>"What happens if the Agent sends bad data?"</h3>
+    <p>Validate and sanitize all URL-sourced inputs — never <code>eval()</code> or directly render user data. If the data is unusable, show a graceful error state. The Agent is an unreliable narrator — your embed page must be defensive.</p>
 
     <h2>Internal Pitch Template</h2>
     <blockquote>
