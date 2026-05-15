@@ -434,6 +434,9 @@
     }
     @media (max-width: 640px) {
       .chat-area { padding: 12px; }
+      .hero-banner { padding: 14px 14px 12px; }
+      .hero-banner h2 { font-size: 16px; }
+      .eri-embed iframe { height: 220px; }
       .input-area { padding: 12px; }
       .header { padding: 10px 12px; }
       .header h1 { font-size: 14px; }
@@ -471,12 +474,12 @@
   <div class="chat-area" id="chatArea">
     <div class="chat-main" id="chatMain">
       <div class="hero-banner" data-i18n-html="banner.hero">
-        <h2>ERI — 让 Agent 输出变成可交互的应用</h2>
-        <p>下面的计算器不是本站的。它是一个第三方应用（NoteCalc），被 Agent 通过 URL 嵌入到对话中。你可以直接编辑数值——不需要再问 Agent。</p>
+        <h2>ERI — Agents that return apps, not just text</h2>
+        <p>The calculator below is not part of this website. It's a third-party app (NoteCalc), embedded by the Agent via a URL. You can edit values directly — no need to ask the Agent again.</p>
         <div class="cta">
-          <a href="./spec.zh.html">读规范</a>
-          <a href="./blog.zh.html">读博客</a>
-          <span class="hint">输入 API Key 后可对话 · ⚙ 设置</span>
+          <a href="./spec.html">Read the Spec</a>
+          <a href="./blog.html">Read the Blog</a>
+          <span class="hint">Enter API Key to chat · ⚙ Settings</span>
         </div>
       </div>
       <!-- Messages will be rendered here -->
@@ -486,9 +489,9 @@
         <div class="sidebar-card-header">🔗 ERI</div>
         <div class="sidebar-card-body" data-i18n-html="sidebar.body">
           <p><span class="highlight">What you see below</span> is not part of this website.</p>
-          <p>The interactive calculator is an <b>embedded UI</b> from a third-party service called <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a>.</p>
-          <p>This is the core idea of <b>ERI</b>: instead of showing plain text, the AI Agent embeds a live, working app directly in the conversation.</p>
-          <p>You can edit values and see results instantly — no waiting for another round trip.</p>
+          <p>The interactive calculator is an <b>embedded UI</b> from <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a>.</p>
+          <p>ERI: the Agent embeds a live app in the conversation, not plain text.</p>
+          <p>Edit values and see results instantly — no round trip.</p>
         </div>
       </div>
       <div class="sidebar-card" style="margin-top:12px">
