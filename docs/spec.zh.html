@@ -58,7 +58,12 @@
     .doc-content th { background: var(--surface-2); }
     .doc-content hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
     .meta { color: var(--text-dim); font-size: 0.9em; margin: 4px 0 16px; }
-    @media (max-width: 640px) { .doc-content { padding: 20px 12px 60px; } }
+    .flow { display: flex; align-items: center; gap: 6px; margin: 16px 0; overflow-x: auto; padding: 4px 0; }
+    .flow-step { background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; min-width: 140px; text-align: center; flex-shrink: 0; }
+    .flow-step strong { display: block; font-size: 0.95em; margin-bottom: 2px; }
+    .flow-step span { font-size: 0.8em; color: var(--text-dim); }
+    .flow-arrow { color: var(--accent); font-size: 1.3em; flex-shrink: 0; }
+    @media (max-width: 640px) { .doc-content { padding: 20px 12px 60px; } .flow-step { min-width: 110px; padding: 10px; } }
   </style>
 </head>
 <body>
@@ -68,6 +73,7 @@
       <a href="../">演示</a>
       <a href="./spec.zh.html" class="active">规范</a>
       <a href="./blog.zh.html">博客</a>
+      <a href="./adopt.zh.html">采用</a>
       <a href="https://github.com/2234839/eri-spec">GitHub</a>
       <button onclick="location.href='./spec.html'">EN</button>
       <button onclick="toggleTheme()" id="themeBtn">🌙</button>
@@ -87,10 +93,15 @@
     </ul>
 
     <h2>2. 工作流</h2>
-    <pre><code>┌─────────────┐    ┌──────────────┐    ┌──────────────┐    ┌──────────────┐
-│  1. 理解意图  │ →  │ 2. 调用 API   │ →  │ 3. 构造嵌入   │ →  │ 4. 输出 UI    │
-│  提取参数     │    │  获取结构数据  │    │    URL        │    │  iframe/截图  │
-└─────────────┘    └──────────────┘    └──────────────┘    └──────────────┘</code></pre>
+    <div class="flow">
+      <div class="flow-step"><strong>1. 理解意图</strong><span>提取参数</span></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><strong>2. 调用 API</strong><span>获取结构数据</span></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><strong>3. 构造 URL</strong><span>编码参数</span></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><strong>4. 输出 UI</strong><span>iframe / 截图</span></div>
+    </div>
 
     <h3>2.1 理解意图</h3>
     <p>Agent 从用户输入中提取结构化参数。例如：</p>

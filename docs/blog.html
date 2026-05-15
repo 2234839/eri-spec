@@ -58,7 +58,20 @@
     .doc-content strong { color: var(--text); }
     .meta { color: var(--text-dim); font-size: 0.9em; margin: 4px 0 16px; }
     .footnote { color: var(--text-dim); font-size: 0.9em; margin-top: 32px; }
-    @media (max-width: 640px) { .doc-content { padding: 20px 12px 60px; } }
+    .arch { margin: 20px 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .arch-layer { padding: 14px 18px; }
+    .arch-layer-title { font-size: 0.85em; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; }
+    .arch-level { display: flex; align-items: center; gap: 8px; margin: 6px 0; }
+    .arch-level-tag { font-size: 0.8em; font-weight: 600; color: var(--text-dim); min-width: 85px; flex-shrink: 0; }
+    .arch-boxes { display: flex; gap: 10px; flex-wrap: wrap; }
+    .arch-box { background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; font-size: 0.85em; }
+    .arch-box b { display: block; margin-bottom: 2px; }
+    .arch-box span { color: var(--text-dim); font-size: 0.9em; }
+    .arch-box.eri { border-color: var(--accent); }
+    .arch-sep { border-top: 1px solid var(--border); }
+    .arch-tools { display: flex; gap: 12px; font-size: 0.85em; color: var(--text-dim); }
+    .arch-tools span { color: var(--text); font-weight: 500; }
+    @media (max-width: 640px) { .doc-content { padding: 20px 12px 60px; } .arch-box { padding: 6px 10px; } }
   </style>
 </head>
 <body>
@@ -68,6 +81,7 @@
       <a href="../">Demo</a>
       <a href="./spec.html">Spec</a>
       <a href="./blog.html" class="active">Blog</a>
+      <a href="./adopt.html">Adopt</a>
       <a href="https://github.com/2234839/eri-spec">GitHub</a>
       <button onclick="location.href='./blog.zh.html'">中文</button>
       <button onclick="toggleTheme()" id="themeBtn">🌙</button>
@@ -116,22 +130,23 @@ description: Math calculator with variables and unit conversion.
     <p><strong>MCP Apps</strong> (Anthropic &amp; OpenAI, 2025) standardize interactive UI within the MCP ecosystem — sandboxed iframes that behave like mini-apps. The right answer if you're building for MCP-first platforms.</p>
     <p><strong>A2UI</strong> (Google, 2025) takes a declarative, cross-platform path — Agent sends JSON component descriptions, client libraries (Flutter, Web Components) render natively. The right answer for platforms building their own rendering pipeline.</p>
     <p><strong>ERI</strong> takes the simplest path — embed what already exists. An app with a web UI can appear in Agent conversations in half a day. No SDKs, no schemas, no renderers, no MCP integration. Just a URL. Ship today, adopt MCP Apps or A2UI later. All three converge at the same destination.</p>
-    <pre><code>┌──────────────────────────────────────────────────────┐
-│                  Agent Output Layer                    │
-│                                                       │
-│   Level 2: User interacts directly                    │
-│   ┌───────────┐  ┌───────────────┐  ┌─────────────┐ │
-│   │    ERI    │  │   MCP Apps    │  │    A2UI     │  │
-│   │ embed URL │  │ sandboxed     │  │ JSON schema │  │
-│   │ → iframe  │  │ iframe apps   │  │ + renderer  │  │
-│   └───────────┘  └───────────────┘  └─────────────┘ │
-│                                                       │
-│   Level 1: Screenshot (ERI fallback)                  │
-│   Level 0: Plain text (status quo)                    │
-├──────────────────────────────────────────────────────┤
-│                Tool Invocation Layer                   │
-│   MCP  ·  Function Calling  ·  REST                  │
-└──────────────────────────────────────────────────────┘</code></pre>
+    <div class="arch">
+      <div class="arch-layer">
+        <div class="arch-level"><span class="arch-level-tag">Level 2</span>
+          <div class="arch-boxes">
+            <div class="arch-box eri"><b>ERI</b><span>embed URL → iframe</span></div>
+            <div class="arch-box"><b>MCP Apps</b><span>sandboxed iframe apps</span></div>
+            <div class="arch-box"><b>A2UI</b><span>JSON schema + renderer</span></div>
+          </div>
+        </div>
+        <div class="arch-level"><span class="arch-level-tag">Level 1</span> Screenshot (ERI fallback)</div>
+        <div class="arch-level"><span class="arch-level-tag">Level 0</span> Plain text (status quo)</div>
+      </div>
+      <div class="arch-layer arch-sep">
+        <div class="arch-layer-title">Tool Invocation Layer</div>
+        <div class="arch-tools"><span>MCP</span> · <span>Function Calling</span> · <span>REST</span></div>
+      </div>
+    </div>
 
     <hr>
     <p class="footnote">ERI is MIT licensed. <a href="./spec.html">Read the spec</a>, write a Skill, embed a URL.</p>

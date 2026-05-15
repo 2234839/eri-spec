@@ -8,11 +8,11 @@ ERI (Embedded Result Interface) is an **open specification** for a Skill authori
 
 ## Repository Structure
 
-- `SPEC.md` / `SPEC.zh.md` — The normative specification (v1.0), defines the ERI pattern, workflow, security, and progressive levels
-- `README.md` / `README.zh.md` — High-level overview and motivation
-- `BLOG.md` / `BLOG.zh.md` — Blog post explaining the "why" behind ERI
-- `examples/notecalc.en.md` / `notecalc.zh.md` — NoteCalc: the reference ERI implementation demo (calculator with live embed page)
 - `index.html` (root) — Self-contained interactive demo page (static HTML, no build step). Connects to a real LLM API and NoteCalc API to demonstrate ERI in action
+- `docs/spec.html` / `spec.zh.html` — Technical specification (self-contained HTML)
+- `docs/blog.html` / `blog.zh.html` — Blog post explaining the "why" behind ERI
+- `docs/adopt.html` / `adopt.zh.html` — Team adoption guide with checklist and decision matrix
+- `README.md` / `README.zh.md` — High-level overview and motivation (the only .md docs)
 
 ## Key Concepts
 
@@ -21,10 +21,11 @@ ERI (Embedded Result Interface) is an **open specification** for a Skill authori
 - **Progressive levels**: Level 0 (text) → Level 1 (screenshot) → Level 2 (iframe) → Level 3 (postMessage bidirectional)
 - **Agent does not monitor** the embedded UI — each new user turn produces a fresh embed
 - **Third-party apps only need** an HTTPS embed page that reads initial state from URL params
+- **Third-party provider advantage**: ERI works on ALL Agent platforms (ChatGPT, Claude, Gemini) — no per-platform integration needed
 
 ## Language Convention
 
-All documents exist in English (`*.md`) and Chinese (`*.zh.md`) pairs. Both must be kept in sync when making changes.
+All content exists in English and Chinese pairs. HTML pages use `?lang=` or separate files (`*.zh.html`). Both must be kept in sync when making changes.
 
 ## External Services Referenced
 
@@ -35,5 +36,6 @@ All documents exist in English (`*.md`) and Chinese (`*.zh.md`) pairs. Both must
 ## Editing Guidelines
 
 - Documents are GitHub Pages–deployed (`.nojekyll` present) — verify links work in that context
-- The demo (`index.html` at root) is fully static with inline CSS/JS — no framework, no build step
-- When updating spec version or adding capabilities, update both `SPEC.md` and `SPEC.zh.md`, and ensure README/BLOG references stay consistent
+- All doc pages are self-contained HTML with inline CSS/JS — no framework, no build step
+- When updating content, update both EN and ZH versions
+- Use HTML+CSS for diagrams (flow charts, architecture diagrams) — never ASCII art in HTML files

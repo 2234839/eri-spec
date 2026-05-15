@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adopting ERI — Team Guide</title>
+  <meta name="description" content="Evaluate and adopt ERI in your organization. Checklist, decision matrix, internal pitch template, and common objections addressed.">
+  <meta name="keywords" content="ERI, adoption guide, team guide, AI Agent, interactive UI, embed iframe, implementation checklist">
+  <meta property="og:title" content="Adopting ERI — Team Guide">
+  <meta property="og:description" content="Evaluate and adopt ERI in your organization. Checklist, decision matrix, and pitch template.">
+  <meta property="og:url" content="https://2234839.github.io/eri-spec/docs/adopt.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="ERI Spec">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Adopting ERI — Team Guide">
+  <meta name="twitter:description" content="Evaluate and adopt ERI in your organization. Checklist, decision matrix, and pitch template.">
+  <link rel="canonical" href="https://2234839.github.io/eri-spec/docs/adopt.html">
+  <link rel="alternate" hreflang="zh" href="https://2234839.github.io/eri-spec/docs/adopt.zh.html">
+  <link rel="alternate" hreflang="en" href="https://2234839.github.io/eri-spec/docs/adopt.html">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Adopting ERI — Team Guide",
+    "description": "Evaluate and adopt ERI in your organization.",
+    "version": "1.0",
+    "license": "https://opensource.org/licenses/MIT"
+  }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --accent: #6366f1; --accent-hover: #818cf8; }
+    [data-theme="dark"] { --bg: #0f0f0f; --surface: #1a1a1a; --surface-2: #242424; --border: #333; --text: #e4e4e4; --text-dim: #888; --code-bg: #242424; }
+    [data-theme="light"] { --bg: #f5f5f5; --surface: #fff; --surface-2: #f0f0f0; --border: #e0e0e0; --text: #1a1a1a; --text-dim: #666; --code-bg: #f0f0f0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+    .header { padding: 12px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: var(--surface); position: sticky; top: 0; z-index: 10; }
+    .header-left { display: flex; align-items: center; gap: 12px; }
+    .header h1 { font-size: 16px; font-weight: 600; }
+    .header a { color: var(--text-dim); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+    .header a:hover { color: var(--text); }
+    .header a.active { color: var(--accent); }
+    .header button { background: none; border: 1px solid var(--border); color: var(--text-dim); padding: 4px 10px; border-radius: 6px; cursor: pointer; font-size: 13px; }
+    .header button:hover { color: var(--text); }
+    .header-right { display: flex; gap: 8px; align-items: center; }
+    .doc-content { max-width: 800px; margin: 0 auto; padding: 32px 20px 80px; }
+    .doc-content h1 { font-size: 1.8em; margin: 24px 0 8px; }
+    .doc-content h2 { font-size: 1.4em; margin: 32px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+    .doc-content h3 { font-size: 1.15em; margin: 20px 0 8px; }
+    .doc-content p { margin: 8px 0; }
+    .doc-content ul, .doc-content ol { margin: 8px 0 8px 24px; }
+    .doc-content li { margin: 4px 0; }
+    .doc-content a { color: var(--accent); }
+    .doc-content code { background: var(--code-bg); padding: 2px 6px; border-radius: 3px; font-size: 0.9em; font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; }
+    .doc-content pre { background: var(--code-bg); padding: 16px; border-radius: 8px; overflow-x: auto; margin: 12px 0; border: 1px solid var(--border); }
+    .doc-content pre code { background: none; padding: 0; font-size: 0.88em; }
+    .doc-content table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 0.95em; }
+    .doc-content th, .doc-content td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+    .doc-content th { background: var(--surface-2); }
+    .doc-content hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+    .doc-content strong { color: var(--text); }
+    .doc-content blockquote { border-left: 3px solid var(--accent); padding: 12px 16px; margin: 12px 0; background: var(--surface-2); border-radius: 0 8px 8px 0; }
+    .meta { color: var(--text-dim); font-size: 0.9em; margin: 4px 0 16px; }
+    .checklist { list-style: none; margin-left: 0 !important; padding-left: 0; }
+    .checklist li { padding-left: 24px; position: relative; }
+    .checklist li::before { content: '☐'; position: absolute; left: 0; color: var(--text-dim); }
+    @media (max-width: 640px) { .doc-content { padding: 20px 12px 60px; } }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-left"><h1>ERI</h1></div>
+    <div class="header-right">
+      <a href="../">Demo</a>
+      <a href="./spec.html">Spec</a>
+      <a href="./blog.html">Blog</a>
+      <a href="./adopt.html" class="active">Adopt</a>
+      <a href="https://github.com/2234839/eri-spec">GitHub</a>
+      <button onclick="location.href='./adopt.zh.html'">中文</button>
+      <button onclick="toggleTheme()" id="themeBtn">🌙</button>
+    </div>
+  </div>
+  <div class="doc-content">
+    <h1>Adopting ERI — A Guide for Teams</h1>
+    <p class="meta">Evaluate, plan, and ship interactive Agent output in your organization.</p>
+
+    <h2>Is ERI Right for You?</h2>
+    <p><strong>ERI fits</strong> if you:</p>
+    <ul>
+      <li>Have an existing web application and want it embedded in <em>any</em> Agent conversation</li>
+      <li>Are a <strong>third-party service provider</strong> who wants your app to work with ChatGPT, Claude, Gemini — all of them</li>
+      <li>Want to ship <strong>today</strong> without waiting for platform SDKs or approval</li>
+      <li>Prefer controlling your own embed experience rather than relying on platform renderers</li>
+    </ul>
+    <p><strong>ERI does not fit</strong> if:</p>
+    <ul>
+      <li>You're building a platform that renders its own UI components (use A2UI instead)</li>
+      <li>You're investing in the MCP ecosystem exclusively (use MCP Apps instead)</li>
+      <li>You need real-time bidirectional sync (ERI is snapshot-based)</li>
+    </ul>
+
+    <h2>Adoption Checklist</h2>
+
+    <h3>Phase 1: Pilot (1 day)</h3>
+    <ul class="checklist">
+      <li>Pick one existing web app to embed</li>
+      <li>Create a stripped-down <code>/embed</code> route (~40 lines)
+        <ul>
+          <li>Reads initial state from URL hash or query params</li>
+          <li>Self-contained — no dependency on host page</li>
+          <li>Served over HTTPS</li>
+        </ul>
+      </li>
+      <li>Write a <code>skill.md</code> following the <a href="./spec.html">spec</a></li>
+      <li>Test with screenshot mode (Level 1) — works everywhere, no platform support needed</li>
+    </ul>
+
+    <h3>Phase 2: Integration (1 week)</h3>
+    <ul class="checklist">
+      <li>Confirm your Agent platform renders iframes (most do)</li>
+      <li>Add <code>sandbox="allow-scripts allow-same-origin"</code> to iframe rendering</li>
+      <li>Switch from screenshot to iframe mode (Level 2)</li>
+      <li>Test responsive behavior at different embed widths</li>
+      <li>Verify no <code>document.cookie</code>, <code>window.top</code>, or <code>window.opener</code> usage in embed page</li>
+    </ul>
+
+    <h3>Phase 3: Polish (optional)</h3>
+    <ul class="checklist">
+      <li>Add theme adaptation (light/dark) via URL param or <code>prefers-color-scheme</code></li>
+      <li>Implement <code>postMessage</code> for Level 3 bidirectional communication</li>
+      <li>Add error handling for invalid URL params</li>
+      <li>Monitor embed page performance and load time</li>
+    </ul>
+
+    <h2>Decision Matrix</h2>
+    <table>
+      <thead><tr><th>Scenario</th><th>Recommended</th></tr></thead>
+      <tbody>
+        <tr><td>"We have a web app and want it in Agent chat"</td><td><strong>ERI</strong></td></tr>
+        <tr><td>"We're a SaaS provider, want our tool in any Agent"</td><td><strong>ERI</strong> — works on all platforms</td></tr>
+        <tr><td>"We're all-in on MCP"</td><td>MCP Apps</td></tr>
+        <tr><td>"We need native mobile rendering"</td><td>A2UI</td></tr>
+        <tr><td>"We want to prototype this week"</td><td><strong>ERI</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h2>Common Objections</h2>
+
+    <h3>"Isn't iframe outdated?"</h3>
+    <p>No — every major Agent platform (ChatGPT, Claude, Gemini) renders iframes today. iframe is how the web embeds things. It works.</p>
+
+    <h3>"What about security?"</h3>
+    <p>Agent platforms sandbox iframes. Your embed page runs in a restricted context. Follow the <a href="./spec.html">security guidelines</a> and you're fine.</p>
+
+    <h3>"MCP Apps will replace this, right?"</h3>
+    <p>MCP Apps require platform integration — your app only works on MCP-enabled platforms. ERI works on <em>every</em> platform because it's just a URL. As a third-party provider, ERI gives you the broadest reach with the least effort.</p>
+
+    <h3>"Can we start with screenshots only?"</h3>
+    <p>Yes. Level 1 (screenshot) works everywhere today — no iframe support needed. Upgrade when ready.</p>
+
+    <h2>Internal Pitch Template</h2>
+    <p>When presenting ERI to your team or leadership:</p>
+    <blockquote>
+      We can make our existing web apps appear inside AI Agent conversations in less than a day. No new protocols, no SDKs, no platform changes. It's a single markdown file (<code>skill.md</code>) that tells the Agent how to call our API and construct an embed URL.<br><br>
+      As a third-party service, this means our app works with <em>any</em> Agent platform — ChatGPT, Claude, Gemini — without building separate integrations for each. We control the experience. One embed page, one skill file, everywhere.
+    </blockquote>
+
+    <hr>
+    <p class="meta"><a href="./spec.html">Read the spec</a> · <a href="./blog.html">Read the blog</a> · <a href="https://2234839.github.io/eri-spec/">Try the demo</a></p>
+  </div>
+  <script>
+    (function() {
+      const t = localStorage.getItem('eri-theme');
+      if (t) document.documentElement.setAttribute('data-theme', t);
+    })();
+    function toggleTheme() {
+      const cur = document.documentElement.getAttribute('data-theme');
+      const next = cur === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('eri-theme', next);
+      document.getElementById('themeBtn').textContent = next === 'dark' ? '🌙' : '☀️';
+    }
+    document.getElementById('themeBtn').textContent =
+      document.documentElement.getAttribute('data-theme') === 'dark' ? '🌙' : '☀️';
+  </script>
+</body>
+</html>

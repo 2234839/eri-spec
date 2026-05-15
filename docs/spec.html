@@ -58,7 +58,12 @@
     .doc-content th { background: var(--surface-2); }
     .doc-content hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
     .meta { color: var(--text-dim); font-size: 0.9em; margin: 4px 0 16px; }
-    @media (max-width: 640px) { .doc-content { padding: 20px 12px 60px; } }
+    .flow { display: flex; align-items: center; gap: 6px; margin: 16px 0; overflow-x: auto; padding: 4px 0; }
+    .flow-step { background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; min-width: 140px; text-align: center; flex-shrink: 0; }
+    .flow-step strong { display: block; font-size: 0.95em; margin-bottom: 2px; }
+    .flow-step span { font-size: 0.8em; color: var(--text-dim); }
+    .flow-arrow { color: var(--accent); font-size: 1.3em; flex-shrink: 0; }
+    @media (max-width: 640px) { .doc-content { padding: 20px 12px 60px; } .flow-step { min-width: 110px; padding: 10px; } }
   </style>
 </head>
 <body>
@@ -68,6 +73,7 @@
       <a href="../">Demo</a>
       <a href="./spec.html" class="active">Spec</a>
       <a href="./blog.html">Blog</a>
+      <a href="./adopt.html">Adopt</a>
       <a href="https://github.com/2234839/eri-spec">GitHub</a>
       <button onclick="location.href='./spec.zh.html'">中文</button>
       <button onclick="toggleTheme()" id="themeBtn">🌙</button>
@@ -87,10 +93,15 @@
     </ul>
 
     <h2>2. Workflow</h2>
-    <pre><code>┌──────────────┐    ┌──────────────┐    ┌──────────────┐    ┌──────────────┐
-│ 1. Understand │ →  │ 2. Call API  │ →  │ 3. Construct │ →  │ 4. Output UI │
-│    intent     │    │              │    │   embed URL  │    │  iframe/img  │
-└──────────────┘    └──────────────┘    └──────────────┘    └──────────────┘</code></pre>
+    <div class="flow">
+      <div class="flow-step"><strong>1. Understand</strong><span>Extract intent</span></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><strong>2. Call API</strong><span>Get structured data</span></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><strong>3. Construct URL</strong><span>Encode params</span></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><strong>4. Output UI</strong><span>iframe / screenshot</span></div>
+    </div>
 
     <h3>2.1 Understand Intent</h3>
     <p>The Agent extracts structured parameters from user input. For example:</p>

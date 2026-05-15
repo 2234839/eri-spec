@@ -4,7 +4,7 @@
 
 AI Agents return text. ERI lets them return interactive apps — calculators, charts, forms, editors — embedded directly in the conversation. Users can touch, tweak, and explore results without another round trip to the Agent.
 
-**[中文文档](./README.zh.md)** | [Specification](./SPEC.md) | [Live Demo](https://2234839.github.io/eri-spec/) | [Blog](./BLOG.md)
+**[中文文档](./README.zh.md)** | [Live Demo](https://2234839.github.io/eri-spec/) | [Spec](https://2234839.github.io/eri-spec/docs/spec.html) | [Blog](https://2234839.github.io/eri-spec/docs/blog.html) | [Adopt](https://2234839.github.io/eri-spec/docs/adopt.html)
 
 ---
 
@@ -38,8 +38,8 @@ description: Math calculator with variables and unit conversion.
 
 **You have a web app. You want it in Agent conversations. Here's how:**
 
-1. **Add an embed page** — Create a stripped-down version of your app that reads initial state from URL params. ~40 lines of code. [See how NoteCalc does it →](./examples/notecalc.en.md)
-2. **Write a skill.md** — Tell the Agent how to call your API and construct the embed URL. 10 minutes. [See templates →](./examples/skill-templates.en.md)
+1. **Add an embed page** — Create a stripped-down version of your app that reads initial state from URL params. ~40 lines of code.
+2. **Write a skill.md** — Tell the Agent how to call your API and construct the embed URL. 10 minutes.
 3. **Ship it** — Level 1 (screenshot) works everywhere today, no platform support needed. Upgrade to Level 2 (iframe) when ready.
 
 ## How It's Different
@@ -53,16 +53,15 @@ description: Math calculator with variables and unit conversion.
 | **Works today?** | Yes — zero integration | Requires MCP adoption | Requires renderer |
 | **Effort** | 10 min | Days | Days |
 
-Same destination — interactive Agent output. Three paths. ERI works today. [Read the blog →](./BLOG.md)
+**Key advantage for third-party providers**: ERI works on ALL Agent platforms (ChatGPT, Claude, Gemini) — no per-platform integration. One embed page, one skill file, everywhere.
 
 ## Documentation
 
-| Document | What it's for |
-|----------|---------------|
-| [SPEC.md](./SPEC.md) | Technical specification — workflow, security, levels, postMessage protocol |
-| [BLOG.md](./BLOG.md) | Why ERI exists — the three-way landscape (ERI / MCP Apps / A2UI) |
-| [examples/notecalc.en.md](./examples/notecalc.en.md) | NoteCalc reference implementation walkthrough |
-| [examples/skill-templates.en.md](./examples/skill-templates.en.md) | Ready-to-adapt Skill templates for charts, forms, maps, etc. |
+| Page | What it's for |
+|------|---------------|
+| [Spec](https://2234839.github.io/eri-spec/docs/spec.html) | Technical specification — workflow, security, levels, postMessage protocol |
+| [Blog](https://2234839.github.io/eri-spec/docs/blog.html) | Why ERI exists — the three-way landscape (ERI / MCP Apps / A2UI) |
+| [Adopt](https://2234839.github.io/eri-spec/docs/adopt.html) | Team adoption guide — checklist, decision matrix, pitch template |
 
 ## License
 

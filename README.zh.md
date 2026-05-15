@@ -4,7 +4,7 @@
 
 AI Agent 只能返回文字。ERI 让它们返回交互式应用——计算器、图表、表单、编辑器——直接嵌入对话中。用户可以触摸、调整、探索结果，不需要再来回对话。
 
-**[English](./README.md)** | [规范](./SPEC.zh.md) | [在线演示](https://2234839.github.io/eri-spec/) | [博客](./BLOG.zh.md)
+**[English](./README.md)** | [在线演示](https://2234839.github.io/eri-spec/) | [规范](https://2234839.github.io/eri-spec/docs/spec.zh.html) | [博客](https://2234839.github.io/eri-spec/docs/blog.zh.html) | [采用](https://2234839.github.io/eri-spec/docs/adopt.zh.html)
 
 ---
 
@@ -38,8 +38,8 @@ description: 数学计算器，支持变量和单位转换。
 
 **你有一个 Web 应用，想让它出现在 Agent 对话中。这样做：**
 
-1. **添加嵌入页面** — 创建一个精简版应用，从 URL 参数读取初始状态。约 40 行代码。[看 NoteCalc 怎么做的 →](./examples/notecalc.zh.md)
-2. **写一个 skill.md** — 告诉 Agent 如何调用你的 API 和构造嵌入 URL。10 分钟。[看模板 →](./examples/skill-templates.zh.md)
+1. **添加嵌入页面** — 创建一个精简版应用，从 URL 参数读取初始状态。约 40 行代码。
+2. **写一个 skill.md** — 告诉 Agent 如何调用你的 API 和构造嵌入 URL。10 分钟。
 3. **上线** — Level 1（截图）现在就能用，不需要平台支持。准备好时升级到 Level 2（iframe）。
 
 ## 有什么不同
@@ -53,16 +53,15 @@ description: 数学计算器，支持变量和单位转换。
 | **今天能用？** | 是——零集成 | 需要 MCP 采用 | 需要渲染器 |
 | **成本** | 10 分钟 | 数天 | 数天 |
 
-同一个终点——交互式 Agent 输出。三条路径。ERI 今天就能用。[读博客 →](./BLOG.zh.md)
+**第三方提供者的关键优势**：ERI 在所有 Agent 平台（ChatGPT、Claude、Gemini）上都能用——不需要为每个平台单独集成。一个嵌入页面，一个 skill 文件，到处运行。
 
 ## 文档
 
-| 文档 | 用途 |
+| 页面 | 用途 |
 |------|------|
-| [SPEC.zh.md](./SPEC.zh.md) | 技术规范——工作流、安全、等级、postMessage 协议 |
-| [BLOG.zh.md](./BLOG.zh.md) | 为什么需要 ERI — 三方格局（ERI / MCP Apps / A2UI） |
-| [examples/notecalc.zh.md](./examples/notecalc.zh.md) | NoteCalc 参考实现详解 |
-| [examples/skill-templates.zh.md](./examples/skill-templates.zh.md) | 即用型 Skill 模板（图表、表单、地图等） |
+| [规范](https://2234839.github.io/eri-spec/docs/spec.zh.html) | 技术规范——工作流、安全、等级、postMessage 协议 |
+| [博客](https://2234839.github.io/eri-spec/docs/blog.zh.html) | 为什么需要 ERI — 三方格局（ERI / MCP Apps / A2UI） |
+| [采用](https://2234839.github.io/eri-spec/docs/adopt.zh.html) | 团队采用指南——清单、决策矩阵、推介模板 |
 
 ## 许可
 
