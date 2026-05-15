@@ -93,7 +93,7 @@
   <main class="doc-content">
     <h1>ERI Specification — Embedded Result Interface</h1>
     <p class="meta"><strong>Version</strong>: 1.0 &nbsp;|&nbsp; <strong>Status</strong>: Stable &nbsp;|&nbsp; <strong>License</strong>: MIT</p>
-    <p class="toc"><a href="#definition">1. Definition</a> · <a href="#workflow">2. Workflow</a> · <a href="#conversation-flow">3. Conversation Flow</a> · <a href="#skill-authoring">4. Skill Authoring</a> · <a href="#embed-page">5. Embed Page</a> · <a href="#security">6. Security</a> · <a href="#progressive-levels">7. Levels</a> · <a href="#use-cases">8. Use Cases</a> · <a href="#limitations">9. Limitations</a> · <a href="#error-handing">10. Error Handling</a> · <a href="#industry-landscape">11. Landscape</a></p>
+    <p class="toc"><a href="#definition">1. Definition</a> · <a href="#workflow">2. Workflow</a> · <a href="#conversation-flow">3. Conversation Flow</a> · <a href="#skill-authoring">4. Skill Authoring</a> · <a href="#embed-page">5. Embed Page</a> · <a href="#security">6. Security</a> · <a href="#progressive-levels">7. Levels</a> · <a href="#use-cases">8. Use Cases</a> · <a href="#limitations">9. Limitations</a> · <a href="#error-handling">10. Error Handling</a> · <a href="#industry-landscape">11. Landscape</a></p>
 
     <h2 id="definition">1. Definition</h2>
     <p>ERI (Embedded Result Interface) is a specification for interactive Agent output. After processing a user request, the Agent outputs an embedded UI (iframe) instead of plain text — using only a <code>skill.md</code> and a URL.</p>
@@ -250,7 +250,7 @@ iframe.contentWindow.postMessage({
       <li><strong>URL size limits</strong> — state encoded in the URL hash is subject to browser URL length limits (~2KB safe, ~8KB max). For larger datasets, use an API call to fetch data inside the embed page.</li>
     </ul>
 
-    <h2 id="error-handing">10. Error Handling</h2>
+    <h2 id="error-handling">10. Error Handling</h2>
     <table>
       <thead><tr><th>Failure</th><th>Agent behavior</th></tr></thead>
       <tbody>

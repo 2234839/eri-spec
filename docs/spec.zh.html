@@ -93,7 +93,7 @@
   <main class="doc-content">
     <h1>ERI 规范 — Embedded Result Interface</h1>
     <p class="meta"><strong>版本</strong>：1.0 &nbsp;|&nbsp; <strong>状态</strong>：Stable &nbsp;|&nbsp; <strong>许可</strong>：MIT</p>
-    <p class="toc"><a href="#definition">1. 定义</a> · <a href="#workflow">2. 工作流</a> · <a href="#conversation-flow">3. 对话流程</a> · <a href="#skill-authoring">4. Skill 编写</a> · <a href="#embed-page">5. 嵌入页面</a> · <a href="#security">6. 安全</a> · <a href="#progressive-levels">7. 等级</a> · <a href="#use-cases">8. 场景</a> · <a href="#limitations">9. 局限性</a> · <a href="#error-handing">10. 错误处理</a> · <a href="#industry-landscape">11. 格局</a></p>
+    <p class="toc"><a href="#definition">1. 定义</a> · <a href="#workflow">2. 工作流</a> · <a href="#conversation-flow">3. 对话流程</a> · <a href="#skill-authoring">4. Skill 编写</a> · <a href="#embed-page">5. 嵌入页面</a> · <a href="#security">6. 安全</a> · <a href="#progressive-levels">7. 等级</a> · <a href="#use-cases">8. 场景</a> · <a href="#limitations">9. 局限性</a> · <a href="#error-handling">10. 错误处理</a> · <a href="#industry-landscape">11. 格局</a></p>
 
     <h2 id="definition">1. 定义</h2>
     <p>ERI（Embedded Result Interface，嵌入式结果界面）是一种让 Agent 输出变为可交互的规范。Agent 处理用户请求后，输出嵌入式 UI（iframe）而非纯文本——只需一个 <code>skill.md</code> 和一个 URL。</p>
@@ -250,7 +250,7 @@ iframe.contentWindow.postMessage({
       <li><strong>URL 大小限制</strong>——编码到 URL hash 中的状态受浏览器 URL 长度限制（安全范围约 2KB，上限约 8KB）。数据量较大时，应在嵌入页面内通过 API 调用获取数据。</li>
     </ul>
 
-    <h2 id="error-handing">10. 错误处理</h2>
+    <h2 id="error-handling">10. 错误处理</h2>
     <table>
       <thead><tr><th>故障</th><th>Agent 行为</th></tr></thead>
       <tbody>
