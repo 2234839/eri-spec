@@ -192,17 +192,13 @@ description: What this Skill does
     <p>10 lines. Deploy to any HTTPS host.</p>
 
     <h2 id="security">6. Security</h2>
-    <h3 id="platform-security">Agent platform side <span class="tag tag-platform">Platform</span></h3>
-    <ul>
-      <li>Add <code>sandbox="allow-scripts allow-same-origin"</code> to iframes</li>
-      <li>Never pass user credentials to third-party iframes</li>
-    </ul>
-    <h3 id="provider-security">Third-party app side <span class="tag tag-provider">Provider</span></h3>
-    <ul>
-      <li>Don't rely on <code>document.cookie</code> (may be unavailable in sandbox)</li>
-      <li>Don't use <code>window.opener</code> or <code>window.top</code></li>
-      <li>Sanitize all inputs against XSS</li>
-    </ul>
+    <table>
+      <thead><tr><th>Role</th><th>Rules</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag tag-platform">Platform</span></td><td>Add <code>sandbox="allow-scripts allow-same-origin"</code> to iframes. Never pass user credentials to third-party iframes.</td></tr>
+        <tr><td><span class="tag tag-provider">Provider</span></td><td>Don't rely on <code>document.cookie</code> (may be unavailable in sandbox). Don't use <code>window.opener</code> or <code>window.top</code>. Sanitize all inputs against XSS.</td></tr>
+      </tbody>
+    </table>
 
     <h2 id="progressive-levels">7. Progressive Levels</h2>
     <table>

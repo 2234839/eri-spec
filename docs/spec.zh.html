@@ -192,17 +192,13 @@ description: 工具描述
     <p>10 行代码。部署到任意 HTTPS 主机即可。</p>
 
     <h2 id="security">6. 安全</h2>
-    <h3 id="platform-security">Agent 平台侧 <span class="tag tag-platform">平台</span></h3>
-    <ul>
-      <li>为 iframe 添加 <code>sandbox="allow-scripts allow-same-origin"</code></li>
-      <li>不得将用户凭证传递给第三方 iframe</li>
-    </ul>
-    <h3 id="provider-security">第三方应用侧 <span class="tag tag-provider">提供者</span></h3>
-    <ul>
-      <li>不依赖 <code>document.cookie</code>（沙箱环境可能不可用）</li>
-      <li>不使用 <code>window.opener</code> 或 <code>window.top</code></li>
-      <li>所有输入做 XSS 防护</li>
-    </ul>
+    <table>
+      <thead><tr><th>角色</th><th>规则</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag tag-platform">平台</span></td><td>为 iframe 添加 <code>sandbox="allow-scripts allow-same-origin"</code>。不得将用户凭证传递给第三方 iframe。</td></tr>
+        <tr><td><span class="tag tag-provider">提供者</span></td><td>不依赖 <code>document.cookie</code>（沙箱环境可能不可用）。不使用 <code>window.opener</code> 或 <code>window.top</code>。所有输入做 XSS 防护。</td></tr>
+      </tbody>
+    </table>
 
     <h2 id="progressive-levels">7. 渐进等级</h2>
     <table>
