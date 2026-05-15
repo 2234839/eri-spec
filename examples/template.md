@@ -15,6 +15,19 @@ description: One-line description of what your tool does for the user.
    Where `ENCODED_DATA` is `encodeURIComponent(JSON.stringify(apiResponse))` (recommended; any format your embed page understands is valid)
 5. If the platform cannot render iframes, the plain text result from step 3 is the fallback
 
+## Deployment
+
+Place this file where your Agent platform reads behavior instructions:
+
+| Platform | Where to put skill.md |
+|----------|----------------------|
+| ChatGPT | Paste into Custom Instructions (Settings → Personalization) |
+| Claude | Add to `CLAUDE.md` or a project skill file |
+| Gemini | Paste into System Instructions |
+| Any Agent | Include in the Agent's prompt / system message / behavior config |
+
+The skill.md format is plain Markdown — no installation, no build step, no platform SDK.
+
 ## Embed Page
 
 Your embed page reads initial state from the URL hash:

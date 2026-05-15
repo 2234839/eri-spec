@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ### Added
 - Demo page (index.html): footer with links to Spec, Blog, Adopt, GitHub.
+- Template: "Deployment" section explaining where to place skill.md on each platform (ChatGPT / Claude / Gemini / any Agent).
 
 [1.0.7]: https://github.com/2234839/eri-spec/compare/v1.0.6...v1.0.7
 
