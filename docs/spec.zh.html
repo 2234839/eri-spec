@@ -155,7 +155,7 @@ description: 工具描述
 4. 输出为 iframe：https://app.example.com/embed#&lt;编码后的响应&gt;
    （平台无法渲染时降级为纯文本）</code></pre>
     <p>Agent 读取这个工作流，执行每一步，输出 iframe。</p>
-    <p>Frontmatter（<code>name</code>、<code>description</code>）遵循标准 YAML 约定。<code>## 工作流</code> 部分是自由格式——用 Agent 能理解的自然语言编写即可。无需特殊语法。</p>
+    <p>Frontmatter（<code>name</code>、<code>description</code>）遵循标准 YAML 约定。正文标题（<code>## Workflow</code>、<code>## 工作流</code> 或任意标题）及其内容都是自由格式——用 Agent 能理解的自然语言编写即可。无需特殊语法。</p>
 
     <h2 id="embed-page">5. 嵌入式页面要求 <span class="tag tag-provider">提供者</span></h2>
     <table>
@@ -191,8 +191,8 @@ description: 工具描述
     <table>
       <thead><tr><th>角色</th><th>规则</th></tr></thead>
       <tbody>
-        <tr><td><span class="tag tag-platform">平台</span></td><td>为 iframe 添加 <code>sandbox="allow-scripts allow-same-origin"</code>。不得将用户凭证传递给第三方 iframe。</td></tr>
-        <tr><td><span class="tag tag-provider">提供者</span></td><td>不依赖 <code>document.cookie</code>（沙箱环境可能不可用）。不使用 <code>window.opener</code> 或 <code>window.top</code>。所有输入做 XSS 防护。</td></tr>
+        <tr><td><span class="tag tag-platform">平台</span></td><td>为 iframe 添加 <code>sandbox="allow-scripts"</code>。仅在嵌入页面需要自身 cookie/storage 时才添加 <code>allow-same-origin</code>（注意：此组合允许 iframe 移除自身的沙箱）。不得将用户凭证传递给第三方 iframe。</td></tr>
+        <tr><td><span class="tag tag-provider">提供者</span></td><td>不依赖 <code>document.cookie</code>（沙箱环境可能不可用）。不使用 <code>window.opener</code> 或 <code>window.top</code> 做导航/DOM 访问（Level 2 的 <code>window.parent.postMessage</code> 是安全的）。所有输入做 XSS 防护。</td></tr>
       </tbody>
     </table>
 
@@ -225,7 +225,7 @@ iframe.contentWindow.postMessage({
 
     <h2 id="limitations">9. 局限性</h2>
     <ul>
-      <li><strong>快照式输出</strong>——Agent 无法实时看到 iframe 内的编辑。使用 Level 2 postMessage 可实现双向同步。</li>
+      <li><strong>快照式输出</strong>——每轮对话产生全新的嵌入，Agent 无法观察 iframe 内的编辑。完整流程见<a href="#conversation-flow">第 3 节</a>，Level 2 postMessage 双向同步见<a href="#progressive-levels">第 7 节</a>。</li>
       <li><strong>设备能力受限</strong>——沙箱 iframe 对设备 API（GPS、摄像头等）的访问受限。仅支持标准 Web 能力。</li>
       <li><strong>URL 大小限制</strong>——编码到 URL hash 中的状态受浏览器 URL 长度限制（安全范围约 2KB，上限约 8KB）。数据量较大时，应在嵌入页面内通过 API 调用获取数据。</li>
     </ul>

@@ -155,7 +155,7 @@ description: What this Skill does
 4. Output as iframe: https://app.example.com/embed#&lt;encoded_response&gt;
    (fallback to plain text if platform cannot render)</code></pre>
     <p>The Agent reads this workflow, executes each step, and outputs an iframe.</p>
-    <p>The frontmatter (<code>name</code>, <code>description</code>) follows standard YAML convention. The <code>## Workflow</code> section is freeform — write it in whatever natural language the Agent understands. No special syntax needed.</p>
+    <p>The frontmatter (<code>name</code>, <code>description</code>) follows standard YAML convention. The body section heading (<code>## Workflow</code>, <code>## 工作流</code>, or any heading you choose) and its content are freeform — write in whatever natural language the Agent understands. No special syntax needed.</p>
 
     <h2 id="embed-page">5. Embed Page Requirements <span class="tag tag-provider">Provider</span></h2>
     <table>
@@ -191,8 +191,8 @@ description: What this Skill does
     <table>
       <thead><tr><th>Role</th><th>Rules</th></tr></thead>
       <tbody>
-        <tr><td><span class="tag tag-platform">Platform</span></td><td>Add <code>sandbox="allow-scripts allow-same-origin"</code> to iframes. Never pass user credentials to third-party iframes.</td></tr>
-        <tr><td><span class="tag tag-provider">Provider</span></td><td>Don't rely on <code>document.cookie</code> (may be unavailable in sandbox). Don't use <code>window.opener</code> or <code>window.top</code>. Sanitize all inputs against XSS.</td></tr>
+        <tr><td><span class="tag tag-platform">Platform</span></td><td>Add <code>sandbox="allow-scripts"</code> to iframes. Use <code>allow-same-origin</code> only if the embed page needs its own cookies/storage (note: this combo lets the iframe remove its own sandbox). Never pass user credentials to third-party iframes.</td></tr>
+        <tr><td><span class="tag tag-provider">Provider</span></td><td>Don't rely on <code>document.cookie</code> (may be unavailable in sandbox). Don't use <code>window.opener</code> or <code>window.top</code> for navigation/DOM access (<code>window.parent.postMessage</code> for Level 2 is safe). Sanitize all inputs against XSS.</td></tr>
       </tbody>
     </table>
 
@@ -225,7 +225,7 @@ iframe.contentWindow.postMessage({
 
     <h2 id="limitations">9. Limitations</h2>
     <ul>
-      <li><strong>Snapshot-based</strong> — Agent cannot see iframe edits in real time. Use Level 2 postMessage for bidirectional sync.</li>
+      <li><strong>Snapshot-based</strong> — each turn produces a fresh embed; Agent cannot observe in-iframe edits. See <a href="#conversation-flow">Section 3</a> for the full flow, <a href="#progressive-levels">Section 7</a> for Level 2 postMessage bidirectional sync.</li>
       <li><strong>Limited device access</strong> — sandboxed iframes have restricted access to device APIs (GPS, camera, etc.). Expect standard web capabilities only.</li>
       <li><strong>URL size limits</strong> — state encoded in the URL hash is subject to browser URL length limits (~2KB safe, ~8KB max). For larger datasets, use an API call to fetch data inside the embed page.</li>
     </ul>
