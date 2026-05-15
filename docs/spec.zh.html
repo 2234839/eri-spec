@@ -236,6 +236,18 @@ iframe.contentWindow.postMessage({
       <li>长文本生成——嵌入式编辑器不适合</li>
       <li>需要实时同步的场景——ERI 是"快照式"输出，不是实时同步</li>
     </ul>
+
+    <h2>10. 行业格局</h2>
+    <p>交互式 Agent 输出存在三种方案：</p>
+    <table>
+      <thead><tr><th></th><th>ERI</th><th>MCP Apps</th><th>A2UI (Google)</th></tr></thead>
+      <tbody>
+        <tr><td><strong>机制</strong></td><td>URL → iframe</td><td>MCP 中的沙箱小应用</td><td>JSON 组件 → 原生渲染</td></tr>
+        <tr><td><strong>集成</strong></td><td>无</td><td>MCP 服务器 + 沙箱</td><td>渲染器 + 组件目录</td></tr>
+        <tr><td><strong>适用场景</strong></td><td>已有 Web 应用</td><td>构建 MCP 生态</td><td>自有平台</td></tr>
+      </tbody>
+    </table>
+    <p>ERI 不与 MCP Apps 或 A2UI 对立——它是入口。今天嵌入，等平台支持更丰富的协议时再升级。</p>
   </div>
   <script>
     (function() {

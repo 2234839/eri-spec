@@ -236,6 +236,18 @@ iframe.contentWindow.postMessage({
       <li>Long-form text generation — embed editors aren't suitable</li>
       <li>Real-time sync scenarios — ERI is snapshot-based, not real-time</li>
     </ul>
+
+    <h2>10. Industry Landscape</h2>
+    <p>Three approaches exist for interactive Agent output:</p>
+    <table>
+      <thead><tr><th></th><th>ERI</th><th>MCP Apps</th><th>A2UI (Google)</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Mechanism</strong></td><td>URL → iframe</td><td>Sandboxed mini-apps in MCP</td><td>JSON components → native render</td></tr>
+        <tr><td><strong>Integration</strong></td><td>None</td><td>MCP server + sandbox</td><td>Renderer + widget catalog</td></tr>
+        <tr><td><strong>When to use</strong></td><td>You have a web app today</td><td>You're building for MCP</td><td>You control the platform</td></tr>
+      </tbody>
+    </table>
+    <p>ERI is not opposed to MCP Apps or A2UI — it's the on-ramp. Embed today, adopt richer protocols when your platform supports them.</p>
   </div>
   <script>
     (function() {
