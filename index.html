@@ -444,9 +444,9 @@
       <span class="badge">Demo</span>
     </div>
     <div class="header-right">
-      <a href="./docs/spec.html" data-i18n="nav.spec">Spec</a>
-      <a href="./docs/blog.html" data-i18n="nav.blog">Blog</a>
-      <a href="./docs/adopt.html" data-i18n="nav.adopt">Adopt</a>
+      <a href="./docs/spec.html" data-i18n="nav.spec" data-href-en="./docs/spec.html" data-href-zh="./docs/spec.zh.html">Spec</a>
+      <a href="./docs/blog.html" data-i18n="nav.blog" data-href-en="./docs/blog.html" data-href-zh="./docs/blog.zh.html">Blog</a>
+      <a href="./docs/adopt.html" data-i18n="nav.adopt" data-href-en="./docs/adopt.html" data-href-zh="./docs/adopt.zh.html">Adopt</a>
       <a href="https://github.com/2234839/eri-spec">GitHub</a>
       <button class="lang-switch" onclick="toggleLang()" id="langBtn">中文</button>
       <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn" title="Toggle theme">🌙</button>
@@ -630,6 +630,11 @@ Always show the iframe embed after your text explanation so the user can interac
 
       // Lang button text
       document.getElementById('langBtn').textContent = currentLang === 'en' ? '中文' : 'EN';
+
+      // Nav link hrefs
+      document.querySelectorAll('[data-href-en]').forEach(el => {
+        el.href = el.getAttribute('data-href-' + currentLang) || el.getAttribute('data-href-en');
+      });
 
       // Title
       document.title = currentLang === 'en'

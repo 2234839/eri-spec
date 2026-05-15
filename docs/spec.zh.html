@@ -232,12 +232,15 @@ iframe.contentWindow.postMessage({
 
     <h2 id="industry-landscape">10. 行业格局</h2>
     <p>交互式 Agent 输出存在三种方案：</p>
-    <ul>
-      <li><strong>ERI</strong> — 通过 URL 嵌入任何 Web 应用。所有平台通用。</li>
-      <li><strong>MCP Apps</strong>（Anthropic &amp; OpenAI）— MCP 生态中的沙箱小应用。仅限 MCP 平台。</li>
-      <li><strong>A2UI</strong>（Google）— Agent 以 JSON 声明 UI，客户端原生渲染。仅限 A2UI 平台。</li>
-    </ul>
-    <p>ERI 是入口：最广覆盖、最小代价。你为 ERI 构建的嵌入页面，就是日后打包给 MCP Apps 的同一个页面。今天嵌入，等平台支持更丰富的协议时再升级。详细对比见<a href="./blog.zh.html">博客文章</a>。</p>
+    <table>
+      <thead><tr><th></th><th>ERI</th><th>MCP Apps</th><th>A2UI (Google)</th></tr></thead>
+      <tbody>
+        <tr><td><strong>方式</strong></td><td>通过 URL 嵌入</td><td>沙箱小应用</td><td>Agent 以 JSON 声明 UI</td></tr>
+        <tr><td><strong>平台要求</strong></td><td>渲染 iframe（已有）</td><td>MCP 运行时</td><td>A2UI 渲染器</td></tr>
+        <tr><td><strong>今天可用</strong></td><td>所有平台</td><td>仅 MCP 平台</td><td>仅 A2UI 平台</td></tr>
+      </tbody>
+    </table>
+    <p>ERI 是入口：最广覆盖、最小代价。你为 ERI 构建的嵌入页面，就是日后打包给 MCP Apps 的同一个页面。今天嵌入，等平台支持更丰富的协议时再升级。</p>
 
     <hr>
     <p class="meta"><a href="./adopt.zh.html">团队采用</a> · <a href="./blog.zh.html">阅读博客</a> · <a href="https://2234839.github.io/eri-spec/">在线演示</a></p>

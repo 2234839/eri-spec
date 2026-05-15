@@ -232,12 +232,15 @@ iframe.contentWindow.postMessage({
 
     <h2 id="industry-landscape">10. Industry Landscape</h2>
     <p>Three approaches exist for interactive Agent output:</p>
-    <ul>
-      <li><strong>ERI</strong> — embed any web app via URL. Works on <em>all</em> platforms.</li>
-      <li><strong>MCP Apps</strong> (Anthropic &amp; OpenAI) — sandboxed mini-apps in the MCP ecosystem. MCP-enabled platforms only.</li>
-      <li><strong>A2UI</strong> (Google) — Agent declares UI as JSON, client renders natively. A2UI-enabled platforms only.</li>
-    </ul>
-    <p>ERI is the on-ramp: broadest reach, least effort. The embed page you build for ERI is the same page you'd package for MCP Apps later. Embed today, adopt richer protocols when your platforms support them. See <a href="./blog.html">blog post</a> for detailed comparison.</p>
+    <table>
+      <thead><tr><th></th><th>ERI</th><th>MCP Apps</th><th>A2UI (Google)</th></tr></thead>
+      <tbody>
+        <tr><td><strong>How</strong></td><td>Embed via URL</td><td>Sandboxed mini-apps</td><td>Agent declares UI as JSON</td></tr>
+        <tr><td><strong>Platform needs</strong></td><td>Render iframes (already done)</td><td>MCP runtime</td><td>A2UI renderer</td></tr>
+        <tr><td><strong>Works today</strong></td><td>All platforms</td><td>MCP-enabled only</td><td>A2UI-enabled only</td></tr>
+      </tbody>
+    </table>
+    <p>ERI is the on-ramp: broadest reach, least effort. The embed page you build for ERI is the same page you'd package for MCP Apps later. Embed today, adopt richer protocols when your platforms support them.</p>
 
     <hr>
     <p class="meta"><a href="./adopt.html">Adopt in your team</a> · <a href="./blog.html">Read the blog</a> · <a href="https://2234839.github.io/eri-spec/">Try the demo</a></p>
