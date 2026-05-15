@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ERI Blog — Beyond Text</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --accent: #6366f1; --accent-hover: #818cf8; }
+    [data-theme="dark"] { --bg: #0f0f0f; --surface: #1a1a1a; --surface-2: #242424; --border: #333; --text: #e4e4e4; --text-dim: #888; --code-bg: #242424; }
+    [data-theme="light"] { --bg: #f5f5f5; --surface: #fff; --surface-2: #f0f0f0; --border: #e0e0e0; --text: #1a1a1a; --text-dim: #666; --code-bg: #f0f0f0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+    .header { padding: 12px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: var(--surface); position: sticky; top: 0; z-index: 10; }
+    .header-left { display: flex; align-items: center; gap: 12px; }
+    .header h1 { font-size: 16px; font-weight: 600; }
+    .header a { color: var(--text-dim); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+    .header a:hover { color: var(--text); }
+    .header a.active { color: var(--accent); }
+    .header button { background: none; border: 1px solid var(--border); color: var(--text-dim); padding: 4px 10px; border-radius: 6px; cursor: pointer; font-size: 13px; }
+    .header button:hover { color: var(--text); }
+    .header-right { display: flex; gap: 8px; align-items: center; }
+    .doc-content { max-width: 800px; margin: 0 auto; padding: 32px 20px 80px; }
+    .loading { text-align: center; padding: 80px 0; color: var(--text-dim); }
+    .doc-content h1 { font-size: 1.8em; margin: 24px 0 8px; }
+    .doc-content h2 { font-size: 1.4em; margin: 32px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+    .doc-content h3 { font-size: 1.15em; margin: 20px 0 8px; }
+    .doc-content h4 { font-size: 1em; margin: 16px 0 6px; }
+    .doc-content p { margin: 8px 0; }
+    .doc-content ul, .doc-content ol { margin: 8px 0 8px 24px; }
+    .doc-content li { margin: 4px 0; }
+    .doc-content a { color: var(--accent); }
+    .doc-content code { background: var(--code-bg); padding: 2px 6px; border-radius: 3px; font-size: 0.9em; font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; }
+    .doc-content pre { background: var(--code-bg); padding: 16px; border-radius: 8px; overflow-x: auto; margin: 12px 0; border: 1px solid var(--border); }
+    .doc-content pre code { background: none; padding: 0; font-size: 0.88em; }
+    .doc-content blockquote { border-left: 3px solid var(--accent); padding: 4px 16px; margin: 12px 0; color: var(--text-dim); }
+    .doc-content table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 0.95em; }
+    .doc-content th, .doc-content td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+    .doc-content th { background: var(--surface-2); }
+    .doc-content hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+    .doc-content img { max-width: 100%; border-radius: 8px; }
+    @media (max-width: 640px) { .doc-content { padding: 20px 12px 60px; } }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-left">
+      <h1>ERI</h1>
+    </div>
+    <div class="header-right">
+      <a href="./">Demo</a>
+      <a href="./spec.html">Spec</a>
+      <a href="./blog.html" class="active">Blog</a>
+      <a href="https://github.com/2234839/eri-spec">GitHub</a>
+      <button onclick="location.href='./blog.zh.html'">中文</button>
+      <button onclick="toggleTheme()" id="themeBtn">🌙</button>
+    </div>
+  </div>
+  <div class="doc-content" id="content"><div class="loading">Loading...</div></div>
+  <script src="./md.js"></script>
+  <script>
+    (function() {
+      const t = localStorage.getItem('eri-theme');
+      if (t) document.documentElement.setAttribute('data-theme', t);
+    })();
+    function toggleTheme() {
+      const cur = document.documentElement.getAttribute('data-theme');
+      const next = cur === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('eri-theme', next);
+      document.getElementById('themeBtn').textContent = next === 'dark' ? '🌙' : '☀️';
+    }
+    document.getElementById('themeBtn').textContent =
+      document.documentElement.getAttribute('data-theme') === 'dark' ? '🌙' : '☀️';
+
+    fetch('../BLOG.md')
+      .then(r => { if (!r.ok) throw new Error(); return r.text(); })
+      .then(src => { document.getElementById('content').innerHTML = md.parse(src); })
+      .catch(() => { document.getElementById('content').innerHTML = '<p>Failed to load blog post.</p>'; });
+  </script>
+</body>
+</html>

@@ -1,8 +1,10 @@
 # ERI Specification — Embedded Result Interface
 
 **Version**: 1.0
+**Status**: Stable
 **Type**: Skill authoring pattern (convention, not protocol)
 **Dependencies**: None (works with existing Skill mechanisms)
+**License**: MIT — free to implement, no attribution required
 
 **[中文规范](./SPEC.zh.md)**
 
@@ -10,7 +12,7 @@
 
 ## 1. Definition
 
-ERI (Embedded Result Interface) is a Skill authoring pattern. After an Agent processes a user request, it outputs an **interactive embedded UI** (iframe or screenshot) instead of (or in addition to) plain text. The user can directly interact with this UI.
+ERI (Embedded Result Interface) is a Skill authoring pattern. After an Agent processes a user request, it outputs an interactive embedded UI (iframe or screenshot) instead of (or in addition to) plain text. The user can directly interact with this UI.
 
 Core constraints:
 
@@ -78,11 +80,11 @@ Output text results directly (fallback, degrades to traditional mode).
 
 ## 3. Conversation Flow
 
-User modifications in the embedded UI **do not automatically notify the Agent**. When the user starts a new turn:
+User modifications in the embedded UI do not automatically notify the Agent. When the user starts a new turn:
 
 1. The Agent reads previous results from conversation context
 2. Combines the new input with previous context, calls the API again
-3. Outputs a **brand new embedded UI** (does not update the old one)
+3. Outputs a brand new embedded UI (does not update the old one)
 
 ```
 User: "Calculate 3 items at $99.5 each"
@@ -95,48 +97,48 @@ Agent: Reads context last_result=298.5, computes 298.5 * 1.08
        [outputs new iframe: 298.5 * 1.08 = 322.38]
 ```
 
-## 4. Skill Authoring Specification
+## 4. Skill Authoring
 
-Skill authors describe the workflow in `skill.md` using this structure:
+A minimal ERI Skill in `skill.md`:
 
 ```markdown
 ---
 name: tool-name
-description: Tool description
+description: What this Skill does
 ---
-
-# Workflow
-
+## Workflow
 1. Extract parameters from user input
-2. Call API: `METHOD URL`, parameter format
-3. Construct embed URL: `URL_TEMPLATE`
+2. Call API: POST https://api.example.com/calculate
+   Body: {"expr": "expression"}
+3. Construct embed URL: https://app.example.com/embed#URLEncoded(expr)
 4. Output UI (priority: iframe > screenshot > plain text)
+```
 
-## API
+The Agent reads this workflow, executes each step, and outputs an iframe or screenshot.
 
-### Request
-\```
+### API Contract
+
+The Agent calls the third-party API exactly as any HTTP client would:
+
+```
 POST https://api.example.com/calculate
 Content-Type: application/json
-{"expr": "expression"}
-\```
+{"expr": "99.5 * 3"}
+→ {"result": 298.5}
+```
 
-### Response
-\```json
-{"result": 42}
-\```
+### Embed Output
 
-## Embedded UI
+**iframe (Level 2)** — preferred when platform supports it:
 
-### iframe
-\```
-<iframe src="https://app.example.com/embed#URLEncoded(expr)" width="100%" height="400" />
-\```
+```html
+<iframe src="https://app.example.com/embed#encoded_data" width="100%" height="400"></iframe>
+```
 
-### Screenshot
-\```
-https://api.microlink.io/?url={encoded_url}&screenshot=true&embed=screenshot.url
-\```
+**Screenshot (Level 1)** — works everywhere, no platform support needed:
+
+```
+https://api.microlink.io/?url={encoded_embed_url}&screenshot=true&embed=screenshot.url
 ```
 
 ## 5. Embed Page Requirements
@@ -158,7 +160,7 @@ Optional enhancements:
 | `postMessage` | Notify host of changes inside the iframe |
 | Theme adaptation | Read URL params or host colors to match light/dark theme |
 
-## 6. Security Considerations
+## 6. Security
 
 ### Agent platform side
 
@@ -209,20 +211,8 @@ iframe.contentWindow.postMessage({
 | Design Tools | Agent generates a color palette, user fine-tunes |
 | Code Editors | Agent generates a snippet, user modifies it |
 
-## 9. Anti-Patterns (When NOT to use ERI)
+## 9. Anti-Patterns
 
-- Pure information queries ("What's the weather today?") — no interaction needed
-- Long-form text generation ("Write an essay") — embed editors aren't suitable
+- Pure information queries — no interaction needed
+- Long-form text generation — embed editors aren't suitable
 - Real-time sync scenarios — ERI is snapshot-based, not real-time
-
-## 10. Comparison with Existing Approaches
-
-| | ERI | MCP | A2UI | Function Calling |
-|---|---|---|---|---|
-| **Position** | Result display pattern | Tool-calling protocol | UI generation protocol | Function invocation |
-| **Complexity** | Very low | Medium | High | Low |
-| **Integration cost** | 10 minutes | 1-2 days | 3-5 days | 1 day |
-| **Interactivity** | High (user editable) | None (just calls) | High (AI generates UI) | None |
-| **Independence** | No platform dependency | Requires platform | Requires platform | Requires platform |
-
-ERI works alongside MCP and Function Calling: the Agent invokes APIs via MCP/Function Calling, and displays interactive results via ERI.

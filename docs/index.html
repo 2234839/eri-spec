@@ -416,9 +416,9 @@
       <span class="badge">NoteCalc</span>
     </div>
     <div style="display:flex;gap:12px;align-items:center;">
-      <a href="https://github.com/anthropics/eri-spec">GitHub</a>
-      <a href="../SPEC.md" data-i18n="nav.spec">Spec</a>
-      <a href="../BLOG.md" data-i18n="nav.blog">Blog</a>
+      <a href="https://github.com/2234839/eri-spec">GitHub</a>
+      <a href="./spec.html" id="specLink" data-i18n="nav.spec">Spec</a>
+      <a href="./blog.html" id="blogLink" data-i18n="nav.blog">Blog</a>
       <button class="lang-switch" onclick="toggleLang()" id="langBtn">中文</button>
       <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn" title="Toggle theme">🌙</button>
       <button class="settings-toggle" onclick="toggleSettings()">⚙ <span data-i18n="nav.settings">Settings</span></button>
@@ -453,6 +453,15 @@
           <p>The interactive calculator is an <b>embedded UI</b> from a third-party service called <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a>.</p>
           <p>This is the core idea of <b>ERI</b>: instead of showing plain text, the AI Agent embeds a live, working app directly in the conversation.</p>
           <p>You can edit values and see results instantly — no waiting for another round trip.</p>
+        </div>
+      </div>
+      <div class="sidebar-card" style="margin-top:12px">
+        <div class="sidebar-card-header">📊 Key Numbers</div>
+        <div class="sidebar-card-body" data-i18n-html="sidebar.numbers">
+          <p><span class="highlight">10 min</span> to write a Skill</p>
+          <p><span class="highlight">40 lines</span> of code for an embed page</p>
+          <p><span class="highlight">Zero</span> platform changes needed</p>
+          <p><span class="highlight">Zero</span> SDKs or libraries</p>
         </div>
       </div>
     </aside>
@@ -493,6 +502,7 @@
         'embed.header': 'NoteCalc — Interactive Calculator (ERI)',
         'thirdParty.badge': '🔗 <b>Third-party service</b><br>This interactive UI is provided by <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a>, not by this page. This is the essence of ERI: the Agent embeds an external app\'s UI directly.',
         'sidebar.body': '<p><span class="highlight">What you see below</span> is not part of this website.</p><p>The interactive calculator is an <b>embedded UI</b> from a third-party service called <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a>.</p><p>This is the core idea of <b>ERI</b>: instead of showing plain text, the AI Agent embeds a live, working app directly in the conversation.</p><p>You can edit values and see results instantly — no waiting for another round trip.</p>',
+        'sidebar.numbers': '<p><span class="highlight">10 min</span> to write a Skill</p><p><span class="highlight">40 lines</span> of code for an embed page</p><p><span class="highlight">Zero</span> platform changes needed</p><p><span class="highlight">Zero</span> SDKs or libraries</p>',
         'msg.you': 'You',
         'msg.agent': 'Agent',
         'demo.user1': 'Calculate 3 items at $99.5 each, then add 8% tax',
@@ -535,6 +545,7 @@ Always show the iframe embed after your text explanation so the user can interac
         'embed.header': 'NoteCalc — 交互式计算器（ERI）',
         'thirdParty.badge': '🔗 <b>第三方服务</b><br>此交互式 UI 由 <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a> 提供，并非本站自带。这正是 ERI 的精髓：Agent 直接嵌入第三方应用的界面。',
         'sidebar.body': '<p><span class="highlight">下方看到的计算器</span>并非本站的组成部分。</p><p>这个交互式计算器是来自名为 <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a> 的第三方服务的 <b>嵌入式 UI</b>。</p><p>这就是 <b>ERI</b> 的核心理念：AI Agent 不再只输出纯文本，而是直接在对话中嵌入一个可交互的实时应用。</p><p>你可以直接编辑数值、即时看到结果 —— 无需再等一轮对话。</p>',
+        'sidebar.numbers': '<p><span class="highlight">10 分钟</span> 编写一个 Skill</p><p><span class="highlight">40 行代码</span> 实现嵌入页面</p><p><span class="highlight">零</span> 平台改动</p><p><span class="highlight">零</span> SDK 或库依赖</p>',
         'msg.you': '你',
         'msg.agent': 'Agent',
         'demo.user1': '计算单价 $99.5 的商品 3 件，再加 8% 税费',
@@ -591,6 +602,11 @@ Always show the iframe embed after your text explanation so the user can interac
 
       // Lang button text
       document.getElementById('langBtn').textContent = currentLang === 'en' ? '中文' : 'EN';
+
+      // Spec/Blog links follow language
+      const suffix = currentLang === 'zh' ? '.zh.html' : '.html';
+      document.getElementById('specLink').href = './spec' + suffix;
+      document.getElementById('blogLink').href = './blog' + suffix;
 
       // Title
       document.title = currentLang === 'en'

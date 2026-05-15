@@ -1,8 +1,10 @@
 # ERI 规范 — Embedded Result Interface
 
 **版本**：1.0
+**状态**：Stable
 **类型**：Skill 编写模式（约定，非协议）
 **依赖**：无（基于现有 Skill 机制）
+**许可**：MIT — 自由实现，无需声明
 
 **[English Specification](./SPEC.md)**
 
@@ -10,7 +12,7 @@
 
 ## 1. 定义
 
-ERI（Embedded Result Interface，嵌入式结果界面）是一种 Skill 编写模式。Agent 处理用户请求后，输出一个**可交互的嵌入式 UI**（iframe 或截图），而不是（或不仅是）纯文本。用户可以直接在该 UI 上进行交互。
+ERI（Embedded Result Interface，嵌入式结果界面）是一种 Skill 编写模式。Agent 处理用户请求后，输出一个可交互的嵌入式 UI（iframe 或截图），而不是（或不仅是）纯文本。用户可以直接在该 UI 上进行交互。
 
 核心约束：
 
@@ -78,11 +80,11 @@ https://api.microlink.io/?url={encoded_embed_url}&screenshot=true&embed=screensh
 
 ## 3. 对话流程
 
-用户在嵌入式界面上的修改**不会自动通知 Agent**。当用户发起新一轮对话时：
+用户在嵌入式界面上的修改不会自动通知 Agent。当用户发起新一轮对话时：
 
 1. Agent 从对话上下文中读取上一次的结果
 2. 结合新输入，重新调用 API
-3. 输出**全新的嵌入式界面**（不更新旧界面）
+3. 输出全新的嵌入式界面（不更新旧界面）
 
 ```
 用户: "帮我算 3 件商品，每件 99.5 元"
@@ -95,48 +97,48 @@ Agent: 读取上下文 last_result=298.5，计算 298.5 * 1.08
        [输出新 iframe: 298.5 * 1.08 = 322.38]
 ```
 
-## 4. Skill 编写规范
+## 4. Skill 编写
 
-Skill 作者在 `skill.md` 中按以下结构描述工作流：
+一个最小化的 ERI Skill（`skill.md`）：
 
 ```markdown
 ---
 name: 工具名称
 description: 工具描述
 ---
-
-# 工作流
-
+## 工作流
 1. 从用户输入中提取参数
-2. 调用 API：`METHOD URL`，参数格式
-3. 构造嵌入 URL：`URL_TEMPLATE`
+2. 调用 API：POST https://api.example.com/calculate
+   Body: {"expr": "表达式"}
+3. 构造嵌入 URL：https://app.example.com/embed#URLEncoded(expr)
 4. 输出 UI（优先级：iframe > 截图 > 纯文本）
+```
 
-## API
+Agent 读取这个工作流，执行每一步，输出 iframe 或截图。
 
-### 请求
-\```
+### API 契约
+
+Agent 像任何 HTTP 客户端一样调用第三方 API：
+
+```
 POST https://api.example.com/calculate
 Content-Type: application/json
-{"expr": "表达式"}
-\```
+{"expr": "99.5 * 3"}
+→ {"result": 298.5}
+```
 
-### 响应
-\```json
-{"result": 42}
-\```
+### 嵌入输出
 
-## 嵌入式 UI
+**iframe（Level 2）** — 平台支持时优先使用：
 
-### iframe
-\```
-<iframe src="https://app.example.com/embed#URLEncoded(表达式)" width="100%" height="400" />
-\```
+```html
+<iframe src="https://app.example.com/embed#encoded_data" width="100%" height="400"></iframe>
+```
 
-### 截图
-\```
-https://api.microlink.io/?url={encoded_url}&screenshot=true&embed=screenshot.url
-\```
+**截图（Level 1）** — 所有环境通用，不需要平台支持：
+
+```
+https://api.microlink.io/?url={encoded_embed_url}&screenshot=true&embed=screenshot.url
 ```
 
 ## 5. 嵌入式页面要求
@@ -158,7 +160,7 @@ https://api.microlink.io/?url={encoded_url}&screenshot=true&embed=screenshot.url
 | `postMessage` 通信 | iframe 内变化可通过 postMessage 通知宿主 |
 | 主题适配 | 读取 URL 参数或宿主颜色方案适配明暗主题 |
 
-## 6. 安全考量
+## 6. 安全
 
 ### Agent 平台侧
 
@@ -209,20 +211,8 @@ iframe.contentWindow.postMessage({
 | 设计工具 | Agent 生成配色/布局，用户微调 |
 | 代码编辑器 | Agent 生成代码片段，用户修改 |
 
-## 9. 反模式（不适用场景）
+## 9. 反模式
 
-- 纯信息查询（"今天天气怎么样"）——不需要交互
-- 长文本生成（"写一篇文章"）——嵌入式编辑器不适合
+- 纯信息查询——不需要交互
+- 长文本生成——嵌入式编辑器不适合
 - 需要实时同步的场景——ERI 是"快照式"输出，不是实时同步
-
-## 10. 与现有方案对比
-
-| | ERI | MCP | A2UI | Function Calling |
-|---|---|---|---|---|
-| **定位** | 结果展示模式 | 工具调用协议 | UI 生成协议 | 函数调用机制 |
-| **复杂度** | 极低 | 中 | 高 | 低 |
-| **接入成本** | 10 分钟 | 1-2 天 | 3-5 天 | 1 天 |
-| **交互性** | 高（用户可编辑） | 无（仅调用） | 高（AI 生成 UI） | 无 |
-| **独立性** | 不依赖平台 | 需要平台支持 | 需要平台支持 | 需要平台支持 |
-
-ERI 可与 MCP、Function Calling 配合使用：Agent 通过 MCP/Function Calling 调用 API，通过 ERI 展示可交互结果。

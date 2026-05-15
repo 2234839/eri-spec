@@ -182,9 +182,8 @@ Agent:
 
 1. **Embed page = 40 lines of code**. Any web app can do this.
 2. **Skill definition = 1 markdown file**. No SDK, no library.
-3. **User experience is dramatically better** than text-only output.
-4. **Agent doesn't need to understand the UI**. It just constructs a URL.
-5. **The user's edits are instant**. No round-trip to the Agent needed.
+3. **Agent doesn't need to understand the UI**. It just constructs a URL.
+4. **The user's edits are instant**. No round-trip to the Agent needed.
 
 ## Try It
 

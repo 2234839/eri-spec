@@ -6,43 +6,27 @@
 
 ---
 
-We've all been there. You ask an AI Agent to calculate something, and it responds with:
+## The Text Trap
+
+Every AI Agent today has the same problem. You ask it to calculate something, and it responds with:
 
 ```
 99.5 × 3 = 298.5
 ```
 
-Technically correct. But now you want to see what happens at 4 items. Or 5. Or with an 8% tax added. Each variation means another round of conversation — describing what you want changed, waiting for a response, describing the next change.
+Correct. But now you want to see 4 items. Or 5. Or with 8% tax. Each variation means another round of conversation — describe what changed, wait for a response, describe the next change.
 
-**The problem isn't accuracy. The problem is the medium.**
+The problem isn't accuracy. The problem is the medium.
 
-A number in a chat bubble is a dead end. A calculator you can play with is a starting point.
+It's not just calculations. When an Agent generates a chart, you want to adjust the axes. When it creates a form, you want to tweak the fields. When it picks colors, you want to drag the sliders. Every time, the Agent forces you back into text — when what you need is a UI.
 
-## The Insight: UI > Text for Interactive Results
+## Enter ERI
 
-When an Agent computes something, generates a chart, or creates a form, showing it as a **working UI** is fundamentally better than describing it in words:
+ERI (Embedded Result Interface) is a convention for making Agent output interactive. The Agent calls a third-party API, constructs an embed URL, and outputs an iframe or screenshot. The user interacts directly — no Agent in the loop.
 
-- A calculator you can tweak > a number in a message
-- A chart you can resize > a description of data trends
-- A form you can fill out > a list of fields in markdown
-- A color palette you can adjust > hex codes in a code block
+No new protocols. No SDKs. Just a convention for writing `skill.md` files.
 
-This isn't about "fixing mistakes." It's about **giving users something they can think with**. Interactive UIs let users explore, experiment, and discover — things that text alone cannot enable.
-
-## Introducing ERI — Embedded Result Interface
-
-ERI is a dead-simple pattern for making AI Agent output interactive. Here's the entire idea:
-
-1. Agent processes a user request
-2. Agent calls a third-party API
-3. Agent embeds the third-party's interactive page (via iframe or screenshot)
-4. User interacts with the UI directly
-
-That's it. No new protocols. No new standards bodies. No SDKs to install. Just a convention for writing Skill definitions.
-
-### How simple is it?
-
-A complete ERI Skill definition fits in a few lines:
+A complete Skill:
 
 ```markdown
 ---
@@ -56,83 +40,61 @@ description: Math calculator with variables and unit conversion.
 3. Embed result as iframe: https://app.com/embed#encoded_expr
 ```
 
-**10 minutes to write. Half a day for the embed page. Zero platform changes.**
+10 minutes to write. Half a day for the embed page. Zero platform changes.
 
-## Progressive Enhancement
+## Progressive
 
-ERI doesn't ask you to boil the ocean. It's progressive:
+ERI is progressive — start simple, enhance later. [Level 1 (screenshot)](./SPEC.md) works everywhere today. No platform support needed. Ship it, get feedback, upgrade to Level 2 (iframe) when ready. Nothing ever breaks.
 
-| Level | What you get | Effort |
-|-------|-------------|--------|
-| 0 | Plain text (status quo) | None |
-| 1 | Screenshot of the interactive UI | Add a screenshot service URL |
-| 2 | Live iframe the user can interact with | Platform supports iframes |
-| 3 | Two-way communication via postMessage | Add a message handler |
+## See It Live
 
-Start at Level 1. Ship it. Enhance later. Nothing breaks.
+Try it: [2234839.github.io/eri-spec/](https://2234839.github.io/eri-spec/) — a static demo page. Connects to your own LLM API key. No server, no signup, data stays in your browser.
 
-## A Real Example: NoteCalc
+Embed page: 40 lines of Vue. Skill definition: one markdown file.
 
-[NoteCalc](https://tsfullstack.heartstack.space/noteCalc) is an interactive calculation notebook. It supports variables, unit conversion, and equation verification — all in a live editor where results update as you type.
+## ERI vs A2UI
 
-With ERI, when a user tells an Agent:
+The industry is converging on interactive Agent output. Two paths:
 
-> "Calculate 3 items at $99.5 each"
+| | ERI | A2UI (Google) |
+|---|---|---|
+| **Approach** | Embed existing apps via URL | Agent declares UI as JSON, client renders |
+| **Agent needs** | A `skill.md` file | SDK + schema definition |
+| **Platform needs** | Render iframes (already done) | A2UI renderer + widget catalog |
+| **Third party needs** | An HTTPS embed page | Component catalog + A2UI schema |
+| **Effort** | 10 min | Days |
 
-The Agent doesn't just say `298.5`. It embeds NoteCalc:
+A2UI is the protocol-heavy route — agents generate UI declarations, clients render from a component catalog. It's the right answer for platforms building their own rendering pipeline. But it takes days of integration and platform buy-in before anything appears on screen.
+
+ERI is the convention-only route — agents embed existing apps. An app with a web UI can appear in Agent conversations in half a day. No SDKs, no schemas, no renderers. Just a URL.
+
+Both converge at the same destination. ERI gets you there now.
 
 ```
-┌──────────────────────────────────────┐
-│  NoteCalc                             │
-│                                       │
-│  price = 99.5          → 99.5         │
-│  total = price * 3     → 298.5        │
-│                                       │
-│  [user can edit values directly]       │
-└──────────────────────────────────────┘
+┌─────────────────────────────────────────────┐
+│              Agent Output Layer              │
+│                                             │
+│   Level 2: User interacts directly          │
+│   ┌─────────────┐    ┌──────────────────┐  │
+│   │     ERI     │    │      A2UI        │  │
+│   │  embed URL  │    │  JSON schema +   │  │
+│   │  → iframe   │    │  renderer        │  │
+│   └─────────────┘    └──────────────────┘  │
+│                                             │
+│   Level 1: Screenshot (ERI fallback)        │
+│   Level 0: Plain text (status quo)          │
+├─────────────────────────────────────────────┤
+│           Tool Invocation Layer             │
+│   MCP  ·  Function Calling  ·  REST        │
+└─────────────────────────────────────────────┘
 ```
 
-The user can:
-- Change `3` to `4` → result updates instantly to `398`
-- Add a new line `tax = total * 0.08` → sees `23.88`
-- Convert units: `total to cents` → `29850`
-- All without another word to the Agent
+## The Output Problem
 
-When they do continue the conversation ("add shipping at $15"), the Agent reads context and outputs a **new** embedded calculator with the updated computation.
+The Agent ecosystem has solved input — natural language, tool calls, multimodal. It hasn't solved output. Everything comes back as text, even when the result is inherently visual or interactive.
 
-## Why This Works
-
-**For Agent platforms**: No protocol changes. If you can render an iframe (most already do), you support ERI.
-
-**For third-party apps**: Just expose your existing UI as an embeddable page. Most web apps can do this in half a day. You don't need to learn any Agent-specific API.
-
-**For Skill authors**: Write a `skill.md`. That's it. No SDK, no library, no build step.
-
-**For users**: They get something they can actually use, not just read. The AI handles the heavy lifting (understanding intent, calling APIs), and the user handles the fine-tuning (editing, exploring, adjusting).
-
-## How It Compares
-
-| Approach | What it does | Integration cost |
-|----------|-------------|-----------------|
-| **MCP** | Lets Agents call tools | 1-2 days |
-| **A2UI** | AI generates UI dynamically | 3-5 days |
-| **Function Calling** | LLM invokes functions | 1 day |
-| **ERI** | Makes tool results interactive | 10 minutes |
-
-ERI doesn't compete with these — it layers on top. Use MCP to call the API. Use ERI to display the result interactively.
-
-## Try It Yourself
-
-Head to the [live demo](https://eri-spec.github.io/demo/) — a minimal Agent UI where you can see ERI in action with NoteCalc.
-
-The demo runs entirely in your browser. You provide your own LLM API key (it never leaves your browser — no server involved).
-
-## The Bigger Picture
-
-We're entering an era where AI Agents will be the primary interface for many tasks. But Agent output today is overwhelmingly text-based. That's fine for summarization and analysis. It's not fine for anything the user needs to *interact* with.
-
-ERI is a small step toward making Agent output more like software and less like email. Not every Agent response needs an embedded UI. But for the ones that do, the difference is night and day.
+You can wait for a protocol to mature. Or you can start shipping interactive results today.
 
 ---
 
-*ERI is an open pattern. No license needed, no permission required. Just write a Skill and embed a URL. The [full specification](./SPEC.md) is available in this repo.*
+*ERI is MIT licensed. [Read the spec](./SPEC.md), write a Skill, embed a URL.*
