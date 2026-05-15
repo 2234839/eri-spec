@@ -236,6 +236,14 @@ description: What this Skill does
       </tbody>
     </table>
     <p>Use Level 2 when the platform must react to user edits inside the iframe (e.g. auto-save, live previews). It uses <code>postMessage</code> with a specific origin — never <code>"*"</code>:</p>
+    <table>
+      <thead><tr><th>Message type</th><th>Direction</th><th>Payload</th></tr></thead>
+      <tbody>
+        <tr><td><code>eri:valueChanged</code></td><td>iframe → platform</td><td><code>path</code> (dot-path), <code>value</code></td></tr>
+        <tr><td><code>eri:update</code></td><td>platform → iframe</td><td><code>data</code> (any JSON)</td></tr>
+        <tr><td><code>eri:resize</code></td><td>iframe → platform</td><td><code>height</code> (px)</td></tr>
+      </tbody>
+    </table>
     <pre><code>// iframe → Agent platform: notify that user changed a value
 window.parent.postMessage({
   type: "eri:valueChanged",  // required prefix: "eri:"

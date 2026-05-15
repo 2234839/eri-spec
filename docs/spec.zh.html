@@ -236,6 +236,14 @@ description: 工具描述
       </tbody>
     </table>
     <p>Level 2 适用于平台需要对 iframe 内的用户编辑做出响应的场景（如自动保存、实时预览）。使用 <code>postMessage</code> 并指定具体 origin——绝不使用 <code>"*"</code>：</p>
+    <table>
+      <thead><tr><th>消息类型</th><th>方向</th><th>载荷</th></tr></thead>
+      <tbody>
+        <tr><td><code>eri:valueChanged</code></td><td>iframe → 平台</td><td><code>path</code>（点分路径）、<code>value</code></td></tr>
+        <tr><td><code>eri:update</code></td><td>平台 → iframe</td><td><code>data</code>（任意 JSON）</td></tr>
+        <tr><td><code>eri:resize</code></td><td>iframe → 平台</td><td><code>height</code>（像素）</td></tr>
+      </tbody>
+    </table>
     <pre><code>// iframe → Agent 平台：通知用户修改了某个值
 window.parent.postMessage({
   type: "eri:valueChanged",  // 必须以 "eri:" 开头
