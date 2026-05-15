@@ -34,6 +34,14 @@ description: 数学计算器，支持变量和单位转换。
 
 **[2234839.github.io/eri-spec/](https://2234839.github.io/eri-spec/)** — 完全静态的演示页面。使用自己的 LLM API Key，无服务器参与。嵌入的计算器是真实的 NoteCalc 实例。
 
+## 三步开始
+
+**你有一个 Web 应用，想让它出现在 Agent 对话中。这样做：**
+
+1. **添加嵌入页面** — 创建一个精简版应用，从 URL 参数读取初始状态。约 40 行代码。[看 NoteCalc 怎么做的 →](./examples/notecalc.zh.md)
+2. **写一个 skill.md** — 告诉 Agent 如何调用你的 API 和构造嵌入 URL。10 分钟。[看模板 →](./examples/skill-templates.zh.md)
+3. **上线** — Level 1（截图）现在就能用，不需要平台支持。准备好时升级到 Level 2（iframe）。
+
 ## 有什么不同
 
 | | ERI | MCP Apps (Anthropic / OpenAI) | A2UI (Google) |
@@ -52,7 +60,7 @@ description: 数学计算器，支持变量和单位转换。
 | 文档 | 用途 |
 |------|------|
 | [SPEC.zh.md](./SPEC.zh.md) | 技术规范——工作流、安全、等级、postMessage 协议 |
-| [BLOG.zh.md](./BLOG.zh.md) | 为什么需要 ERI、与 A2UI 的对比、生态论证 |
+| [BLOG.zh.md](./BLOG.zh.md) | 为什么需要 ERI — 三方格局（ERI / MCP Apps / A2UI） |
 | [examples/notecalc.zh.md](./examples/notecalc.zh.md) | NoteCalc 参考实现详解 |
 | [examples/skill-templates.zh.md](./examples/skill-templates.zh.md) | 即用型 Skill 模板（图表、表单、地图等） |
 

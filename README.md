@@ -34,6 +34,14 @@ description: Math calculator with variables and unit conversion.
 
 **[2234839.github.io/eri-spec/](https://2234839.github.io/eri-spec/)** — a fully static demo. Bring your own LLM API key, no server involved. The embedded calculator is a real NoteCalc instance.
 
+## Start in 3 Steps
+
+**You have a web app. You want it in Agent conversations. Here's how:**
+
+1. **Add an embed page** — Create a stripped-down version of your app that reads initial state from URL params. ~40 lines of code. [See how NoteCalc does it →](./examples/notecalc.en.md)
+2. **Write a skill.md** — Tell the Agent how to call your API and construct the embed URL. 10 minutes. [See templates →](./examples/skill-templates.en.md)
+3. **Ship it** — Level 1 (screenshot) works everywhere today, no platform support needed. Upgrade to Level 2 (iframe) when ready.
+
 ## How It's Different
 
 | | ERI | MCP Apps (Anthropic / OpenAI) | A2UI (Google) |
@@ -52,7 +60,7 @@ Same destination — interactive Agent output. Three paths. ERI works today. [Re
 | Document | What it's for |
 |----------|---------------|
 | [SPEC.md](./SPEC.md) | Technical specification — workflow, security, levels, postMessage protocol |
-| [BLOG.md](./BLOG.md) | Why ERI exists, how it compares to A2UI, the ecosystem argument |
+| [BLOG.md](./BLOG.md) | Why ERI exists — the three-way landscape (ERI / MCP Apps / A2UI) |
 | [examples/notecalc.en.md](./examples/notecalc.en.md) | NoteCalc reference implementation walkthrough |
 | [examples/skill-templates.en.md](./examples/skill-templates.en.md) | Ready-to-adapt Skill templates for charts, forms, maps, etc. |
 
