@@ -4,16 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ERI 规范 — 嵌入式结果界面 v1.0</title>
-  <meta name="description" content="ERI 规范 v1.0。让你的 Web 应用运行在所有 AI Agent 中。清晰标注 Agent 天然能力、提供者需实现什么、平台需支持什么。">
+  <meta name="description" content="ERI v1.0 — 任何 Web 应用嵌入任何 AI Agent。一个 skill.md，一个 URL，所有平台。">
   <meta name="keywords" content="ERI, 嵌入式结果界面, AI Agent, 交互式 UI, iframe 嵌入, Skill 模式, Agent 输出, 规范">
   <meta property="og:title" content="ERI 规范 — 嵌入式结果界面 v1.0">
-  <meta property="og:description" content="一种 Skill 编写模式，让 AI Agent 输出可交互的嵌入式 UI 而非纯文本。无需新协议、无需 SDK，只需一个 skill.md。">
+  <meta property="og:description" content="让 Agent 输出变为可交互。嵌入任何 Web 应用——无需协议、无需 SDK，只需一个 skill.md 和一个 URL。">
   <meta property="og:url" content="https://2234839.github.io/eri-spec/docs/spec.zh.html">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="ERI Spec">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="ERI 规范 — 嵌入式结果界面 v1.0">
-  <meta name="twitter:description" content="一种 Skill 编写模式，让 AI Agent 输出可交互的嵌入式 UI 而非纯文本。">
+  <meta name="twitter:description" content="让 Agent 输出变为可交互。嵌入任何 Web 应用——无需协议、无需 SDK。">
   <link rel="canonical" href="https://2234839.github.io/eri-spec/docs/spec.zh.html">
   <link rel="alternate" hreflang="en" href="https://2234839.github.io/eri-spec/docs/spec.html">
   <link rel="alternate" hreflang="zh" href="https://2234839.github.io/eri-spec/docs/spec.zh.html">
@@ -163,9 +163,7 @@ description: 工具描述
       <tbody>
         <tr><td>HTTPS</td><td>必须使用 HTTPS</td></tr>
         <tr><td>URL 参数读取</td><td>能从 URL hash / query 中读取初始状态</td></tr>
-        <tr><td>自包含</td><td>页面内所有交互自行处理，不依赖宿主</td></tr>
-        <tr><td>响应式</td><td>适应不同宽度的嵌入容器</td></tr>
-        <tr><td>无外部依赖</td><td>不依赖宿主页面的 JS/CSS</td></tr>
+        <tr><td>自包含</td><td>所有交互自行处理。不依赖宿主 JS/CSS。响应式布局。</td></tr>
         <tr><td><code>postMessage</code> <em>（可选）</em></td><td>iframe 内变化可通过 postMessage 通知宿主</td></tr>
         <tr><td>主题适配 <em>（可选）</em></td><td>读取 URL 参数或宿主颜色方案适配明暗主题</td></tr>
       </tbody>

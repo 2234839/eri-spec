@@ -4,16 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ERI Specification — Embedded Result Interface v1.0</title>
-  <meta name="description" content="ERI specification v1.0. Let your web app run inside every AI Agent. Clear role tags show what Agent does naturally, what providers implement, and what platforms need to support.">
+  <meta name="description" content="ERI v1.0 — embed any web app inside any AI Agent. One skill.md, one URL, all platforms.">
   <meta name="keywords" content="ERI, Embedded Result Interface, AI Agent, interactive UI, iframe embed, skill pattern, agent output, specification">
   <meta property="og:title" content="ERI Specification — Embedded Result Interface v1.0">
-  <meta property="og:description" content="A Skill authoring pattern for AI Agents to embed interactive UI instead of plain text. No new protocols, no SDKs, just a skill.md.">
+  <meta property="og:description" content="A convention for making Agent output interactive. Embed any web app — no protocols, no SDKs, just a skill.md and a URL.">
   <meta property="og:url" content="https://2234839.github.io/eri-spec/docs/spec.html">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="ERI Spec">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="ERI Specification — Embedded Result Interface v1.0">
-  <meta name="twitter:description" content="A Skill authoring pattern for AI Agents to embed interactive UI instead of plain text.">
+  <meta name="twitter:description" content="Make Agent output interactive. Embed any web app — no protocols, no SDKs.">
   <link rel="canonical" href="https://2234839.github.io/eri-spec/docs/spec.html">
   <link rel="alternate" hreflang="zh" href="https://2234839.github.io/eri-spec/docs/spec.zh.html">
   <link rel="alternate" hreflang="en" href="https://2234839.github.io/eri-spec/docs/spec.html">
@@ -163,9 +163,7 @@ description: What this Skill does
       <tbody>
         <tr><td>HTTPS</td><td>Must serve over HTTPS</td></tr>
         <tr><td>URL param reading</td><td>Read initial state from URL hash / query</td></tr>
-        <tr><td>Self-contained</td><td>Handle all interactions internally, no host dependencies</td></tr>
-        <tr><td>Responsive</td><td>Adapt to different embed container widths</td></tr>
-        <tr><td>No external deps</td><td>Don't depend on host page's JS/CSS</td></tr>
+        <tr><td>Self-contained</td><td>Handle all interactions internally. No host JS/CSS dependencies. Responsive layout.</td></tr>
         <tr><td><code>postMessage</code> <em>(optional)</em></td><td>Notify host of changes inside the iframe</td></tr>
         <tr><td>Theme adaptation <em>(optional)</em></td><td>Read URL params or host colors to match light/dark theme</td></tr>
       </tbody>
