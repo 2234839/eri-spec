@@ -154,7 +154,7 @@ description: 工具描述
       <thead><tr><th>场景</th><th>推荐方案</th></tr></thead>
       <tbody>
         <tr><td>"我们有 Web 应用，想放进 Agent 对话"</td><td><strong>ERI</strong></td></tr>
-        <tr><td>"我们是 SaaS 提供商，想让工具出现在所有 Agent 上"</td><td><strong>ERI</strong> — 所有平台通用</td></tr>
+        <tr><td>"我们是 SaaS 提供商，想让工具出现在所有 Agent 上"</td><td><strong>ERI</strong> — 大多数平台通用</td></tr>
         <tr><td>"我们全面投入 MCP"</td><td>MCP Apps</td></tr>
         <tr><td>"需要原生移动端渲染"</td><td>A2UI</td></tr>
         <tr><td>"这周就要出原型"</td><td><strong>ERI</strong></td></tr>
@@ -170,7 +170,7 @@ description: 工具描述
     <p>平台对 iframe 加沙箱（<code>sandbox="allow-scripts"</code>）——无法访问父页面 cookie、token 或 DOM。遵循标准 XSS 防护即可。详见<a href="./spec.zh.html#security">规范安全章节</a>。</p>
 
     <h3>"MCP Apps 不是会替代这个吗？"</h3>
-    <p>MCP Apps 只在 MCP 平台上运行。ERI 只是一个 URL——<em>所有</em>平台通用。你为 ERI 构建的嵌入页面构成日后打包给 MCP Apps 的核心，所以现在采用 ERI 不是一次性工作。ERI 是入口，不是死胡同。</p>
+    <p>MCP Apps 只在 MCP 平台上运行。ERI 只是一个 URL——<em>大多数</em>平台通用。你为 ERI 构建的嵌入页面构成日后打包给 MCP Apps 的核心，所以现在采用 ERI 不是一次性工作。ERI 是入口，不是死胡同。</p>
 
     <h3>"我们的 API 需要认证——Agent 怎么传凭证？"</h3>
     <p>Agent 从服务端调用你的 API，不是从用户浏览器。提供一个<strong>公开 API 端点</strong>供 Agent 访问——限流、限定为安全操作。敏感操作让用户在嵌入页面内自行认证（OAuth 弹窗等）。iframe 只渲染结果——不调用你的 API。</p>

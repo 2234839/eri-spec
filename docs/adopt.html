@@ -154,7 +154,7 @@ description: What it does.
       <thead><tr><th>Scenario</th><th>Recommended</th></tr></thead>
       <tbody>
         <tr><td>"We have a web app and want it in Agent chat"</td><td><strong>ERI</strong></td></tr>
-        <tr><td>"We're a SaaS provider, want our tool in any Agent"</td><td><strong>ERI</strong> — works on all platforms</td></tr>
+        <tr><td>"We're a SaaS provider, want our tool in any Agent"</td><td><strong>ERI</strong> — works on most platforms</td></tr>
         <tr><td>"We're all-in on MCP"</td><td>MCP Apps</td></tr>
         <tr><td>"We need native mobile rendering"</td><td>A2UI</td></tr>
         <tr><td>"We want to prototype this week"</td><td><strong>ERI</strong></td></tr>
@@ -170,7 +170,7 @@ description: What it does.
     <p>Platforms sandbox iframes (<code>sandbox="allow-scripts"</code>) — no access to parent cookies, tokens, or DOM. Follow standard XSS prevention. See <a href="./spec.html#security">spec security section</a>.</p>
 
     <h3>"MCP Apps will replace this, right?"</h3>
-    <p>MCP Apps only work on MCP-enabled platforms. ERI is a URL — works <em>everywhere</em>. The embed page you build for ERI forms the core of what you'd package for MCP Apps later, so adopting ERI now is not throwaway work. ERI is the on-ramp, not a dead end.</p>
+    <p>MCP Apps only work on MCP-enabled platforms. ERI is a URL — works on <em>most platforms</em> today. The embed page you build for ERI forms the core of what you'd package for MCP Apps later, so adopting ERI now is not throwaway work. ERI is the on-ramp, not a dead end.</p>
 
     <h3>"Our API requires authentication — how does the Agent pass credentials?"</h3>
     <p>The Agent calls your API from its server, not from the user's browser. Provide a dedicated <strong>public API endpoint</strong> for Agent access — rate-limited, scoped to safe operations. For sensitive operations, let users authenticate within the embed page itself (OAuth popup, etc.). The iframe only renders results — it doesn't call your API.</p>
