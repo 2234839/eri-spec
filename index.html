@@ -453,9 +453,12 @@
       .header .logo { font-size: 14px; }
       .eri-embed iframe { height: 220px; }
     }
+  .skip-link { position: absolute; top: -40px; left: 0; background: var(--accent); color: #fff; padding: 8px 16px; z-index: 100; font-size: 14px; }
+  .skip-link:focus { top: 0; }
   </style>
 </head>
 <body>
+  <a href="#chatArea" class="skip-link">Skip to content</a>
   <div class="header" role="banner">
     <div class="header-left">
       <span class="logo">ERI</span>

@@ -69,9 +69,12 @@
     .checklist li { padding-left: 24px; position: relative; }
     .checklist li::before { content: '☐'; position: absolute; left: 0; color: var(--text-dim); }
     @media (max-width: 640px) { .doc-content { padding: 20px 12px 60px; } .header { padding: 8px 12px; flex-wrap: wrap; gap: 6px; } .header-right { gap: 4px; flex-wrap: wrap; } .header a, .header button { font-size: 11px; padding: 3px 6px; } .doc-content h1 { font-size: 1.4em; } .doc-content h2 { font-size: 1.2em; } }
+    .skip-link { position: absolute; top: -40px; left: 0; background: var(--accent); color: #fff; padding: 8px 16px; z-index: 100; font-size: 14px; }
+    .skip-link:focus { top: 0; }
   </style>
 </head>
 <body>
+  <a href="#content" class="skip-link">Skip to content</a>
   <div class="header" role="banner">
     <div class="header-left"><span class="logo">ERI</span></div>
     <nav class="header-right">
@@ -84,7 +87,7 @@
       <button onclick="toggleTheme()" id="themeBtn" aria-label="Toggle theme">🌙</button>
     </nav>
   </div>
-  <main class="doc-content">
+  <main class="doc-content" id="content">
     <h1>Adopting ERI — Team Guide</h1>
     <p class="meta">Evaluate, plan, and ship interactive Agent output in your organization.</p>
 
@@ -156,7 +159,7 @@
     <p>Platforms sandbox iframes (<code>sandbox="allow-scripts"</code>) — no access to parent cookies, tokens, or DOM. Follow standard XSS prevention. See <a href="./spec.html#security">spec security section</a>.</p>
 
     <h3>"MCP Apps will replace this, right?"</h3>
-    <p>MCP Apps only work on MCP-enabled platforms. ERI is a URL — works <em>everywhere</em>. And the embed page you build for ERI is the same page you'd package for MCP Apps later. ERI is the on-ramp, not a dead end.</p>
+    <p>MCP Apps only work on MCP-enabled platforms. ERI is a URL — works <em>everywhere</em>. The embed page you build for ERI forms the core of what you'd package for MCP Apps later, so adopting ERI now is not throwaway work. ERI is the on-ramp, not a dead end.</p>
 
     <h3>"Our API requires authentication — how does the Agent pass credentials?"</h3>
     <p>The Agent calls your API from its server, not from the user's browser. Provide a dedicated <strong>public API endpoint</strong> for Agent access — rate-limited, scoped to safe operations. For sensitive operations, let users authenticate within the embed page itself (OAuth popup, etc.). The iframe only renders results — it doesn't call your API.</p>

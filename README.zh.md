@@ -6,7 +6,7 @@
 
 ---
 
-ERI 让你的 Web 应用以交互式 UI 出现在 AI Agent 对话中——ChatGPT、Claude、Gemini 以及任何能渲染 iframe 的平台。你写一个 `skill.md`，告诉 Agent 如何调用你的 API、嵌入哪个 URL。这就是整个模式。
+ERI 让你的 Web 应用以交互式 UI 出现在 AI Agent 对话中——ChatGPT、Claude、Gemini 以及任何能渲染 iframe 的平台。你写一个 `skill.md`，告诉 Agent 如何调用你的 API、嵌入哪个 URL。
 
 ## 一个例子讲清楚
 

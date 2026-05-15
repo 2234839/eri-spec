@@ -6,7 +6,7 @@
 
 ---
 
-ERI embeds your web app as an interactive UI inside AI Agent conversations — ChatGPT, Claude, Gemini, and any platform that renders iframes. You write a `skill.md` that tells the Agent how to call your API and which URL to embed. That's the whole pattern.
+ERI embeds your web app as an interactive UI inside AI Agent conversations — ChatGPT, Claude, Gemini, and any platform that renders iframes. You write a `skill.md` that tells the Agent how to call your API and which URL to embed.
 
 ## The Idea in One Example
 

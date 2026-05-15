@@ -9,6 +9,7 @@ description: One-line description of what your tool does for the user.
 2. Call your API: POST https://your-api.example.com/endpoint
    Body: `{"param": "value"}`
    Response: `{"result": "...", "data": {...}}`
+   <!-- Example: {"title": "Invoice #42", "total": 298.5, "items": [...]} -->
 3. Show the result to the user in plain text
 4. Output an iframe embed:
    `<iframe src="https://your-app.example.com/embed#ENCODED_DATA" width="100%" height="400"></iframe>`

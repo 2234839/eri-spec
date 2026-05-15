@@ -76,9 +76,12 @@
     .arch-tools { display: flex; gap: 12px; font-size: 0.85em; color: var(--text-dim); }
     .arch-tools span { color: var(--text); font-weight: 500; }
     @media (max-width: 640px) { .doc-content { padding: 20px 12px 60px; } .arch-box { padding: 6px 10px; } .header { padding: 8px 12px; flex-wrap: wrap; gap: 6px; } .header-right { gap: 4px; flex-wrap: wrap; } .header a, .header button { font-size: 11px; padding: 3px 6px; } .doc-content h1 { font-size: 1.4em; } .doc-content h2 { font-size: 1.2em; } }
+    .skip-link { position: absolute; top: -40px; left: 0; background: var(--accent); color: #fff; padding: 8px 16px; z-index: 100; font-size: 14px; }
+    .skip-link:focus { top: 0; }
   </style>
 </head>
 <body>
+  <a href="#content" class="skip-link">跳到主要内容</a>
   <div class="header" role="banner">
     <div class="header-left"><span class="logo">ERI</span></div>
     <nav class="header-right">
@@ -91,7 +94,7 @@
       <button onclick="toggleTheme()" id="themeBtn" aria-label="Toggle theme">🌙</button>
     </nav>
   </div>
-  <main class="doc-content">
+  <main class="doc-content" id="content">
     <h1>超越文字：为什么 AI Agent 需要交互式 UI</h1>
     <p class="meta">发布日期：2026-05-15</p>
 
@@ -105,7 +108,7 @@
     <h2>引入 ERI</h2>
     <p>ERI（嵌入式结果界面）让你的 Web 应用以实时可编辑的 UI 出现在任何 Agent 对话中——ChatGPT、Claude、Gemini。用户直接交互——无需等待 Agent 来回。</p>
     <p>你写一个 <code>skill.md</code>，告诉 Agent 如何调用你的 API、嵌入哪个 URL。<a href="./spec.zh.html#skill-authoring">见规范</a>中的最小示例，或直接使用<a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">可复制模板</a>。</p>
-    <p>10 分钟写完。半天做好嵌入页面。零平台改动。今天就能上线。<a href="https://2234839.github.io/eri-spec/">现在试试</a>。</p>
+    <p>从零到可运行嵌入，不到一天。<a href="https://2234839.github.io/eri-spec/">现在试试</a>。</p>
 
     <h2>三条路径到交互式 Agent 输出</h2>
     <p>业界从三个方向收敛到同一个问题：</p>

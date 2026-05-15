@@ -76,9 +76,12 @@
     .arch-tools { display: flex; gap: 12px; font-size: 0.85em; color: var(--text-dim); }
     .arch-tools span { color: var(--text); font-weight: 500; }
     @media (max-width: 640px) { .doc-content { padding: 20px 12px 60px; } .arch-box { padding: 6px 10px; } .header { padding: 8px 12px; flex-wrap: wrap; gap: 6px; } .header-right { gap: 4px; flex-wrap: wrap; } .header a, .header button { font-size: 11px; padding: 3px 6px; } .doc-content h1 { font-size: 1.4em; } .doc-content h2 { font-size: 1.2em; } }
+    .skip-link { position: absolute; top: -40px; left: 0; background: var(--accent); color: #fff; padding: 8px 16px; z-index: 100; font-size: 14px; }
+    .skip-link:focus { top: 0; }
   </style>
 </head>
 <body>
+  <a href="#content" class="skip-link">Skip to content</a>
   <div class="header" role="banner">
     <div class="header-left"><span class="logo">ERI</span></div>
     <nav class="header-right">
@@ -91,7 +94,7 @@
       <button onclick="toggleTheme()" id="themeBtn" aria-label="Toggle theme">🌙</button>
     </nav>
   </div>
-  <main class="doc-content">
+  <main class="doc-content" id="content">
     <h1>Beyond Text: Why AI Agents Need Interactive UI</h1>
     <p class="meta">Published: 2026-05-15</p>
 
@@ -105,7 +108,7 @@
     <h2>Enter ERI</h2>
     <p>ERI (Embedded Result Interface) lets your web app appear as a live, editable UI inside any Agent conversation — ChatGPT, Claude, Gemini. The user interacts directly — no Agent round trips needed.</p>
     <p>You write a <code>skill.md</code> telling the Agent how to call your API and which URL to embed. <a href="./spec.html#skill-authoring">See the spec</a> for a minimal example, or grab the <a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">copy-paste template</a>.</p>
-    <p>10 minutes to write. Half a day for the embed page. Zero platform changes. Ship today. <a href="https://2234839.github.io/eri-spec/">Try it now</a>.</p>
+    <p>Under a day from zero to working embed. <a href="https://2234839.github.io/eri-spec/">Try it now</a>.</p>
 
     <h2>Three Paths to Interactive Agent Output</h2>
     <p>The industry is converging on the same problem from three directions:</p>
