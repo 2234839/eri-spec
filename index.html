@@ -86,9 +86,10 @@
       align-items: center;
       gap: 12px;
     }
-    .header h1 {
+    .header .logo {
       font-size: 16px;
       font-weight: 600;
+      color: var(--text);
     }
     .header .badge {
       font-size: 11px;
@@ -431,7 +432,7 @@
       .chat-area { padding: 12px; }
       .input-area { padding: 12px; }
       .header { padding: 10px 12px; }
-      .header h1 { font-size: 14px; }
+      .header .logo { font-size: 14px; }
       .eri-embed iframe { height: 220px; }
     }
   </style>
@@ -439,7 +440,7 @@
 <body>
   <div class="header">
     <div class="header-left">
-      <h1>ERI</h1>
+      <span class="logo">ERI</span>
       <span class="badge">Demo</span>
     </div>
     <div class="header-right">
