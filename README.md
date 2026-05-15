@@ -1,6 +1,6 @@
 # ERI — Embedded Result Interface
 
-> Let your web app run inside every AI Agent. One embed page, one skill file, all platforms.
+> The ecosystem has solved input. It hasn't solved output.
 
 **[Try the Live Demo](https://2234839.github.io/eri-spec/)** · [Spec](https://2234839.github.io/eri-spec/docs/spec.html) · [Blog](https://2234839.github.io/eri-spec/docs/blog.html) · [Adopt](https://2234839.github.io/eri-spec/docs/adopt.html) · [中文](./README.zh.md)
 

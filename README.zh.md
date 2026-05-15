@@ -1,6 +1,6 @@
 # ERI — Embedded Result Interface
 
-> 让你的 Web 应用运行在所有 AI Agent 中。一个嵌入页面，一个 skill 文件，所有平台。
+> 生态解决了输入，没解决输出。
 
 **[在线演示](https://2234839.github.io/eri-spec/)** · [规范](https://2234839.github.io/eri-spec/docs/spec.zh.html) · [博客](https://2234839.github.io/eri-spec/docs/blog.zh.html) · [采用](https://2234839.github.io/eri-spec/docs/adopt.zh.html) · [English](./README.md)
 
