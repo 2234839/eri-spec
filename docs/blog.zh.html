@@ -126,6 +126,15 @@ description: 数学计算器，支持变量和单位转换。
       </tbody>
     </table>
     <p><strong>ERI</strong> 在<em>所有</em>平台上都能用。一个嵌入页面，一个 skill 文件——你的应用就能出现在 ChatGPT、Claude、Gemini 以及任何未来的 Agent 上。一个 URL。今天就能用，等目标平台支持 MCP Apps 或 A2UI 时再采用。</p>
+
+    <h2>为什么先选 ERI</h2>
+    <p>每种方案都在覆盖面和丰富度之间做了取舍：</p>
+    <ul>
+      <li><strong>MCP Apps</strong> 提供沙箱运行时和 MCP 生态分发——但只有 MCP 平台上的用户能看到你的应用。</li>
+      <li><strong>A2UI</strong> 提供原生渲染（移动端、无障碍）——但只有搭载 A2UI 渲染器的平台才能用。</li>
+      <li><strong>ERI</strong> 提供<em>所有平台即日可用</em>——因为只是一个 URL 在 iframe 里。无需运行时、无需渲染器、无需平台配合。</li>
+    </ul>
+    <p>你为 ERI 构建的嵌入页面，就是日后打包给 MCP Apps 用的同一个页面。ERI 是入口：零成本上线，等目标平台支持更丰富的协议时再迁移。</p>
     <p>ERI 有真实的权衡（快照式、无原生 API）。完整列表见<a href="./spec.zh.html#limitations">规范中的局限性章节</a>。</p>
     <div class="arch">
       <div class="arch-layer">

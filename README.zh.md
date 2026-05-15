@@ -27,12 +27,13 @@ description: 数学计算器，支持变量和单位转换。
 ## 工作流
 1. 将用户请求转化为表达式
 2. 调用 POST /api/calculate 传入表达式
-3. 以 iframe 嵌入结果: https://app.com/embed#encoded_expr
+3. 以 iframe 嵌入结果: https://app.com/embed#encoded_data
+4. 输出为 iframe（平台无法渲染时降级为纯文本）
 ```
 
 ## 在线演示
 
-**[2234839.github.io/eri-spec/](https://2234839.github.io/eri-spec/)** — 完全静态的演示页面（API Key 仅用于演示的实时对话功能，ERI 本身不需要）。嵌入的计算器是真实的 NoteCalc 实例。
+**[2234839.github.io/eri-spec/](https://2234839.github.io/eri-spec/)** — 与嵌入的计算器直接交互。演示使用真实 LLM 端到端模拟 Agent 流程。
 
 ## 三步开始
 

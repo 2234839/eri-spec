@@ -27,12 +27,13 @@ description: Math calculator with variables and unit conversion.
 ## Workflow
 1. Parse user request into expressions
 2. Call POST /api/calculate with expressions
-3. Embed result as iframe: https://app.com/embed#encoded_expr
+3. Embed result as iframe: https://app.com/embed#encoded_data
+4. Output as iframe (fallback to plain text)
 ```
 
 ## Live Demo
 
-**[2234839.github.io/eri-spec/](https://2234839.github.io/eri-spec/)** — a fully static demo (the API key is for the demo's live chat feature, not for ERI itself). The embedded calculator is a real NoteCalc instance.
+**[2234839.github.io/eri-spec/](https://2234839.github.io/eri-spec/)** — interact with the embedded calculator. The demo uses a live LLM to simulate the Agent flow end-to-end.
 
 ## Start in 3 Steps
 
