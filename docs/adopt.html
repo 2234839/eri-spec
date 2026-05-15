@@ -77,6 +77,22 @@
       },
       {
         "@type": "Question",
+        "name": "What about PII and compliance?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Never place PII in URL hash or query params — URLs are logged in browser history, proxy logs, and referrer headers. Pass a short-lived token in the URL and fetch actual data via an API call inside the embed page."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What if our platform doesn't support iframes?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ERI falls back to plain text — the Agent still provides value. Most major platforms (ChatGPT, Claude, Gemini) render iframes today."
+        }
+      },
+      {
+        "@type": "Question",
         "name": "What happens if the Agent sends bad data or a malformed URL?",
         "acceptedAnswer": {
           "@type": "Answer",

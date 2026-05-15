@@ -77,6 +77,22 @@
       },
       {
         "@type": "Question",
+        "name": "PII 和合规怎么办？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "绝不在 URL hash 或 query 参数中放置 PII——URL 会被记录在浏览器历史、代理日志和 Referrer 头中。应在 URL 中传递短期令牌，由嵌入页面通过 API 调用获取实际数据。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "如果我们的平台不支持 iframe 怎么办？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ERI 会降级为纯文本——Agent 仍然提供价值。大多数主流平台（ChatGPT、Claude、Gemini）今天都支持渲染 iframe。"
+        }
+      },
+      {
+        "@type": "Question",
         "name": "Agent 发送了错误数据或格式异常的 URL 怎么办？",
         "acceptedAnswer": {
           "@type": "Answer",

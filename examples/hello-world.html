@@ -19,7 +19,8 @@
     <h1>Hello from ERI</h1>
     <p style="color:#888">This is a minimal embed page. It reads a name from the URL.</p>
     <div class="greeting">Hello, <strong id="name">World</strong>!</div>
-    <input type="text" id="nameInput" placeholder="Type a name..." oninput="updateName()">
+    <label for="nameInput" style="display:none">Name</label>
+    <input type="text" id="nameInput" placeholder="Type a name..." oninput="updateName()" aria-label="Name input">
     <div class="badge">ERI Level 1</div>
   </div>
   <script>
