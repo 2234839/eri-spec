@@ -127,6 +127,7 @@ description: 数学计算器，支持变量和单位转换。
     <p><strong>MCP Apps</strong>（Anthropic &amp; OpenAI, 2025）在 MCP 生态中标准化交互式 UI——沙箱 iframe 表现为小应用。只在支持 MCP 的平台上可用。</p>
     <p><strong>A2UI</strong>（Google, 2025）走声明式、跨平台路线——Agent 发送 JSON 组件描述，客户端库（Flutter、Web Components）原生渲染。只在支持 A2UI 的平台上可用。</p>
     <p><strong>ERI</strong> 在<em>所有</em>平台上都能用。作为第三方服务提供者，你只需写一个嵌入页面和一个 skill 文件——你的应用就能出现在 ChatGPT、Claude、Gemini 以及任何未来的 Agent 上。无需 SDK、无需 Schema、无需平台特定代码。一个 URL。今天就能用，等目标平台支持 MCP Apps 或 A2UI 时再采用。三条路收敛到同一个终点。</p>
+    <p>ERI 有权衡：它是快照式的（Agent 无法实时看到 iframe 内的编辑），iframe 无法访问设备原生 API，复杂页面在移动端可能性能不佳。完整列表见<a href="./spec.zh.html#9-局限性">规范中的局限性章节</a>。这些是真实的约束——但对大多数交互式输出场景，权衡是值得的。</p>
     <div class="arch">
       <div class="arch-layer">
         <div class="arch-level"><span class="arch-level-tag">可交互</span>
