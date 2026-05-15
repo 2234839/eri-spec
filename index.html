@@ -448,7 +448,10 @@
     /* Responsive */
     @media (max-width: 900px) {
       .chat-area { flex-direction: column; }
-      .sidebar { display: none; }
+      .sidebar { margin-top: 8px; }
+      .sidebar .sidebar-card { margin-top: 0; }
+      .sidebar .skill-preview { display: none; }
+      .sidebar-card-body p:last-child { display: none; }
     }
     @media (max-width: 640px) {
       .chat-area { padding: 12px; }
@@ -570,6 +573,7 @@ description: What it does
         'error.apiKey': 'Please enter your API key in Settings first.',
         'error.generic': 'Error: ',
         'error.apiCheck': '. Please check your API key and endpoint in Settings.',
+        'error.fallback': 'Sorry, something went wrong.',
         'skill.prompt': `You are a helpful assistant with a math calculation skill called notecalc.
 
 When the user asks you to calculate something, follow this workflow:
@@ -614,6 +618,7 @@ Always show the iframe embed after your text explanation so the user can interac
         'error.apiKey': '请先在设置中输入你的 API Key。',
         'error.generic': '错误：',
         'error.apiCheck': '。请检查设置中的 API Key 和地址是否正确。',
+        'error.fallback': '抱歉，出了点问题。',
         'skill.prompt': `你是一个带有数学计算技能 notecalc 的助手。
 
 当用户要求你进行计算时，请遵循以下工作流程：
@@ -887,6 +892,8 @@ Always show the iframe embed after your text explanation so the user can interac
       const model = document.getElementById('model').value.trim();
 
       if (!apiKey) {
+        const settings = document.getElementById('settings');
+        if (!settings.classList.contains('open')) toggleSettings();
         alert(I18N[currentLang]['error.apiKey']);
         return;
       }
@@ -914,7 +921,7 @@ Always show the iframe embed after your text explanation so the user can interac
         });
 
         const data = await resp.json();
-        const assistantContent = data.choices?.[0]?.message?.content || 'Sorry, something went wrong.';
+        const assistantContent = data.choices?.[0]?.message?.content || data.error?.message || I18N[currentLang]['error.fallback'];
 
         removeLoadingMessage();
 
