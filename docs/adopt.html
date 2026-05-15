@@ -111,7 +111,7 @@
         </ul>
       </li>
       <li>Write a <code>skill.md</code> following the <a href="./spec.html">spec</a></li>
-      <li>Test with your Agent platform — confirm iframes render with <code>sandbox="allow-scripts allow-same-origin"</code></li>
+      <li>Test with your Agent platform — confirm iframes render with <code>sandbox="allow-scripts"</code></li>
     </ul>
 
     <h3>Phase 2: Integration (1 week)</h3>
@@ -146,7 +146,7 @@
     <p>Iframe is how every major platform (YouTube, Stripe, Google Maps) embeds third-party content. ChatGPT, Claude, and Gemini all render iframes in Agent output today. The web hasn't replaced iframes — it's standardized them with <code>sandbox</code> attributes for security.</p>
 
     <h3>"What about security?"</h3>
-    <p>Platforms sandbox iframes (<code>sandbox="allow-scripts allow-same-origin"</code>) — no access to parent cookies, tokens, or DOM. Just follow standard XSS prevention. See <a href="./spec.html#security">spec security section</a>.</p>
+    <p>Platforms sandbox iframes (<code>sandbox="allow-scripts"</code>) — no access to parent cookies, tokens, or DOM. Just follow standard XSS prevention. See <a href="./spec.html#security">spec security section</a>.</p>
 
     <h3>"MCP Apps will replace this, right?"</h3>
     <p>MCP Apps only work on MCP-enabled platforms. ERI is just a URL — works <em>everywhere</em>. And the embed page you build for ERI is the same page you'd package for MCP Apps later. ERI is the on-ramp, not a dead end.</p>

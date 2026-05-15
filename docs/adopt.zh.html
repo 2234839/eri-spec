@@ -111,7 +111,7 @@
         </ul>
       </li>
       <li>按照<a href="./spec.zh.html">规范</a>写一个 <code>skill.md</code></li>
-      <li>在你的 Agent 平台上测试——确认 iframe 能以 <code>sandbox="allow-scripts allow-same-origin"</code> 正确渲染</li>
+      <li>在你的 Agent 平台上测试——确认 iframe 能以 <code>sandbox="allow-scripts"</code> 正确渲染</li>
     </ul>
 
     <h3>第二阶段：集成（1 周）</h3>
@@ -146,7 +146,7 @@
     <p>iframe 是所有主要平台（YouTube、Stripe、Google Maps）嵌入第三方内容的方式。ChatGPT、Claude、Gemini 都在 Agent 输出中渲染 iframe。Web 并没有淘汰 iframe——而是通过 <code>sandbox</code> 属性将其标准化和安全化。</p>
 
     <h3>"安全怎么办？"</h3>
-    <p>平台对 iframe 加沙箱（<code>sandbox="allow-scripts allow-same-origin"</code>）——无法访问父页面 cookie、token 或 DOM。遵循标准 XSS 防护即可。详见<a href="./spec.zh.html#security">规范安全章节</a>。</p>
+    <p>平台对 iframe 加沙箱（<code>sandbox="allow-scripts"</code>）——无法访问父页面 cookie、token 或 DOM。遵循标准 XSS 防护即可。详见<a href="./spec.zh.html#security">规范安全章节</a>。</p>
 
     <h3>"MCP Apps 不是会替代这个吗？"</h3>
     <p>MCP Apps 只在 MCP 平台上运行。ERI 只是一个 URL——<em>所有</em>平台通用。而且你为 ERI 构建的嵌入页面，就是日后打包给 MCP Apps 的同一个页面。ERI 是入口，不是死胡同。</p>
