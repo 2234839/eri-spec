@@ -89,7 +89,7 @@
     <h1>ERI Specification — Embedded Result Interface</h1>
     <p class="meta"><strong>Version</strong>: 1.0 &nbsp;|&nbsp; <strong>Status</strong>: Stable &nbsp;|&nbsp; <strong>License</strong>: MIT</p>
 
-    <h2>1. Definition</h2>
+    <h2 id="definition">1. Definition</h2>
     <p>ERI (Embedded Result Interface) is a convention for making Agent output interactive. After processing a user request, the Agent outputs an embedded UI (iframe) instead of plain text — using only a <code>skill.md</code> and a URL. No new protocols, no SDKs.</p>
     <p>Who does what in ERI:</p>
     <ul>
@@ -103,7 +103,7 @@
       <li><strong>Third-party app runs independently</strong> — only needs to provide an HTTPS page</li>
     </ul>
 
-    <h2>2. Workflow</h2>
+    <h2 id="workflow">2. Workflow</h2>
     <div class="flow">
       <div class="flow-step"><strong>1. Understand</strong><span>Extract intent</span></div>
       <div class="flow-arrow">→</div>
@@ -125,7 +125,7 @@ Response: {"result": 298.5}</code></pre>
     <pre><code>&lt;iframe src="https://app.example.com/embed#encoded_data" width="100%" height="400"&gt;&lt;/iframe&gt;</code></pre>
     <p>Platforms add <code>sandbox</code> automatically. No iframe support? Falls back to plain text.</p>
 
-    <h2>3. Conversation Flow</h2>
+    <h2 id="conversation-flow">3. Conversation Flow</h2>
     <p>Iframe edits don't notify the Agent. On each new turn:</p>
     <ol>
       <li>Agent reads previous results from context</li>
@@ -141,7 +141,7 @@ User: "Add 8% tax"
 Agent: Reads context last_result=298.5, computes 298.5 * 1.08
        [outputs new iframe: 298.5 * 1.08 = 322.38]</code></pre>
 
-    <h2>4. Skill Authoring <span class="tag tag-provider">Provider</span></h2>
+    <h2 id="skill-authoring">4. Skill Authoring <span class="tag tag-provider">Provider</span></h2>
     <p>A <code>skill.md</code> file is placed where the Agent can discover it — as a custom instruction, a GPT action, a Claude skill file, or any mechanism the platform provides for defining Agent behavior. The format is the same across all platforms.</p>
     <p>A minimal ERI Skill:</p>
     <pre><code>---
@@ -157,7 +157,7 @@ description: What this Skill does
     <p>The Agent reads this workflow, executes each step, and outputs an iframe.</p>
     <p>The frontmatter (<code>name</code>, <code>description</code>) follows standard YAML convention. The <code>## Workflow</code> section is freeform — write it in whatever natural language the Agent understands. No special syntax needed.</p>
 
-    <h2>5. Embed Page Requirements <span class="tag tag-provider">Provider</span></h2>
+    <h2 id="embed-page">5. Embed Page Requirements <span class="tag tag-provider">Provider</span></h2>
     <table>
       <thead><tr><th>Requirement</th><th>Description</th></tr></thead>
       <tbody>
@@ -196,7 +196,7 @@ description: What this Skill does
 &lt;/html&gt;</code></pre>
     <p>24 lines. Deploy to any HTTPS host.</p>
 
-    <h2>6. Security</h2>
+    <h2 id="security">6. Security</h2>
     <h3>Agent platform side <span class="tag tag-platform">Platform</span></h3>
     <ul>
       <li>Add <code>sandbox="allow-scripts allow-same-origin"</code> to iframes</li>
@@ -209,7 +209,7 @@ description: What this Skill does
       <li>Sanitize all inputs against XSS</li>
     </ul>
 
-    <h2>7. Progressive Levels</h2>
+    <h2 id="progressive-levels">7. Progressive Levels</h2>
     <table>
       <thead><tr><th>Level</th><th>Capability</th><th>Who needs to act</th></tr></thead>
       <tbody>
@@ -232,18 +232,18 @@ iframe.contentWindow.postMessage({
   data: { ... }
 }, "https://your-app.example.com");</code></pre>
 
-    <h2>8. Use Cases</h2>
+    <h2 id="use-cases">8. Use Cases</h2>
     <p><strong>Fits</strong>: Calculators, forms/surveys, data visualization, document editing, design tools, code editors — any scenario where the user wants to <em>tweak</em> the Agent's output.</p>
     <p><strong>Does not fit</strong>: Pure information queries (no interaction needed), long-form text generation, real-time sync (ERI is snapshot-based).</p>
 
-    <h2>9. Limitations</h2>
+    <h2 id="limitations">9. Limitations</h2>
     <ul>
       <li><strong>Snapshot-based</strong> — Agent cannot see iframe edits in real time. Use Level 2 postMessage for bidirectional sync.</li>
       <li><strong>No native device access</strong> — iframes cannot use GPS, camera, or other device-native APIs.</li>
       <li><strong>No SEO indexing</strong> — iframe content is invisible to search engines (irrelevant for Agent output).</li>
     </ul>
 
-    <h2>10. Industry Landscape</h2>
+    <h2 id="industry-landscape">10. Industry Landscape</h2>
     <p>Three approaches exist for interactive Agent output:</p>
     <ul>
       <li><strong>ERI</strong> — embed any web app via URL. Works on <em>all</em> platforms.</li>
