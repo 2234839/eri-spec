@@ -133,23 +133,29 @@
 
     <h2>三条路径到交互式 Agent 输出</h2>
     <p>业界从三个方向收敛到同一个问题：</p>
-    <p><strong>ERI</strong>——通过 URL 嵌入你的 Web 应用。因为用的是 iframe，今天大多数平台都能用。你构建一个 HTTPS 页面，写一个 <code>skill.md</code>，然后上线。代价：完整 Web 平台（HTML/CSS/JS/Canvas/WebGL），但没有原生设备 API 或实时同步。</p>
-    <p><strong><a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a></strong>（Anthropic / OpenAI）——沙箱小应用，拥有平台 API 和实时通信。能力更丰富，但只能在支持 MCP 的平台上运行。需要按平台特定的格式打包。</p>
-    <p><strong><a href="https://github.com/google/a2ui">A2UI</a></strong>（Google）——Agent 以 JSON 声明 UI，平台渲染器将其转为原生控件。原生渲染质量，但需要 A2UI 渲染器——大多数平台还没有。</p>
+    <table>
+      <thead><tr><th></th><th>ERI</th><th><a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a>（Anthropic / OpenAI）</th><th><a href="https://github.com/google/a2ui">A2UI</a>（Google）</th></tr></thead>
+      <tbody>
+        <tr><td><strong>机制</strong></td><td>通过 URL 嵌入 iframe</td><td>沙箱小应用</td><td>JSON Schema + 原生渲染器</td></tr>
+        <tr><td><strong>平台支持</strong></td><td>今天大多数平台</td><td>仅 MCP 平台</td><td>需要 A2UI 渲染器</td></tr>
+        <tr><td><strong>能力</strong></td><td>完整 Web（HTML/CSS/JS/Canvas/WebGL）</td><td>平台 API + 实时同步</td><td>原生渲染</td></tr>
+        <tr><td><strong>打包方式</strong></td><td>无需——只是一个 URL</td><td>平台特定的 manifest</td><td>平台特定的 schema</td></tr>
+      </tbody>
+    </table>
 
     <h2>为什么先选 ERI</h2>
     <p><strong>今天就上线，以后再升级。</strong>ERI 利用平台已有的能力——iframe 渲染——所以今天大多数平台都能用。等目标平台支持 MCP Apps 或 A2UI，你的嵌入页面可以直接沿用——它构成打包给更丰富协议的核心。你在构建资产，不是一次性原型。</p>
-    <p><strong>一次实现，所有平台。</strong>ChatGPT、Claude、Gemini 都在 Agent 输出中渲染 iframe。一个嵌入页面 + 一个 <code>skill.md</code> 覆盖三个平台。无需逐平台 SDK，无需平台审批流程，无需供应商特定的打包。</p>
-    <p><strong>零协议承诺。</strong>ERI 不是运行时依赖。你的嵌入页面独立运行——它就是一个普通的 HTTPS 页面。如果日后决定迁移到 MCP Apps 或 A2UI，嵌入页面不用改。你只需在上面加一层打包。</p>
-      <p><strong>迁移路径：</strong>你的 ERI 嵌入页面本身就是一个 HTTPS Web 应用。当 MCP Apps 到来时，你只需将它包装在 manifest 中，通过 MCP 运行时暴露同一个页面。同样的 UI、同样的 API，额外的平台能力。投入会持续累积。</p>
+    <p><strong>一次实现，所有平台。</strong>ChatGPT、Claude、Gemini 都在 Agent 输出中渲染 iframe（已在 GPT-4o、Claude 3.5+、Gemini 2.0+ 上验证，2026 年 5 月）。一个嵌入页面 + 一个 <code>skill.md</code> 覆盖三个平台。无需逐平台 SDK，无需平台审批流程，无需供应商特定的打包。</p>
+    <p><strong>零协议承诺。</strong>你的嵌入页面是独立的 HTTPS 应用——ERI 不是运行时依赖。当你准备好接入 MCP Apps 时，将它包装在 manifest 中，通过 MCP 运行时暴露同一个页面。同样的 UI、同样的 API，额外的平台能力。投入会持续累积。</p>
     <p>代价：快照式输出（每轮用户对话产生全新嵌入），无原生设备 API，URL 大小限制。详见<a href="./spec.zh.html#limitations">规范局限性</a>和<a href="./spec.zh.html#large-data-pattern">大数据集模式</a>。</p>
+    <p><strong>被说服了？</strong><a href="https://2234839.github.io/eri-spec/">试试演示</a>，或阅读<a href="./adopt.zh.html">团队采用指南</a>。</p>
     <div class="arch">
       <div class="arch-layer">
         <div class="arch-level"><span class="arch-level-tag">可交互</span>
           <div class="arch-boxes">
             <div class="arch-box eri"><b>ERI</b><span>嵌入 URL → iframe</span></div>
-            <div class="arch-box"><b>MCP Apps</b><span>沙箱 iframe 小应用</span></div>
-            <div class="arch-box"><b>A2UI</b><span>JSON Schema + 渲染器</span></div>
+            <div class="arch-box"><b>MCP Apps</b><span>沙箱 iframe 小应用 (Anthropic/OpenAI)</span></div>
+            <div class="arch-box"><b>A2UI</b><span>JSON Schema + 渲染器 (Google)</span></div>
           </div>
         </div>
         <div class="arch-level"><span class="arch-level-tag">兜底</span> 纯文本（现状）</div>
@@ -168,6 +174,7 @@
     <p style="display:flex;gap:12px;flex-wrap:wrap">
       <a href="https://twitter.com/intent/tweet?text=AI%20Agent%20%E8%BE%93%E5%87%BA%E6%96%87%E5%AD%97%E3%80%82ERI%20%E8%AE%A9%E5%AE%83%E4%BB%AC%E8%BE%93%E5%87%BA%E5%8F%AF%E4%BA%A4%E4%BA%92%E7%9A%84%20UI%E2%80%94%E2%80%94%E7%94%A8%E4%B8%80%E4%B8%AA%20skill.md%20%E6%8A%8A%E4%BB%BB%E4%BD%95%20Web%20%E5%BA%94%E7%94%A8%E5%B5%8C%E5%85%A5%20ChatGPT%E3%80%81Claude%E3%80%81Gemini%E3%80%82&url=https%3A%2F%2F2234839.github.io%2Feri-spec%2Fdocs%2Fblog.zh.html" target="_blank" rel="noopener" style="display:inline-block;padding:6px 14px;border:1px solid var(--border);border-radius:6px;text-decoration:none;font-size:0.9em">分享到 X</a>
       <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2F2234839.github.io%2Feri-spec%2Fdocs%2Fblog.zh.html" target="_blank" rel="noopener" style="display:inline-block;padding:6px 14px;border:1px solid var(--border);border-radius:6px;text-decoration:none;font-size:0.9em">分享到 LinkedIn</a>
+      <a href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2F2234839.github.io%2Feri-spec%2Fdocs%2Fblog.html&t=Beyond+Text%3A+Why+AI+Agents+Need+Interactive+UI" target="_blank" rel="noopener" style="display:inline-block;padding:6px 14px;border:1px solid var(--border);border-radius:6px;text-decoration:none;font-size:0.9em">Submit to HN</a>
     </p>
 
     <hr>
