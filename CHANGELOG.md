@@ -4,6 +4,13 @@ All notable changes to the ERI specification are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.10] - 2026-05-16
+
+### Added
+- Adopt EN/ZH: "5-Minute Tech Talk Outline" table — minute-by-minute guide for presenting ERI to a team (problem → demo → how it works → compatibility → ask).
+
+[1.0.10]: https://github.com/2234839/eri-spec/compare/v1.0.9...v1.0.10
+
 ## [1.0.9] - 2026-05-16
 
 ### Changed
