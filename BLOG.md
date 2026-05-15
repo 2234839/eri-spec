@@ -20,13 +20,13 @@ The problem isn't accuracy. The problem is the medium.
 
 It's not just calculations. When an Agent generates a chart, you want to adjust the axes. When it creates a form, you want to tweak the fields. When it picks colors, you want to drag the sliders. Every time, the Agent forces you back into text — when what you need is a UI.
 
+The ecosystem has solved input — natural language, tool calls, multimodal. It hasn't solved output. Everything comes back as text.
+
 ## Enter ERI
 
 ERI (Embedded Result Interface) is a convention for making Agent output interactive. The Agent calls a third-party API, constructs an embed URL, and outputs an iframe or screenshot. The user interacts directly — no Agent in the loop.
 
-No new protocols. No SDKs. Just a convention for writing `skill.md` files.
-
-A complete Skill:
+No new protocols. No SDKs. Just a `skill.md`.
 
 ```markdown
 ---
@@ -40,21 +40,13 @@ description: Math calculator with variables and unit conversion.
 3. Embed result as iframe: https://app.com/embed#encoded_expr
 ```
 
-10 minutes to write. Half a day for the embed page. Zero platform changes.
+10 minutes to write. Half a day for the embed page. Zero platform changes. [Level 1 (screenshot)](./SPEC.md) works everywhere today — no platform support needed. Ship it, upgrade to Level 2 (iframe) when ready. Nothing breaks.
 
-## Progressive
-
-ERI is progressive — start simple, enhance later. [Level 1 (screenshot)](./SPEC.md) works everywhere today. No platform support needed. Ship it, get feedback, upgrade to Level 2 (iframe) when ready. Nothing ever breaks.
-
-## See It Live
-
-Try it: [2234839.github.io/eri-spec/](https://2234839.github.io/eri-spec/) — a static demo page. Connects to your own LLM API key. No server, no signup, data stays in your browser.
-
-Embed page: 40 lines of Vue. Skill definition: one markdown file.
+Try it: [2234839.github.io/eri-spec/](https://2234839.github.io/eri-spec/)
 
 ## ERI vs A2UI
 
-The industry is converging on interactive Agent output. Two paths:
+Two paths to interactive Agent output:
 
 | | ERI | A2UI (Google) |
 |---|---|---|
@@ -64,11 +56,9 @@ The industry is converging on interactive Agent output. Two paths:
 | **Third party needs** | An HTTPS embed page | Component catalog + A2UI schema |
 | **Effort** | 10 min | Days |
 
-A2UI is the protocol-heavy route — agents generate UI declarations, clients render from a component catalog. It's the right answer for platforms building their own rendering pipeline. But it takes days of integration and platform buy-in before anything appears on screen.
+A2UI is the right answer for platforms building their own rendering pipeline. But it takes days of integration and platform buy-in before anything appears on screen.
 
-ERI is the convention-only route — agents embed existing apps. An app with a web UI can appear in Agent conversations in half a day. No SDKs, no schemas, no renderers. Just a URL.
-
-Both converge at the same destination. ERI gets you there now.
+ERI gets you there now. An app with a web UI can appear in Agent conversations in half a day. No SDKs, no schemas, no renderers. Just a URL. Both converge at the same destination.
 
 ```
 ┌─────────────────────────────────────────────┐
@@ -88,12 +78,6 @@ Both converge at the same destination. ERI gets you there now.
 │   MCP  ·  Function Calling  ·  REST        │
 └─────────────────────────────────────────────┘
 ```
-
-## The Output Problem
-
-The Agent ecosystem has solved input — natural language, tool calls, multimodal. It hasn't solved output. Everything comes back as text, even when the result is inherently visual or interactive.
-
-You can wait for a protocol to mature. Or you can start shipping interactive results today.
 
 ---
 
