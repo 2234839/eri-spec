@@ -22,8 +22,8 @@ Place this file where your Agent platform reads behavior instructions:
 | Platform | Where to put skill.md |
 |----------|----------------------|
 | ChatGPT | Paste into Custom Instructions (Settings → Personalization) |
-| Claude | Add to `CLAUDE.md` or a project skill file |
-| Gemini | Paste into System Instructions |
+| Claude | Claude Code: add to `CLAUDE.md` or `.claude/` skill files. Claude.ai: paste into Project instructions. |
+| Gemini | Paste into System Instructions (Gemini API or Google AI Studio) |
 | Any Agent | Include in the Agent's prompt / system message / behavior config |
 
 The skill.md format is plain Markdown — no installation, no build step, no platform SDK.
