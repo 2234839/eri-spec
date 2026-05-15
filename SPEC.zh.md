@@ -129,17 +129,7 @@ Content-Type: application/json
 
 ### 嵌入输出
 
-**iframe（Level 2）** — 平台支持时优先使用：
-
-```html
-<iframe src="https://app.example.com/embed#encoded_data" width="100%" height="400"></iframe>
-```
-
-**截图（Level 1）** — 所有环境通用，不需要平台支持：
-
-```
-https://api.microlink.io/?url={encoded_embed_url}&screenshot=true&embed=screenshot.url
-```
+输出模式与示例见 Section 2.4。Skill 工作流第 4 步指定优先级：iframe > 截图 > 纯文本。
 
 ## 5. 嵌入式页面要求
 

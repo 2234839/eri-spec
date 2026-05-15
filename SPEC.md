@@ -129,17 +129,7 @@ Content-Type: application/json
 
 ### Embed Output
 
-**iframe (Level 2)** — preferred when platform supports it:
-
-```html
-<iframe src="https://app.example.com/embed#encoded_data" width="100%" height="400"></iframe>
-```
-
-**Screenshot (Level 1)** — works everywhere, no platform support needed:
-
-```
-https://api.microlink.io/?url={encoded_embed_url}&screenshot=true&embed=screenshot.url
-```
+See Section 2.4 for output modes and examples. The skill's workflow step 4 specifies the priority: iframe > screenshot > plain text.
 
 ## 5. Embed Page Requirements
 
