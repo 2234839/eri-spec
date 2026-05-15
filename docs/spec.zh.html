@@ -136,6 +136,7 @@ Response: {"result": 298.5}</code></pre>
       <li>结合新输入，重新调用 API</li>
       <li>输出全新的嵌入界面（旧界面不更新）</li>
     </ol>
+    <p>上下文来自 Agent 平台的对话历史——Agent 能看到自己之前的文字输出（包括 API 结果）。无需额外的状态机制。</p>
     <pre><code>用户: "帮我算 3 件商品，每件 99.5 元"
 Agent: [输出 iframe: 99.5 * 3 = 298.5]
 
@@ -174,31 +175,22 @@ description: 工具描述
     </table>
 
     <h3 id="minimal-example">最小嵌入页面示例</h3>
+    <p>Agent 在服务端调用 API，通过 URL hash 将结果传递给嵌入页面。页面只负责渲染——iframe 内无需任何计算逻辑。</p>
     <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;body&gt;
-&lt;input id="expr" style="width:100%;font-size:18px"&gt;
-&lt;div id="result" style="font-size:24px;margin-top:8px"&gt;&lt;/div&gt;
+&lt;div id="out" style="font-size:24px"&gt;&lt;/div&gt;
 &lt;script&gt;
-  const expr = decodeURIComponent(location.hash.slice(1));
-  document.getElementById('expr').value = expr;
-  function safeEval(s) {
-    return /^[0-9+\-*/().%\s]+$/.test(s)
-      ? Function('"use strict"; return (' + s + ')')()
-      : NaN;
-  }
-  function update() {
-    const v = document.getElementById('expr').value;
-    const r = safeEval(v);
-    document.getElementById('result').textContent =
-      isNaN(r) ? '' : r;
-  }
-  document.getElementById('expr').oninput = update;
-  update();
+  /** Agent 通过 hash 传入 JSON: {"expr":"99.5*3","result":298.5} */
+  const data = JSON.parse(
+    decodeURIComponent(location.hash.slice(1))
+  );
+  document.getElementById('out').textContent =
+    data.expr + ' = ' + data.result;
 &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-    <p>24 行代码。部署到任意 HTTPS 主机即可。</p>
+    <p>10 行代码。部署到任意 HTTPS 主机即可。</p>
 
     <h2 id="security">6. 安全</h2>
     <h3 id="platform-security">Agent 平台侧 <span class="tag tag-platform">平台</span></h3>
@@ -222,18 +214,18 @@ description: 工具描述
         <tr><td>2</td><td>双向通信</td><td>Level 1 + <span class="tag tag-provider">提供者</span> <span class="tag tag-platform">平台</span> 双方实现 postMessage</td></tr>
       </tbody>
     </table>
-    <p>Level 2 的 postMessage 协议（使用具体 origin，不要用 <code>"*"</code>）：</p>
-    <pre><code>// iframe → Agent 平台
+    <p>Level 2 的 postMessage 协议——使用具体 origin，绝不使用 <code>"*"</code>：</p>
+    <pre><code>// iframe → Agent 平台：通知用户修改了某个值
 window.parent.postMessage({
-  type: "eri:valueChanged",
-  path: "field.path",
-  value: newValue
+  type: "eri:valueChanged",  // 必须以 "eri:" 开头
+  path: "items.price",       // 所修改字段的点分路径
+  value: 199                 // 新值
 }, "https://agent-platform.example.com");
 
-// Agent 平台 → iframe（可选）
+// Agent 平台 → iframe：向嵌入页面推送更新数据
 iframe.contentWindow.postMessage({
   type: "eri:update",
-  data: { ... }
+  data: { items: [...], total: 597 }
 }, "https://your-app.example.com");</code></pre>
 
     <h2 id="use-cases">8. 适用场景</h2>

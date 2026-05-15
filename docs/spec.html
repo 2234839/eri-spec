@@ -136,6 +136,7 @@ Response: {"result": 298.5}</code></pre>
       <li>Combines new input with context, calls API again</li>
       <li>Outputs a fresh embed (old one is not updated)</li>
     </ol>
+    <p>Context comes from the Agent platform's conversation history — the Agent sees its own previous text output (including API results). No special state mechanism needed.</p>
     <pre><code>User: "Calculate 3 items at $99.5 each"
 Agent: [outputs iframe: 99.5 * 3 = 298.5]
 
@@ -174,31 +175,22 @@ description: What this Skill does
     </table>
 
     <h3 id="minimal-example">Minimal Embed Page Example</h3>
+    <p>The Agent calls the API server-side and passes the result to the embed page via URL hash. The page only renders — no computation inside the iframe.</p>
     <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;body&gt;
-&lt;input id="expr" style="width:100%;font-size:18px"&gt;
-&lt;div id="result" style="font-size:24px;margin-top:8px"&gt;&lt;/div&gt;
+&lt;div id="out" style="font-size:24px"&gt;&lt;/div&gt;
 &lt;script&gt;
-  const expr = decodeURIComponent(location.hash.slice(1));
-  document.getElementById('expr').value = expr;
-  function safeEval(s) {
-    return /^[0-9+\-*/().%\s]+$/.test(s)
-      ? Function('"use strict"; return (' + s + ')')()
-      : NaN;
-  }
-  function update() {
-    const v = document.getElementById('expr').value;
-    const r = safeEval(v);
-    document.getElementById('result').textContent =
-      isNaN(r) ? '' : r;
-  }
-  document.getElementById('expr').oninput = update;
-  update();
+  /** Agent passes JSON via hash: {"expr":"99.5*3","result":298.5} */
+  const data = JSON.parse(
+    decodeURIComponent(location.hash.slice(1))
+  );
+  document.getElementById('out').textContent =
+    data.expr + ' = ' + data.result;
 &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-    <p>24 lines. Deploy to any HTTPS host.</p>
+    <p>10 lines. Deploy to any HTTPS host.</p>
 
     <h2 id="security">6. Security</h2>
     <h3 id="platform-security">Agent platform side <span class="tag tag-platform">Platform</span></h3>
@@ -222,18 +214,18 @@ description: What this Skill does
         <tr><td>2</td><td>Bidirectional communication</td><td>Level 1 + <span class="tag tag-provider">Provider</span> <span class="tag tag-platform">Platform</span> both implement postMessage</td></tr>
       </tbody>
     </table>
-    <p>Level 2 postMessage protocol (use specific origin, not <code>"*"</code>):</p>
-    <pre><code>// iframe → Agent platform
+    <p>Level 2 postMessage protocol — use specific origin, never <code>"*"</code>:</p>
+    <pre><code>// iframe → Agent platform: notify that user changed a value
 window.parent.postMessage({
-  type: "eri:valueChanged",
-  path: "field.path",
-  value: newValue
+  type: "eri:valueChanged",  // required prefix: "eri:"
+  path: "items.price",       // dot-path to the changed field
+  value: 199                 // new value
 }, "https://agent-platform.example.com");
 
-// Agent platform → iframe (optional, Level 2)
+// Agent platform → iframe: push updated data into the embed
 iframe.contentWindow.postMessage({
   type: "eri:update",
-  data: { ... }
+  data: { items: [...], total: 597 }
 }, "https://your-app.example.com");</code></pre>
 
     <h2 id="use-cases">8. Use Cases</h2>
