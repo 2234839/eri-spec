@@ -12,7 +12,7 @@ ERI (Embedded Result Interface) is an **open specification** for a Skill authori
 - `README.md` / `README.zh.md` — High-level overview and motivation
 - `BLOG.md` / `BLOG.zh.md` — Blog post explaining the "why" behind ERI
 - `examples/notecalc.en.md` / `notecalc.zh.md` — NoteCalc: the reference ERI implementation demo (calculator with live embed page)
-- `docs/index.html` — Self-contained interactive demo page (static HTML, no build step). Connects to a real LLM API and NoteCalc API to demonstrate ERI in action
+- `index.html` (root) — Self-contained interactive demo page (static HTML, no build step). Connects to a real LLM API and NoteCalc API to demonstrate ERI in action
 
 ## Key Concepts
 
@@ -35,5 +35,5 @@ All documents exist in English (`*.md`) and Chinese (`*.zh.md`) pairs. Both must
 ## Editing Guidelines
 
 - Documents are GitHub Pages–deployed (`.nojekyll` present) — verify links work in that context
-- The demo (`docs/index.html`) is fully static with inline CSS/JS — no framework, no build step
+- The demo (`index.html` at root) is fully static with inline CSS/JS — no framework, no build step
 - When updating spec version or adding capabilities, update both `SPEC.md` and `SPEC.zh.md`, and ensure README/BLOG references stay consistent
