@@ -99,17 +99,7 @@
 
     <h2>Enter ERI</h2>
     <p>ERI (Embedded Result Interface) lets your web app appear as a live, editable UI inside any Agent conversation — ChatGPT, Claude, Gemini. You control the experience. The user interacts directly — no Agent round trips needed.</p>
-    <p>No new protocols. No SDKs. No platform approval. Just a <code>skill.md</code> and a URL.</p>
-    <pre><code>---
-name: notecalc
-description: Math calculator with variables and unit conversion.
----
-
-## Workflow
-1. Parse user request into expressions
-2. Call POST /api/calculate with expressions
-3. Embed result as iframe: https://app.com/embed#encoded_data
-4. Output as iframe (fallback to plain text)</code></pre>
+    <p>No new protocols. No SDKs. No platform approval. Just a <code>skill.md</code> that tells the Agent how to call your API and which URL to embed. <a href="./spec.html#skill-authoring">See the spec</a> for a minimal example — 4 lines of instructions.</p>
     <p>10 minutes to write. Half a day for the embed page. Zero platform changes. Ship today. <a href="https://2234839.github.io/eri-spec/">Try it now</a>.</p>
 
     <h2>Three Paths to Interactive Agent Output</h2>
@@ -125,7 +115,7 @@ description: Math calculator with variables and unit conversion.
 
     <h2>Why ERI First</h2>
     <p><strong>MCP Apps</strong> and <strong>A2UI</strong> offer richer capabilities — but only on platforms that support them. <strong>ERI</strong> gives you <em>every platform today</em>, because it's just a URL in an iframe. No runtime, no renderer, no platform buy-in.</p>
-    <p>The embed page you build for ERI is the same page you'd package for MCP Apps later. ERI is the on-ramp: ship once at zero cost, adopt richer protocols when your target platforms support them.</p>
+    <p>ERI is the on-ramp: ship today, adopt richer protocols when your platforms support them. Zero lock-in — the embed page you build is the same one you'd package for MCP Apps later.</p>
     <p>ERI has real trade-offs (snapshot-based, no native APIs). See <a href="./spec.html#limitations">Limitations in the spec</a> for the full list.</p>
     <div class="arch">
       <div class="arch-layer">

@@ -99,17 +99,7 @@
 
     <h2>引入 ERI</h2>
     <p>ERI（Embedded Result Interface）让你的 Web 应用以实时可编辑的 UI 出现在任何 Agent 对话中——ChatGPT、Claude、Gemini。你控制体验。用户直接交互——无需等待 Agent 来回。</p>
-    <p>不需要新协议。不需要 SDK。不需要平台审批。只需要一个 <code>skill.md</code> 和一个 URL。</p>
-    <pre><code>---
-name: notecalc
-description: 数学计算器，支持变量和单位转换。
----
-
-## 工作流
-1. 将用户请求转化为表达式
-2. 调用 POST /api/calculate 传入表达式
-3. 以 iframe 嵌入结果: https://app.com/embed#encoded_data
-4. 输出为 iframe（平台无法渲染时降级为纯文本）</code></pre>
+    <p>不需要新协议。不需要 SDK。不需要平台审批。只需一个 <code>skill.md</code>，告诉 Agent 如何调用你的 API、嵌入哪个 URL。<a href="./spec.zh.html#skill-authoring">见规范</a>中的最小示例——只需 4 行指令。</p>
     <p>10 分钟写完。半天做好嵌入页面。零平台改动。今天就能上线。<a href="https://2234839.github.io/eri-spec/">现在试试</a>。</p>
 
     <h2>三条路径到交互式 Agent 输出</h2>
