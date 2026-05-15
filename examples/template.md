@@ -12,13 +12,13 @@ description: One-line description of what your tool does for the user.
 3. Show the result to the user in plain text
 4. Output an iframe embed:
    `<iframe src="https://your-app.example.com/embed#ENCODED_DATA" width="100%" height="400"></iframe>`
-   Where `ENCODED_DATA` is `encodeURIComponent(JSON.stringify(apiResponse))`
+   Where `ENCODED_DATA` is `encodeURIComponent(JSON.stringify(apiResponse))` (recommended; any format your embed page understands is valid)
 5. If the platform cannot render iframes, the plain text result from step 3 is the fallback
 
 ## Notes
 
 - Your API must be publicly accessible (the Agent calls it server-side, not from the user's browser)
 - The embed page at `https://your-app.example.com/embed` must read `location.hash` and decode it:
-  `const data = JSON.parse(decodeURIComponent(location.hash.slice(1)))`
+  `const data = JSON.parse(decodeURIComponent(location.hash.slice(1)))` (adjust if using a non-JSON format)
   See the [minimal embed page example](https://2234839.github.io/eri-spec/docs/spec.html#minimal-example) in the spec.
 - Never include PII in the URL — use a short-lived token and fetch data inside the embed page instead
