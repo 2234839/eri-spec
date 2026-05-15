@@ -143,7 +143,7 @@
     <h2>常见疑问</h2>
 
     <h3>"iframe 不是过时了吗？"</h3>
-    <p>每个主要 Agent 平台都在渲染 iframe。这是 Web 嵌入东西的方式。</p>
+    <p>iframe 是所有主要平台（YouTube、Stripe、Google Maps）嵌入第三方内容的方式。ChatGPT、Claude、Gemini 都在 Agent 输出中渲染 iframe。Web 并没有淘汰 iframe——而是通过 <code>sandbox</code> 属性将其标准化和安全化。</p>
 
     <h3>"安全怎么办？"</h3>
     <p>平台对 iframe 加沙箱（<code>sandbox="allow-scripts allow-same-origin"</code>）——无法访问父页面 cookie、token 或 DOM。遵循标准 XSS 防护即可。详见<a href="./spec.zh.html#security">规范安全章节</a>。</p>
@@ -152,7 +152,7 @@
     <p>MCP Apps 只在 MCP 平台上运行。ERI 只是一个 URL——<em>所有</em>平台通用。最广覆盖，最小代价。</p>
 
     <h3>"我们的 API 需要认证——Agent 怎么传凭证？"</h3>
-    <p>Agent 从服务端调用你的 API，不是从用户浏览器。在 <code>skill.md</code> 的工作流说明中包含 API Key，或者为 Agent 面向的 API 使用公开端点。嵌入页面（iframe）只负责渲染结果——它不直接调用你的 API。</p>
+    <p>Agent 从服务端调用你的 API，不是从用户浏览器。提供一个专门的<strong>公开 API 端点</strong>供 Agent 访问——限流、限定为只读或安全操作。对于敏感操作，让用户在嵌入页面内自行认证（OAuth 弹窗等）。嵌入页面（iframe）只负责渲染结果——不需要直接调用你的 API。</p>
 
     <h3>"如果我们的平台不支持 iframe 怎么办？"</h3>
     <p>ERI 会降级为纯文本输出——Agent 仍然通过文字提供价值。大多数主流平台（ChatGPT、Claude、Gemini）今天都支持渲染 iframe，所以这很少成为问题。</p>
