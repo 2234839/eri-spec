@@ -106,6 +106,22 @@
           "@type": "Answer",
           "text": "为嵌入页面 URL 加版本号。准备好时更新 skill.md 指向新版本。旧 URL 继续工作。先从一个内部团队开始，收集反馈，再逐步扩大。"
         }
+      },
+      {
+        "@type": "Question",
+        "name": "我们已经有 MCP 工具了——为什么还需要 ERI？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "MCP 工具调用你的 API 并返回文字。ERI 添加的是输出层：一个用户可以直接微调的交互式 UI。它们是互补的——你现有的 MCP 工具调用不变，只需在 Agent 的响应中加上嵌入 URL。ERI 在尚未支持 MCP 的平台上也能用。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "性能影响呢——iframe 会拖慢聊天吗？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "iframe 在文字响应之后加载，用户立刻看到答案。把嵌入页面当作普通 HTTPS 端点管理：保持轻量、监控加载时间、维护 SLO。大多数应用的嵌入页面加载不到一秒。"
+        }
       }
     ]
   }
@@ -154,14 +170,6 @@
     .exec-summary ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 6px 20px; }
     .exec-summary li { font-size: 0.93em; color: var(--text-dim); }
     .exec-summary li::before { content: '→ '; color: var(--accent); }
-    .decision-tree { margin: 12px 0 20px; }
-    .dt-node { padding: 10px 14px; border-radius: 8px; margin: 4px 0; font-size: 0.93em; }
-    .dt-q { background: var(--surface-2); border: 1px solid var(--border); }
-    .dt-fit { background: rgba(99,102,241,0.12); border: 1px solid var(--accent); color: var(--text); }
-    .dt-alt { background: var(--surface-2); border: 1px solid var(--border); color: var(--text-dim); font-size: 0.88em; }
-    .dt-arrow { text-align: center; color: var(--text-dim); font-size: 0.85em; margin: 2px 0; }
-    .dt-branch { display: flex; gap: 20px; flex-wrap: wrap; }
-    .dt-yes, .dt-no { flex: 1; min-width: 200px; }
   </style>
 </head>
 <body>
@@ -190,23 +198,6 @@
         <li><strong>零 SDK</strong>——只需 HTTPS + Markdown</li>
         <li><strong>嵌入页面可沿用</strong>——不绑定 ERI</li>
       </ul>
-    </div>
-
-    <h2>ERI 适合你吗？</h2>
-    <div class="decision-tree">
-      <div class="dt-node dt-q">你有 Web 应用，且用户会使用 AI Agent？</div>
-      <div class="dt-branch">
-        <div class="dt-yes">
-          <div class="dt-arrow">↓ 是</div>
-          <div class="dt-node dt-fit"><strong>ERI 适合</strong>——一个嵌入页面 + 一个 <code>skill.md</code>，大多数平台</div>
-        </div>
-        <div class="dt-no">
-          <div class="dt-arrow">↓ 需要其他方案？</div>
-          <div class="dt-node dt-alt">自建渲染器？→ <a href="https://github.com/google/a2ui">A2UI</a></div>
-          <div class="dt-node dt-alt">全面投入 MCP？→ <a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a></div>
-          <div class="dt-node dt-alt">需要实时同步？→ 等待 MCP Apps 或 A2UI</div>
-        </div>
-      </div>
     </div>
 
     <h2>快速体验</h2>
@@ -302,9 +293,24 @@ description: 工具描述
     <h3>"如何灰度发布？"</h3>
     <p>为嵌入页面 URL 加版本号（如 <code>/embed/v1/</code>、<code>/embed/v2/</code>）。准备好时更新 <code>skill.md</code> 指向新版本。旧 URL 继续工作——没有破坏性变更。先从一个内部团队开始，收集反馈，再逐步扩大。skill.md 格式小到可以快速迭代。</p>
 
+    <h3>"我们已经有 MCP 工具了——为什么还需要 ERI？"</h3>
+    <p>MCP 工具调用你的 API 并返回文字。ERI 添加的是输出层：一个用户可以直接微调的交互式 UI。它们是互补的——你现有的 MCP 工具调用不变，只需在 Agent 的响应中加上嵌入 URL。而且 ERI 在尚未支持 MCP 的平台上也能用。</p>
+
+    <h3>"性能影响呢——iframe 会拖慢聊天吗？"</h3>
+    <p>iframe 在文字响应之后加载，所以用户立刻就能看到答案。把嵌入页面当作普通 HTTPS 端点来管理：保持轻量、监控加载时间、维护 SLO。对于大多数应用，一个构建良好的嵌入页面加载时间不到一秒。</p>
+
     <h2>内部推介模板</h2>
+    <p><strong>Slack / 短版本：</strong></p>
     <blockquote>
-      当用户向 Agent 询问我们的产品时，Agent 只能用文字描述。ERI 让我们把真正的 UI <em>嵌入到对话中</em>——一个嵌入页面、一个 <code>skill.md</code>、覆盖 ChatGPT、Claude、Gemini。等 MCP Apps 和 A2UI 到来时，同一个嵌入页面直接沿用。
+      用户在 Agent 里问我们的产品，只能看到文字。ERI 可以把我们的 UI 直接嵌入对话——一个嵌入页面、一个 <code>skill.md</code>，覆盖 ChatGPT、Claude、Gemini。同样的嵌入页面在 MCP Apps 就绪时也能用。我想先跑个一天的试点——<a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">模板在这里</a>。
+    </blockquote>
+    <p><strong>邮件 / 长版本：</strong></p>
+    <blockquote>
+      <strong>问题：</strong>用户在 ChatGPT / Claude 里询问我们的产品，Agent 只能用文字描述——无法交互、无法试用。<br><br>
+      <strong>方案：</strong>ERI（嵌入式结果界面）——开放规范，让我们的 Web 应用以交互式 UI 出现在任何 Agent 对话中。一个嵌入页面 + 一个 15 行的 <code>skill.md</code> = 我们的应用出现在 ChatGPT、Claude、Gemini 中。<br><br>
+      <strong>成本：</strong>约一天的工程时间。无需 SDK，无需新基础设施。嵌入页面就是标准的 HTTPS 页面。<br><br>
+      <strong>风险：</strong>零锁定。MIT 许可规范，任何人可以 fork。嵌入页面独立运行——有没有 ERI 都能用。<br><br>
+      <strong>下一步：</strong>一天试点。选一个功能，构建嵌入页面，写 <code>skill.md</code>，在一个平台上测试。<a href="https://2234839.github.io/eri-spec/">在线演示</a> · <a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">模板</a> · <a href="https://2234839.github.io/eri-spec/docs/adopt.zh.html">采用指南</a>
     </blockquote>
 
     <h2>关键说服要点</h2>

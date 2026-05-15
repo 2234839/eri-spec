@@ -106,6 +106,22 @@
           "@type": "Answer",
           "text": "Version your embed page URL. Update skill.md to point to the new version when ready. Old URLs keep working. Start with one internal team, gather feedback, then expand."
         }
+      },
+      {
+        "@type": "Question",
+        "name": "We already have MCP tools — why add ERI?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "MCP tools call your API and return text. ERI adds the output layer: an interactive UI that the user can tweak directly. They're complementary — your existing MCP tool call stays the same; you just add an embed URL to the Agent's response. ERI also works on platforms that haven't adopted MCP yet."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What about performance — does the iframe slow down the chat?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The iframe loads after the text response, so the user sees the answer immediately. Treat the embed page like any HTTPS endpoint: keep it lightweight, monitor load time, maintain an SLO. For most apps, a well-built embed page loads in under a second."
+        }
       }
     ]
   }
@@ -154,12 +170,6 @@
     .exec-summary ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 6px 20px; }
     .exec-summary li { font-size: 0.93em; color: var(--text-dim); }
     .exec-summary li::before { content: '→ '; color: var(--accent); }
-    .decision-tree { margin: 12px 0 20px; }
-    .dt-node { padding: 10px 14px; border-radius: 8px; margin: 4px 0; font-size: 0.93em; }
-    .dt-q { background: var(--surface-2); border: 1px solid var(--border); }
-    .dt-fit { background: rgba(99,102,241,0.12); border: 1px solid var(--accent); color: var(--text); }
-    .dt-alt { background: var(--surface-2); border: 1px solid var(--border); color: var(--text-dim); font-size: 0.88em; }
-    .dt-arrow { text-align: center; color: var(--text-dim); font-size: 0.85em; margin: 2px 0; }
     .dt-branch { display: flex; gap: 20px; flex-wrap: wrap; }
     .dt-yes, .dt-no { flex: 1; min-width: 200px; }
   </style>
@@ -190,23 +200,6 @@
         <li><strong>Zero SDK</strong> — just HTTPS + Markdown</li>
         <li><strong>Embed page carries forward</strong> — not tied to ERI</li>
       </ul>
-    </div>
-
-    <h2>Is ERI Right for You?</h2>
-    <div class="decision-tree">
-      <div class="dt-node dt-q">You have a web app and users who use AI Agents?</div>
-      <div class="dt-branch">
-        <div class="dt-yes">
-          <div class="dt-arrow">↓ Yes</div>
-          <div class="dt-node dt-fit"><strong>ERI fits</strong> — one embed page + one <code>skill.md</code>, most platforms</div>
-        </div>
-        <div class="dt-no">
-          <div class="dt-arrow">↓ Need something else?</div>
-          <div class="dt-node dt-alt">Building a renderer? → <a href="https://github.com/google/a2ui">A2UI</a></div>
-          <div class="dt-node dt-alt">All-in on MCP? → <a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a></div>
-          <div class="dt-node dt-alt">Need real-time sync? → Wait for MCP Apps or A2UI</div>
-        </div>
-      </div>
     </div>
 
     <h2>Quick Experience</h2>
@@ -302,9 +295,24 @@ description: What it does.
     <h3>"What happens if the Agent sends bad data?"</h3>
     <p>Validate and sanitize all URL-sourced inputs — never <code>eval()</code> or directly render user data. If the data is unusable, show a graceful error state. The Agent is an unreliable narrator — your embed page must be defensive.</p>
 
+    <h3>"We already have MCP tools — why add ERI?"</h3>
+    <p>MCP tools call your API and return text. ERI adds the output layer: an interactive UI that the user can tweak directly. They're complementary — your existing MCP tool call stays the same; you just add an embed URL to the Agent's response. And ERI works on platforms that haven't adopted MCP yet.</p>
+
+    <h3>"What about performance — does the iframe slow down the chat?"</h3>
+    <p>The iframe loads after the text response, so the user sees the answer immediately. Treat the embed page like any HTTPS endpoint: keep it lightweight, monitor load time, maintain an SLO. For most apps, a well-built embed page loads in under a second.</p>
+
     <h2>Internal Pitch Template</h2>
+    <p><strong>Slack / short version:</strong></p>
     <blockquote>
-      When a user asks an Agent about our product, the Agent can only describe it in text. ERI lets us put our actual UI <em>inside</em> the conversation — one embed page, one <code>skill.md</code>, reaching ChatGPT, Claude, Gemini. And when MCP Apps and A2UI arrive, the same embed page carries forward.
+      When users ask an Agent about our product, they get text. ERI lets us embed our actual UI inside the conversation — one embed page, one <code>skill.md</code>, reaching ChatGPT, Claude, Gemini. Same embed page works with MCP Apps when we're ready. I'd like to run a 1-day pilot — <a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">template here</a>.
+    </blockquote>
+    <p><strong>Email / long version:</strong></p>
+    <blockquote>
+      <strong>Problem:</strong> Users ask ChatGPT / Claude about our product. The Agent can only describe it in text — no interaction, no trial.<br><br>
+      <strong>Proposal:</strong> ERI (Embedded Result Interface) — an open spec that lets us embed our web app as interactive UI inside any Agent conversation. One embed page + one 15-line <code>skill.md</code> = our app appears in ChatGPT, Claude, and Gemini.<br><br>
+      <strong>Cost:</strong> ~1 day of engineering. No SDK, no new infrastructure. The embed page is a standard HTTPS page we already know how to build.<br><br>
+      <strong>Risk:</strong> Zero lock-in. MIT-licensed spec, anyone can fork. The embed page works independently — with or without ERI.<br><br>
+      <strong>Next step:</strong> 1-day pilot. Pick one feature, build the embed page, write the <code>skill.md</code>, test on one platform. <a href="https://2234839.github.io/eri-spec/">Live demo</a> · <a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">Template</a> · <a href="https://2234839.github.io/eri-spec/docs/adopt.html">Adoption guide</a>
     </blockquote>
 
     <h2>Key Talking Points</h2>

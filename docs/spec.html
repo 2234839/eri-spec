@@ -281,23 +281,16 @@ description: What this Skill does
         <tr><td><code>ui/message</code></td><td>iframe → platform</td><td>iframe sends a follow-up message (e.g. user edited a value)</td></tr>
       </tbody>
     </table>
-    <pre><code>/**
- * Platform → iframe: initialize handshake (JSON-RPC 2.0)
- * Sent on iframe load to establish the session.
- */
+    <pre><code>/** Platform → iframe: initialize on load */
 window.addEventListener("message", (event) => {
   if (event.origin !== "https://agent-platform.example.com") return;
   const { method, params } = event.data;
   if (method === "ui/initialize") {
-    // Store session info from params
-    // e.g. params.sessionId, params.capabilities
+    // Store session info (params.sessionId, params.capabilities)
   }
 });
 
-/**
- * iframe → Platform: notify that user edited a value
- * Uses JSON-RPC 2.0 notification format (no id = no response expected)
- */
+/** iframe → Platform: user edited a value (notification, no response) */
 window.parent.postMessage({
   jsonrpc: "2.0",
   method: "ui/message",
@@ -306,28 +299,15 @@ window.parent.postMessage({
   }
 }, "https://agent-platform.example.com");
 
-/**
- * iframe → Platform: request the platform to call a tool
- */
+/** iframe → Platform: request a tool call (expects response with matching id) */
 window.parent.postMessage({
   jsonrpc: "2.0",
   id: 1,
   method: "tools/call",
-  params: {
-    name: "updateCart",
-    arguments: { items: [...], total: 597 }
-  }
+  params: { name: "updateCart", arguments: { items: [...], total: 597 } }
 }, "https://agent-platform.example.com");
 
-/**
- * Platform → iframe: deliver tool result
- * The platform posts back a JSON-RPC response
- */
-// event.data = {
-//   jsonrpc: "2.0",
-//   id: 1,
-//   result: { content: [{ type: "text", text: "Cart updated" }] }
-// };</code></pre>
+// Platform responds: { jsonrpc: "2.0", id: 1, result: { content: [...] } }</code></pre>
 
     <h2 id="use-cases">8. Use Cases</h2>
     <p><strong>Fits</strong> — any scenario where the user wants to <em>tweak</em> the Agent's output:</p>

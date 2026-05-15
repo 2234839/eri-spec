@@ -4,6 +4,20 @@ All notable changes to the ERI specification are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.6] - 2026-05-16
+
+### Changed
+- Demo: fixed duplicate pre-filled messages (rendered twice on page load).
+- Adopt EN/ZH: removed decision tree (redundant with decision matrix), deleted associated CSS.
+- Adopt EN/ZH: pitch template expanded from single block to Slack short version + Email long version with Problem/Proposal/Cost/Risk/CTA structure.
+- Spec EN/ZH: Level 2 code examples compressed from 46 lines to 28 lines (same information, less boilerplate).
+
+### Added
+- Adopt EN/ZH: FAQ entries for "We already have MCP tools — why add ERI?" and "What about performance?".
+- Adopt EN/ZH: FAQ structured data (LD+JSON) updated to include new entries.
+
+[1.0.6]: https://github.com/2234839/eri-spec/compare/v1.0.5...v1.0.6
+
 ## [1.0.5] - 2026-05-16
 
 ### Changed

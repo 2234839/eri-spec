@@ -281,23 +281,16 @@ description: 工具描述
         <tr><td><code>ui/message</code></td><td>iframe → 平台</td><td>iframe 发送后续消息（如用户编辑了某个值）</td></tr>
       </tbody>
     </table>
-    <pre><code>/**
- * 平台 → iframe：初始化握手（JSON-RPC 2.0）
- * iframe 加载时由平台发送，建立会话。
- */
+    <pre><code>/** 平台 → iframe：加载时初始化 */
 window.addEventListener("message", (event) => {
   if (event.origin !== "https://agent-platform.example.com") return;
   const { method, params } = event.data;
   if (method === "ui/initialize") {
-    // 存储会话信息
-    // 例如 params.sessionId, params.capabilities
+    // 存储会话信息（params.sessionId, params.capabilities）
   }
 });
 
-/**
- * iframe → 平台：通知用户编辑了某个值
- * 使用 JSON-RPC 2.0 通知格式（无 id = 无需响应）
- */
+/** iframe → 平台：用户编辑了某个值（通知，无需响应） */
 window.parent.postMessage({
   jsonrpc: "2.0",
   method: "ui/message",
@@ -306,28 +299,15 @@ window.parent.postMessage({
   }
 }, "https://agent-platform.example.com");
 
-/**
- * iframe → 平台：请求平台调用一个工具
- */
+/** iframe → 平台：请求调用工具（期望匹配 id 的响应） */
 window.parent.postMessage({
   jsonrpc: "2.0",
   id: 1,
   method: "tools/call",
-  params: {
-    name: "updateCart",
-    arguments: { items: [...], total: 597 }
-  }
+  params: { name: "updateCart", arguments: { items: [...], total: 597 } }
 }, "https://agent-platform.example.com");
 
-/**
- * 平台 → iframe：返回工具执行结果
- * 平台以 JSON-RPC 响应形式发回
- */
-// event.data = {
-//   jsonrpc: "2.0",
-//   id: 1,
-//   result: { content: [{ type: "text", text: "Cart updated" }] }
-// };</code></pre>
+// 平台响应：{ jsonrpc: "2.0", id: 1, result: { content: [...] } }</code></pre>
 
     <h2 id="use-cases">8. 适用场景</h2>
     <p><strong>适合</strong>——任何用户想要<em>微调</em> Agent 输出的场景：</p>
