@@ -2,11 +2,11 @@
 
 > Let your web app run inside every AI Agent. One embed page, one skill file, all platforms.
 
-AI Agents return text. ERI lets any web app — yours or your users' — appear as an interactive UI inside Agent conversations on ChatGPT, Claude, Gemini, and beyond. No SDKs. No platform approval. No waiting.
-
-**[中文文档](./README.zh.md)** | [Live Demo](https://2234839.github.io/eri-spec/) | [Spec](https://2234839.github.io/eri-spec/docs/spec.html) | [Blog](https://2234839.github.io/eri-spec/docs/blog.html) | [Adopt](https://2234839.github.io/eri-spec/docs/adopt.html)
+**[Try the Live Demo](https://2234839.github.io/eri-spec/)** · [Spec](https://2234839.github.io/eri-spec/docs/spec.html) · [Blog](https://2234839.github.io/eri-spec/docs/blog.html) · [Adopt](https://2234839.github.io/eri-spec/docs/adopt.html) · [中文](./README.zh.md)
 
 ---
+
+AI Agents return text. ERI lets any web app — yours or your users' — appear as an interactive UI inside Agent conversations on ChatGPT, Claude, Gemini, and beyond. No SDKs. No platform approval. No waiting.
 
 ## The Idea in One Example
 

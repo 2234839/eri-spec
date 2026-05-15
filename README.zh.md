@@ -2,11 +2,11 @@
 
 > 让你的 Web 应用运行在所有 AI Agent 中。一个嵌入页面，一个 skill 文件，所有平台。
 
-AI Agent 只能返回文字。ERI 让任何 Web 应用——你的或你的用户的——以交互式 UI 出现在 ChatGPT、Claude、Gemini 以及更多 Agent 的对话中。无需 SDK。无需平台审批。无需等待。
-
-**[English](./README.md)** | [在线演示](https://2234839.github.io/eri-spec/) | [规范](https://2234839.github.io/eri-spec/docs/spec.zh.html) | [博客](https://2234839.github.io/eri-spec/docs/blog.zh.html) | [采用](https://2234839.github.io/eri-spec/docs/adopt.zh.html)
+**[在线演示](https://2234839.github.io/eri-spec/)** · [规范](https://2234839.github.io/eri-spec/docs/spec.zh.html) · [博客](https://2234839.github.io/eri-spec/docs/blog.zh.html) · [采用](https://2234839.github.io/eri-spec/docs/adopt.zh.html) · [English](./README.md)
 
 ---
+
+AI Agent 只能返回文字。ERI 让任何 Web 应用——你的或你的用户的——以交互式 UI 出现在 ChatGPT、Claude、Gemini 以及更多 Agent 的对话中。无需 SDK。无需平台审批。无需等待。
 
 ## 一个例子讲清楚
 
