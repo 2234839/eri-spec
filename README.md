@@ -40,7 +40,7 @@ description: Math calculator with variables and unit conversion.
 **You have a web app. You want it in Agent conversations. Here's how:**
 
 1. **Add an embed page** — Create a stripped-down version of your app that reads initial state from URL params. A [minimal page is 10 lines](https://2234839.github.io/eri-spec/docs/spec.html#minimal-example); a production-ready page with responsive layout, error handling, and theme support is typically 100–200 lines.
-2. **Write a skill.md** — Tell the Agent how to call your API and construct the embed URL. 10 minutes.
+2. **Write a skill.md** — Tell the Agent how to call your API and construct the embed URL. [Start from the template](./examples/template.md).
 3. **Ship it** — iframe embedding works on ChatGPT, Claude, Gemini today. Add postMessage bidirectional communication when ready.
 
 ## How It's Different
