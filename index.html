@@ -430,15 +430,15 @@
     .info-banner {
       max-width: 800px;
       margin: 0 auto;
-      padding: 10px 16px;
-      background: rgba(99, 102, 241, 0.1);
-      border: 1px solid rgba(99, 102, 241, 0.3);
-      border-radius: 8px;
+      padding: 12px 18px;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(99, 102, 241, 0.04));
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      border-radius: 10px;
       font-size: 13px;
       color: var(--text-dim);
-      line-height: 1.5;
+      line-height: 1.6;
     }
-    .info-banner strong { color: var(--text); }
+    .info-banner strong { color: var(--text); font-size: 14px; }
     .info-banner a { color: var(--accent); font-weight: 500; }
 
     /* Responsive */
@@ -497,12 +497,6 @@
         <div class="sidebar-card-body" data-i18n-html="sidebar.body">
           <p><span class="highlight">The Agent called NoteCalc's API, then embedded <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a> as an interactive iframe.</span></p>
           <p>Your app can be here too — any HTTPS page works.</p>
-        </div>
-      </div>
-      <div class="sidebar-card" style="margin-top:12px">
-        <div class="sidebar-card-header" style="background:rgba(251,191,36,0.12);color:#fbbf24">📝 skill.md</div>
-        <div class="sidebar-card-body" data-i18n-html="sidebar.skill">
-          <p>That's the whole Skill file:</p>
           <div class="skill-preview">---
 name: your-app
 description: What it does
@@ -515,9 +509,9 @@ description: What it does
       <div class="sidebar-card" style="margin-top:12px">
         <div class="sidebar-card-header" style="background:rgba(34,197,94,0.12);color:#22c55e">⚡ Next Steps</div>
         <div class="sidebar-card-body" data-i18n-html="sidebar.next">
-          <p><a href="./docs/spec.html"><b>Read the Spec</b></a> — 5 min, covers workflow, security, and levels.</p>
           <p><a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md"><b>Copy the Template</b></a> — fill in your API and embed URL.</p>
-          <p><a href="./docs/adopt.html"><b>Adopt in Your Team</b></a> — checklist, decision matrix, pitch template.</p>
+          <p><a href="./docs/spec.html"><b>Read the Spec</b></a> — workflow, security, levels.</p>
+          <p><a href="./docs/adopt.html"><b>Adopt in Your Team</b></a> — checklist and pitch template.</p>
           <p><a href="https://github.com/2234839/eri-spec"><b>View on GitHub</b></a> — MIT licensed.</p>
         </div>
       </div>
@@ -559,9 +553,8 @@ description: What it does
         'settings.model': 'Model',
         'embed.header': 'NoteCalc — Interactive Calculator (ERI)',
         'thirdParty.badge': '🔗 <b>Third-party service</b><br>This interactive UI is provided by <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a>, not by this page. This is the essence of ERI: the Agent embeds an external app\'s UI directly.',
-        'sidebar.body': '<p><span class="highlight">The Agent called NoteCalc\'s API, then embedded <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a> as an interactive iframe.</span></p><p>Your app can be here too — any HTTPS page works.</p>',
-        'sidebar.skill': '<p>That\'s the whole Skill file:</p><div class="skill-preview">---\nname: your-app\ndescription: What it does\n---\n## Workflow\n1. Call your API\n2. Embed: https://app.com/embed#data</div>',
-        'sidebar.next': '<p><a href="./docs/spec.html"><b>Read the Spec</b></a> — 5 min, covers workflow, security, and levels.</p><p><a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md"><b>Copy the Template</b></a> — fill in your API and embed URL.</p><p><a href="./docs/adopt.html"><b>Adopt in Your Team</b></a> — checklist, decision matrix, pitch template.</p><p><a href="https://github.com/2234839/eri-spec"><b>View on GitHub</b></a> — MIT licensed.</p>',
+        'sidebar.body': '<p><span class="highlight">The Agent called NoteCalc\'s API, then embedded <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a> as an interactive iframe.</span></p><p>Your app can be here too — any HTTPS page works.</p><div class="skill-preview">---\nname: your-app\ndescription: What it does\n---\n## Workflow\n1. Call your API\n2. Embed: https://app.com/embed#data</div>',
+        'sidebar.next': '<p><a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md"><b>Copy the Template</b></a> — fill in your API and embed URL.</p><p><a href="./docs/spec.html"><b>Read the Spec</b></a> — workflow, security, levels.</p><p><a href="./docs/adopt.html"><b>Adopt in Your Team</b></a> — checklist and pitch template.</p><p><a href="https://github.com/2234839/eri-spec"><b>View on GitHub</b></a> — MIT licensed.</p>',
         'msg.you': 'You',
         'msg.agent': 'Agent',
         'demo.user1': 'Calculate 3 items at $99.5 each, then add 8% tax',
@@ -604,9 +597,8 @@ Always show the iframe embed after your text explanation so the user can interac
         'settings.model': '模型',
         'embed.header': 'NoteCalc — 交互式计算器（ERI）',
         'thirdParty.badge': '🔗 <b>第三方服务</b><br>此交互式 UI 由 <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a> 提供，并非本站自带。这正是 ERI 的精髓：Agent 直接嵌入第三方应用的界面。',
-        'sidebar.body': '<p><span class="highlight">Agent 调用了 NoteCalc 的 API，然后将 <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a> 嵌入为可交互的 iframe。</span></p><p>你的应用也可以出现在这里——任何 HTTPS 页面都行。</p>',
-        'sidebar.skill': '<p>这就是完整的 Skill 文件：</p><div class="skill-preview">---\nname: your-app\ndescription: 工具描述\n---\n## 工作流\n1. 调用你的 API\n2. 嵌入: https://app.com/embed#data</div>',
-        'sidebar.next': '<p><a href="./docs/spec.zh.html"><b>阅读规范</b></a> — 5 分钟，涵盖工作流、安全和等级。</p><p><a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md"><b>复制模板</b></a> — 填入你的 API 和嵌入 URL。</p><p><a href="./docs/adopt.zh.html"><b>团队采用</b></a> — 清单、决策矩阵、推介模板。</p><p><a href="https://github.com/2234839/eri-spec"><b>GitHub 仓库</b></a> — MIT 许可。</p>',
+        'sidebar.body': '<p><span class="highlight">Agent 调用了 NoteCalc 的 API，然后将 <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a> 嵌入为可交互的 iframe。</span></p><p>你的应用也可以出现在这里——任何 HTTPS 页面都行。</p><div class="skill-preview">---\nname: your-app\ndescription: 工具描述\n---\n## 工作流\n1. 调用你的 API\n2. 嵌入: https://app.com/embed#data</div>',
+        'sidebar.next': '<p><a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md"><b>复制模板</b></a> — 填入你的 API 和嵌入 URL。</p><p><a href="./docs/spec.zh.html"><b>阅读规范</b></a> — 工作流、安全、等级。</p><p><a href="./docs/adopt.zh.html"><b>团队采用</b></a> — 清单和推介模板。</p><p><a href="https://github.com/2234839/eri-spec"><b>GitHub 仓库</b></a> — MIT 许可。</p>',
         'msg.you': '你',
         'msg.agent': 'Agent',
         'demo.user1': '计算单价 $99.5 的商品 3 件，再加 8% 税费',
