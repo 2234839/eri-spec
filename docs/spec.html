@@ -59,6 +59,9 @@
     .doc-content th { background: var(--surface-2); }
     .doc-content hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
     .meta { color: var(--text-dim); font-size: 0.9em; margin: 4px 0 16px; }
+    .toc { color: var(--text-dim); font-size: 0.88em; margin: 0 0 20px; line-height: 1.8; }
+    .toc a { color: var(--text-dim); }
+    .toc a:hover { color: var(--text); }
     .tag { display: inline-block; font-size: 0.7em; padding: 1px 7px; border-radius: 4px; font-weight: 600; vertical-align: middle; margin-left: 4px; letter-spacing: 0.02em; }
     .tag-agent { background: rgba(34,197,94,0.15); color: #22c55e; }
     .tag-platform { background: rgba(251,191,36,0.15); color: #fbbf24; }
@@ -88,6 +91,7 @@
   <div class="doc-content">
     <h1>ERI Specification — Embedded Result Interface</h1>
     <p class="meta"><strong>Version</strong>: 1.0 &nbsp;|&nbsp; <strong>Status</strong>: Stable &nbsp;|&nbsp; <strong>License</strong>: MIT</p>
+    <p class="toc"><a href="#definition">1. Definition</a> · <a href="#workflow">2. Workflow</a> · <a href="#conversation-flow">3. Conversation Flow</a> · <a href="#skill-authoring">4. Skill Authoring</a> · <a href="#embed-page">5. Embed Page</a> · <a href="#security">6. Security</a> · <a href="#progressive-levels">7. Levels</a> · <a href="#use-cases">8. Use Cases</a> · <a href="#limitations">9. Limitations</a> · <a href="#industry-landscape">10. Landscape</a></p>
 
     <h2 id="definition">1. Definition</h2>
     <p>ERI (Embedded Result Interface) is a convention for making Agent output interactive. After processing a user request, the Agent outputs an embedded UI (iframe) instead of plain text — using only a <code>skill.md</code> and a URL. No new protocols, no SDKs.</p>
@@ -115,13 +119,13 @@
     </div>
     <p>Steps 1 and 3 are the Agent's natural capabilities. The two steps involving external systems:</p>
 
-    <h3>2.1 Call API <span class="tag tag-agent">Agent</span></h3>
+    <h3 id="call-api">2.1 Call API <span class="tag tag-agent">Agent</span></h3>
     <p>The Agent calls the third-party app's API from the server side (not from the user's browser). Standard HTTP, structured JSON. No CORS configuration needed.</p>
     <pre><code>POST /api/calculate
 Body: {"content": "99.5 * 3"}
 Response: {"result": 298.5}</code></pre>
 
-    <h3>2.2 Output UI <span class="tag tag-agent">Agent</span> <span class="tag tag-platform">Platform</span></h3>
+    <h3 id="output-ui">2.2 Output UI <span class="tag tag-agent">Agent</span> <span class="tag tag-platform">Platform</span></h3>
     <pre><code>&lt;iframe src="https://app.example.com/embed#encoded_data" width="100%" height="400"&gt;&lt;/iframe&gt;</code></pre>
     <p>Platforms add <code>sandbox</code> automatically. No iframe support? Falls back to plain text.</p>
 
@@ -169,7 +173,7 @@ description: What this Skill does
       </tbody>
     </table>
 
-    <h3>Minimal Embed Page Example</h3>
+    <h3 id="minimal-example">Minimal Embed Page Example</h3>
     <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;body&gt;
@@ -197,12 +201,12 @@ description: What this Skill does
     <p>24 lines. Deploy to any HTTPS host.</p>
 
     <h2 id="security">6. Security</h2>
-    <h3>Agent platform side <span class="tag tag-platform">Platform</span></h3>
+    <h3 id="platform-security">Agent platform side <span class="tag tag-platform">Platform</span></h3>
     <ul>
       <li>Add <code>sandbox="allow-scripts allow-same-origin"</code> to iframes</li>
       <li>Never pass user credentials to third-party iframes</li>
     </ul>
-    <h3>Third-party app side <span class="tag tag-provider">Provider</span></h3>
+    <h3 id="provider-security">Third-party app side <span class="tag tag-provider">Provider</span></h3>
     <ul>
       <li>Don't rely on <code>document.cookie</code> (may be unavailable in sandbox)</li>
       <li>Don't use <code>window.opener</code> or <code>window.top</code></li>
