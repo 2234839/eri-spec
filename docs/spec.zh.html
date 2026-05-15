@@ -213,6 +213,12 @@ window.parent.postMessage({
   value: 199                 // 新值
 }, "https://agent-platform.example.com");
 
+// 接收方必须验证 origin：
+// window.addEventListener("message", e => {
+//   if (e.origin !== "https://your-app.example.com") return;
+//   ...
+// });
+
 // Agent 平台 → iframe：向嵌入页面推送更新数据
 iframe.contentWindow.postMessage({
   type: "eri:update",

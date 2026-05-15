@@ -213,6 +213,12 @@ window.parent.postMessage({
   value: 199                 // new value
 }, "https://agent-platform.example.com");
 
+// Receiver must verify origin:
+// window.addEventListener("message", e => {
+//   if (e.origin !== "https://your-app.example.com") return;
+//   ...
+// });
+
 // Agent platform → iframe: push updated data into the embed
 iframe.contentWindow.postMessage({
   type: "eri:update",
