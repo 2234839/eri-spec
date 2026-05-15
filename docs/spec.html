@@ -87,10 +87,10 @@
   </div>
   <div class="doc-content">
     <h1>ERI Specification — Embedded Result Interface</h1>
-    <p class="meta"><strong>Version</strong>: 1.0 &nbsp;|&nbsp; <strong>Status</strong>: Stable &nbsp;|&nbsp; <strong>Type</strong>: Convention &nbsp;|&nbsp; <strong>License</strong>: MIT</p>
+    <p class="meta"><strong>Version</strong>: 1.0 &nbsp;|&nbsp; <strong>Status</strong>: Stable &nbsp;|&nbsp; <strong>License</strong>: MIT</p>
 
     <h2>1. Definition</h2>
-    <p>ERI (Embedded Result Interface) is a convention-based specification — a Skill authoring pattern that defines how Agents embed interactive UI. It introduces no new protocols or fields; it works through agreed-upon conventions in <code>skill.md</code>. After an Agent processes a user request, it outputs an interactive embedded UI (iframe) instead of (or in addition to) plain text.</p>
+    <p>ERI (Embedded Result Interface) is a convention for making Agent output interactive. After processing a user request, the Agent outputs an embedded UI (iframe) instead of plain text — using only a <code>skill.md</code> and a URL. No new protocols, no SDKs.</p>
     <p>Who does what in ERI:</p>
     <ul>
       <li><span class="tag tag-agent">Agent</span> <strong>Understands intent, calls API, constructs embed URL, outputs UI</strong></li>
@@ -99,7 +99,6 @@
     </ul>
     <p>Core constraints:</p>
     <ul>
-      <li><strong>Convention, not protocol</strong> — no new fields, no runtime requirements, just a shared pattern</li>
       <li><strong>Snapshot-based</strong> — the Agent does not monitor the output UI. Each new instruction generates a fresh UI (see Section 3)</li>
       <li><strong>Third-party app runs independently</strong> — only needs to provide an HTTPS page</li>
     </ul>
@@ -114,7 +113,7 @@
       <div class="flow-arrow">→</div>
       <div class="flow-step"><strong>4. Output UI</strong><span>iframe / plain text</span></div>
     </div>
-    <p>Steps 1 and 3 are the Agent's natural capabilities — extracting intent from user input and building URLs from templates. The two steps that involve external systems are:</p>
+    <p>Steps 1 and 3 are the Agent's natural capabilities. The two steps involving external systems:</p>
 
     <h3>2.1 Call API <span class="tag tag-agent">Agent</span></h3>
     <p>The Agent calls the third-party app's API from the server side (not from the user's browser). Standard HTTP, structured JSON. No CORS configuration needed.</p>
@@ -124,14 +123,14 @@ Response: {"result": 298.5}</code></pre>
 
     <h3>2.2 Output UI <span class="tag tag-agent">Agent</span> <span class="tag tag-platform">Platform</span></h3>
     <pre><code>&lt;iframe src="https://app.example.com/embed#encoded_data" width="100%" height="400"&gt;&lt;/iframe&gt;</code></pre>
-    <p>Security attributes (<code>sandbox</code>, etc.) are added automatically by the Agent platform. If the platform cannot render iframes, it falls back to plain text output.</p>
+    <p>Platforms add <code>sandbox</code> automatically. No iframe support? Falls back to plain text.</p>
 
     <h2>3. Conversation Flow</h2>
-    <p>User modifications in the embedded UI do not automatically notify the Agent. When the user starts a new turn:</p>
+    <p>Iframe edits don't notify the Agent. On each new turn:</p>
     <ol>
-      <li>The Agent reads previous results from conversation context</li>
-      <li>Combines the new input with previous context, calls the API again</li>
-      <li>Outputs a brand new embedded UI (does not update the old one)</li>
+      <li>Agent reads previous results from context</li>
+      <li>Combines new input with context, calls API again</li>
+      <li>Outputs a fresh embed (old one is not updated)</li>
     </ol>
     <pre><code>User: "Calculate 3 items at $99.5 each"
 Agent: [outputs iframe: 99.5 * 3 = 298.5]
@@ -202,9 +201,8 @@ description: What this Skill does
     <h2>6. Security</h2>
     <h3>Agent platform side <span class="tag tag-platform">Platform</span></h3>
     <ul>
-      <li>iframes must include <code>sandbox</code> attribute to restrict permissions</li>
-      <li>Recommended: <code>sandbox="allow-scripts allow-same-origin"</code></li>
-      <li>User credentials must not be passed to third-party iframes</li>
+      <li>Add <code>sandbox="allow-scripts allow-same-origin"</code> to iframes</li>
+      <li>Never pass user credentials to third-party iframes</li>
     </ul>
     <h3>Third-party app side <span class="tag tag-provider">Provider</span></h3>
     <ul>
