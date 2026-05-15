@@ -132,7 +132,7 @@
     <h2>Why ERI First</h2>
     <p><strong>Ship today, upgrade later.</strong> ERI works on most platforms today because it uses what platforms already have: iframe rendering. When your target platforms support MCP Apps or A2UI, your embed page still works — it becomes the core you package for those protocols. You're building an asset, not a throwaway prototype.</p>
     <p><strong>One implementation, all platforms.</strong> ChatGPT, Claude, and Gemini all render iframes in Agent output (verified on GPT-4o, Claude 3.5+, Gemini 2.0+ as of May 2026). One embed page + one <code>skill.md</code> reaches all three. No per-platform SDK, no platform approval cycle, no vendor-specific packaging.</p>
-    <p><strong>Zero protocol commitment.</strong> Your embed page is a standalone HTTPS app — ERI is not a runtime dependency. When you're ready for MCP Apps, wrap it in a manifest and expose the same page through the MCP runtime. Same UI, same API, additional platform capabilities. The investment compounds.</p>
+    <p><strong>Zero protocol commitment.</strong> Your embed page is a standalone HTTPS app — ERI is not a runtime dependency. When MCP Apps or A2UI arrive, wrap the same page in their manifest. The investment compounds.</p>
     <p>Trade-offs: snapshot-based output (each user turn produces a fresh embed), no native device APIs, URL size limits for encoded data. See <a href="./spec.html#limitations">spec limitations</a> and <a href="./spec.html#large-data-pattern">large data pattern</a> for mitigations.</p>
     <p><strong>Convinced?</strong> <a href="https://2234839.github.io/eri-spec/">Try the demo</a> or read the <a href="./adopt.html">team adoption guide</a>.</p>
 
