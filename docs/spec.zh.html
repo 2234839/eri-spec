@@ -129,8 +129,8 @@
     <p class="toc"><a href="#definition">1. 定义</a> · <a href="#self-certification">合规清单</a> · <a href="#workflow">2. 工作流</a> · <a href="#conversation-flow">3. 对话流程</a> · <a href="#skill-authoring">4. Skill 编写</a> · <a href="#embed-page">5. 嵌入页面</a> · <a href="#security">6. 安全</a> · <a href="#progressive-levels">7. 等级</a> · <a href="#use-cases">8. 场景</a> · <a href="#limitations">9. 局限性</a> · <a href="#error-handling">10. 错误处理</a> · <a href="#industry-landscape">11. 格局</a></p>
 
     <h2 id="definition">1. 定义</h2>
-    <p>AI Agent 输出文字。ERI（嵌入式结果界面）让它们输出可交互的 UI。Agent 处理用户请求后，嵌入一个 Web 应用（iframe）——只需一个 <code>skill.md</code> 和一个 URL。</p>
-    <p><strong>设计原则：</strong>无新协议，无运行时依赖，任何能渲染 iframe 的平台都可用。嵌入页面就是一个普通的 HTTPS 页面——构建一次，到处部署。</p>
+    <p>AI Agent 输出文字。ERI（嵌入式结果界面）让它们直接嵌入可交互的 UI——只需一个 <code>skill.md</code> 和一个 URL。</p>
+    <p><strong>设计原则：</strong>无新协议，无运行时依赖，任何能渲染 iframe 的平台都可用——构建一次，到处部署。</p>
     <table>
       <thead><tr><th>角色</th><th>职责</th></tr></thead>
       <tbody>
@@ -360,7 +360,7 @@ const data = await fetch('/api/results/' + token).then(r =&gt; r.json());</code>
     <p>ERI 的纯文本降级不是缺陷——它是基线。每个 ERI 输出都应包含文本摘要，确保用户无论 iframe 是否渲染都能获得价值。</p>
 
     <h2 id="industry-landscape">11. 行业格局</h2>
-    <p>ERI 工作在<em>输出层</em>——Agent 如何向用户展示结果。它与工具调用协议（MCP、<a href="https://platform.openai.com/docs/guides/function-calling">Function Calling</a>、REST）互补——后者工作在<em>输入层</em>，即 Agent 如何调用外部系统。ERI 的 skill.md 可以使用任何工具调用机制；规范对 API 如何被调用不做限定。</p>
+    <p>ERI 工作在<em>输出层</em>——Agent 如何向用户展示结果。它与工具调用协议（MCP、<a href="https://platform.openai.com/docs/guides/function-calling">Function Calling</a>、REST）互补——后者工作在<em>输入层</em>，即 Agent 如何调用外部系统。规范对 API 如何被调用不做限定。</p>
     <p>交互式 Agent 输出存在三种方案：</p>
     <table>
       <thead><tr><th></th><th>ERI</th><th><a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a></th><th><a href="https://github.com/google/a2ui">A2UI</a> (Google)</th></tr></thead>
@@ -372,7 +372,7 @@ const data = await fetch('/api/results/' + token).then(r =&gt; r.json());</code>
         <tr><td><strong>能力</strong></td><td>完整 Web 平台</td><td>平台 API、实时通信</td><td>原生渲染</td></tr>
       </tbody>
     </table>
-    <p><a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a>（2026 年 1 月发布，现隶属于 <a href="https://modelcontextprotocol.io/">Linux Foundation</a>）和 <a href="https://github.com/google/a2ui">A2UI</a>（Google 于 2025 年 12 月开源）提供更丰富的能力——原生 API、实时同步、平台集成。ERI 用更丰富的能力换取今天的通用可用性。</p>
+    <p><a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a> 和 <a href="https://github.com/google/a2ui">A2UI</a> 提供更丰富的能力（原生 API、实时同步、平台集成）——ERI 用这些换取今天的通用可用性。</p>
     <p><strong>关键洞察：</strong>MCP Apps 同样在沙箱 iframe 中渲染——ERI 嵌入页面天然与 MCP Apps 运行时结构兼容。此外，ERI Level 2 使用与 MCP Apps 相同的 <code>ui/*</code> JSON-RPC 2.0 宿主桥，因此 Level 2 嵌入页面可直接移植。从 ERI 开始；嵌入页面及其桥接代码无需修改即可沿用。</p>
     <p><strong>ERI 相比普通 iframe 增加了什么</strong>：</p>
     <table>

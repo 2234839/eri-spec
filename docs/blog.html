@@ -130,7 +130,7 @@
     </table>
 
     <h2>Why ERI</h2>
-    <p><strong>Protocol-agnostic.</strong> ERI uses what platforms already have — iframe rendering. Your embed page is a standalone HTTPS app, not tied to any protocol. MCP Apps uses the same iframe runtime and the same <code>ui/*</code> JSON-RPC bridge — see <a href="./spec.html#industry-landscape">spec comparison</a>.</p>
+    <p><strong>Protocol-agnostic.</strong> ERI uses what platforms already have — iframe rendering. Your embed page is a standalone HTTPS app, not tied to any protocol — see <a href="./spec.html#industry-landscape">spec comparison</a> for MCP Apps compatibility.</p>
     <p><strong>One implementation, three platforms.</strong> ChatGPT, Claude, and Gemini all render iframes in Agent output (verified on GPT-4o, Claude 3.5+, Gemini 2.0+ as of May 2026). One embed page + one <code>skill.md</code> reaches all three. No per-platform SDK, no vendor-specific packaging.</p>
     <p><strong>Low commitment.</strong> Your embed page works with or without ERI. The <code>skill.md</code> is ~15 lines of Markdown. MIT-licensed spec, anyone can fork.</p>
     <p>Trade-offs: snapshot-based output (each user turn produces a fresh embed), no native device APIs, URL size limits for encoded data. See <a href="./spec.html#limitations">spec limitations</a> and <a href="./spec.html#large-data-pattern">large data pattern</a> for mitigations.</p>
