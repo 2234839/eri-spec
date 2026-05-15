@@ -113,15 +113,12 @@ description: 数学计算器，支持变量和单位转换。
     <p>10 分钟写完。半天做好嵌入页面。零平台改动。今天就能上线。<a href="https://2234839.github.io/eri-spec/">现在试试</a>。</p>
 
     <h2>三条路径到交互式 Agent 输出</h2>
-    <p>业界从三个方向收敛到同一个问题：</p>
+    <p>业界从三个方向收敛到同一个问题。关键问题：<strong>你的方案今天就能在所有平台上用吗？</strong></p>
     <table>
       <thead><tr><th></th><th>ERI</th><th>MCP Apps (Anthropic / OpenAI)</th><th>A2UI (Google)</th></tr></thead>
       <tbody>
-        <tr><td><strong>路径</strong></td><td>通过 URL 嵌入已有应用</td><td>MCP 生态中的沙箱 iframe 小应用</td><td>Agent 以 JSON 声明 UI，客户端渲染</td></tr>
-        <tr><td><strong>Agent 需要</strong></td><td>一个 <code>skill.md</code></td><td>MCP 服务器 + 应用清单</td><td>SDK + Schema 定义</td></tr>
-        <tr><td><strong>平台需要</strong></td><td>渲染 iframe（已经有了）</td><td>MCP 运行时 + 沙箱</td><td>A2UI 渲染器 + 组件目录</td></tr>
-        <tr><td><strong>第三方需要</strong></td><td>一个 HTTPS 嵌入页面</td><td>MCP 兼容的应用包</td><td>组件目录 + A2UI Schema</td></tr>
-        <tr><td><strong>今天能用？</strong></td><td>是——零集成</td><td>需要 MCP 采用</td><td>需要渲染器</td></tr>
+        <tr><td><strong>今天可用？</strong></td><td><strong>是——所有平台</strong></td><td>需要 MCP 采用</td><td>需要渲染器</td></tr>
+        <tr><td><strong>需要构建</strong></td><td>一个 HTTPS 嵌入页面</td><td>MCP 兼容的应用包</td><td>组件目录 + A2UI Schema</td></tr>
         <tr><td><strong>成本</strong></td><td>&lt; 1 天</td><td>数天</td><td>数天</td></tr>
       </tbody>
     </table>
