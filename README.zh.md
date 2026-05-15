@@ -6,7 +6,7 @@
 
 ---
 
-AI Agent 只能返回文字。ERI 让任何 Web 应用——你的或你的用户的——以交互式 UI 出现在 ChatGPT、Claude、Gemini 以及更多 Agent 的对话中。无需 SDK。无需平台审批。无需等待。
+AI Agent 只能返回文字。ERI 让任何 Web 应用以交互式 UI 出现在 ChatGPT、Claude、Gemini 以及更多 Agent 的对话中——只需一个 `skill.md` 和一个 URL。无需 SDK。无需平台审批。无需等待。
 
 ## 一个例子讲清楚
 
@@ -53,8 +53,6 @@ description: 数学计算器，支持变量和单位转换。
 | **第三方需要** | 一个 HTTPS 嵌入页面 | MCP 兼容的应用包 | 组件目录 + A2UI Schema |
 | **今天能用？** | 是——零集成 | 需要 MCP 采用 | 需要渲染器 |
 | **成本** | < 1 天 | 数天 | 数天 |
-
-**第三方提供者的关键优势**：ERI 在所有 Agent 平台（ChatGPT、Claude、Gemini）上都能用——不需要为每个平台单独集成。一个嵌入页面，一个 skill 文件，到处运行。
 
 ## 文档
 

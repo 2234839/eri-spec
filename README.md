@@ -6,7 +6,7 @@
 
 ---
 
-AI Agents return text. ERI lets any web app — yours or your users' — appear as an interactive UI inside Agent conversations on ChatGPT, Claude, Gemini, and beyond. No SDKs. No platform approval. No waiting.
+AI Agents return text. ERI lets any web app appear as an interactive UI inside Agent conversations on ChatGPT, Claude, Gemini, and beyond — using only a `skill.md` and a URL. No SDKs. No platform approval. No waiting.
 
 ## The Idea in One Example
 
@@ -53,8 +53,6 @@ description: Math calculator with variables and unit conversion.
 | **Third party needs** | An HTTPS embed page | MCP-compatible app package | Component catalog + A2UI schema |
 | **Works today?** | Yes — zero integration | Requires MCP adoption | Requires renderer |
 | **Effort** | < 1 day | Days | Days |
-
-**Key advantage for third-party providers**: ERI works on ALL Agent platforms (ChatGPT, Claude, Gemini) — no per-platform integration. One embed page, one skill file, everywhere.
 
 ## Documentation
 
