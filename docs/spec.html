@@ -74,9 +74,14 @@
     .doc-content th { background: var(--surface-2); }
     .doc-content hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
     .meta { color: var(--text-dim); font-size: 0.9em; margin: 4px 0 16px; }
-    .toc { color: var(--text-dim); font-size: 0.88em; margin: 0 0 20px; line-height: 1.8; }
+    .toc { color: var(--text-dim); font-size: 0.88em; margin: 0 0 24px; line-height: 1.8; padding: 10px 14px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; }
     .toc a { color: var(--text-dim); }
     .toc a:hover { color: var(--text); }
+    .quickstart { background: var(--surface-2); border: 1px solid var(--accent); border-radius: 8px; padding: 14px 18px; margin: 16px 0 24px; }
+    .quickstart summary { cursor: pointer; font-weight: 700; color: var(--accent); font-size: 0.95em; }
+    .quickstart ol { margin: 10px 0 0 20px; }
+    .quickstart li { margin: 6px 0; font-size: 0.93em; }
+    .quickstart code { font-size: 0.9em; }
     .tag { display: inline-block; font-size: 0.7em; padding: 1px 7px; border-radius: 4px; font-weight: 600; vertical-align: middle; margin-left: 4px; letter-spacing: 0.02em; }
     .tag-agent { background: rgba(34,197,94,0.15); color: #22c55e; } [data-theme="light"] .tag-agent { background: rgba(34,197,94,0.12); color: #16a34a; }
     .tag-platform { background: rgba(251,191,36,0.15); color: #fbbf24; } [data-theme="light"] .tag-platform { background: rgba(202,138,4,0.12); color: #ca8a04; }
@@ -109,6 +114,14 @@
   <main class="doc-content" id="content">
     <h1>ERI Specification — Embedded Result Interface</h1>
     <p class="meta"><strong>Version</strong>: 1.0 &nbsp;|&nbsp; <strong>Status</strong>: Stable &nbsp;|&nbsp; <strong>License</strong>: MIT &nbsp;|&nbsp; <strong>Stability</strong>: Level 1 conformance is frozen — no breaking changes.</p>
+    <details class="quickstart" open>
+      <summary>Quick Start — Ship in under a day</summary>
+      <ol>
+        <li><strong>Create an embed page</strong> — a minimal HTTPS page that reads state from URL params (<a href="#minimal-example">10-line example</a>; or copy <a href="https://github.com/2234839/eri-spec/blob/main/examples/hello-world.html">hello-world.html</a>)</li>
+        <li><strong>Write a <code>skill.md</code></strong> — tell the Agent how to call your API and construct the embed URL (<a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">template</a> · <a href="https://github.com/2234839/eri-spec/blob/main/examples/notecalc.md">real example</a>)</li>
+        <li><strong>Ship it</strong> — works on ChatGPT, Claude, Gemini today. No SDK, no approval cycle.</li>
+      </ol>
+    </details>
     <p class="toc"><a href="#definition">1. Definition</a> · <a href="#workflow">2. Workflow</a> · <a href="#conversation-flow">3. Conversation Flow</a> · <a href="#skill-authoring">4. Skill Authoring</a> · <a href="#embed-page">5. Embed Page</a> · <a href="#security">6. Security</a> · <a href="#progressive-levels">7. Levels</a> · <a href="#use-cases">8. Use Cases</a> · <a href="#limitations">9. Limitations</a> · <a href="#error-handling">10. Error Handling</a> · <a href="#industry-landscape">11. Landscape</a></p>
 
     <h2 id="definition">1. Definition</h2>
@@ -207,21 +220,24 @@ description: What this Skill does
     <h3 id="minimal-example">Minimal Embed Page Example</h3>
     <p>The Agent calls the API server-side and passes the result to the embed page via URL hash. The page only renders — no computation inside the iframe.</p>
     <pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;&lt;meta charset="UTF-8"&gt;
+&lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;&lt;/head&gt;
 &lt;body&gt;
 &lt;div id="out" style="font-size:24px"&gt;&lt;/div&gt;
 &lt;script&gt;
   const raw = decodeURIComponent(location.hash.slice(1));
-  if (!raw) { document.getElementById('out').textContent = 'No data'; }
-  else {
-    const data = JSON.parse(raw);
+  try {
+    const data = raw ? JSON.parse(raw) : null;
     document.getElementById('out').textContent =
-      data.expr + ' = ' + data.result;
+      data ? data.expr + ' = ' + data.result : 'No data';
+  } catch (e) {
+    document.getElementById('out').textContent = 'Unable to load results.';
   }
 &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-    <p>This minimal example renders a result and handles empty state. A production embed page adds responsive layout, error handling, and theme adaptation.</p>
+    <p>This minimal example renders a result, handles empty state, and catches malformed data. A production embed page adds responsive layout, input validation, and theme adaptation.</p>
 
     <h2 id="security">6. Security</h2>
     <table>
@@ -346,6 +362,14 @@ const data = await fetch('/api/results/' + token).then(r =&gt; r.json());</code>
         <tr><td><strong>Cross-platform</strong></td><td>Prompt-engineer per Agent platform</td><td>One <code>skill.md</code> works on ChatGPT, Claude, Gemini</td></tr>
       </tbody>
     </table>
+
+    <h2>Normative References</h2>
+    <ul>
+      <li><a href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#the-iframe-element">HTML Living Standard</a> — <code>&lt;iframe&gt;</code> element and <code>sandbox</code> attribute</li>
+      <li><a href="https://html.spec.whatwg.org/multipage/web-messaging.html">HTML Living Standard</a> — <code>Window.postMessage()</code> API</li>
+      <li><a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986</a> — Uniform Resource Identifier (URI): Generic Syntax</li>
+      <li><a href="https://w3c.github.io/webappsec-csp/">Content Security Policy Level 3</a> — <code>frame-src</code> directive</li>
+    </ul>
 
     <hr>
     <footer><p class="meta"><a href="./adopt.html">Adopt in your team</a> · <a href="./blog.html">Why this matters</a> · <a href="https://2234839.github.io/eri-spec/">Try the demo</a></p></footer>

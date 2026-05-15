@@ -141,6 +141,14 @@
     @media (max-width: 640px) { .doc-content table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; } .doc-content { padding: 20px 12px 60px; } .header { padding: 8px 12px; flex-wrap: wrap; gap: 6px; } .header-right { gap: 4px; flex-wrap: wrap; } .header a, .header button { font-size: 11px; padding: 3px 6px; } .doc-content h1 { font-size: 1.4em; } .doc-content h2 { font-size: 1.2em; } }
     .skip-link { position: absolute; top: -40px; left: 0; background: var(--accent); color: #fff; padding: 8px 16px; z-index: 100; font-size: 14px; }
     .skip-link:focus { top: 0; }
+    .decision-tree { margin: 12px 0 20px; }
+    .dt-node { padding: 10px 14px; border-radius: 8px; margin: 4px 0; font-size: 0.93em; }
+    .dt-q { background: var(--surface-2); border: 1px solid var(--border); }
+    .dt-fit { background: rgba(99,102,241,0.12); border: 1px solid var(--accent); color: var(--text); }
+    .dt-alt { background: var(--surface-2); border: 1px solid var(--border); color: var(--text-dim); font-size: 0.88em; }
+    .dt-arrow { text-align: center; color: var(--text-dim); font-size: 0.85em; margin: 2px 0; }
+    .dt-branch { display: flex; gap: 20px; flex-wrap: wrap; }
+    .dt-yes, .dt-no { flex: 1; min-width: 200px; }
   </style>
 </head>
 <body>
@@ -162,8 +170,25 @@
     <p class="meta">在组织内评估、规划并上线交互式 Agent 输出。</p>
 
     <h2>ERI 适合你吗？</h2>
-    <p><strong>适合</strong>：你有 Web 应用，想让它在<em>任何</em> Agent 对话中被嵌入——ChatGPT、Claude、Gemini——无需平台 SDK。</p>
-    <p><strong>不适合</strong>：自建渲染器（用 <a href="https://github.com/google/a2ui">A2UI</a>）、全面投入 MCP（用 <a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a>）、或需要实时同步。</p>
+    <div class="decision-tree">
+      <div class="dt-node dt-q">你有一个 Web 应用？</div>
+      <div class="dt-arrow">↓ 是</div>
+      <div class="dt-node dt-q">用户会与 AI Agent（ChatGPT、Claude、Gemini）交互？</div>
+      <div class="dt-branch">
+        <div class="dt-yes">
+          <div class="dt-arrow">↓ 是</div>
+          <div class="dt-node dt-fit"><strong>ERI 适合</strong>——一个嵌入页面 + 一个 <code>skill.md</code>，所有平台</div>
+        </div>
+        <div class="dt-no">
+          <div class="dt-arrow">↓ 在自建渲染器？</div>
+          <div class="dt-node dt-alt">用 <a href="https://github.com/google/a2ui">A2UI</a></div>
+          <div class="dt-arrow">↓ 全面投入 MCP？</div>
+          <div class="dt-node dt-alt">用 <a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a></div>
+          <div class="dt-arrow">↓ 需要实时同步？</div>
+          <div class="dt-node dt-alt">等待 MCP Apps 或 A2UI</div>
+        </div>
+      </div>
+    </div>
 
     <h2>快速体验 — 5 分钟</h2>
     <p>在做任何承诺之前，先看看 ERI 的效果：</p>

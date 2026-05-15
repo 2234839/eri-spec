@@ -74,9 +74,14 @@
     .doc-content th { background: var(--surface-2); }
     .doc-content hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
     .meta { color: var(--text-dim); font-size: 0.9em; margin: 4px 0 16px; }
-    .toc { color: var(--text-dim); font-size: 0.88em; margin: 0 0 20px; line-height: 1.8; }
+    .toc { color: var(--text-dim); font-size: 0.88em; margin: 0 0 24px; line-height: 1.8; padding: 10px 14px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; }
     .toc a { color: var(--text-dim); }
     .toc a:hover { color: var(--text); }
+    .quickstart { background: var(--surface-2); border: 1px solid var(--accent); border-radius: 8px; padding: 14px 18px; margin: 16px 0 24px; }
+    .quickstart summary { cursor: pointer; font-weight: 700; color: var(--accent); font-size: 0.95em; }
+    .quickstart ol { margin: 10px 0 0 20px; }
+    .quickstart li { margin: 6px 0; font-size: 0.93em; }
+    .quickstart code { font-size: 0.9em; }
     .tag { display: inline-block; font-size: 0.7em; padding: 1px 7px; border-radius: 4px; font-weight: 600; vertical-align: middle; margin-left: 4px; letter-spacing: 0.02em; }
     .tag-agent { background: rgba(34,197,94,0.15); color: #22c55e; } [data-theme="light"] .tag-agent { background: rgba(34,197,94,0.12); color: #16a34a; }
     .tag-platform { background: rgba(251,191,36,0.15); color: #fbbf24; } [data-theme="light"] .tag-platform { background: rgba(202,138,4,0.12); color: #ca8a04; }
@@ -109,6 +114,14 @@
   <main class="doc-content" id="content">
     <h1>ERI 规范 — Embedded Result Interface</h1>
     <p class="meta"><strong>版本</strong>：1.0 &nbsp;|&nbsp; <strong>状态</strong>：Stable &nbsp;|&nbsp; <strong>许可</strong>：MIT &nbsp;|&nbsp; <strong>稳定性</strong>：Level 1 合规标准已冻结——不会有破坏性变更。</p>
+    <details class="quickstart" open>
+      <summary>快速开始——不到一天即可上线</summary>
+      <ol>
+        <li><strong>创建嵌入页面</strong>——一个从 URL 参数读取状态的最小 HTTPS 页面（<a href="#minimal-example">10 行示例</a>；或复制 <a href="https://github.com/2234839/eri-spec/blob/main/examples/hello-world.html">hello-world.html</a>）</li>
+        <li><strong>编写 <code>skill.md</code></strong>——告诉 Agent 如何调用你的 API 和构造嵌入 URL（<a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">模板</a> · <a href="https://github.com/2234839/eri-spec/blob/main/examples/notecalc.md">真实示例</a>）</li>
+        <li><strong>上线</strong>——今天就在 ChatGPT、Claude、Gemini 上可用。无需 SDK，无需审批。</li>
+      </ol>
+    </details>
     <p class="toc"><a href="#definition">1. 定义</a> · <a href="#workflow">2. 工作流</a> · <a href="#conversation-flow">3. 对话流程</a> · <a href="#skill-authoring">4. Skill 编写</a> · <a href="#embed-page">5. 嵌入页面</a> · <a href="#security">6. 安全</a> · <a href="#progressive-levels">7. 等级</a> · <a href="#use-cases">8. 场景</a> · <a href="#limitations">9. 局限性</a> · <a href="#error-handling">10. 错误处理</a> · <a href="#industry-landscape">11. 格局</a></p>
 
     <h2 id="definition">1. 定义</h2>
@@ -207,21 +220,24 @@ description: 工具描述
     <h3 id="minimal-example">最小嵌入页面示例</h3>
     <p>Agent 在服务端调用 API，通过 URL hash 将结果传递给嵌入页面。页面只负责渲染——iframe 内无需任何计算逻辑。</p>
     <pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
+&lt;html lang="zh"&gt;
+&lt;head&gt;&lt;meta charset="UTF-8"&gt;
+&lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;&lt;/head&gt;
 &lt;body&gt;
 &lt;div id="out" style="font-size:24px"&gt;&lt;/div&gt;
 &lt;script&gt;
   const raw = decodeURIComponent(location.hash.slice(1));
-  if (!raw) { document.getElementById('out').textContent = '无数据'; }
-  else {
-    const data = JSON.parse(raw);
+  try {
+    const data = raw ? JSON.parse(raw) : null;
     document.getElementById('out').textContent =
-      data.expr + ' = ' + data.result;
+      data ? data.expr + ' = ' + data.result : '无数据';
+  } catch (e) {
+    document.getElementById('out').textContent = '无法加载结果。';
   }
 &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-    <p>此最小示例渲染结果并处理空状态。生产级嵌入页面还需添加响应式布局、错误处理和主题适配。</p>
+    <p>此最小示例渲染结果、处理空状态，并捕获格式异常的数据。生产级嵌入页面还需添加响应式布局、输入验证和主题适配。</p>
 
     <h2 id="security">6. 安全</h2>
     <table>
@@ -346,6 +362,14 @@ const data = await fetch('/api/results/' + token).then(r =&gt; r.json());</code>
         <tr><td><strong>跨平台</strong></td><td>每个 Agent 平台分别调优 prompt</td><td>一个 <code>skill.md</code> 在 ChatGPT、Claude、Gemini 上通用</td></tr>
       </tbody>
     </table>
+
+    <h2>规范性引用</h2>
+    <ul>
+      <li><a href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#the-iframe-element">HTML Living Standard</a> — <code>&lt;iframe&gt;</code> 元素和 <code>sandbox</code> 属性</li>
+      <li><a href="https://html.spec.whatwg.org/multipage/web-messaging.html">HTML Living Standard</a> — <code>Window.postMessage()</code> API</li>
+      <li><a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986</a> — 统一资源标识符（URI）：通用语法</li>
+      <li><a href="https://w3c.github.io/webappsec-csp/">Content Security Policy Level 3</a> — <code>frame-src</code> 指令</li>
+    </ul>
 
     <hr>
     <footer><p class="meta"><a href="./adopt.zh.html">团队采用</a> · <a href="./blog.zh.html">为什么这很重要</a> · <a href="https://2234839.github.io/eri-spec/">在线演示</a></p></footer>

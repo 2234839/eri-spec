@@ -141,6 +141,14 @@
     @media (max-width: 640px) { .doc-content table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; } .doc-content { padding: 20px 12px 60px; } .header { padding: 8px 12px; flex-wrap: wrap; gap: 6px; } .header-right { gap: 4px; flex-wrap: wrap; } .header a, .header button { font-size: 11px; padding: 3px 6px; } .doc-content h1 { font-size: 1.4em; } .doc-content h2 { font-size: 1.2em; } }
     .skip-link { position: absolute; top: -40px; left: 0; background: var(--accent); color: #fff; padding: 8px 16px; z-index: 100; font-size: 14px; }
     .skip-link:focus { top: 0; }
+    .decision-tree { margin: 12px 0 20px; }
+    .dt-node { padding: 10px 14px; border-radius: 8px; margin: 4px 0; font-size: 0.93em; }
+    .dt-q { background: var(--surface-2); border: 1px solid var(--border); }
+    .dt-fit { background: rgba(99,102,241,0.12); border: 1px solid var(--accent); color: var(--text); }
+    .dt-alt { background: var(--surface-2); border: 1px solid var(--border); color: var(--text-dim); font-size: 0.88em; }
+    .dt-arrow { text-align: center; color: var(--text-dim); font-size: 0.85em; margin: 2px 0; }
+    .dt-branch { display: flex; gap: 20px; flex-wrap: wrap; }
+    .dt-yes, .dt-no { flex: 1; min-width: 200px; }
   </style>
 </head>
 <body>
@@ -162,8 +170,25 @@
     <p class="meta">Evaluate, plan, and ship interactive Agent output in your organization.</p>
 
     <h2>Is ERI Right for You?</h2>
-    <p><strong>Fits</strong>: you have a web app and want it in <em>any</em> Agent conversation — ChatGPT, Claude, Gemini — without platform SDKs.</p>
-    <p><strong>Doesn't fit</strong>: building your own renderer (use <a href="https://github.com/google/a2ui">A2UI</a>), all-in on MCP (use <a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a>), or need real-time sync.</p>
+    <div class="decision-tree">
+      <div class="dt-node dt-q">Do you have a web app?</div>
+      <div class="dt-arrow">↓ Yes</div>
+      <div class="dt-node dt-q">Do users interact with AI Agents (ChatGPT, Claude, Gemini)?</div>
+      <div class="dt-branch">
+        <div class="dt-yes">
+          <div class="dt-arrow">↓ Yes</div>
+          <div class="dt-node dt-fit"><strong>ERI fits</strong> — one embed page + one <code>skill.md</code>, all platforms</div>
+        </div>
+        <div class="dt-no">
+          <div class="dt-arrow">↓ Building a renderer?</div>
+          <div class="dt-node dt-alt">Use <a href="https://github.com/google/a2ui">A2UI</a></div>
+          <div class="dt-arrow">↓ All-in on MCP?</div>
+          <div class="dt-node dt-alt">Use <a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a></div>
+          <div class="dt-arrow">↓ Need real-time sync?</div>
+          <div class="dt-node dt-alt">Wait for MCP Apps or A2UI</div>
+        </div>
+      </div>
+    </div>
 
     <h2>Quick Experience — 5 Minutes</h2>
     <p>See ERI in action before committing to anything:</p>
