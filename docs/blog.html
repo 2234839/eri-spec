@@ -124,10 +124,8 @@ description: Math calculator with variables and unit conversion.
         <tr><td><strong>Effort</strong></td><td>10 min</td><td>Days</td><td>Days</td></tr>
       </tbody>
     </table>
-    <p><strong>MCP Apps</strong> (Anthropic &amp; OpenAI, 2025) standardize interactive UI within the MCP ecosystem — sandboxed iframes that behave like mini-apps. Works only on MCP-enabled platforms.</p>
-    <p><strong>A2UI</strong> (Google, 2025) takes a declarative, cross-platform path — Agent sends JSON component descriptions, client libraries (Flutter, Web Components) render natively. Works only on A2UI-enabled platforms.</p>
-    <p><strong>ERI</strong> works on <em>all</em> platforms today. As a third-party service provider, you write one embed page and one skill file — your app appears in ChatGPT, Claude, Gemini, and any future Agent. No SDKs, no schemas, no platform-specific code. Just a URL. Ship today, adopt MCP Apps or A2UI later when your target platforms support them. All three converge at the same destination.</p>
-    <p>ERI has trade-offs: it's snapshot-based (the Agent doesn't see iframe edits in real time), iframes can't access device-native APIs, and complex pages may perform poorly on mobile. For the full list, see <a href="./spec.html#9-limitations">Limitations in the spec</a>. These are real constraints — but for most interactive output scenarios, the trade-off is worth it.</p>
+    <p><strong>ERI</strong> works on <em>all</em> platforms today. One embed page, one skill file — your app appears in ChatGPT, Claude, Gemini, and any future Agent. Just a URL. Ship today, adopt MCP Apps or A2UI later when your platforms support them.</p>
+    <p>ERI has real trade-offs (snapshot-based, no native APIs). See <a href="./spec.html#9-limitations">Limitations in the spec</a> for the full list.</p>
     <div class="arch">
       <div class="arch-layer">
         <div class="arch-level"><span class="arch-level-tag">Interactive</span>

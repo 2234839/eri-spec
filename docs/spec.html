@@ -93,9 +93,9 @@
     <p>ERI (Embedded Result Interface) is a convention-based specification — a Skill authoring pattern that defines how Agents embed interactive UI. It introduces no new protocols or fields; it works through agreed-upon conventions in <code>skill.md</code>. After an Agent processes a user request, it outputs an interactive embedded UI (iframe) instead of (or in addition to) plain text.</p>
     <p>Who does what in ERI:</p>
     <ul>
-      <li><span class="tag tag-agent">Agent</span> <strong>Understands intent, calls API, constructs embed URL, outputs UI</strong> — this is what any AI Agent already does (read a skill, call APIs, output text). No platform change needed.</li>
-      <li><span class="tag tag-provider">Provider</span> <strong>Writes <code>skill.md</code> and provides an HTTPS embed page</strong> — this is the only thing a third-party app needs to do. ~40 lines of code.</li>
-      <li><span class="tag tag-platform">Platform</span> <strong>Required for iframe rendering</strong> — most platforms already render iframes. No platform support needed for plain text fallback.</li>
+      <li><span class="tag tag-agent">Agent</span> <strong>Understands intent, calls API, constructs embed URL, outputs UI</strong></li>
+      <li><span class="tag tag-provider">Provider</span> <strong>Writes <code>skill.md</code> and provides an HTTPS embed page</strong> (~40 lines)</li>
+      <li><span class="tag tag-platform">Platform</span> <strong>Renders iframes</strong> (most already do)</li>
     </ul>
     <p>Core constraints:</p>
     <ul>
@@ -196,7 +196,7 @@ description: What this Skill does
 &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-    <p>24 lines. Reads from URL hash, validates input with a whitelist regex, self-contained. Deploy to any HTTPS host and you have a working ERI embed page.</p>
+    <p>24 lines. Deploy to any HTTPS host.</p>
 
     <h2>6. Security</h2>
     <h3>Agent platform side <span class="tag tag-platform">Platform</span></h3>
@@ -221,7 +221,6 @@ description: What this Skill does
         <tr><td>2</td><td>Bidirectional communication</td><td>Level 1 + <span class="tag tag-provider">Provider</span> <span class="tag tag-platform">Platform</span> both implement postMessage</td></tr>
       </tbody>
     </table>
-    <p>Level 0 is the baseline — a skill.md that returns text results. Level 1 is where ERI begins: the same workflow, but the Agent embeds an interactive iframe instead of (or in addition to) text.</p>
     <p>Level 2 postMessage protocol (use specific origin, not <code>"*"</code>):</p>
     <pre><code>// iframe → Agent platform
 window.parent.postMessage({
@@ -242,21 +241,19 @@ iframe.contentWindow.postMessage({
 
     <h2>9. Limitations</h2>
     <ul>
-      <li><strong>Snapshot-based</strong> — the Agent does not see user edits inside the iframe. Each turn produces a fresh embed. For real-time sync, use Level 2 postMessage.</li>
-      <li><strong>No native device access</strong> — iframes cannot access GPS, camera, or other device APIs beyond standard browser capabilities.</li>
-      <li><strong>Mobile performance</strong> — complex embed pages may perform poorly on mobile Agent apps. Keep embed pages lightweight.</li>
-      <li><strong>No SEO indexing</strong> — content inside iframes is not indexed by search engines. This is irrelevant for Agent output, but worth noting.</li>
+      <li><strong>Snapshot-based</strong> — Agent cannot see iframe edits in real time. Use Level 2 postMessage for bidirectional sync.</li>
+      <li><strong>No native device access</strong> — iframes cannot use GPS, camera, or other device-native APIs.</li>
+      <li><strong>No SEO indexing</strong> — iframe content is invisible to search engines (irrelevant for Agent output).</li>
     </ul>
 
     <h2>10. Industry Landscape</h2>
     <p>Three approaches exist for interactive Agent output:</p>
     <ul>
-      <li><strong>ERI</strong> — embed any web app via URL. Works on <em>all</em> platforms. You control the UI.</li>
-      <li><strong>MCP Apps</strong> (Anthropic &amp; OpenAI) — sandboxed mini-apps in the MCP ecosystem. Works only on MCP-enabled platforms.</li>
-      <li><strong>A2UI</strong> (Google) — Agent declares UI as JSON, client renders natively. Works only on A2UI-enabled platforms.</li>
+      <li><strong>ERI</strong> — embed any web app via URL. Works on <em>all</em> platforms.</li>
+      <li><strong>MCP Apps</strong> (Anthropic &amp; OpenAI) — sandboxed mini-apps in the MCP ecosystem. MCP-enabled platforms only.</li>
+      <li><strong>A2UI</strong> (Google) — Agent declares UI as JSON, client renders natively. A2UI-enabled platforms only.</li>
     </ul>
-    <p>ERI is not opposed to MCP Apps or A2UI — it's the on-ramp. As a third-party provider, ERI gives you the broadest reach with the least effort. Embed today, adopt richer protocols when your platforms support them.</p>
-    <p>For a detailed comparison, see the <a href="./blog.html">blog post</a>.</p>
+    <p>ERI is the on-ramp: broadest reach, least effort. Embed today, adopt richer protocols when your platforms support them. See <a href="./blog.html">blog post</a> for detailed comparison.</p>
 
     <hr>
     <p class="meta"><a href="./adopt.html">Adopt in your team</a> · <a href="./blog.html">Read the blog</a> · <a href="https://2234839.github.io/eri-spec/">Try the demo</a></p>

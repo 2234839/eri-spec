@@ -85,8 +85,7 @@
     <p class="meta">Evaluate, plan, and ship interactive Agent output in your organization.</p>
 
     <h2>Is ERI Right for You?</h2>
-    <p><strong>ERI fits</strong> if you have a web app and want it embedded in <em>any</em> Agent conversation — ChatGPT, Claude, Gemini, all of them — without waiting for platform SDKs or approval.</p>
-    <p><strong>Does not fit</strong> if you're building your own platform renderer (use A2UI), all-in on MCP (use MCP Apps), or need real-time sync (ERI is snapshot-based).</p>
+    <p><strong>Fits</strong>: you have a web app and want it in <em>any</em> Agent conversation — ChatGPT, Claude, Gemini — without platform SDKs. <strong>Doesn't fit</strong>: building your own renderer (use A2UI), all-in on MCP (use MCP Apps), or need real-time sync.</p>
 
     <h2>Quick Validation — 5 Minutes</h2>
     <p>Before committing to anything, validate ERI with this test:</p>
@@ -144,13 +143,13 @@
     <h2>Common Objections</h2>
 
     <h3>"Isn't iframe outdated?"</h3>
-    <p>No — every major Agent platform (ChatGPT, Claude, Gemini) renders iframes today. iframe is how the web embeds things. It works.</p>
+    <p>Every major Agent platform renders iframes today. It's how the web embeds things.</p>
 
     <h3>"What about security?"</h3>
-    <p>Agent platforms sandbox iframes — your embed page runs with restricted permissions (<code>sandbox="allow-scripts allow-same-origin"</code>). No access to parent cookies, tokens, or DOM. Your embed page just needs to follow standard XSS prevention. See the <a href="./spec.html">security section</a> for the full checklist.</p>
+    <p>Platforms sandbox iframes (<code>sandbox="allow-scripts allow-same-origin"</code>) — no access to parent cookies, tokens, or DOM. Just follow standard XSS prevention. See <a href="./spec.html">spec security section</a>.</p>
 
     <h3>"MCP Apps will replace this, right?"</h3>
-    <p>MCP Apps require platform integration — your app only works on MCP-enabled platforms. ERI works on <em>every</em> platform because it's just a URL. As a third-party provider, ERI gives you the broadest reach with the least effort.</p>
+    <p>MCP Apps only work on MCP-enabled platforms. ERI is just a URL — works <em>everywhere</em>. Broadest reach, least effort.</p>
 
     <h3>"Our API requires authentication — how does the Agent pass credentials?"</h3>
     <p>The Agent calls your API from its server, not from the user's browser. Include an API key in the <code>skill.md</code> workflow instructions, or use a public endpoint for the Agent-facing API. The embed page (iframe) is read-only — it renders results, it doesn't call your API directly.</p>
@@ -159,10 +158,9 @@
     <p>ERI falls back to plain text output — the Agent still provides value via text. Most major platforms (ChatGPT, Claude, Gemini) render iframes today, so this is rarely an issue.</p>
 
     <h2>Internal Pitch Template</h2>
-    <p>When presenting ERI to your team or leadership:</p>
     <blockquote>
-      We can make our existing web apps appear inside AI Agent conversations in less than a day. No new protocols, no SDKs, no platform changes. It's a single markdown file (<code>skill.md</code>) that tells the Agent how to call our API and construct an embed URL.<br><br>
-      As a third-party service, this means our app works with <em>any</em> Agent platform — ChatGPT, Claude, Gemini — without building separate integrations for each. We control the experience. One embed page, one skill file, everywhere.
+      We can make our web apps appear inside AI Agent conversations in under a day. No protocols, no SDKs — just a <code>skill.md</code> that tells the Agent how to call our API and embed our UI.<br><br>
+      One embed page works on <em>every</em> Agent platform — ChatGPT, Claude, Gemini — no per-platform integration. We control the experience.
     </blockquote>
 
     <h2>Key Talking Points</h2>

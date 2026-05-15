@@ -93,9 +93,9 @@
     <p>ERI（Embedded Result Interface，嵌入式结果界面）是一种基于约定的规范——一种定义 Agent 如何嵌入交互式 UI 的 Skill 编写模式。它不引入新协议或新字段，而是通过 <code>skill.md</code> 中的共识性约定实现。Agent 处理用户请求后，输出一个可交互的嵌入式 UI（iframe），而不是（或不仅是）纯文本。</p>
     <p>ERI 中谁做什么：</p>
     <ul>
-      <li><span class="tag tag-agent">Agent</span> <strong>理解意图、调用 API、构造嵌入 URL、输出 UI</strong>——这是任何 AI Agent 已有的能力（读取 skill、调用 API、输出文本）。不需要平台改动。</li>
-      <li><span class="tag tag-provider">提供者</span> <strong>编写 <code>skill.md</code> 并提供一个 HTTPS 嵌入页面</strong>——这是第三方应用唯一需要做的事。约 40 行代码。</li>
-      <li><span class="tag tag-platform">平台</span> <strong>需要在渲染 iframe 时配合</strong>——大多数平台已经支持 iframe。纯文本兜底完全不需要平台支持。</li>
+      <li><span class="tag tag-agent">Agent</span> <strong>理解意图、调用 API、构造嵌入 URL、输出 UI</strong></li>
+      <li><span class="tag tag-provider">提供者</span> <strong>编写 <code>skill.md</code> 并提供一个 HTTPS 嵌入页面</strong>（约 40 行）</li>
+      <li><span class="tag tag-platform">平台</span> <strong>渲染 iframe</strong>（大多数已支持）</li>
     </ul>
     <p>核心约束：</p>
     <ul>
@@ -196,7 +196,7 @@ description: 工具描述
 &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-    <p>24 行代码。从 URL hash 读取、用白名单正则校验输入、自包含。部署到任意 HTTPS 主机即可获得一个安全的 ERI 嵌入页面。</p>
+    <p>24 行代码。部署到任意 HTTPS 主机即可。</p>
 
     <h2>6. 安全</h2>
     <h3>Agent 平台侧 <span class="tag tag-platform">平台</span></h3>
@@ -221,7 +221,6 @@ description: 工具描述
         <tr><td>2</td><td>双向通信</td><td>Level 1 + <span class="tag tag-provider">提供者</span> <span class="tag tag-platform">平台</span> 双方实现 postMessage</td></tr>
       </tbody>
     </table>
-    <p>Level 0 是基线——一个返回文字结果的 skill.md。Level 1 才是 ERI 的起点：同样的工作流，但 Agent 嵌入可交互的 iframe，而不仅是文字。</p>
     <p>Level 2 的 postMessage 协议（使用具体 origin，不要用 <code>"*"</code>）：</p>
     <pre><code>// iframe → Agent 平台
 window.parent.postMessage({
@@ -242,21 +241,19 @@ iframe.contentWindow.postMessage({
 
     <h2>9. 局限性</h2>
     <ul>
-      <li><strong>快照式输出</strong>——Agent 看不到 iframe 内的用户编辑。每轮对话生成全新的嵌入界面。如需实时同步，使用 Level 2 的 postMessage。</li>
-      <li><strong>无法访问设备原生能力</strong>——iframe 无法使用 GPS、摄像头等超出标准浏览器能力的设备 API。</li>
-      <li><strong>移动端性能</strong>——复杂的嵌入页面在移动端 Agent 应用中可能性能不佳。保持嵌入页面轻量。</li>
-      <li><strong>不可被搜索引擎索引</strong>——iframe 内的内容不会被搜索引擎抓取。这对 Agent 输出场景无关，但值得了解。</li>
+      <li><strong>快照式输出</strong>——Agent 无法实时看到 iframe 内的编辑。使用 Level 2 postMessage 可实现双向同步。</li>
+      <li><strong>无法访问设备原生能力</strong>——iframe 无法使用 GPS、摄像头等设备原生 API。</li>
+      <li><strong>不可被搜索引擎索引</strong>——iframe 内容对搜索引擎不可见（对 Agent 输出场景无影响）。</li>
     </ul>
 
     <h2>10. 行业格局</h2>
     <p>交互式 Agent 输出存在三种方案：</p>
     <ul>
-      <li><strong>ERI</strong> — 通过 URL 嵌入任何 Web 应用。在<em>所有</em>平台上都能用。你控制 UI。</li>
-      <li><strong>MCP Apps</strong>（Anthropic &amp; OpenAI）— MCP 生态中的沙箱小应用。仅在支持 MCP 的平台上可用。</li>
-      <li><strong>A2UI</strong>（Google）— Agent 以 JSON 声明 UI，客户端原生渲染。仅在支持 A2UI 的平台上可用。</li>
+      <li><strong>ERI</strong> — 通过 URL 嵌入任何 Web 应用。所有平台通用。</li>
+      <li><strong>MCP Apps</strong>（Anthropic &amp; OpenAI）— MCP 生态中的沙箱小应用。仅限 MCP 平台。</li>
+      <li><strong>A2UI</strong>（Google）— Agent 以 JSON 声明 UI，客户端原生渲染。仅限 A2UI 平台。</li>
     </ul>
-    <p>ERI 不与 MCP Apps 或 A2UI 对立——它是入口。作为第三方提供者，ERI 让你以最小代价获得最广覆盖。今天嵌入，等平台支持更丰富的协议时再升级。</p>
-    <p>详细对比见<a href="./blog.zh.html">博客文章</a>。</p>
+    <p>ERI 是入口：最广覆盖、最小代价。今天嵌入，等平台支持更丰富的协议时再升级。详细对比见<a href="./blog.zh.html">博客文章</a>。</p>
 
     <hr>
     <p class="meta"><a href="./adopt.zh.html">团队采用</a> · <a href="./blog.zh.html">阅读博客</a> · <a href="https://2234839.github.io/eri-spec/">在线演示</a></p>
