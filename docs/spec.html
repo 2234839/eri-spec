@@ -114,29 +114,15 @@
       <div class="flow-arrow">→</div>
       <div class="flow-step"><strong>4. Output UI</strong><span>iframe / plain text</span></div>
     </div>
+    <p>Steps 1 and 3 are the Agent's natural capabilities — extracting intent from user input and building URLs from templates. The two steps that involve external systems are:</p>
 
-    <h3>2.1 Understand Intent</h3>
-    <p class="role-note"><span class="tag tag-agent">Agent</span> Agent's natural capability — reading a skill and extracting parameters from user input.</p>
-    <p>The Agent extracts structured parameters from user input. For example:</p>
-    <ul>
-      <li>"Calculate 3 items at $99.5 each" → expression <code>99.5 * 3</code></li>
-      <li>"Convert 5 kg to grams" → unit conversion <code>5 kg to g</code></li>
-    </ul>
-
-    <h3>2.2 Call API</h3>
-    <p class="role-note"><span class="tag tag-agent">Agent</span> Standard tool calling — the Agent already knows how to call HTTP APIs.</p>
-    <p>The Agent calls the third-party app's API to compute results. The API returns structured JSON.</p>
+    <h3>2.1 Call API <span class="tag tag-agent">Agent</span></h3>
+    <p>The Agent calls the third-party app's API to compute results. Standard HTTP, structured JSON.</p>
     <pre><code>POST /api/calculate
 Body: {"content": "99.5 * 3"}
 Response: {"result": 298.5}</code></pre>
 
-    <h3>2.3 Construct Embed URL</h3>
-    <p class="role-note"><span class="tag tag-agent">Agent</span> String construction — the Agent follows the skill.md template to build a URL.</p>
-    <p>Encode the initial data into the URL (hash params, query params, or backend session).</p>
-    <pre><code>https://app.example.com/embed#99.5 * 3</code></pre>
-
-    <h3>2.4 Output UI</h3>
-    <p class="role-note"><span class="tag tag-agent">Agent</span> outputs markup. <span class="tag tag-platform">Platform</span> renders it.</p>
+    <h3>2.2 Output UI <span class="tag tag-agent">Agent</span> <span class="tag tag-platform">Platform</span></h3>
     <pre><code>&lt;iframe src="https://app.example.com/embed#encoded_data" width="100%" height="400"&gt;&lt;/iframe&gt;</code></pre>
     <p>Security attributes (<code>sandbox</code>, etc.) are added automatically by the Agent platform. If the platform cannot render iframes, it falls back to plain text output.</p>
 

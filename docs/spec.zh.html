@@ -114,29 +114,15 @@
       <div class="flow-arrow">→</div>
       <div class="flow-step"><strong>4. 输出 UI</strong><span>iframe / 纯文本</span></div>
     </div>
+    <p>步骤 1 和 3 是 Agent 的天然能力——从用户输入中提取意图，按模板拼接 URL。涉及外部系统的两个步骤是：</p>
 
-    <h3>2.1 理解意图</h3>
-    <p class="role-note"><span class="tag tag-agent">Agent</span> Agent 的天然能力——读取 skill 并从用户输入中提取参数。</p>
-    <p>Agent 从用户输入中提取结构化参数。例如：</p>
-    <ul>
-      <li>"帮我算 3 件商品，每件 99.5 元" → 表达式 <code>99.5 * 3</code></li>
-      <li>"5 公斤等于多少克" → 单位转换 <code>5 kg to g</code></li>
-    </ul>
-
-    <h3>2.2 调用 API</h3>
-    <p class="role-note"><span class="tag tag-agent">Agent</span> 标准工具调用——Agent 天然知道如何调用 HTTP API。</p>
-    <p>Agent 调用第三方应用的 API 获取计算结果。API 返回结构化的 JSON。</p>
+    <h3>2.1 调用 API <span class="tag tag-agent">Agent</span></h3>
+    <p>Agent 调用第三方应用的 API 获取结果。标准 HTTP，结构化 JSON。</p>
     <pre><code>POST /api/calculate
 Body: {"content": "99.5 * 3"}
 Response: {"result": 298.5}</code></pre>
 
-    <h3>2.3 构造嵌入 URL</h3>
-    <p class="role-note"><span class="tag tag-agent">Agent</span> 字符串构造——Agent 按照 skill.md 模板拼接 URL。</p>
-    <p>将初始数据编码到 URL 中（hash 参数、query 参数、或后端会话）。</p>
-    <pre><code>https://app.example.com/embed#99.5 * 3</code></pre>
-
-    <h3>2.4 输出 UI</h3>
-    <p class="role-note"><span class="tag tag-agent">Agent</span> 输出标记。<span class="tag tag-platform">平台</span> 负责渲染。</p>
+    <h3>2.2 输出 UI <span class="tag tag-agent">Agent</span> <span class="tag tag-platform">平台</span></h3>
     <pre><code>&lt;iframe src="https://app.example.com/embed#encoded_data" width="100%" height="400"&gt;&lt;/iframe&gt;</code></pre>
     <p>安全属性（<code>sandbox</code> 等）由 Agent 平台自动添加。如果平台无法渲染 iframe，则降级为纯文本输出。</p>
 
