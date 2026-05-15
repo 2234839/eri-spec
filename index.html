@@ -557,6 +557,7 @@ description: What it does
       <textarea id="userInput" rows="1" data-i18n-placeholder="input.placeholder" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage()}" oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,120)+'px'"></textarea>
       <button id="sendBtn" data-i18n="input.send">Send</button>
     </div>
+    <div class="input-hint" data-i18n="input.hint" style="max-width:800px;margin:6px auto 0;font-size:0.8em;color:var(--text-dim)">Edit the calculator above to try ERI, or configure your API key in Settings to chat with the Agent.</div>
   </div>
 
   <script>
@@ -581,6 +582,7 @@ description: What it does
         'banner.info': '<strong>This calculator is a live third-party app, embedded by the Agent via ERI.</strong> Your app can be here too — any HTTPS page works. Edit the numbers to see it in action. <a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">Copy the template</a> · <a href="./docs/spec.html">Spec</a> · <a href="./docs/blog.html">Blog</a> · <a href="./docs/adopt.html">Adopt</a>',
         'input.placeholder': 'Ask me to calculate something... (e.g. "Calculate 3 items at $99.5 each")',
         'input.send': 'Send',
+        'input.hint': 'Edit the calculator above to try ERI, or configure your API key in Settings to chat with the Agent.',
         'settings.endpoint': 'LLM API Endpoint',
         'settings.apiKey': 'API Key',
         'settings.hint': 'Your key stays in the browser. This is a fully static page — no data is sent to any server except the LLM API you configure above.',
@@ -626,6 +628,7 @@ Always show the iframe embed after your text explanation so the user can interac
         'banner.info': '<strong>这个计算器是一个实时第三方应用，Agent 通过 ERI 嵌入。</strong>你的应用也可以——任何 HTTPS 页面都行。编辑数字试试。 <a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">复制模板</a> · <a href="./docs/spec.zh.html">规范</a> · <a href="./docs/blog.zh.html">博客</a> · <a href="./docs/adopt.zh.html">采用</a>',
         'input.placeholder': '问我任何计算问题...（例如："计算单价 $99.5 的商品 3 件合计"）',
         'input.send': '发送',
+        'input.hint': '编辑上方的计算器即可体验 ERI，或在设置中配置 API Key 与 Agent 对话。',
         'settings.endpoint': 'LLM API 地址',
         'settings.apiKey': 'API Key',
         'settings.hint': '你的密钥仅保存在浏览器中。这是一个完全静态的页面 —— 除了你上面配置的 LLM API 外，不会向任何服务器发送数据。',
