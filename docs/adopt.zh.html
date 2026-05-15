@@ -85,18 +85,18 @@
       },
       {
         "@type": "Question",
-        "name": "如果我们的平台不支持 iframe 怎么办？",
+        "name": "平台不支持 iframe——或者嵌入页面挂了怎么办？",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "ERI 会降级为纯文本——Agent 仍然提供价值。大多数主流平台（ChatGPT、Claude、Gemini）今天都支持渲染 iframe。"
+          "text": "无论哪种情况，Agent 总是附带纯文本降级——用户仍然能得到结果。大多数主流平台今天都支持渲染 iframe。把嵌入页面当作普通 HTTPS 端点来管理：监控可用性、维护 SLO。"
         }
       },
       {
         "@type": "Question",
-        "name": "Agent 发送了错误数据或格式异常的 URL 怎么办？",
+        "name": "Agent 发送了错误数据怎么办？",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "嵌入页面应验证和清理所有来自 URL 的输入。如果数据不可用，显示友好的错误状态。Agent 是不可靠的叙述者——你的嵌入页面必须做好防御性编码。"
+          "text": "验证和清理所有来自 URL 的输入。如果数据不可用，显示友好的错误状态。Agent 是不可靠的叙述者——你的嵌入页面必须做好防御性编码。"
         }
       },
       {
@@ -105,14 +105,6 @@
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "为嵌入页面 URL 加版本号。准备好时更新 skill.md 指向新版本。旧 URL 继续工作。先从一个内部团队开始，收集反馈，再逐步扩大。"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "嵌入页面挂了怎么办？",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Agent 总是在 iframe 旁边附带纯文本降级。如果嵌入页面不可达，用户仍然能看到文本结果。把嵌入页面当作普通 HTTPS 端点来管理：监控可用性、维护 SLO。"
         }
       }
     ]

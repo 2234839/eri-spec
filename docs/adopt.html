@@ -85,18 +85,18 @@
       },
       {
         "@type": "Question",
-        "name": "What if our platform doesn't support iframes?",
+        "name": "What if our platform doesn't support iframes or our embed page goes down?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "ERI falls back to plain text — the Agent still provides value. Most major platforms (ChatGPT, Claude, Gemini) render iframes today."
+          "text": "Either way, the Agent always includes a plain text fallback — the user still gets value. Most major platforms render iframes today. Treat your embed page like any HTTPS endpoint: monitor uptime, maintain an SLO."
         }
       },
       {
         "@type": "Question",
-        "name": "What happens if the Agent sends bad data or a malformed URL?",
+        "name": "What happens if the Agent sends bad data?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Your embed page should validate and sanitize all URL-sourced inputs. If the data is unusable, show a graceful error state. The Agent is an unreliable narrator — your embed page must be defensive."
+          "text": "Validate and sanitize all URL-sourced inputs. If the data is unusable, show a graceful error state. The Agent is an unreliable narrator — your embed page must be defensive."
         }
       },
       {
@@ -105,14 +105,6 @@
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "Version your embed page URL. Update skill.md to point to the new version when ready. Old URLs keep working. Start with one internal team, gather feedback, then expand."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What if our embed page goes down?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The Agent always includes a plain text fallback alongside the iframe. If your embed page is unreachable, the user still sees the text result. Treat your embed page like any other HTTPS endpoint: monitor uptime and maintain an SLO."
         }
       }
     ]
