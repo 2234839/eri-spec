@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ERI — Embedded Result Interface</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0f0f0f;
+      color: #e4e4e4;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .container {
+      max-width: 640px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #6366f1, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .tagline {
+      font-size: 1.15rem;
+      color: #888;
+      margin-bottom: 2rem;
+    }
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    a {
+      display: inline-block;
+      padding: 0.6rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.2s;
+      min-width: 260px;
+    }
+    .primary {
+      background: #6366f1;
+      color: #fff;
+    }
+    .primary:hover { background: #818cf8; }
+    .secondary {
+      background: #1a1a1a;
+      color: #e4e4e4;
+      border: 1px solid #333;
+    }
+    .secondary:hover { border-color: #6366f1; }
+    .lang-switch {
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      color: #666;
+    }
+    .lang-switch a { color: #6366f1; min-width: auto; padding: 0; }
+    .lang-switch a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>ERI</h1>
+    <p class="tagline">Embedded Result Interface — An open specification for interactive AI Agent output</p>
+
+    <div class="links">
+      <a class="primary" href="./docs/index.html">Live Demo</a>
+      <a class="secondary" href="./SPEC.md">Specification</a>
+      <a class="secondary" href="https://github.com/2234839/eri-spec">GitHub Repository</a>
+    </div>
+
+    <p class="lang-switch">
+      <a href="./README.zh.md">中文</a> | <a href="./README.md">English</a>
+    </p>
+  </div>
+</body>
+</html>
