@@ -46,8 +46,8 @@ Agent 输出 iframe → 用户看到实时计算器
 | [规范](https://2234839.github.io/eri-spec/docs/spec.zh.html) | 技术规范——工作流、安全、等级、postMessage 协议 |
 | [博客](https://2234839.github.io/eri-spec/docs/blog.zh.html) | 为什么需要 ERI — 三方格局（ERI / MCP Apps / A2UI） |
 | [采用](https://2234839.github.io/eri-spec/docs/adopt.zh.html) | 团队采用指南——清单、决策矩阵、推介模板 |
-| [示例](./examples/) | 可复制的 skill.md 模板——[模板](./examples/template.md)和[真实实现](./examples/notecalc.md) |
+| [示例](./examples/) | 可复制的 skill.md 模板——[模板](./examples/template.md)、[hello world](./examples/hello-world.html)和[真实实现](./examples/notecalc.md) |
 
 ## 许可
 
-MIT — 自由实现，无需声明。
+[MIT](./LICENSE) — 自由实现，无需声明。参见[更新日志](./CHANGELOG.md)和[贡献指南](./CONTRIBUTING.md)。

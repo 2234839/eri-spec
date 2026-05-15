@@ -46,8 +46,8 @@ Four steps, no new protocol: understand intent → call API → construct URL �
 | [Spec](https://2234839.github.io/eri-spec/docs/spec.html) | Technical specification — workflow, security, levels, postMessage protocol |
 | [Blog](https://2234839.github.io/eri-spec/docs/blog.html) | Why ERI exists — the three-way landscape (ERI / MCP Apps / A2UI) |
 | [Adopt](https://2234839.github.io/eri-spec/docs/adopt.html) | Team adoption guide — checklist, decision matrix, pitch template |
-| [Examples](./examples/) | Copy-paste skill.md templates — [template](./examples/template.md) and [real implementation](./examples/notecalc.md) |
+| [Examples](./examples/) | Copy-paste skill.md templates — [template](./examples/template.md), [hello world](./examples/hello-world.html), and [real implementation](./examples/notecalc.md) |
 
 ## License
 
-MIT — free to implement, no attribution required.
+[MIT](./LICENSE) — free to implement, no attribution required. See [CHANGELOG](./CHANGELOG.md) for version history and [CONTRIBUTING](./CONTRIBUTING.md) to participate.
