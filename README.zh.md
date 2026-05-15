@@ -2,7 +2,7 @@
 
 > AI Agent 输出文字。ERI 让它们输出可交互的 UI——通过一个 `skill.md` 和一个 URL，把你的 Web 应用嵌入任何 Agent 对话。
 
-**[在线演示](https://2234839.github.io/eri-spec/)** · [规范](https://2234839.github.io/eri-spec/docs/spec.zh.html) · [博客](https://2234839.github.io/eri-spec/docs/blog.zh.html) · [采用](https://2234839.github.io/eri-spec/docs/adopt.zh.html) · [English](./README.md) · `v1.0 Stable`
+**[在线演示](https://2234839.github.io/eri-spec/)** · [规范](https://2234839.github.io/eri-spec/docs/spec.zh.html) · [博客](https://2234839.github.io/eri-spec/docs/blog.zh.html) · [采用](https://2234839.github.io/eri-spec/docs/adopt.zh.html) · [English](./README.md) · [![ERI v1.0](https://img.shields.io/badge/ERI-v1.0_Stable-6366f1)](https://2234839.github.io/eri-spec/)
 
 适用于 **ChatGPT、Claude、Gemini**——任何能渲染 iframe 的平台。
 
