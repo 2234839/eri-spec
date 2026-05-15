@@ -116,16 +116,12 @@
       <div class="flow-step"><strong>4. Output UI</strong><span>iframe / plain text</span></div>
     </div>
     <p>Steps 1 and 3 are the Agent's natural capabilities. The two steps involving external systems:</p>
-
-    <h3 id="call-api">2.1 Call API <span class="tag tag-agent">Agent</span></h3>
-    <p>The Agent calls the third-party app's API from the server side (not from the user's browser). Standard HTTP, structured JSON. No CORS configuration needed.</p>
+    <p><strong>Call API</strong> <span class="tag tag-agent">Agent</span> — The Agent calls the third-party app's API from the server side (not from the user's browser). Standard HTTP, structured JSON. No CORS configuration needed.</p>
     <pre><code>POST /api/calculate
 Body: {"expr": "99.5 * 3"}
 Response: {"expr": "99.5 * 3", "result": 298.5}</code></pre>
-
-    <h3 id="output-ui">2.2 Output UI <span class="tag tag-agent">Agent</span> <span class="tag tag-platform">Platform</span></h3>
+    <p><strong>Output UI</strong> <span class="tag tag-agent">Agent</span> <span class="tag tag-platform">Platform</span> — The Agent outputs an iframe. Platforms that render iframes in Agent output include <strong>ChatGPT, Claude, Gemini</strong>, and most web-based Agent UIs. They typically add <code>sandbox</code> attributes automatically. If a platform doesn't support iframes, ERI degrades to plain text output.</p>
     <pre><code>&lt;iframe src="https://app.example.com/embed#encoded_data" width="100%" height="400"&gt;&lt;/iframe&gt;</code></pre>
-    <p>Platforms that render iframes in Agent output include <strong>ChatGPT, Claude, Gemini</strong>, and most web-based Agent UIs. They typically add <code>sandbox</code> attributes automatically. If a platform doesn't support iframes, ERI degrades to plain text output.</p>
 
     <h2 id="conversation-flow">3. Conversation Flow</h2>
     <p>Iframe edits don't notify the Agent. On each new turn:</p>
