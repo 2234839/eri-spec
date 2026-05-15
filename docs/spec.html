@@ -250,7 +250,13 @@ window.parent.postMessage({
 iframe.contentWindow.postMessage({
   type: "eri:update",
   data: { items: [...], total: 597 }
-}, "https://your-app.example.com");</code></pre>
+}, "https://your-app.example.com");
+
+// iframe → Agent platform: request a height change (e.g. content grew)
+window.parent.postMessage({
+  type: "eri:resize",
+  height: 500
+}, "https://agent-platform.example.com");</code></pre>
 
     <h2 id="use-cases">8. Use Cases</h2>
     <p><strong>Fits</strong> — any scenario where the user wants to <em>tweak</em> the Agent's output:</p>

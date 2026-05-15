@@ -250,7 +250,13 @@ window.parent.postMessage({
 iframe.contentWindow.postMessage({
   type: "eri:update",
   data: { items: [...], total: 597 }
-}, "https://your-app.example.com");</code></pre>
+}, "https://your-app.example.com");
+
+// iframe → Agent 平台：请求改变高度（如内容增长）
+window.parent.postMessage({
+  type: "eri:resize",
+  height: 500
+}, "https://agent-platform.example.com");</code></pre>
 
     <h2 id="use-cases">8. 适用场景</h2>
     <p><strong>适合</strong>——任何用户想要<em>微调</em> Agent 输出的场景：</p>
