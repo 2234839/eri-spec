@@ -255,10 +255,12 @@ iframe.contentWindow.postMessage({
       <tbody>
         <tr><td><strong>机制</strong></td><td>URL → iframe</td><td>MCP 中的沙箱小应用</td><td>JSON 组件 → 原生渲染</td></tr>
         <tr><td><strong>集成</strong></td><td>无</td><td>MCP 服务器 + 沙箱</td><td>渲染器 + 组件目录</td></tr>
-        <tr><td><strong>适用场景</strong></td><td>已有 Web 应用</td><td>构建 MCP 生态</td><td>自有平台</td></tr>
+        <tr><td><strong>平台覆盖</strong></td><td><strong>所有平台</strong>（ChatGPT、Claude、Gemini…）</td><td>仅支持 MCP 的平台</td><td>仅支持 A2UI 的平台</td></tr>
+        <tr><td><strong>谁控制 UI</strong></td><td><strong>你</strong>（第三方提供者）</td><td>平台 + MCP 规范</td><td>平台 + A2UI 规范</td></tr>
+        <tr><td><strong>适用场景</strong></td><td>已有 Web 应用，想让它在所有平台上运行</td><td>构建 MCP 生态</td><td>自有平台</td></tr>
       </tbody>
     </table>
-    <p>ERI 不与 MCP Apps 或 A2UI 对立——它是入口。今天嵌入，等平台支持更丰富的协议时再升级。</p>
+    <p>ERI 不与 MCP Apps 或 A2UI 对立——它是入口。作为第三方提供者，ERI 让你以最小代价获得最广覆盖。今天嵌入，等平台支持更丰富的协议时再升级。</p>
   </div>
   <script>
     (function() {
