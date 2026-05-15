@@ -35,8 +35,8 @@ Four steps, no new protocol: understand intent → call API → construct URL �
 | | ERI | [MCP Apps](https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/) (Anthropic / OpenAI) | [A2UI](https://github.com/google/a2ui) (Google) |
 |---|---|---|---|
 | **Works today?** | **Yes — most platforms** | MCP-enabled only | A2UI-enabled only |
-| **What you build** | An HTTPS embed page + a skill.md | MCP-compatible app package | Component catalog + A2UI schema |
-| **Capabilities** | Full web platform (HTML/CSS/JS/Canvas/WebGL) | Platform APIs, real-time sync | Native rendering |
+| **You build** | An HTTPS embed page + a skill.md | MCP-compatible app package | Component catalog + A2UI schema |
+| **Capabilities** | Full web (HTML/CSS/JS/Canvas/WebGL) | Platform APIs, real-time sync | Native rendering |
 | **Effort** | **< 1 day** | Days | Days |
 
 ## Documentation
