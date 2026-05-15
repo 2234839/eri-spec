@@ -4,9 +4,11 @@ Thank you for your interest in ERI (Embedded Result Interface). This document de
 
 ## Quick Start
 
-1. Read the [specification](https://2234839.github.io/eri-spec/docs/spec.html)
-2. Try the [live demo](https://2234839.github.io/eri-spec/)
-3. Build your first embed using the [template](examples/template.md)
+1. Copy the [skill.md template](examples/template.md) — it includes a ready-to-use embed page example and conformance checklist
+2. Deploy your embed page over HTTPS (read state from URL hash or query params)
+3. Test on ChatGPT, Claude, or Gemini — iframes with `sandbox="allow-scripts"` should render your page
+
+See the [live demo](https://2234839.github.io/eri-spec/) for a working example, or read the [specification](https://2234839.github.io/eri-spec/docs/spec.html) for the full technical detail.
 
 ## How to Contribute
 

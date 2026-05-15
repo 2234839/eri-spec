@@ -4,6 +4,80 @@ All notable changes to the ERI specification are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.5] - 2026-05-16
+
+### Changed
+- Spec EN/ZH: Level 2 postMessage protocol aligned with MCP Apps `ui/*` JSON-RPC 2.0 host bridge — replaced custom `eri:valueChanged`, `eri:update`, `eri:resize` message types with standard `ui/initialize`, `ui/notifications/tool-input`, `ui/notifications/tool-result`, `tools/call`, `ui/message` methods.
+- Spec EN/ZH: Level 2 code examples rewritten to JSON-RPC 2.0 format (was custom ad-hoc postMessage objects).
+- Spec EN/ZH: iframe sizing row updated from `eri:resize` to `ui/message` JSON-RPC method.
+- Spec EN/ZH: embed page requirements table — `postMessage` row replaced with "Level 2 bridge" row linking to Section 7.
+- Spec EN/ZH: limitations snapshot reference updated from "postMessage bidirectional sync" to "`ui/*` JSON-RPC bidirectional sync".
+- Spec EN/ZH: "Key insight" paragraph expanded to note Level 2 bridge compatibility with MCP Apps.
+- Spec EN: error handling table — "Degraded to plain text" → "Degrade to plain text" (grammar fix).
+- Adopt EN/ZH: Phase 3 checklist item updated from "implement postMessage" to "implement MCP Apps `ui/*` JSON-RPC bridge".
+- README EN/ZH: postMessage references updated to "MCP Apps `ui/*` bridge" / "`ui/*` JSON-RPC bridge".
+- Blog EN/ZH: "Protocol-agnostic" paragraph tightened — removed redundant "carries forward" repetition, added direct link to spec comparison.
+- Demo: `--code-bg` CSS variable replaced with `--surface-2` (variable was undefined).
+- Demo: removed unused `thirdParty.badge` i18n keys (EN and ZH).
+
+### Added
+- Spec EN/ZH: normative references for JSON-RPC 2.0 Specification and MCP Apps Host Bridge.
+
+[1.0.5]: https://github.com/2234839/eri-spec/compare/v1.0.4...v1.0.5
+
+## [1.0.4] - 2026-05-16
+
+### Changed
+- Spec/blog comparison tables: MCP Apps mechanism clarified as "sandboxed iframe mini-apps" (was just "sandboxed mini-apps") — makes iframe compatibility explicit.
+- Spec EN/ZH: MCP Apps compatibility insight split into a standalone bold paragraph ("Key insight") for scannability.
+- Demo banner: added "< 1 day to working embed" time anchor in both EN/ZH.
+- Demo sidebar: removed redundant static skill-preview HTML (already rendered by I18N JS).
+- Adopt EN/ZH: removed promotional language — "competitors embed first", "first-mover advantage", "get there first" replaced with factual descriptions.
+- Adopt EN/ZH: exec-summary card rephrased from "TL;DR for decision-makers" to neutral statement.
+- Blog EN/ZH: "Why ERI First" → "Why ERI"; paragraphs rewritten from "Ship today, upgrade later" to protocol-agnostic framing.
+
+### Added
+- Adopt EN/ZH: executive summary card — 4-point summary with grid layout.
+- GitHub Issue templates: spec feedback, implementation report, platform compatibility.
+
+[1.0.4]: https://github.com/2234839/eri-spec/compare/v1.0.3...v1.0.4
+
+## [1.0.3] - 2026-05-16
+
+### Changed
+- Blog comparison table: replaced low-value "Packaging" row with "Effort" row showing `< 1 day` vs `Days` — directly answers the CTO's question.
+- Blog "all platforms" → "three platforms" heading for accuracy.
+- Adopt "Quick Experience" section merged into single paragraph for tighter flow.
+- Adopt "Ready to Start?" — badge code moved to footer; GitHub link added to all page footers (spec, blog, adopt, EN/ZH).
+- Adopt OG/social cards rewritten with platform names and time anchor for better click-through.
+- Spec.zh OG description rewritten for impact.
+- Index.html sidebar "Next Steps" reduced from 5 links to 2 core CTAs (Template + Adopt).
+- Index.html CSS: merged 3 duplicate button styles into shared selector (28 lines saved).
+- CONTRIBUTING.md Quick Start rewritten as 3 actionable steps (copy template → deploy → test).
+
+### Added
+- Adopt: "do nothing" row in decision matrix — names the competitive risk of waiting.
+- Adopt: explicit exit strategy in Risk talking point — zero lock-in, MIT-licensed, forkable.
+- Adopt: Pilot Success Criteria (4 measurable checkpoints after Phase 3).
+- Spec EN/ZH: `.checklist` CSS for self-certification checklist checkboxes.
+
+[1.0.3]: https://github.com/2234839/eri-spec/compare/v1.0.2...v1.0.3
+
+## [1.0.2] - 2026-05-16
+
+### Changed
+- Template (`examples/template.md`) is now self-contained: includes inline embed page code and a conformance checklist — no need to leave the file to start building.
+- Spec self-certification checklist promoted from a note block to an `h3` with `#self-certification` anchor, added to TOC navigation, with badge preview.
+- `hello-world.html` now auto-detects light/dark theme via `prefers-color-scheme` — embeds look native in both themes.
+- Demo sidebar skill preview updated to show 4-step workflow (matching current template pattern).
+- Pitch template in adopt page: "every Agent platform" → specific platform names for credibility.
+- Platform claims audited across all pages — "all platforms" replaced with "most platforms" or explicit platform names where appropriate.
+
+### Added
+- Map / location use case in spec use cases table (both EN/ZH).
+
+[1.0.2]: https://github.com/2234839/eri-spec/compare/v1.0.1...v1.0.2
+
 ## [1.0.1] - 2026-05-16
 
 ### Changed

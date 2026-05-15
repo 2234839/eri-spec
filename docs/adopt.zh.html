@@ -8,8 +8,8 @@
   <title>采用 ERI — 团队指南：把 Web 应用嵌入 ChatGPT、Claude、Gemini</title>
   <meta name="description" content="把你的 Web 应用嵌入 AI Agent 对话。采用清单、决策矩阵、推介模板和常见疑问——一天内让团队开始使用。">
   <meta name="keywords" content="ERI, 采用指南, 团队指南, AI Agent, 交互式 UI, 嵌入 iframe, 实施清单, 嵌入 ChatGPT, 嵌入 Claude, 嵌入 Gemini">
-  <meta property="og:title" content="采用 ERI — 团队指南">
-  <meta property="og:description" content="把你的 Web 应用嵌入 AI Agent 对话。清单、决策矩阵和推介模板，助团队快速采用。">
+  <meta property="og:title" content="采用 ERI — 一天内把你的 Web 应用嵌入 ChatGPT、Claude、Gemini">
+  <meta property="og:description" content="把你的 Web 应用嵌入 AI Agent 对话。采用清单、决策矩阵、推介模板和常见疑问。今天就开始。">
   <meta property="og:url" content="https://2234839.github.io/eri-spec/docs/adopt.zh.html">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="ERI Spec">
@@ -19,8 +19,8 @@
   <meta property="og:image" content="https://2234839.github.io/eri-spec/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta name="twitter:title" content="采用 ERI — 团队指南">
-  <meta name="twitter:description" content="把你的 Web 应用嵌入 AI Agent 对话。清单、决策矩阵和推介模板，助团队快速采用。">
+  <meta name="twitter:title" content="采用 ERI — 一天内把你的 Web 应用嵌入 ChatGPT、Claude、Gemini">
+  <meta name="twitter:description" content="把你的 Web 应用嵌入 AI Agent 对话。采用清单、决策矩阵和推介模板。今天就开始。">
   <link rel="canonical" href="https://2234839.github.io/eri-spec/docs/adopt.zh.html">
   <link rel="alternate" hreflang="en" href="https://2234839.github.io/eri-spec/docs/adopt.html">
   <link rel="alternate" hreflang="zh" href="https://2234839.github.io/eri-spec/docs/adopt.zh.html">
@@ -69,7 +69,7 @@
       },
       {
         "@type": "Question",
-        "name": "API 需要认证，Agent 怎么传凭证？",
+        "name": "我们的 API 需要认证——Agent 怎么传凭证？",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "Agent 从服务端调用你的 API，不是从用户浏览器。提供一个公开 API 端点供 Agent 访问——限流、限定为安全操作。敏感操作让用户在嵌入页面内自行认证。"
@@ -149,6 +149,11 @@
     @media (max-width: 640px) { .doc-content table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; } .doc-content { padding: 20px 12px 60px; } .header { padding: 8px 12px; flex-wrap: wrap; gap: 6px; } .header-right { gap: 4px; flex-wrap: wrap; } .header a, .header button { font-size: 11px; padding: 3px 6px; } .doc-content h1 { font-size: 1.4em; } .doc-content h2 { font-size: 1.2em; } }
     .skip-link { position: absolute; top: -40px; left: 0; background: var(--accent); color: #fff; padding: 8px 16px; z-index: 100; font-size: 14px; }
     .skip-link:focus { top: 0; }
+    .exec-summary { background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(99,102,241,0.03)); border: 1px solid rgba(99,102,241,0.25); border-radius: 10px; padding: 16px 20px; margin: 12px 0 20px; }
+    .exec-summary strong { color: var(--text); }
+    .exec-summary ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 6px 20px; }
+    .exec-summary li { font-size: 0.93em; color: var(--text-dim); }
+    .exec-summary li::before { content: '→ '; color: var(--accent); }
     .decision-tree { margin: 12px 0 20px; }
     .dt-node { padding: 10px 14px; border-radius: 8px; margin: 4px 0; font-size: 0.93em; }
     .dt-q { background: var(--surface-2); border: 1px solid var(--border); }
@@ -177,30 +182,35 @@
     <h1>采用 ERI — 团队指南</h1>
     <p class="meta">在组织内评估、规划并上线交互式 Agent 输出。</p>
 
+    <div class="exec-summary">
+      一个嵌入页面 + 一个 <code>skill.md</code> = 你的 Web 应用出现在 ChatGPT、Claude、Gemini 对话中。协议无关——同一个嵌入页面可沿用至 MCP Apps（相同的 iframe 运行时）。
+      <ul>
+        <li><strong>&lt; 1 天</strong>出可运行原型</li>
+        <li><strong>三大平台</strong>（ChatGPT、Claude、Gemini）</li>
+        <li><strong>零 SDK</strong>——只需 HTTPS + Markdown</li>
+        <li><strong>嵌入页面可沿用</strong>——不绑定 ERI</li>
+      </ul>
+    </div>
+
     <h2>ERI 适合你吗？</h2>
     <div class="decision-tree">
-      <div class="dt-node dt-q">你有一个 Web 应用？</div>
-      <div class="dt-arrow">↓ 是</div>
-      <div class="dt-node dt-q">用户会与 AI Agent（ChatGPT、Claude、Gemini）交互？</div>
+      <div class="dt-node dt-q">你有 Web 应用，且用户会使用 AI Agent？</div>
       <div class="dt-branch">
         <div class="dt-yes">
           <div class="dt-arrow">↓ 是</div>
           <div class="dt-node dt-fit"><strong>ERI 适合</strong>——一个嵌入页面 + 一个 <code>skill.md</code>，大多数平台</div>
         </div>
         <div class="dt-no">
-          <div class="dt-arrow">↓ 在自建渲染器？</div>
-          <div class="dt-node dt-alt">用 <a href="https://github.com/google/a2ui">A2UI</a></div>
-          <div class="dt-arrow">↓ 全面投入 MCP？</div>
-          <div class="dt-node dt-alt">用 <a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a></div>
-          <div class="dt-arrow">↓ 需要实时同步？</div>
-          <div class="dt-node dt-alt">等待 MCP Apps 或 A2UI</div>
+          <div class="dt-arrow">↓ 需要其他方案？</div>
+          <div class="dt-node dt-alt">自建渲染器？→ <a href="https://github.com/google/a2ui">A2UI</a></div>
+          <div class="dt-node dt-alt">全面投入 MCP？→ <a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a></div>
+          <div class="dt-node dt-alt">需要实时同步？→ 等待 MCP Apps 或 A2UI</div>
         </div>
       </div>
     </div>
 
     <h2>快速体验</h2>
-    <p><a href="https://2234839.github.io/eri-spec/">打开在线演示</a>——展示的是 NoteCalc，一个真实的第三方计算器，由 Agent 通过 ERI 嵌入。编辑数字试试：结果即时更新，无需等待 Agent 回复。skill.md 仅 <a href="https://github.com/2234839/eri-spec/blob/main/examples/notecalc.md">15 行</a>。完整集成工作量：不到一天。</p>
-    <p>准备好构建你的了？拿这个<a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">可复制模板</a>开始下面的清单吧。</p>
+    <p><a href="https://2234839.github.io/eri-spec/">打开在线演示</a>——一个真实的第三方计算器，由 Agent 通过 ERI 嵌入。编辑数字试试：结果即时更新，无需等待 Agent 回复。skill.md 仅 <a href="https://github.com/2234839/eri-spec/blob/main/examples/notecalc.md">15 行</a>。完整工作量：不到一天。准备好构建你的了？<a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">复制模板</a>，开始下面的清单。</p>
 
     <h2>采用清单</h2>
 
@@ -222,7 +232,8 @@ description: 工具描述
 ---
 ## 工作流
 1. 调用 POST https://my-api.example.com/endpoint
-2. 嵌入: https://my-app.example.com/embed#data</code></pre>
+2. 以纯文本展示结果
+3. 嵌入: https://my-app.example.com/embed#data</code></pre>
         <ul>
           <li>放置方式因平台而异：Custom Instructions（ChatGPT）、<code>CLAUDE.md</code> 或技能文件（Claude）、系统指令（Gemini）、或任何 Agent 行为定义机制</li>
         </ul>
@@ -241,8 +252,16 @@ description: 工具描述
     <ul class="checklist">
       <li>通过 URL 参数或 <code>prefers-color-scheme</code> 添加主题适配（亮/暗）</li>
       <li>确保键盘导航和屏幕阅读器支持（ARIA 标签、焦点管理）</li>
-      <li>实现 <code>postMessage</code> 以支持 Level 2 双向通信</li>
+      <li>实现 MCP Apps <code>ui/*</code> JSON-RPC 桥接以支持 Level 2 双向通信</li>
       <li>监控嵌入页面的性能和加载时间</li>
+    </ul>
+
+    <h3>试点成功标准</h3>
+    <ul class="checklist">
+      <li>嵌入页面在 ChatGPT、Claude 或 Gemini 中正确加载和渲染</li>
+      <li>用户可以在嵌入界面中直接交互，无需 Agent 来回</li>
+      <li>纯文本降级在 iframe 被移除时正常工作</li>
+      <li>从至少一位非开发人员收集到内部反馈</li>
     </ul>
 
     <h2>决策矩阵</h2>
@@ -250,9 +269,10 @@ description: 工具描述
       <thead><tr><th>场景</th><th>推荐方案</th></tr></thead>
       <tbody>
         <tr><td>"我们有 Web 应用 / SaaS——想放进 Agent 对话"</td><td><strong>ERI</strong> — 大多数平台通用</td></tr>
+        <tr><td>"这周就要出原型"</td><td><strong>ERI</strong></td></tr>
         <tr><td>"我们全面投入 MCP"</td><td>MCP Apps</td></tr>
         <tr><td>"需要原生移动端渲染"</td><td>A2UI</td></tr>
-        <tr><td>"这周就要出原型"</td><td><strong>ERI</strong></td></tr>
+        <tr><td>"先等等看——文字输出够用了"</td><td>文字能用，但用户越来越期待交互式结果。ERI 试用成本低：一个嵌入页面、一个 <code>skill.md</code>，随时可以撤回。</td></tr>
       </tbody>
     </table>
 
@@ -284,7 +304,7 @@ description: 工具描述
 
     <h2>内部推介模板</h2>
     <blockquote>
-      当用户向 Agent 询问我们的产品时，Agent 只能用文字描述。竞争对手迟早会把他们的 UI <em>嵌入到对话中</em>。ERI 让我们先到——一个嵌入页面、一个 <code>skill.md</code>、覆盖所有 Agent 平台。等 MCP Apps 和 A2UI 到来时，同一个嵌入页面直接沿用。
+      当用户向 Agent 询问我们的产品时，Agent 只能用文字描述。ERI 让我们把真正的 UI <em>嵌入到对话中</em>——一个嵌入页面、一个 <code>skill.md</code>、覆盖 ChatGPT、Claude、Gemini。等 MCP Apps 和 A2UI 到来时，同一个嵌入页面直接沿用。
     </blockquote>
 
     <h2>关键说服要点</h2>
@@ -294,19 +314,15 @@ description: 工具描述
         <tr><td><strong>速度</strong></td><td>不到一天出可运行的原型。NoteCalc 的嵌入页面约 120 行 HTML。一个 <code>skill.md</code> 约 15 行。不需要平台审批流程。</td></tr>
         <tr><td><strong>覆盖</strong></td><td>一次实现，覆盖 ChatGPT、Claude、Gemini——以及未来平台。</td></tr>
         <tr><td><strong>成本</strong></td><td>一个嵌入页面 + 一个 <code>skill.md</code>。不到一天的工程时间。无需 SDK，无需基础设施。</td></tr>
-        <tr><td><strong>风险</strong></td><td>零协议承诺。嵌入页面独立运行——日后可适配 MCP Apps 或 A2UI。</td></tr>
+        <tr><td><strong>风险</strong></td><td>零绑定。嵌入页面是标准的 HTTPS 页面——无论有没有 ERI 都能运行。<code>skill.md</code> 仅 15 行 Markdown，维护或丢弃的成本极低。即使 ERI 规范不再维护，你仍然拥有一个可用的嵌入页面。MIT 许可——任何人都可以 fork。</td></tr>
         <tr><td><strong>用户体验</strong></td><td>用户直接调整结果——改数字、拖滑块——无需等待 Agent 来回。</td></tr>
-        <tr><td><strong>业务价值</strong></td><td>我们的产品就在 Agent 对话里——用户无需跳出。在 Agent 生态中的先发优势。</td></tr>
+        <tr><td><strong>业务价值</strong></td><td>产品直接出现在 Agent 对话中——用户无需跳出即可交互。</td></tr>
       </tbody>
     </table>
 
-    <h2>准备好开始了吗？</h2>
-    <p>拿这个<a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">模板</a>，今天就发布你的第一个嵌入。从零到可运行不到一天——在 ChatGPT、Claude、Gemini 上通用。</p>
-    <p>展示你的支持——在 README 中添加 ERI 徽章：<code>[![ERI Compatible](https://img.shields.io/badge/ERI-Compatible-6366f1)](https://github.com/2234839/eri-spec)</code></p>
-    <p><img src="https://img.shields.io/badge/ERI-Compatible-6366f1" alt="ERI Compatible" height="20"></p>
-
     <hr>
-    <footer><p class="meta"><a href="./spec.zh.html">阅读规范</a> · <a href="./blog.zh.html">阅读博客</a> · <a href="https://2234839.github.io/eri-spec/">在线演示</a></p></footer>
+    <footer><p class="meta"><a href="./spec.zh.html">阅读规范</a> · <a href="./blog.zh.html">阅读博客</a> · <a href="https://2234839.github.io/eri-spec/">在线演示</a> · <a href="https://github.com/2234839/eri-spec">GitHub</a></p>
+    <p class="meta">添加 ERI 徽章：<code>[![ERI Compatible](https://img.shields.io/badge/ERI-Compatible-6366f1)](https://github.com/2234839/eri-spec)</code> <img src="https://img.shields.io/badge/ERI-Compatible-6366f1" alt="ERI Compatible" height="16"></p></footer>
  </main>
   <script>
     (function() {

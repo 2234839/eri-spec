@@ -185,7 +185,7 @@
       text-decoration: underline;
     }
     .skill-preview {
-      background: var(--code-bg);
+      background: var(--surface-2);
       border: 1px solid var(--border);
       border-radius: 6px;
       padding: 10px 12px;
@@ -340,8 +340,8 @@
       cursor: not-allowed;
     }
 
-    /* Settings panel */
-    .settings-toggle {
+    /* Header buttons */
+    .settings-toggle, .lang-switch, .theme-toggle {
       font-size: 13px;
       color: var(--text-dim);
       cursor: pointer;
@@ -351,38 +351,8 @@
       border-radius: 6px;
       transition: all 0.2s;
     }
-    .settings-toggle:hover { color: var(--text); border-color: var(--text-dim); }
-
-    /* Lang switch */
-    .lang-switch {
-      font-size: 13px;
-      color: var(--text-dim);
-      cursor: pointer;
-      background: none;
-      border: 1px solid var(--border);
-      padding: 4px 10px;
-      border-radius: 6px;
-      transition: all 0.2s;
-    }
-    .lang-switch:hover { color: var(--text); border-color: var(--text-dim); }
-
-    /* Theme toggle */
-    .theme-toggle {
-      font-size: 15px;
-      color: var(--text-dim);
-      cursor: pointer;
-      background: none;
-      border: 1px solid var(--border);
-      padding: 4px 9px;
-      border-radius: 6px;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      height: 30px;
-    }
-    .theme-toggle:hover { color: var(--text); border-color: var(--text-dim); }
+    .settings-toggle:hover, .lang-switch:hover, .theme-toggle:hover { color: var(--text); border-color: var(--text-dim); }
+    .theme-toggle { font-size: 15px; padding: 4px 9px; display: flex; align-items: center; justify-content: center; width: 32px; height: 30px; }
 
     .settings-panel {
       max-width: 800px;
@@ -520,7 +490,7 @@
   <main class="chat-area" id="chatArea">
     <div class="chat-main" id="chatMain">
       <div class="info-banner" data-i18n-html="banner.info">
-        <strong>This calculator is a live third-party app, embedded by the Agent via ERI.</strong> Your app can be here too — any HTTPS page works. Edit the numbers to see it in action. <a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">Copy the template</a> · <a href="./docs/spec.html">Spec</a> · <a href="./docs/blog.html">Blog</a> · <a href="./docs/adopt.html">Adopt</a>
+        <strong>The Agent embedded a live calculator — that's ERI.</strong> Edit the numbers. Your app can do this too — <a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">copy the template</a> (&lt; 1 day to working embed).
       </div>
       <!-- Messages will be rendered here -->
     </div>
@@ -529,23 +499,13 @@
         <div class="sidebar-card-header">🔗 ERI</div>
         <div class="sidebar-card-body" data-i18n-html="sidebar.body">
           <p><span class="highlight">The Agent called <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a>'s API, then embedded it as an interactive iframe. Edit the numbers below — no Agent round trips.</span></p>
-          <div class="skill-preview">---
-name: your-app
-description: What it does
----
-## Workflow
-1. Call your API
-2. Embed: https://app.com/embed#data</div>
         </div>
       </div>
       <div class="sidebar-card sidebar-next">
         <div class="sidebar-card-header sidebar-next-header">⚡ Next Steps</div>
         <div class="sidebar-card-body" data-i18n-html="sidebar.next">
           <p><a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md"><b>Copy the Template</b></a> — fill in your API and embed URL.</p>
-          <p><a href="./docs/spec.html"><b>Read the Spec</b></a> — workflow, security, levels.</p>
-          <p><a href="./docs/blog.html"><b>Read the Blog</b></a> — why interactive Agent output matters.</p>
-          <p><a href="./docs/adopt.html"><b>Adopt in Your Team</b></a> — checklist and pitch template.</p>
-          <p><a href="https://github.com/2234839/eri-spec"><b>View on GitHub</b></a> — MIT licensed.</p>
+          <p><a href="./docs/adopt.html"><b>Adopt in Your Team</b></a> — checklist, decision matrix, pitch template.</p>
         </div>
       </div>
     </aside>
@@ -568,6 +528,9 @@ description: What it does
     const userInput = document.getElementById('userInput');
     const sendBtn = document.getElementById('sendBtn');
 
+    /** Conversation history for LLM context */
+    let conversationHistory = [];
+
     /** Current language */
     let currentLang = 'en';
 
@@ -578,7 +541,7 @@ description: What it does
         'nav.blog': 'Blog',
         'nav.adopt': 'Adopt',
         'nav.settings': 'Settings',
-        'banner.info': '<strong>The Agent embedded a live calculator inside the conversation — that\'s ERI.</strong> Edit the numbers below. Your app can do this too. <a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">Copy the template</a> · <a href="./docs/spec.html">Spec</a> · <a href="./docs/blog.html">Blog</a> · <a href="./docs/adopt.html">Adopt</a>',
+        'banner.info': '<strong>The Agent embedded a live calculator — that\'s ERI.</strong> Edit the numbers. Your app can do this too — <a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">copy the template</a> (&lt; 1 day to working embed).',
         'input.placeholder': 'Ask me to calculate something... (e.g. "Calculate 3 items at $99.5 each")',
         'input.send': 'Send',
         'input.hint': 'Edit the calculator above to try ERI, or configure your API key in Settings to chat with the Agent.',
@@ -587,9 +550,8 @@ description: What it does
         'settings.hint': 'Your key stays in the browser. This is a fully static page — no data is sent to any server except the LLM API you configure above.',
         'settings.model': 'Model',
         'embed.header': 'NoteCalc — Interactive Calculator (ERI)',
-        'thirdParty.badge': '🔗 <b>Third-party service</b><br>This interactive UI is provided by <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a>, not by this page. This is the essence of ERI: the Agent embeds an external app\'s UI directly.',
-        'sidebar.body': '<p><span class="highlight">The Agent called <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a>\'s API, then embedded it as an interactive iframe. Edit the numbers below — no Agent round trips.</span></p><div class="skill-preview">---\nname: your-app\ndescription: What it does\n---\n## Workflow\n1. Call your API\n2. Embed: https://app.com/embed#data</div>',
-        'sidebar.next': '<p><a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md"><b>Copy the Template</b></a> — fill in your API and embed URL.</p><p><a href="./docs/spec.html"><b>Read the Spec</b></a> — workflow, security, levels.</p><p><a href="./docs/blog.html"><b>Read the Blog</b></a> — why interactive Agent output matters.</p><p><a href="./docs/adopt.html"><b>Adopt in Your Team</b></a> — checklist and pitch template.</p>',
+        'sidebar.body': '<p><span class="highlight">The Agent called <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a>\'s API, then embedded it as an interactive iframe. Edit the numbers below — no Agent round trips.</span></p><div class="skill-preview">---\nname: your-app\ndescription: What it does\n---\n## Workflow\n1. Call POST https://your-api/endpoint\n2. Show result in plain text\n3. Embed: https://app.com/embed#data\n4. Plain text fallback if no iframe</div>',
+        'sidebar.next': '<p><a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md"><b>Copy the Template</b></a> — fill in your API and embed URL.</p><p><a href="./docs/adopt.html"><b>Adopt in Your Team</b></a> — checklist, decision matrix, pitch template.</p>',
         'msg.you': 'You',
         'msg.agent': 'Agent',
         'demo.user1': 'Calculate 3 items at $99.5 each, then add 8% tax',
@@ -624,7 +586,7 @@ Always show the iframe embed after your text explanation so the user can interac
         'nav.blog': '博客',
         'nav.adopt': '采用',
         'nav.settings': '设置',
-        'banner.info': '<strong>Agent 在对话中嵌入了一个实时计算器——这就是 ERI。</strong>编辑下方的数字试试。你的应用也可以做到。 <a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">复制模板</a> · <a href="./docs/spec.zh.html">规范</a> · <a href="./docs/blog.zh.html">博客</a> · <a href="./docs/adopt.zh.html">采用</a>',
+        'banner.info': '<strong>Agent 嵌入了一个实时计算器——这就是 ERI。</strong>编辑数字试试。你的应用也能做到——<a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">复制模板</a>（不到一天出可运行嵌入）。',
         'input.placeholder': '问我任何计算问题...（例如："计算单价 $99.5 的商品 3 件合计"）',
         'input.send': '发送',
         'input.hint': '编辑上方的计算器即可体验 ERI，或在设置中配置 API Key 与 Agent 对话。',
@@ -633,9 +595,8 @@ Always show the iframe embed after your text explanation so the user can interac
         'settings.hint': '你的密钥仅保存在浏览器中。这是一个完全静态的页面 —— 除了你上面配置的 LLM API 外，不会向任何服务器发送数据。',
         'settings.model': '模型',
         'embed.header': 'NoteCalc — 交互式计算器（ERI）',
-        'thirdParty.badge': '🔗 <b>第三方服务</b><br>此交互式 UI 由 <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a> 提供，并非本站自带。这正是 ERI 的精髓：Agent 直接嵌入第三方应用的界面。',
-        'sidebar.body': '<p><span class="highlight">Agent 调用了 <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a> 的 API，然后将其嵌入为可交互的 iframe。编辑下方数字——无需等待 Agent 回复。</span></p><div class="skill-preview">---\nname: your-app\ndescription: 工具描述\n---\n## 工作流\n1. 调用你的 API\n2. 嵌入: https://app.com/embed#data</div>',
-        'sidebar.next': '<p><a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md"><b>复制模板</b></a> — 填入你的 API 和嵌入 URL。</p><p><a href="./docs/spec.zh.html"><b>阅读规范</b></a> — 工作流、安全、等级。</p><p><a href="./docs/blog.zh.html"><b>阅读博客</b></a> — 为什么 Agent 输出需要交互。</p><p><a href="./docs/adopt.zh.html"><b>团队采用</b></a> — 清单和推介模板。</p>',
+        'sidebar.body': '<p><span class="highlight">Agent 调用了 <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a> 的 API，然后将其嵌入为可交互的 iframe。编辑下方数字——无需等待 Agent 回复。</span></p><div class="skill-preview">---\nname: your-app\ndescription: 工具描述\n---\n## 工作流\n1. 调用 POST https://your-api/endpoint\n2. 以纯文本展示结果\n3. 嵌入: https://app.com/embed#data\n4. 无 iframe 时使用纯文本降级</div>',
+        'sidebar.next': '<p><a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md"><b>复制模板</b></a> — 填入你的 API 和嵌入 URL。</p><p><a href="./docs/adopt.zh.html"><b>团队采用</b></a> — 清单、决策矩阵、推介模板。</p>',
         'msg.you': '你',
         'msg.agent': 'Agent',
         'demo.user1': '计算单价 $99.5 的商品 3 件，再加 8% 税费',
@@ -806,9 +767,6 @@ Always show the iframe embed after your text explanation so the user can interac
     document.getElementById('model').addEventListener('change', persistSettings);
 
     restoreSettings();
-
-    /** Conversation history for LLM context */
-    let conversationHistory = [];
 
     /** Get localized skill prompt */
     function getSkillPrompt() {

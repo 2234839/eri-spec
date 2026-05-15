@@ -28,7 +28,7 @@ Agent 输出 iframe → 用户看到实时计算器
 
 1. **添加嵌入页面** — 创建一个精简版应用，从 URL 参数读取初始状态。[最小示例只需 10 行](https://2234839.github.io/eri-spec/docs/spec.zh.html#minimal-example)；生产级页面通常 100–200 行。
 2. **写一个 skill.md** — 告诉 Agent 如何调用你的 API 和构造嵌入 URL。[从模板开始](./examples/template.md)，或参考[真实实现](./examples/notecalc.md)（仅 15 行）。
-3. **上线** — iframe 嵌入在 ChatGPT、Claude、Gemini 上都能用。需要时再加 [postMessage 双向通信](https://2234839.github.io/eri-spec/docs/spec.zh.html#progressive-levels)。
+3. **上线** — iframe 嵌入在 ChatGPT、Claude、Gemini 上都能用。需要时再加 [Level 2 双向通信（MCP Apps `ui/*` 桥接）](https://2234839.github.io/eri-spec/docs/spec.zh.html#progressive-levels)。
 
 ## 有什么不同
 
@@ -43,7 +43,7 @@ Agent 输出 iframe → 用户看到实时计算器
 
 | 页面 | 用途 |
 |------|------|
-| [规范](https://2234839.github.io/eri-spec/docs/spec.zh.html) | 技术规范——工作流、安全、等级、postMessage 协议 |
+| [规范](https://2234839.github.io/eri-spec/docs/spec.zh.html) | 技术规范——工作流、安全、等级、`ui/*` JSON-RPC 桥接 |
 | [博客](https://2234839.github.io/eri-spec/docs/blog.zh.html) | 为什么需要 ERI — 三方格局（ERI / MCP Apps / A2UI） |
 | [采用](https://2234839.github.io/eri-spec/docs/adopt.zh.html) | 团队采用指南——清单、决策矩阵、推介模板 |
 | [示例](./examples/) | 可复制的 skill.md 模板——[模板](./examples/template.md)、[hello world](./examples/hello-world.html)和[真实实现](./examples/notecalc.md) |
@@ -54,7 +54,7 @@ Agent 输出 iframe → 用户看到实时计算器
 |------|------|
 | [NoteCalc](https://tsfullstack.heartstack.space/noteCalc) | 数学计算器——支持变量、单位换算和百分比，[skill.md](./examples/notecalc.md) |
 
-用 ERI 构建了什么？[在此添加](https://github.com/2234839/eri-spec/edit/main/README.zh.md)——提交 PR 即可。
+用 ERI 构建了什么？[在此添加](https://github.com/2234839/eri-spec/edit/main/README.zh.md)——提交 PR 即可。展示你的支持：`[![ERI Compatible](https://img.shields.io/badge/ERI-Compatible-6366f1)](https://github.com/2234839/eri-spec)`
 
 ## 许可
 

@@ -8,8 +8,8 @@
   <title>Adopting ERI — Team Guide: embed your web app in ChatGPT, Claude, Gemini</title>
   <meta name="description" content="Embed your web app inside AI Agent conversations. Adoption checklist, decision matrix, pitch template, and common objections — get your team started in under a day.">
   <meta name="keywords" content="ERI, adoption guide, team guide, AI Agent, interactive UI, embed iframe, implementation checklist, embed web app in ChatGPT, embed in Claude">
-  <meta property="og:title" content="Adopting ERI — Team Guide">
-  <meta property="og:description" content="Embed your web app inside AI Agent conversations. Checklist, decision matrix, and pitch template for your team.">
+  <meta property="og:title" content="Adopting ERI — Ship your web app inside ChatGPT, Claude, Gemini in under a day">
+  <meta property="og:description" content="Embed your web app inside AI Agent conversations. Checklist, decision matrix, pitch template, and common objections. Get your team started today.">
   <meta property="og:url" content="https://2234839.github.io/eri-spec/docs/adopt.html">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="ERI Spec">
@@ -19,8 +19,8 @@
   <meta property="og:image" content="https://2234839.github.io/eri-spec/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta name="twitter:title" content="Adopting ERI — Team Guide">
-  <meta name="twitter:description" content="Embed your web app inside AI Agent conversations. Checklist, decision matrix, and pitch template for your team.">
+  <meta name="twitter:title" content="Adopting ERI — Ship your web app inside ChatGPT, Claude, Gemini in under a day">
+  <meta name="twitter:description" content="Embed your web app inside AI Agent conversations. Checklist, decision matrix, pitch template. Get started today.">
   <link rel="canonical" href="https://2234839.github.io/eri-spec/docs/adopt.html">
   <link rel="alternate" hreflang="zh" href="https://2234839.github.io/eri-spec/docs/adopt.zh.html">
   <link rel="alternate" hreflang="en" href="https://2234839.github.io/eri-spec/docs/adopt.html">
@@ -69,7 +69,7 @@
       },
       {
         "@type": "Question",
-        "name": "How does the Agent pass credentials for authenticated APIs?",
+        "name": "Our API requires authentication — how does the Agent pass credentials?",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "The Agent calls your API from its server, not from the user's browser. Provide a dedicated public API endpoint for Agent access — rate-limited, scoped to safe operations. For sensitive operations, let users authenticate within the embed page itself."
@@ -85,7 +85,7 @@
       },
       {
         "@type": "Question",
-        "name": "What if our platform doesn't support iframes or our embed page goes down?",
+        "name": "What if our platform doesn't support iframes — or our embed page goes down?",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "Either way, the Agent always includes a plain text fallback — the user still gets value. Most major platforms render iframes today. Treat your embed page like any HTTPS endpoint: monitor uptime, maintain an SLO."
@@ -149,6 +149,11 @@
     @media (max-width: 640px) { .doc-content table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; } .doc-content { padding: 20px 12px 60px; } .header { padding: 8px 12px; flex-wrap: wrap; gap: 6px; } .header-right { gap: 4px; flex-wrap: wrap; } .header a, .header button { font-size: 11px; padding: 3px 6px; } .doc-content h1 { font-size: 1.4em; } .doc-content h2 { font-size: 1.2em; } }
     .skip-link { position: absolute; top: -40px; left: 0; background: var(--accent); color: #fff; padding: 8px 16px; z-index: 100; font-size: 14px; }
     .skip-link:focus { top: 0; }
+    .exec-summary { background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(99,102,241,0.03)); border: 1px solid rgba(99,102,241,0.25); border-radius: 10px; padding: 16px 20px; margin: 12px 0 20px; }
+    .exec-summary strong { color: var(--text); }
+    .exec-summary ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 6px 20px; }
+    .exec-summary li { font-size: 0.93em; color: var(--text-dim); }
+    .exec-summary li::before { content: '→ '; color: var(--accent); }
     .decision-tree { margin: 12px 0 20px; }
     .dt-node { padding: 10px 14px; border-radius: 8px; margin: 4px 0; font-size: 0.93em; }
     .dt-q { background: var(--surface-2); border: 1px solid var(--border); }
@@ -177,30 +182,35 @@
     <h1>Adopting ERI — Team Guide</h1>
     <p class="meta">Evaluate, plan, and ship interactive Agent output in your organization.</p>
 
+    <div class="exec-summary">
+      One embed page + one <code>skill.md</code> = your web app inside ChatGPT, Claude, and Gemini conversations. Protocol-agnostic — the same embed page carries forward to MCP Apps (same iframe runtime).
+      <ul>
+        <li><strong>&lt; 1 day</strong> to working prototype</li>
+        <li><strong>3 platforms</strong> (ChatGPT, Claude, Gemini)</li>
+        <li><strong>Zero SDK</strong> — just HTTPS + Markdown</li>
+        <li><strong>Embed page carries forward</strong> — not tied to ERI</li>
+      </ul>
+    </div>
+
     <h2>Is ERI Right for You?</h2>
     <div class="decision-tree">
-      <div class="dt-node dt-q">Do you have a web app?</div>
-      <div class="dt-arrow">↓ Yes</div>
-      <div class="dt-node dt-q">Do users interact with AI Agents (ChatGPT, Claude, Gemini)?</div>
+      <div class="dt-node dt-q">You have a web app and users who use AI Agents?</div>
       <div class="dt-branch">
         <div class="dt-yes">
           <div class="dt-arrow">↓ Yes</div>
           <div class="dt-node dt-fit"><strong>ERI fits</strong> — one embed page + one <code>skill.md</code>, most platforms</div>
         </div>
         <div class="dt-no">
-          <div class="dt-arrow">↓ Building a renderer?</div>
-          <div class="dt-node dt-alt">Use <a href="https://github.com/google/a2ui">A2UI</a></div>
-          <div class="dt-arrow">↓ All-in on MCP?</div>
-          <div class="dt-node dt-alt">Use <a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a></div>
-          <div class="dt-arrow">↓ Need real-time sync?</div>
-          <div class="dt-node dt-alt">Wait for MCP Apps or A2UI</div>
+          <div class="dt-arrow">↓ Need something else?</div>
+          <div class="dt-node dt-alt">Building a renderer? → <a href="https://github.com/google/a2ui">A2UI</a></div>
+          <div class="dt-node dt-alt">All-in on MCP? → <a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a></div>
+          <div class="dt-node dt-alt">Need real-time sync? → Wait for MCP Apps or A2UI</div>
         </div>
       </div>
     </div>
 
     <h2>Quick Experience</h2>
-    <p><a href="https://2234839.github.io/eri-spec/">Open the live demo</a> — it shows NoteCalc, a real third-party calculator embedded by an Agent via ERI. Edit the numbers: results update instantly, no round trip. The skill.md is <a href="https://github.com/2234839/eri-spec/blob/main/examples/notecalc.md">15 lines</a>. Total integration effort: under a day.</p>
-    <p>Ready to build yours? Grab the <a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">copy-paste template</a> and start the checklist below.</p>
+    <p><a href="https://2234839.github.io/eri-spec/">Open the live demo</a> — a real third-party calculator, embedded by an Agent via ERI. Edit the numbers: results update instantly, no round trip. The skill.md is <a href="https://github.com/2234839/eri-spec/blob/main/examples/notecalc.md">15 lines</a>. Total effort: under a day. Ready to build yours? <a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">Copy the template</a> and start the checklist below.</p>
 
     <h2>Adoption Checklist</h2>
 
@@ -222,7 +232,8 @@ description: What it does.
 ---
 ## Workflow
 1. Call POST https://my-api.example.com/endpoint
-2. Embed: https://my-app.example.com/embed#data</code></pre>
+2. Show the result in plain text
+3. Embed: https://my-app.example.com/embed#data</code></pre>
         <ul>
           <li>Placement varies by platform: Custom Instructions (ChatGPT), <code>CLAUDE.md</code> or skill files (Claude), system instructions (Gemini), or any Agent behavior definition mechanism</li>
         </ul>
@@ -241,8 +252,16 @@ description: What it does.
     <ul class="checklist">
       <li>Add theme adaptation (light/dark) via URL param or <code>prefers-color-scheme</code></li>
       <li>Ensure keyboard navigation and screen reader support (ARIA labels, focus management)</li>
-      <li>Implement <code>postMessage</code> for Level 2 bidirectional communication</li>
+      <li>Implement the MCP Apps <code>ui/*</code> JSON-RPC bridge for Level 2 bidirectional communication</li>
       <li>Monitor embed page performance and load time</li>
+    </ul>
+
+    <h3>Pilot Success Criteria</h3>
+    <ul class="checklist">
+      <li>Embed page loads and renders correctly inside ChatGPT, Claude, or Gemini</li>
+      <li>User can interact with the embed without Agent round trips</li>
+      <li>Plain text fallback works when iframe is stripped</li>
+      <li>Internal feedback collected from at least one non-developer</li>
     </ul>
 
     <h2>Decision Matrix</h2>
@@ -250,9 +269,10 @@ description: What it does.
       <thead><tr><th>Scenario</th><th>Recommended</th></tr></thead>
       <tbody>
         <tr><td>"We have a web app / SaaS — want it in Agent chat"</td><td><strong>ERI</strong> — works on most platforms</td></tr>
+        <tr><td>"We want to prototype this week"</td><td><strong>ERI</strong></td></tr>
         <tr><td>"We're all-in on MCP"</td><td>MCP Apps</td></tr>
         <tr><td>"We need native mobile rendering"</td><td>A2UI</td></tr>
-        <tr><td>"We want to prototype this week"</td><td><strong>ERI</strong></td></tr>
+        <tr><td>"Let's wait and see — text output is fine"</td><td>Text works, but users increasingly expect interactive results. ERI is low-cost to try: one embed page, one <code>skill.md</code>, reversible at any time.</td></tr>
       </tbody>
     </table>
 
@@ -284,7 +304,7 @@ description: What it does.
 
     <h2>Internal Pitch Template</h2>
     <blockquote>
-      When a user asks an Agent about our product, the Agent can only describe it in text. Our competitors will figure out how to put their UI <em>inside</em> the conversation. ERI lets us get there first — one embed page, one <code>skill.md</code>, every Agent platform. And when MCP Apps and A2UI arrive, the same embed page carries forward.
+      When a user asks an Agent about our product, the Agent can only describe it in text. ERI lets us put our actual UI <em>inside</em> the conversation — one embed page, one <code>skill.md</code>, reaching ChatGPT, Claude, Gemini. And when MCP Apps and A2UI arrive, the same embed page carries forward.
     </blockquote>
 
     <h2>Key Talking Points</h2>
@@ -294,19 +314,15 @@ description: What it does.
         <tr><td><strong>Speed</strong></td><td>Working demo in under a day. The NoteCalc embed page is ~120 lines of HTML. A <code>skill.md</code> is ~15 lines. No platform approval cycle.</td></tr>
         <tr><td><strong>Coverage</strong></td><td>One implementation reaches ChatGPT, Claude, Gemini — and future platforms.</td></tr>
         <tr><td><strong>Cost</strong></td><td>One embed page + one <code>skill.md</code>. Under a day of engineering time. No SDK, no infrastructure.</td></tr>
-        <tr><td><strong>Risk</strong></td><td>Zero protocol commitment. The embed page we build works standalone — and can be adapted for MCP Apps or A2UI later.</td></tr>
+        <tr><td><strong>Risk</strong></td><td>Zero lock-in. The embed page is a standard HTTPS page — it works with or without ERI. The <code>skill.md</code> is 15 lines of markdown: trivial to maintain or discard. If ERI itself becomes irrelevant, you keep a working embed page. MIT-licensed spec: anyone can fork it.</td></tr>
         <tr><td><strong>User experience</strong></td><td>Users tweak results directly — change a number, drag a slider — without waiting for Agent round trips.</td></tr>
-        <tr><td><strong>Business value</strong></td><td>Our product lives inside the Agent conversation — users never leave. First-mover advantage in the Agent ecosystem.</td></tr>
+        <tr><td><strong>Business value</strong></td><td>Our product lives inside the Agent conversation — users interact directly without leaving the chat.</td></tr>
       </tbody>
     </table>
 
-    <h2>Ready to Start?</h2>
-    <p>Grab the <a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">template</a> and ship your first embed today. Under a day from zero to working — on ChatGPT, Claude, and Gemini.</p>
-    <p>Show your support — add an ERI badge to your README: <code>[![ERI Compatible](https://img.shields.io/badge/ERI-Compatible-6366f1)](https://github.com/2234839/eri-spec)</code></p>
-    <p><img src="https://img.shields.io/badge/ERI-Compatible-6366f1" alt="ERI Compatible" height="20"></p>
-
     <hr>
-    <footer><p class="meta"><a href="./spec.html">Read the spec</a> · <a href="./blog.html">Read the blog</a> · <a href="https://2234839.github.io/eri-spec/">Try the demo</a></p></footer>
+    <footer><p class="meta"><a href="./spec.html">Read the spec</a> · <a href="./blog.html">Read the blog</a> · <a href="https://2234839.github.io/eri-spec/">Try the demo</a> · <a href="https://github.com/2234839/eri-spec">GitHub</a></p>
+    <p class="meta">Add an ERI badge: <code>[![ERI Compatible](https://img.shields.io/badge/ERI-Compatible-6366f1)](https://github.com/2234839/eri-spec)</code> <img src="https://img.shields.io/badge/ERI-Compatible-6366f1" alt="ERI Compatible" height="16"></p></footer>
  </main>
   <script>
     (function() {

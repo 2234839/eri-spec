@@ -87,6 +87,10 @@
     .tag-platform { background: rgba(251,191,36,0.15); color: #fbbf24; } [data-theme="light"] .tag-platform { background: rgba(202,138,4,0.12); color: #ca8a04; }
     .tag-provider { background: rgba(99,102,241,0.15); color: #818cf8; } [data-theme="light"] .tag-provider { background: rgba(79,70,229,0.1); color: #6366f1; }
     .role-note { font-size: 0.85em; color: var(--text-dim); margin: 4px 0; padding: 6px 12px; background: var(--surface-2); border-radius: 6px; border-left: 3px solid var(--accent); }
+    .checklist-heading { font-size: 1.05em; margin: 20px 0 6px; padding: 8px 12px; background: rgba(99,102,241,0.08); border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0; }
+    .checklist { list-style: none; margin-left: 0 !important; padding-left: 0; }
+    .checklist li { padding-left: 24px; position: relative; }
+    .checklist li::before { content: '☐'; position: absolute; left: 0; color: var(--text-dim); }
     .flow { display: flex; align-items: center; gap: 6px; margin: 16px 0; overflow-x: auto; padding: 4px 0; }
     .flow-step { background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; min-width: 140px; text-align: center; flex-shrink: 0; }
     .flow-step strong { display: block; font-size: 0.95em; margin-bottom: 2px; }
@@ -122,7 +126,7 @@
         <li><strong>Ship it</strong> — works on ChatGPT, Claude, Gemini today. No SDK, no approval cycle.</li>
       </ol>
     </details>
-    <p class="toc"><a href="#definition">1. Definition</a> · <a href="#workflow">2. Workflow</a> · <a href="#conversation-flow">3. Conversation Flow</a> · <a href="#skill-authoring">4. Skill Authoring</a> · <a href="#embed-page">5. Embed Page</a> · <a href="#security">6. Security</a> · <a href="#progressive-levels">7. Levels</a> · <a href="#use-cases">8. Use Cases</a> · <a href="#limitations">9. Limitations</a> · <a href="#error-handling">10. Error Handling</a> · <a href="#industry-landscape">11. Landscape</a></p>
+    <p class="toc"><a href="#definition">1. Definition</a> · <a href="#self-certification">Checklist</a> · <a href="#workflow">2. Workflow</a> · <a href="#conversation-flow">3. Conversation Flow</a> · <a href="#skill-authoring">4. Skill Authoring</a> · <a href="#embed-page">5. Embed Page</a> · <a href="#security">6. Security</a> · <a href="#progressive-levels">7. Levels</a> · <a href="#use-cases">8. Use Cases</a> · <a href="#limitations">9. Limitations</a> · <a href="#error-handling">10. Error Handling</a> · <a href="#industry-landscape">11. Landscape</a></p>
 
     <h2 id="definition">1. Definition</h2>
     <p>AI Agents output text. ERI (Embedded Result Interface) lets them output interactive UI instead. After processing a user request, the Agent embeds a web app (iframe) — using only a <code>skill.md</code> and a URL.</p>
@@ -137,11 +141,20 @@
     </table>
     <p><strong>Snapshot-based</strong> — the Agent does not monitor the output UI. Each new instruction generates a fresh embed (see <a href="#conversation-flow">Section 3</a>). The third-party app runs independently — it only needs to provide an HTTPS page.</p>
     <p><strong>Conformance</strong> — an implementation is ERI-compliant at <a href="#progressive-levels">Level 1</a> when: (1) the Provider serves an HTTPS embed page that reads initial state from URL parameters; (2) the Agent follows the <a href="#workflow">four-step workflow</a>; (3) the Platform renders the iframe with <code>sandbox="allow-scripts"</code>. No registration, no certification.</p>
-    <div class="role-note">
-      <strong>Level 1 Self-Certification Checklist</strong><br>
-      ☐ Embed page served over HTTPS &nbsp;·&nbsp; ☐ Reads initial state from URL hash or query params &nbsp;·&nbsp; ☐ Self-contained (no host JS/CSS dependencies) &nbsp;·&nbsp; ☐ Handles invalid/missing URL params gracefully &nbsp;·&nbsp; ☐ <code>skill.md</code> has frontmatter + <code>## Workflow</code> &nbsp;·&nbsp; ☐ Agent calls API server-side (not from user's browser) &nbsp;·&nbsp; ☐ Agent includes plain text fallback &nbsp;·&nbsp; ☐ Iframe uses <code>sandbox="allow-scripts"</code>
-      <br><br>Add a badge to your README: <code>[![ERI Compatible](https://img.shields.io/badge/ERI-Compatible-6366f1)](https://github.com/2234839/eri-spec)</code>
-    </div>
+
+    <h3 id="self-certification" class="checklist-heading">Level 1 Self-Certification Checklist</h3>
+    <ul class="checklist">
+      <li>Embed page served over HTTPS</li>
+      <li>Reads initial state from URL hash or query params</li>
+      <li>Self-contained (no host JS/CSS dependencies)</li>
+      <li>Handles invalid/missing URL params gracefully</li>
+      <li><code>skill.md</code> has frontmatter + <code>## Workflow</code></li>
+      <li>Agent calls API server-side (not from user's browser)</li>
+      <li>Agent includes plain text fallback</li>
+      <li>Iframe uses <code>sandbox="allow-scripts"</code></li>
+    </ul>
+    <p>Add a badge to your README: <code>[![ERI Compatible](https://img.shields.io/badge/ERI-Compatible-6366f1)](https://github.com/2234839/eri-spec)</code>
+    <img src="https://img.shields.io/badge/ERI-Compatible-6366f1" alt="ERI Compatible" height="20"></p>
 
     <h2 id="workflow">2. Workflow</h2>
     <div class="flow">
@@ -192,7 +205,6 @@ description: What this Skill does
 3. Encode API response as URL hash
 4. Output as iframe: https://app.example.com/embed#&lt;encoded_response&gt;
    (fallback to plain text if platform cannot render)</code></pre>
-    <p>The Agent reads this workflow, executes each step, and outputs an iframe.</p>
     <p>The frontmatter (<code>name</code>, <code>description</code>) follows standard YAML convention. The body section heading (<code>## Workflow</code>, <code>## 工作流</code>, or any heading you choose) and its content are freeform — write in whatever natural language the Agent understands. The format is plain Markdown.</p>
     <table>
       <thead><tr><th>Platform</th><th>Where to place skill.md content</th></tr></thead>
@@ -212,9 +224,9 @@ description: What this Skill does
         <tr><td>HTTPS</td><td>Must serve over HTTPS</td></tr>
         <tr><td>URL param reading</td><td>Read initial state from URL hash (recommended) or query params. Recommended encoding: <code>encodeURIComponent(JSON.stringify(data))</code> — but any format the embed page understands is valid.</td></tr>
         <tr><td>Self-contained</td><td>Handle all interactions internally. No host JS/CSS dependencies. Responsive layout.</td></tr>
-        <tr><td><code>postMessage</code> <em>(optional)</em></td><td>Notify host of changes inside the iframe</td></tr>
+        <tr><td>Level 2 bridge <em>(optional)</em></td><td>Implement <code>ui/*</code> JSON-RPC bridge for bidirectional communication — see <a href="#progressive-levels">Section 7</a></td></tr>
         <tr><td>Theme adaptation <em>(optional)</em></td><td>Read URL params or host colors to match light/dark theme</td></tr>
-        <tr><td>Iframe sizing <em>(recommended)</em></td><td>Design for a responsive width (agents typically set <code>width="100%"</code>). Default height of 300–400px works for most embeds. For Level 2, use a <code>eri:resize</code> postMessage to dynamically adjust height.</td></tr>
+        <tr><td>Iframe sizing <em>(recommended)</em></td><td>Design for a responsive width (agents typically set <code>width="100%"</code>). Default height of 300–400px works for most embeds. For Level 2, use the <code>ui/message</code> JSON-RPC method to dynamically adjust height.</td></tr>
       </tbody>
     </table>
 
@@ -255,42 +267,67 @@ description: What this Skill does
       <tbody>
         <tr><td>0</td><td>Plain text output</td><td><span class="tag tag-agent">Agent</span> only — nothing else needed</td></tr>
         <tr><td>1</td><td>iframe embedding</td><td><span class="tag tag-provider">Provider</span> embed page + <span class="tag tag-platform">Platform</span> iframe support (most already have this)</td></tr>
-        <tr><td>2</td><td>Bidirectional communication</td><td>Level 1 + <span class="tag tag-provider">Provider</span> <span class="tag tag-platform">Platform</span> both implement postMessage</td></tr>
+        <tr><td>2</td><td>Bidirectional communication</td><td>Level 1 + <span class="tag tag-provider">Provider</span> <span class="tag tag-platform">Platform</span> both implement <a href="https://developers.openai.com/apps-sdk/mcp-apps-in-chatgpt">MCP Apps host bridge</a> (<code>ui/*</code> JSON-RPC 2.0 over postMessage)</td></tr>
       </tbody>
     </table>
-    <p>Use Level 2 when the platform must react to user edits inside the iframe (e.g. auto-save, live previews). It uses <code>postMessage</code> with a specific origin — never <code>"*"</code>:</p>
+    <p>Use Level 2 when the platform must react to user edits inside the iframe (e.g. auto-save, live previews). ERI Level 2 uses the same <code>ui/*</code> JSON-RPC 2.0 bridge defined by <a href="https://developers.openai.com/apps-sdk/mcp-apps-in-chatgpt">MCP Apps</a> — no custom message format. This means an ERI Level 2 embed page is directly compatible with MCP Apps–enabled platforms.</p>
     <table>
-      <thead><tr><th>Message type</th><th>Direction</th><th>Payload</th></tr></thead>
+      <thead><tr><th>Method</th><th>Direction</th><th>Purpose</th></tr></thead>
       <tbody>
-        <tr><td><code>eri:valueChanged</code></td><td>iframe → platform</td><td><code>path</code> (dot-path), <code>value</code></td></tr>
-        <tr><td><code>eri:update</code></td><td>platform → iframe</td><td><code>data</code> (any JSON)</td></tr>
-        <tr><td><code>eri:resize</code></td><td>iframe → platform</td><td><code>height</code> (px)</td></tr>
+        <tr><td><code>ui/initialize</code></td><td>platform → iframe</td><td>Handshake: platform sends session info and capabilities</td></tr>
+        <tr><td><code>ui/notifications/tool-input</code></td><td>platform → iframe</td><td>Delivers tool call input arguments to the iframe</td></tr>
+        <tr><td><code>ui/notifications/tool-result</code></td><td>platform → iframe</td><td>Delivers tool execution result back to the iframe</td></tr>
+        <tr><td><code>tools/call</code></td><td>iframe → platform</td><td>iframe requests the platform to call a tool</td></tr>
+        <tr><td><code>ui/message</code></td><td>iframe → platform</td><td>iframe sends a follow-up message (e.g. user edited a value)</td></tr>
       </tbody>
     </table>
-    <pre><code>// iframe → Agent platform: notify that user changed a value
+    <pre><code>/**
+ * Platform → iframe: initialize handshake (JSON-RPC 2.0)
+ * Sent on iframe load to establish the session.
+ */
+window.addEventListener("message", (event) => {
+  if (event.origin !== "https://agent-platform.example.com") return;
+  const { method, params } = event.data;
+  if (method === "ui/initialize") {
+    // Store session info from params
+    // e.g. params.sessionId, params.capabilities
+  }
+});
+
+/**
+ * iframe → Platform: notify that user edited a value
+ * Uses JSON-RPC 2.0 notification format (no id = no response expected)
+ */
 window.parent.postMessage({
-  type: "eri:valueChanged",  // required prefix: "eri:"
-  path: "items.price",       // dot-path to the changed field
-  value: 199                 // new value
+  jsonrpc: "2.0",
+  method: "ui/message",
+  params: {
+    content: { type: "text", text: "User changed items.price to 199" }
+  }
 }, "https://agent-platform.example.com");
 
-// Receiver must verify origin:
-// window.addEventListener("message", e => {
-//   if (e.origin !== "https://your-app.example.com") return;
-//   ...
-// });
-
-// Agent platform → iframe: push updated data into the embed
-iframe.contentWindow.postMessage({
-  type: "eri:update",
-  data: { items: [...], total: 597 }
-}, "https://your-app.example.com");
-
-// iframe → Agent platform: request a height change (e.g. content grew)
+/**
+ * iframe → Platform: request the platform to call a tool
+ */
 window.parent.postMessage({
-  type: "eri:resize",
-  height: 500
-}, "https://agent-platform.example.com");</code></pre>
+  jsonrpc: "2.0",
+  id: 1,
+  method: "tools/call",
+  params: {
+    name: "updateCart",
+    arguments: { items: [...], total: 597 }
+  }
+}, "https://agent-platform.example.com");
+
+/**
+ * Platform → iframe: deliver tool result
+ * The platform posts back a JSON-RPC response
+ */
+// event.data = {
+//   jsonrpc: "2.0",
+//   id: 1,
+//   result: { content: [{ type: "text", text: "Cart updated" }] }
+// };</code></pre>
 
     <h2 id="use-cases">8. Use Cases</h2>
     <p><strong>Fits</strong> — any scenario where the user wants to <em>tweak</em> the Agent's output:</p>
@@ -310,7 +347,7 @@ window.parent.postMessage({
 
     <h2 id="limitations">9. Limitations</h2>
     <ul>
-      <li><strong>Snapshot-based</strong> — each turn produces a fresh embed; Agent cannot observe in-iframe edits. See <a href="#conversation-flow">Section 3</a> for the full flow and <a href="#progressive-levels">Section 7</a> for Level 2 postMessage bidirectional sync.</li>
+      <li><strong>Snapshot-based</strong> — each turn produces a fresh embed; Agent cannot observe in-iframe edits. See <a href="#conversation-flow">Section 3</a> for the full flow and <a href="#progressive-levels">Section 7</a> for Level 2 <code>ui/*</code> JSON-RPC bidirectional sync.</li>
       <li><strong>Page load per turn</strong> — each user turn triggers a fresh iframe load. For heavy embed pages, this causes a visible reload. Keep embed pages lightweight.</li>
       <li><strong>Limited device access</strong> — sandboxed iframes have restricted access to device APIs (GPS, camera, microphone, bluetooth). Expect standard web capabilities only.</li>
       <li><strong>URL size limits</strong> — state encoded in the URL hash is subject to browser URL length limits (~2KB safe, ~8KB max per <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986</a> practical limits). For larger datasets, use the <a href="#large-data-pattern">large data pattern</a>.</li>
@@ -336,7 +373,7 @@ const data = await fetch('/api/results/' + token).then(r =&gt; r.json());</code>
       <tbody>
         <tr><td>API returns error or timeout</td><td>Report the error in plain text. Do not embed an iframe with error state.</td></tr>
         <tr><td>Embed URL unreachable</td><td>Output plain text fallback. The user still receives the API result.</td></tr>
-        <tr><td>Platform blocks iframe</td><td>Degraded to plain text — the Agent's text output remains visible.</td></tr>
+        <tr><td>Platform blocks iframe</td><td>Degrade to plain text — the Agent's text output remains visible.</td></tr>
         <tr><td>URL-encoded data exceeds limits</td><td>Provider should design embed page to accept a short token and fetch data server-side.</td></tr>
       </tbody>
     </table>
@@ -348,14 +385,15 @@ const data = await fetch('/api/results/' + token).then(r =&gt; r.json());</code>
     <table>
       <thead><tr><th></th><th>ERI</th><th><a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a></th><th><a href="https://github.com/google/a2ui">A2UI</a> (Google)</th></tr></thead>
       <tbody>
-        <tr><td><strong>How</strong></td><td>Embed via URL</td><td>Sandboxed iframe mini-apps</td><td>Declarative JSON UI schema</td></tr>
+        <tr><td><strong>How</strong></td><td>Embed via URL (iframe)</td><td>Sandboxed iframe mini-apps</td><td>Declarative JSON UI schema</td></tr>
         <tr><td><strong>You build</strong></td><td>HTTPS embed page + <code>skill.md</code></td><td>MCP-compatible app package</td><td>Component catalog + A2UI schema</td></tr>
         <tr><td><strong>Platform needs</strong></td><td>Render iframes (already done)</td><td>MCP runtime</td><td>A2UI renderer</td></tr>
         <tr><td><strong>Works today?</strong></td><td><strong>Yes — most platforms</strong></td><td>MCP-enabled only</td><td>A2UI-enabled only</td></tr>
         <tr><td><strong>Capabilities</strong></td><td>Full web platform</td><td>Platform APIs, real-time sync</td><td>Native rendering</td></tr>
       </tbody>
     </table>
-    <p><a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a> (shipped January 2026, now under the <a href="https://modelcontextprotocol.io/">Linux Foundation</a>) and <a href="https://github.com/google/a2ui">A2UI</a> (open-sourced by Google, December 2025) offer richer capabilities — native APIs, real-time sync, platform integrations. Notably, MCP Apps also render inside sandboxed iframes — so an ERI embed page is already structurally compatible with the MCP Apps runtime. ERI trades richer capabilities for universal availability today. Start with ERI; the embed page forms the core you'd later package for richer protocols.</p>
+    <p><a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a> (shipped January 2026, now under the <a href="https://modelcontextprotocol.io/">Linux Foundation</a>) and <a href="https://github.com/google/a2ui">A2UI</a> (open-sourced by Google, December 2025) offer richer capabilities — native APIs, real-time sync, platform integrations. ERI trades richer capabilities for universal availability today.</p>
+    <p><strong>Key insight:</strong> MCP Apps also render inside sandboxed iframes — an ERI embed page is already structurally compatible with the MCP Apps runtime. Moreover, ERI Level 2 uses the same <code>ui/*</code> JSON-RPC 2.0 host bridge as MCP Apps, so a Level 2 embed page is directly portable. Start with ERI; the embed page and its bridge code carry forward unchanged.</p>
     <p><strong>What ERI adds over a plain iframe</strong>:</p>
     <table>
       <thead><tr><th></th><th>Without ERI (ad-hoc iframe)</th><th>With ERI</th></tr></thead>
@@ -373,10 +411,12 @@ const data = await fetch('/api/results/' + token).then(r =&gt; r.json());</code>
       <li><a href="https://html.spec.whatwg.org/multipage/web-messaging.html">HTML Living Standard</a> — <code>Window.postMessage()</code> API</li>
       <li><a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986</a> — Uniform Resource Identifier (URI): Generic Syntax</li>
       <li><a href="https://w3c.github.io/webappsec-csp/">Content Security Policy Level 3</a> — <code>frame-src</code> directive</li>
+      <li><a href="https://www.jsonrpc.org/specification">JSON-RPC 2.0 Specification</a> — Level 2 message transport format</li>
+      <li><a href="https://developers.openai.com/apps-sdk/mcp-apps-in-chatgpt">MCP Apps Host Bridge</a> — <code>ui/*</code> JSON-RPC methods for Level 2 bidirectional communication</li>
     </ul>
 
     <hr>
-    <footer><p class="meta"><a href="./adopt.html">Adopt in your team</a> · <a href="./blog.html">Why this matters</a> · <a href="https://2234839.github.io/eri-spec/">Try the demo</a></p></footer>
+    <footer><p class="meta"><a href="./adopt.html">Adopt in your team</a> · <a href="./blog.html">Why this matters</a> · <a href="https://2234839.github.io/eri-spec/">Try the demo</a> · <a href="https://github.com/2234839/eri-spec">GitHub</a></p></footer>
  </main>
   <script>
     (function() {

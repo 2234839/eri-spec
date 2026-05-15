@@ -7,12 +7,24 @@
   <meta name="description" content="The smallest possible ERI embed page: reads a name from the URL hash, renders it, and lets the user edit it. 50 lines of HTML.">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f0f0f; color: #e4e4e4; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
-    .card { background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 24px; max-width: 400px; width: 90%; text-align: center; }
-    h1 { font-size: 1.4em; margin-bottom: 8px; color: #818cf8; }
+    :root { --accent: #6366f1; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+    @media (prefers-color-scheme: dark) {
+      body { background: #0f0f0f; color: #e4e4e4; }
+      .card { background: #1a1a1a; border-color: #333; }
+      input { background: #242424; border-color: #333; color: #e4e4e4; }
+    }
+    @media (prefers-color-scheme: light) {
+      body { background: #f5f5f5; color: #1a1a1a; }
+      .card { background: #fff; border-color: #e0e0e0; }
+      input { background: #f0f0f0; border-color: #e0e0e0; color: #1a1a1a; }
+    }
+    .card { border: 1px solid; border-radius: 12px; padding: 24px; max-width: 400px; width: 90%; text-align: center; }
+    h1 { font-size: 1.4em; margin-bottom: 8px; color: var(--accent); }
     .greeting { font-size: 1.2em; margin: 16px 0; }
-    input { background: #242424; border: 1px solid #333; color: #e4e4e4; padding: 8px 12px; border-radius: 6px; width: 100%; font-size: 1em; margin: 8px 0; }
-    .badge { display: inline-block; background: rgba(99,102,241,0.15); color: #818cf8; padding: 4px 10px; border-radius: 4px; font-size: 0.8em; margin-top: 12px; }
+    input { border: 1px solid; padding: 8px 12px; border-radius: 6px; width: 100%; font-size: 1em; margin: 8px 0; }
+    .badge { display: inline-block; background: rgba(99,102,241,0.15); color: var(--accent); padding: 4px 10px; border-radius: 4px; font-size: 0.8em; margin-top: 12px; }
+    .footer { margin-top: 12px; font-size: 0.75em; } .footer a { color: var(--accent); }
   </style>
 </head>
 <body>
@@ -23,6 +35,7 @@
     <label for="nameInput" style="display:none">Name</label>
     <input type="text" id="nameInput" placeholder="Type a name..." oninput="updateName()" aria-label="Name input">
     <div class="badge">ERI Level 1</div>
+    <div class="footer"><a href="../docs/spec.html#minimal-example">ERI Spec</a> · <a href="../examples/template.md">Template</a> · <a href="../">Demo</a></div>
   </div>
   <script>
     /** Read initial state from URL hash (per ERI spec recommendation) */

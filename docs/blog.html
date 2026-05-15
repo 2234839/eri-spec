@@ -109,7 +109,7 @@
 
     <h2>Enter ERI</h2>
     <p>ERI (Embedded Result Interface) lets your web app appear as a live, editable UI inside any Agent conversation — ChatGPT, Claude, Gemini. The user interacts directly — no Agent round trips needed.</p>
-    <p>You write a <code>skill.md</code> telling the Agent how to call your API and which URL to embed. <a href="./spec.html#skill-authoring">See the spec</a> for a minimal example, or grab the <a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">copy-paste template</a>.</p>
+    <p>You write a short instruction file (<code>skill.md</code>) telling the Agent how to call your API and which URL to embed. <a href="./spec.html#skill-authoring">See the spec</a> for a minimal example, or grab the <a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">copy-paste template</a>.</p>
     <p>Under a day from zero to working embed — the NoteCalc reference took ~10 min for the <a href="https://github.com/2234839/eri-spec/blob/main/examples/notecalc.md">skill.md</a> and an afternoon for the embed page. <a href="https://2234839.github.io/eri-spec/">Try it now</a>.</p>
 
     <h2>Yes, You Can Already Embed an Iframe</h2>
@@ -122,17 +122,17 @@
     <table>
       <thead><tr><th></th><th>ERI</th><th><a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a> (Anthropic / OpenAI)</th><th><a href="https://github.com/google/a2ui">A2UI</a> (Google)</th></tr></thead>
       <tbody>
-        <tr><td><strong>Mechanism</strong></td><td>URL embed via iframe</td><td>Sandboxed mini-apps</td><td>JSON schema + native renderer</td></tr>
-        <tr><td><strong>Platform support</strong></td><td>Most platforms today</td><td>MCP-enabled only</td><td>A2UI renderer required</td></tr>
+        <tr><td><strong>Mechanism</strong></td><td>URL embed via iframe</td><td>Sandboxed iframe mini-apps</td><td>JSON schema + native renderer</td></tr>
+        <tr><td><strong>Works today?</strong></td><td><strong>Most platforms</strong></td><td>MCP-enabled only</td><td>A2UI renderer required</td></tr>
+        <tr><td><strong>Effort</strong></td><td><strong>&lt; 1 day</strong> — just an embed page + skill.md</td><td>Days — MCP app package</td><td>Days — component catalog + schema</td></tr>
         <tr><td><strong>Capabilities</strong></td><td>Full web (HTML/CSS/JS/Canvas/WebGL)</td><td>Platform APIs + real-time sync</td><td>Native rendering</td></tr>
-        <tr><td><strong>Packaging</strong></td><td>None — just a URL</td><td>Platform-specific manifest</td><td>Platform-specific schema</td></tr>
       </tbody>
     </table>
 
-    <h2>Why ERI First</h2>
-    <p><strong>Ship today, upgrade later.</strong> ERI works on most platforms today because it uses what platforms already have: iframe rendering. When your target platforms support MCP Apps or A2UI, your embed page still works — it becomes the core you package for those protocols. You're building an asset, not a throwaway prototype.</p>
-    <p><strong>One implementation, all platforms.</strong> ChatGPT, Claude, and Gemini all render iframes in Agent output (verified on GPT-4o, Claude 3.5+, Gemini 2.0+ as of May 2026). One embed page + one <code>skill.md</code> reaches all three. No per-platform SDK, no platform approval cycle, no vendor-specific packaging.</p>
-    <p><strong>Zero protocol commitment.</strong> Your embed page is a standalone HTTPS app — ERI is not a runtime dependency. When MCP Apps or A2UI arrive, wrap the same page in their manifest. The investment compounds.</p>
+    <h2>Why ERI</h2>
+    <p><strong>Protocol-agnostic.</strong> ERI uses what platforms already have — iframe rendering. Your embed page is a standalone HTTPS app, not tied to any protocol. MCP Apps uses the same iframe runtime and the same <code>ui/*</code> JSON-RPC bridge — see <a href="./spec.html#industry-landscape">spec comparison</a>.</p>
+    <p><strong>One implementation, three platforms.</strong> ChatGPT, Claude, and Gemini all render iframes in Agent output (verified on GPT-4o, Claude 3.5+, Gemini 2.0+ as of May 2026). One embed page + one <code>skill.md</code> reaches all three. No per-platform SDK, no vendor-specific packaging.</p>
+    <p><strong>Low commitment.</strong> Your embed page works with or without ERI. The <code>skill.md</code> is ~15 lines of Markdown. MIT-licensed spec, anyone can fork.</p>
     <p>Trade-offs: snapshot-based output (each user turn produces a fresh embed), no native device APIs, URL size limits for encoded data. See <a href="./spec.html#limitations">spec limitations</a> and <a href="./spec.html#large-data-pattern">large data pattern</a> for mitigations.</p>
     <p><strong>Convinced?</strong> <a href="https://2234839.github.io/eri-spec/">Try the demo</a> or read the <a href="./adopt.html">team adoption guide</a>.</p>
 
@@ -147,7 +147,7 @@
     </p>
 
     <hr>
-    <footer><p class="meta">ERI is MIT licensed. <a href="./spec.html">Read the spec</a> · <a href="./adopt.html">Adopt in your team</a> · <a href="https://2234839.github.io/eri-spec/">Try the demo</a></p></footer>
+    <footer><p class="meta">ERI is MIT licensed. <a href="./spec.html">Read the spec</a> · <a href="./adopt.html">Adopt in your team</a> · <a href="https://2234839.github.io/eri-spec/">Try the demo</a> · <a href="https://github.com/2234839/eri-spec">GitHub</a></p></footer>
  </main>
   <script>
     (function() {

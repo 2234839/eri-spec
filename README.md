@@ -28,7 +28,7 @@ Four steps, no new protocol: understand intent → call API → construct URL �
 
 1. **Add an embed page** — Create a stripped-down version of your app that reads initial state from URL params. A [minimal page is 10 lines](https://2234839.github.io/eri-spec/docs/spec.html#minimal-example); a production-ready page is typically 100–200 lines.
 2. **Write a skill.md** — Tell the Agent how to call your API and construct the embed URL. [Start from the template](./examples/template.md) or see a [real implementation](./examples/notecalc.md) (15 lines).
-3. **Ship it** — iframe embedding works on ChatGPT, Claude, Gemini today. Add [postMessage bidirectional communication](https://2234839.github.io/eri-spec/docs/spec.html#progressive-levels) when ready.
+3. **Ship it** — iframe embedding works on ChatGPT, Claude, Gemini today. Add [Level 2 bidirectional communication via the MCP Apps `ui/*` bridge](https://2234839.github.io/eri-spec/docs/spec.html#progressive-levels) when ready.
 
 ## How It's Different
 
@@ -43,7 +43,7 @@ Four steps, no new protocol: understand intent → call API → construct URL �
 
 | Page | What it's for |
 |------|---------------|
-| [Spec](https://2234839.github.io/eri-spec/docs/spec.html) | Technical specification — workflow, security, levels, postMessage protocol |
+| [Spec](https://2234839.github.io/eri-spec/docs/spec.html) | Technical specification — workflow, security, levels, `ui/*` JSON-RPC bridge |
 | [Blog](https://2234839.github.io/eri-spec/docs/blog.html) | Why ERI exists — the three-way landscape (ERI / MCP Apps / A2UI) |
 | [Adopt](https://2234839.github.io/eri-spec/docs/adopt.html) | Team adoption guide — checklist, decision matrix, pitch template |
 | [Examples](./examples/) | Copy-paste skill.md templates — [template](./examples/template.md), [hello world](./examples/hello-world.html), and [real implementation](./examples/notecalc.md) |
@@ -54,7 +54,7 @@ Four steps, no new protocol: understand intent → call API → construct URL �
 |---------|-------------|
 | [NoteCalc](https://tsfullstack.heartstack.space/noteCalc) | Math calculator with variables, unit conversion, and percentage — [skill.md](./examples/notecalc.md) |
 
-Built something with ERI? [Add yours here](https://github.com/2234839/eri-spec/edit/main/README.md) — open a PR.
+Built something with ERI? [Add yours here](https://github.com/2234839/eri-spec/edit/main/README.md) — open a PR. Show your support: `[![ERI Compatible](https://img.shields.io/badge/ERI-Compatible-6366f1)](https://github.com/2234839/eri-spec)`
 
 ## License
 

@@ -9,7 +9,7 @@
   <meta name="description" content="ERI v1.0 — 任何 Web 应用嵌入任何 AI Agent。一个 skill.md，一个 URL。适用于 ChatGPT、Claude、Gemini。">
   <meta name="keywords" content="ERI, 嵌入式结果界面, AI Agent, 交互式 UI, iframe 嵌入, Skill 模式, Agent 输出, 规范, 嵌入 ChatGPT, 嵌入 Claude, 嵌入 Gemini">
   <meta property="og:title" content="ERI 规范 — 嵌入式结果界面 v1.0">
-  <meta property="og:description" content="一种让 Agent 输出变为可交互的规范。通过 skill.md 和 URL 嵌入任何 Web 应用。">
+  <meta property="og:description" content="AI Agent 输出文字。ERI 让它们输出可交互的 UI——通过 skill.md 和 URL 嵌入任何 Web 应用。适用于 ChatGPT、Claude、Gemini。">
   <meta property="og:url" content="https://2234839.github.io/eri-spec/docs/spec.zh.html">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="ERI Spec">
@@ -20,7 +20,7 @@
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:title" content="ERI 规范 — 嵌入式结果界面 v1.0">
-  <meta name="twitter:description" content="让 Agent 输出变为可交互。通过 skill.md 和 URL 嵌入任何 Web 应用。">
+  <meta name="twitter:description" content="AI Agent 输出文字。ERI 让它们输出可交互的 UI——一个 skill.md，一个 URL。">
   <link rel="canonical" href="https://2234839.github.io/eri-spec/docs/spec.zh.html">
   <link rel="alternate" hreflang="en" href="https://2234839.github.io/eri-spec/docs/spec.html">
   <link rel="alternate" hreflang="zh" href="https://2234839.github.io/eri-spec/docs/spec.zh.html">
@@ -87,6 +87,10 @@
     .tag-platform { background: rgba(251,191,36,0.15); color: #fbbf24; } [data-theme="light"] .tag-platform { background: rgba(202,138,4,0.12); color: #ca8a04; }
     .tag-provider { background: rgba(99,102,241,0.15); color: #818cf8; } [data-theme="light"] .tag-provider { background: rgba(79,70,229,0.1); color: #6366f1; }
     .role-note { font-size: 0.85em; color: var(--text-dim); margin: 4px 0; padding: 6px 12px; background: var(--surface-2); border-radius: 6px; border-left: 3px solid var(--accent); }
+    .checklist-heading { font-size: 1.05em; margin: 20px 0 6px; padding: 8px 12px; background: rgba(99,102,241,0.08); border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0; }
+    .checklist { list-style: none; margin-left: 0 !important; padding-left: 0; }
+    .checklist li { padding-left: 24px; position: relative; }
+    .checklist li::before { content: '☐'; position: absolute; left: 0; color: var(--text-dim); }
     .flow { display: flex; align-items: center; gap: 6px; margin: 16px 0; overflow-x: auto; padding: 4px 0; }
     .flow-step { background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; min-width: 140px; text-align: center; flex-shrink: 0; }
     .flow-step strong { display: block; font-size: 0.95em; margin-bottom: 2px; }
@@ -122,7 +126,7 @@
         <li><strong>上线</strong>——今天就在 ChatGPT、Claude、Gemini 上可用。无需 SDK，无需审批。</li>
       </ol>
     </details>
-    <p class="toc"><a href="#definition">1. 定义</a> · <a href="#workflow">2. 工作流</a> · <a href="#conversation-flow">3. 对话流程</a> · <a href="#skill-authoring">4. Skill 编写</a> · <a href="#embed-page">5. 嵌入页面</a> · <a href="#security">6. 安全</a> · <a href="#progressive-levels">7. 等级</a> · <a href="#use-cases">8. 场景</a> · <a href="#limitations">9. 局限性</a> · <a href="#error-handling">10. 错误处理</a> · <a href="#industry-landscape">11. 格局</a></p>
+    <p class="toc"><a href="#definition">1. 定义</a> · <a href="#self-certification">合规清单</a> · <a href="#workflow">2. 工作流</a> · <a href="#conversation-flow">3. 对话流程</a> · <a href="#skill-authoring">4. Skill 编写</a> · <a href="#embed-page">5. 嵌入页面</a> · <a href="#security">6. 安全</a> · <a href="#progressive-levels">7. 等级</a> · <a href="#use-cases">8. 场景</a> · <a href="#limitations">9. 局限性</a> · <a href="#error-handling">10. 错误处理</a> · <a href="#industry-landscape">11. 格局</a></p>
 
     <h2 id="definition">1. 定义</h2>
     <p>AI Agent 输出文字。ERI（嵌入式结果界面）让它们输出可交互的 UI。Agent 处理用户请求后，嵌入一个 Web 应用（iframe）——只需一个 <code>skill.md</code> 和一个 URL。</p>
@@ -137,11 +141,20 @@
     </table>
     <p><strong>快照式输出</strong>——Agent 不监听已输出的界面，每次新指令生成全新嵌入（见<a href="#conversation-flow">第 3 节</a>）。第三方应用独立运行——只需提供一个 HTTPS 页面。</p>
     <p><strong>符合性</strong>——满足以下条件即达到 ERI <a href="#progressive-levels">Level 1</a> 合规：（1）提供者提供从 URL 参数读取初始状态的 HTTPS 嵌入页面；（2）Agent 遵循<a href="#workflow">四步工作流</a>；（3）平台以 <code>sandbox="allow-scripts"</code> 渲染 iframe。无需注册，无需认证。</p>
-    <div class="role-note">
-      <strong>Level 1 自证合规清单</strong><br>
-      ☐ 嵌入页面使用 HTTPS &nbsp;·&nbsp; ☐ 从 URL hash 或 query 参数读取初始状态 &nbsp;·&nbsp; ☐ 自包含（不依赖宿主 JS/CSS） &nbsp;·&nbsp; ☐ 正确处理无效/缺失的 URL 参数 &nbsp;·&nbsp; ☐ <code>skill.md</code> 包含 frontmatter + <code>## 工作流</code> &nbsp;·&nbsp; ☐ Agent 从服务端调用 API（非用户浏览器） &nbsp;·&nbsp; ☐ Agent 包含纯文本降级 &nbsp;·&nbsp; ☐ iframe 使用 <code>sandbox="allow-scripts"</code>
-      <br><br>在 README 中添加徽章：<code>[![ERI Compatible](https://img.shields.io/badge/ERI-Compatible-6366f1)](https://github.com/2234839/eri-spec)</code>
-    </div>
+
+    <h3 id="self-certification" class="checklist-heading">Level 1 自证合规清单</h3>
+    <ul class="checklist">
+      <li>嵌入页面使用 HTTPS</li>
+      <li>从 URL hash 或 query 参数读取初始状态</li>
+      <li>自包含（不依赖宿主 JS/CSS）</li>
+      <li>正确处理无效/缺失的 URL 参数</li>
+      <li><code>skill.md</code> 包含 frontmatter + <code>## 工作流</code></li>
+      <li>Agent 从服务端调用 API（非用户浏览器）</li>
+      <li>Agent 包含纯文本降级</li>
+      <li>iframe 使用 <code>sandbox="allow-scripts"</code></li>
+    </ul>
+    <p>在 README 中添加徽章：<code>[![ERI Compatible](https://img.shields.io/badge/ERI-Compatible-6366f1)](https://github.com/2234839/eri-spec)</code>
+    <img src="https://img.shields.io/badge/ERI-Compatible-6366f1" alt="ERI Compatible" height="20"></p>
 
     <h2 id="workflow">2. 工作流</h2>
     <div class="flow">
@@ -192,7 +205,6 @@ description: 工具描述
 3. 将 API 响应编码到 URL hash 中
 4. 输出为 iframe：https://app.example.com/embed#&lt;编码后的响应&gt;
    （平台无法渲染时降级为纯文本）</code></pre>
-    <p>Agent 读取这个工作流，执行每一步，输出 iframe。</p>
     <p>Frontmatter（<code>name</code>、<code>description</code>）遵循标准 YAML 约定。正文标题（<code>## Workflow</code>、<code>## 工作流</code> 或任意标题）及其内容都是自由格式——用 Agent 能理解的自然语言编写即可。格式为纯 Markdown。</p>
     <table>
       <thead><tr><th>平台</th><th>skill.md 内容放置位置</th></tr></thead>
@@ -212,9 +224,9 @@ description: 工具描述
         <tr><td>HTTPS</td><td>必须使用 HTTPS</td></tr>
         <tr><td>URL 参数读取</td><td>从 URL hash 中读取初始状态（推荐），或使用 query 参数。推荐编码：<code>encodeURIComponent(JSON.stringify(data))</code>——但嵌入页面能理解的任何格式都有效。</td></tr>
         <tr><td>自包含</td><td>所有交互自行处理。不依赖宿主 JS/CSS。响应式布局。</td></tr>
-        <tr><td><code>postMessage</code> <em>（可选）</em></td><td>iframe 内变化可通过 postMessage 通知宿主</td></tr>
+        <tr><td>Level 2 桥接 <em>（可选）</em></td><td>实现 <code>ui/*</code> JSON-RPC 桥接以支持双向通信——见<a href="#progressive-levels">第 7 节</a></td></tr>
         <tr><td>主题适配 <em>（可选）</em></td><td>读取 URL 参数或宿主颜色方案适配明暗主题</td></tr>
-        <tr><td>Iframe 尺寸 <em>（推荐）</em></td><td>设计为响应式宽度（Agent 通常设置 <code>width="100%"</code>）。默认高度 300–400px 适用于大多数嵌入。Level 2 可使用 <code>eri:resize</code> postMessage 动态调整高度。</td></tr>
+        <tr><td>Iframe 尺寸 <em>（推荐）</em></td><td>设计为响应式宽度（Agent 通常设置 <code>width="100%"</code>）。默认高度 300–400px 适用于大多数嵌入。Level 2 可使用 <code>ui/message</code> JSON-RPC 方法动态调整高度。</td></tr>
       </tbody>
     </table>
 
@@ -255,42 +267,67 @@ description: 工具描述
       <tbody>
         <tr><td>0</td><td>纯文本输出</td><td><span class="tag tag-agent">Agent</span> 即可——不需要其他任何配合</td></tr>
         <tr><td>1</td><td>iframe 嵌入</td><td><span class="tag tag-provider">提供者</span> 嵌入页面 + <span class="tag tag-platform">平台</span> iframe 支持（大多数平台已有）</td></tr>
-        <tr><td>2</td><td>双向通信</td><td>Level 1 + <span class="tag tag-provider">提供者</span> <span class="tag tag-platform">平台</span> 双方实现 postMessage</td></tr>
+        <tr><td>2</td><td>双向通信</td><td>Level 1 + <span class="tag tag-provider">提供者</span> <span class="tag tag-platform">平台</span> 双方实现 <a href="https://developers.openai.com/apps-sdk/mcp-apps-in-chatgpt">MCP Apps 宿主桥</a>（<code>ui/*</code> JSON-RPC 2.0 over postMessage）</td></tr>
       </tbody>
     </table>
-    <p>Level 2 适用于平台需要对 iframe 内的用户编辑做出响应的场景（如自动保存、实时预览）。使用 <code>postMessage</code> 并指定具体 origin——绝不使用 <code>"*"</code>：</p>
+    <p>Level 2 适用于平台需要对 iframe 内的用户编辑做出响应的场景（如自动保存、实时预览）。ERI Level 2 使用与 <a href="https://developers.openai.com/apps-sdk/mcp-apps-in-chatgpt">MCP Apps</a> 相同的 <code>ui/*</code> JSON-RPC 2.0 桥接——没有自定义消息格式。这意味着 ERI Level 2 嵌入页面直接兼容 MCP Apps 平台。</p>
     <table>
-      <thead><tr><th>消息类型</th><th>方向</th><th>载荷</th></tr></thead>
+      <thead><tr><th>方法</th><th>方向</th><th>用途</th></tr></thead>
       <tbody>
-        <tr><td><code>eri:valueChanged</code></td><td>iframe → 平台</td><td><code>path</code>（点分路径）、<code>value</code></td></tr>
-        <tr><td><code>eri:update</code></td><td>平台 → iframe</td><td><code>data</code>（任意 JSON）</td></tr>
-        <tr><td><code>eri:resize</code></td><td>iframe → 平台</td><td><code>height</code>（像素）</td></tr>
+        <tr><td><code>ui/initialize</code></td><td>平台 → iframe</td><td>握手：平台发送会话信息和能力声明</td></tr>
+        <tr><td><code>ui/notifications/tool-input</code></td><td>平台 → iframe</td><td>将工具调用的输入参数传递给 iframe</td></tr>
+        <tr><td><code>ui/notifications/tool-result</code></td><td>平台 → iframe</td><td>将工具执行结果返回给 iframe</td></tr>
+        <tr><td><code>tools/call</code></td><td>iframe → 平台</td><td>iframe 请求平台调用一个工具</td></tr>
+        <tr><td><code>ui/message</code></td><td>iframe → 平台</td><td>iframe 发送后续消息（如用户编辑了某个值）</td></tr>
       </tbody>
     </table>
-    <pre><code>// iframe → Agent 平台：通知用户修改了某个值
+    <pre><code>/**
+ * 平台 → iframe：初始化握手（JSON-RPC 2.0）
+ * iframe 加载时由平台发送，建立会话。
+ */
+window.addEventListener("message", (event) => {
+  if (event.origin !== "https://agent-platform.example.com") return;
+  const { method, params } = event.data;
+  if (method === "ui/initialize") {
+    // 存储会话信息
+    // 例如 params.sessionId, params.capabilities
+  }
+});
+
+/**
+ * iframe → 平台：通知用户编辑了某个值
+ * 使用 JSON-RPC 2.0 通知格式（无 id = 无需响应）
+ */
 window.parent.postMessage({
-  type: "eri:valueChanged",  // 必须以 "eri:" 开头
-  path: "items.price",       // 所修改字段的点分路径
-  value: 199                 // 新值
+  jsonrpc: "2.0",
+  method: "ui/message",
+  params: {
+    content: { type: "text", text: "User changed items.price to 199" }
+  }
 }, "https://agent-platform.example.com");
 
-// 接收方必须验证 origin：
-// window.addEventListener("message", e => {
-//   if (e.origin !== "https://your-app.example.com") return;
-//   ...
-// });
-
-// Agent 平台 → iframe：向嵌入页面推送更新数据
-iframe.contentWindow.postMessage({
-  type: "eri:update",
-  data: { items: [...], total: 597 }
-}, "https://your-app.example.com");
-
-// iframe → Agent 平台：请求改变高度（如内容增长）
+/**
+ * iframe → 平台：请求平台调用一个工具
+ */
 window.parent.postMessage({
-  type: "eri:resize",
-  height: 500
-}, "https://agent-platform.example.com");</code></pre>
+  jsonrpc: "2.0",
+  id: 1,
+  method: "tools/call",
+  params: {
+    name: "updateCart",
+    arguments: { items: [...], total: 597 }
+  }
+}, "https://agent-platform.example.com");
+
+/**
+ * 平台 → iframe：返回工具执行结果
+ * 平台以 JSON-RPC 响应形式发回
+ */
+// event.data = {
+//   jsonrpc: "2.0",
+//   id: 1,
+//   result: { content: [{ type: "text", text: "Cart updated" }] }
+// };</code></pre>
 
     <h2 id="use-cases">8. 适用场景</h2>
     <p><strong>适合</strong>——任何用户想要<em>微调</em> Agent 输出的场景：</p>
@@ -310,7 +347,7 @@ window.parent.postMessage({
 
     <h2 id="limitations">9. 局限性</h2>
     <ul>
-      <li><strong>快照式输出</strong>——每轮对话产生全新的嵌入，Agent 无法观察 iframe 内的编辑。完整流程见<a href="#conversation-flow">第 3 节</a>，Level 2 postMessage 双向同步见<a href="#progressive-levels">第 7 节</a>。</li>
+      <li><strong>快照式输出</strong>——每轮对话产生全新的嵌入，Agent 无法观察 iframe 内的编辑。完整流程见<a href="#conversation-flow">第 3 节</a>，Level 2 <code>ui/*</code> JSON-RPC 双向同步见<a href="#progressive-levels">第 7 节</a>。</li>
       <li><strong>每轮重新加载</strong>——每次用户对话触发全新的 iframe 加载。嵌入页面较重时会产生可见的重载闪烁。保持嵌入页面轻量。</li>
       <li><strong>设备能力受限</strong>——沙箱 iframe 对设备 API（GPS、摄像头、麦克风、蓝牙）的访问受限。仅支持标准 Web 能力。</li>
       <li><strong>URL 大小限制</strong>——编码到 URL hash 中的状态受浏览器 URL 长度限制（安全范围约 2KB，上限约 8KB，参见 <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986</a> 实际限制）。数据量较大时，使用<a href="#large-data-pattern">大数据集模式</a>。</li>
@@ -348,14 +385,15 @@ const data = await fetch('/api/results/' + token).then(r =&gt; r.json());</code>
     <table>
       <thead><tr><th></th><th>ERI</th><th><a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a></th><th><a href="https://github.com/google/a2ui">A2UI</a> (Google)</th></tr></thead>
       <tbody>
-        <tr><td><strong>方式</strong></td><td>通过 URL 嵌入</td><td>沙箱 iframe 小应用</td><td>声明式 JSON UI Schema</td></tr>
+        <tr><td><strong>方式</strong></td><td>通过 URL 嵌入（iframe）</td><td>沙箱 iframe 小应用</td><td>声明式 JSON UI Schema</td></tr>
         <tr><td><strong>需要构建</strong></td><td>HTTPS 嵌入页面 + <code>skill.md</code></td><td>MCP 兼容的应用包</td><td>组件目录 + A2UI Schema</td></tr>
         <tr><td><strong>平台要求</strong></td><td>渲染 iframe（已有）</td><td>MCP 运行时</td><td>A2UI 渲染器</td></tr>
         <tr><td><strong>今天可用？</strong></td><td><strong>是——大多数平台</strong></td><td>仅 MCP 平台</td><td>仅 A2UI 平台</td></tr>
         <tr><td><strong>能力</strong></td><td>完整 Web 平台</td><td>平台 API、实时通信</td><td>原生渲染</td></tr>
       </tbody>
     </table>
-    <p><a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a>（2026 年 1 月发布，现隶属于 <a href="https://modelcontextprotocol.io/">Linux Foundation</a>）和 <a href="https://github.com/google/a2ui">A2UI</a>（Google 于 2025 年 12 月开源）提供更丰富的能力——原生 API、实时同步、平台集成。值得注意的是，MCP Apps 同样在沙箱 iframe 中渲染——因此 ERI 嵌入页面天然与 MCP Apps 运行时结构兼容。ERI 用更丰富的能力换取今天的通用可用性。从 ERI 开始；嵌入页面构成日后打包给更丰富协议的核心。</p>
+    <p><a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a>（2026 年 1 月发布，现隶属于 <a href="https://modelcontextprotocol.io/">Linux Foundation</a>）和 <a href="https://github.com/google/a2ui">A2UI</a>（Google 于 2025 年 12 月开源）提供更丰富的能力——原生 API、实时同步、平台集成。ERI 用更丰富的能力换取今天的通用可用性。</p>
+    <p><strong>关键洞察：</strong>MCP Apps 同样在沙箱 iframe 中渲染——ERI 嵌入页面天然与 MCP Apps 运行时结构兼容。此外，ERI Level 2 使用与 MCP Apps 相同的 <code>ui/*</code> JSON-RPC 2.0 宿主桥，因此 Level 2 嵌入页面可直接移植。从 ERI 开始；嵌入页面及其桥接代码无需修改即可沿用。</p>
     <p><strong>ERI 相比普通 iframe 增加了什么</strong>：</p>
     <table>
       <thead><tr><th></th><th>没有 ERI（临时 iframe）</th><th>有 ERI</th></tr></thead>
@@ -373,10 +411,12 @@ const data = await fetch('/api/results/' + token).then(r =&gt; r.json());</code>
       <li><a href="https://html.spec.whatwg.org/multipage/web-messaging.html">HTML Living Standard</a> — <code>Window.postMessage()</code> API</li>
       <li><a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986</a> — 统一资源标识符（URI）：通用语法</li>
       <li><a href="https://w3c.github.io/webappsec-csp/">Content Security Policy Level 3</a> — <code>frame-src</code> 指令</li>
+      <li><a href="https://www.jsonrpc.org/specification">JSON-RPC 2.0 规范</a> — Level 2 消息传输格式</li>
+      <li><a href="https://developers.openai.com/apps-sdk/mcp-apps-in-chatgpt">MCP Apps 宿主桥</a> — Level 2 双向通信的 <code>ui/*</code> JSON-RPC 方法</li>
     </ul>
 
     <hr>
-    <footer><p class="meta"><a href="./adopt.zh.html">团队采用</a> · <a href="./blog.zh.html">为什么这很重要</a> · <a href="https://2234839.github.io/eri-spec/">在线演示</a></p></footer>
+    <footer><p class="meta"><a href="./adopt.zh.html">团队采用</a> · <a href="./blog.zh.html">为什么这很重要</a> · <a href="https://2234839.github.io/eri-spec/">在线演示</a> · <a href="https://github.com/2234839/eri-spec">GitHub</a></p></footer>
  </main>
   <script>
     (function() {
