@@ -6,7 +6,7 @@
 
 ---
 
-AI Agents return text. ERI lets any web app appear as an interactive UI inside Agent conversations on ChatGPT, Claude, Gemini, and beyond — using only a `skill.md` and a URL. No SDKs. No platform approval. No waiting.
+AI Agents return text. ERI embeds your web app as an interactive UI inside Agent conversations — ChatGPT, Claude, Gemini, and any platform that renders iframes — using only a `skill.md` and a URL. No SDKs. No platform approval. No waiting.
 
 ## The Idea in One Example
 
@@ -33,13 +33,13 @@ description: Math calculator with variables and unit conversion.
 
 ## Live Demo
 
-**[2234839.github.io/eri-spec/](https://2234839.github.io/eri-spec/)** — interact with the embedded calculator. The demo uses a live LLM to simulate the Agent flow end-to-end.
+**[2234839.github.io/eri-spec/](https://2234839.github.io/eri-spec/)** — interact with the embedded calculator. The demo uses a live LLM to simulate the full Agent flow.
 
 ## Start in 3 Steps
 
 **You have a web app. You want it in Agent conversations. Here's how:**
 
-1. **Add an embed page** — Create a stripped-down version of your app that reads initial state from URL params. ~40 lines of code.
+1. **Add an embed page** — Create a stripped-down version of your app that reads initial state from URL params (~40 lines of code).
 2. **Write a skill.md** — Tell the Agent how to call your API and construct the embed URL. 10 minutes.
 3. **Ship it** — iframe embedding works on ChatGPT, Claude, Gemini today. Add postMessage bidirectional communication when ready.
 

@@ -115,7 +115,7 @@
       <div class="flow-arrow">→</div>
       <div class="flow-step"><strong>4. 输出 UI</strong><span>iframe / 纯文本</span></div>
     </div>
-    <p>步骤 1 和 3 是 Agent 的天然能力。涉及外部系统的两个步骤：</p>
+    <p>步骤 1 和 3 是 Agent 的天然能力。剩余两步涉及外部系统：</p>
     <p><strong>调用 API</strong> <span class="tag tag-agent">Agent</span> — Agent 从服务端调用第三方应用的 API（不是从用户浏览器）。标准 HTTP，结构化 JSON。无需配置 CORS。</p>
     <pre><code>POST /api/calculate
 Body: {"expr": "99.5 * 3"}
@@ -162,7 +162,7 @@ description: 工具描述
       <thead><tr><th>要求</th><th>说明</th></tr></thead>
       <tbody>
         <tr><td>HTTPS</td><td>必须使用 HTTPS</td></tr>
-        <tr><td>URL 参数读取</td><td>从 URL hash 中读取初始状态（推荐），或使用 query 参数。推荐编码：<code>encodeURIComponent(JSON.stringify(data))</code></td></tr>
+        <tr><td>URL 参数读取</td><td>从 URL hash 中读取初始状态（推荐），或使用 query 参数。编码：<code>encodeURIComponent(JSON.stringify(data))</code></td></tr>
         <tr><td>自包含</td><td>所有交互自行处理。不依赖宿主 JS/CSS。响应式布局。</td></tr>
         <tr><td><code>postMessage</code> <em>（可选）</em></td><td>iframe 内变化可通过 postMessage 通知宿主</td></tr>
         <tr><td>主题适配 <em>（可选）</em></td><td>读取 URL 参数或宿主颜色方案适配明暗主题</td></tr>
@@ -191,7 +191,7 @@ description: 工具描述
     <table>
       <thead><tr><th>角色</th><th>规则</th></tr></thead>
       <tbody>
-        <tr><td><span class="tag tag-platform">平台</span></td><td>为 iframe 添加 <code>sandbox="allow-scripts"</code>。仅在嵌入页面需要自身 cookie/storage 时才添加 <code>allow-same-origin</code>（注意：此组合允许 iframe 移除自身的沙箱）。不得将用户凭证传递给第三方 iframe。</td></tr>
+        <tr><td><span class="tag tag-platform">平台</span></td><td>为 iframe 添加 <code>sandbox="allow-scripts"</code>。仅在嵌入页面需要自身 cookie/storage 时才添加 <code>allow-same-origin</code>（注意：此组合实际上取消了沙箱限制）。不得将用户凭证传递给第三方 iframe。</td></tr>
         <tr><td><span class="tag tag-provider">提供者</span></td><td>不依赖 <code>document.cookie</code>（沙箱环境可能不可用）。不使用 <code>window.opener</code> 或 <code>window.top</code> 做导航/DOM 访问（Level 2 的 <code>window.parent.postMessage</code> 是安全的）。所有输入做 XSS 防护。</td></tr>
       </tbody>
     </table>

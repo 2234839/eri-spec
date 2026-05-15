@@ -94,7 +94,7 @@
     <p class="toc"><a href="#definition">1. Definition</a> · <a href="#workflow">2. Workflow</a> · <a href="#conversation-flow">3. Conversation Flow</a> · <a href="#skill-authoring">4. Skill Authoring</a> · <a href="#embed-page">5. Embed Page</a> · <a href="#security">6. Security</a> · <a href="#progressive-levels">7. Levels</a> · <a href="#use-cases">8. Use Cases</a> · <a href="#limitations">9. Limitations</a> · <a href="#industry-landscape">10. Landscape</a></p>
 
     <h2 id="definition">1. Definition</h2>
-    <p>ERI (Embedded Result Interface) is a convention for making Agent output interactive. After processing a user request, the Agent outputs an embedded UI (iframe) instead of plain text — using only a <code>skill.md</code> and a URL. No new protocols, no SDKs.</p>
+    <p>ERI (Embedded Result Interface) is a convention for interactive Agent output. After processing a user request, the Agent outputs an embedded UI (iframe) instead of plain text — using only a <code>skill.md</code> and a URL. No new protocols, no SDKs.</p>
     <table>
       <thead><tr><th>Role</th><th>Responsibility</th></tr></thead>
       <tbody>
@@ -115,7 +115,7 @@
       <div class="flow-arrow">→</div>
       <div class="flow-step"><strong>4. Output UI</strong><span>iframe / plain text</span></div>
     </div>
-    <p>Steps 1 and 3 are native Agent capabilities. The two steps involving external systems:</p>
+    <p>Steps 1 and 3 are native Agent capabilities. The remaining two steps involve external systems:</p>
     <p><strong>Call API</strong> <span class="tag tag-agent">Agent</span> — The Agent calls the third-party app's API from the server side (not from the user's browser). Standard HTTP, structured JSON. No CORS configuration needed.</p>
     <pre><code>POST /api/calculate
 Body: {"expr": "99.5 * 3"}
@@ -141,7 +141,7 @@ Agent: Reads context (last result: 298.5), calls API with 298.5 * 1.08
        → outputs new iframe showing 298.5 * 1.08 = 322.38</code></pre>
 
     <h2 id="skill-authoring">4. Skill Authoring <span class="tag tag-provider">Provider</span></h2>
-    <p>A <code>skill.md</code> file is placed where the Agent can discover it — custom instructions, GPT actions, Claude skill files, or any platform-provided mechanism for defining Agent behavior. The format is the same across all platforms.</p>
+    <p>Place a <code>skill.md</code> file where the Agent can discover it — custom instructions, GPT actions, Claude skill files, or any platform-provided mechanism for defining Agent behavior. The format is the same across all platforms.</p>
     <p>A minimal ERI Skill:</p>
     <pre><code>---
 name: tool-name
@@ -162,7 +162,7 @@ description: What this Skill does
       <thead><tr><th>Requirement</th><th>Description</th></tr></thead>
       <tbody>
         <tr><td>HTTPS</td><td>Must serve over HTTPS</td></tr>
-        <tr><td>URL param reading</td><td>Read initial state from URL hash (recommended) or query params. Recommended encoding: <code>encodeURIComponent(JSON.stringify(data))</code></td></tr>
+        <tr><td>URL param reading</td><td>Read initial state from URL hash (recommended) or query params. Encoding: <code>encodeURIComponent(JSON.stringify(data))</code></td></tr>
         <tr><td>Self-contained</td><td>Handle all interactions internally. No host JS/CSS dependencies. Responsive layout.</td></tr>
         <tr><td><code>postMessage</code> <em>(optional)</em></td><td>Notify host of changes inside the iframe</td></tr>
         <tr><td>Theme adaptation <em>(optional)</em></td><td>Read URL params or host colors to match light/dark theme</td></tr>
@@ -191,7 +191,7 @@ description: What this Skill does
     <table>
       <thead><tr><th>Role</th><th>Rules</th></tr></thead>
       <tbody>
-        <tr><td><span class="tag tag-platform">Platform</span></td><td>Add <code>sandbox="allow-scripts"</code> to iframes. Use <code>allow-same-origin</code> only if the embed page needs its own cookies/storage (note: this combo lets the iframe remove its own sandbox). Never pass user credentials to third-party iframes.</td></tr>
+        <tr><td><span class="tag tag-platform">Platform</span></td><td>Add <code>sandbox="allow-scripts"</code> to iframes. Use <code>allow-same-origin</code> only if the embed page needs its own cookies/storage (note: this combo effectively removes the sandbox restriction). Never pass user credentials to third-party iframes.</td></tr>
         <tr><td><span class="tag tag-provider">Provider</span></td><td>Don't rely on <code>document.cookie</code> (may be unavailable in sandbox). Don't use <code>window.opener</code> or <code>window.top</code> for navigation/DOM access (<code>window.parent.postMessage</code> for Level 2 is safe). Sanitize all inputs against XSS.</td></tr>
       </tbody>
     </table>
@@ -205,7 +205,7 @@ description: What this Skill does
         <tr><td>2</td><td>Bidirectional communication</td><td>Level 1 + <span class="tag tag-provider">Provider</span> <span class="tag tag-platform">Platform</span> both implement postMessage</td></tr>
       </tbody>
     </table>
-    <p>Level 2 is needed when the platform must react to user edits inside the iframe (e.g. auto-save, live previews). It uses <code>postMessage</code> with a specific origin — never <code>"*"</code>:</p>
+    <p>Use Level 2 when the platform must react to user edits inside the iframe (e.g. auto-save, live previews). It uses <code>postMessage</code> with a specific origin — never <code>"*"</code>:</p>
     <pre><code>// iframe → Agent platform: notify that user changed a value
 window.parent.postMessage({
   type: "eri:valueChanged",  // required prefix: "eri:"
@@ -231,7 +231,7 @@ iframe.contentWindow.postMessage({
 
     <h2 id="limitations">9. Limitations</h2>
     <ul>
-      <li><strong>Snapshot-based</strong> — each turn produces a fresh embed; Agent cannot observe in-iframe edits. See <a href="#conversation-flow">Section 3</a> for the full flow, <a href="#progressive-levels">Section 7</a> for Level 2 postMessage bidirectional sync.</li>
+      <li><strong>Snapshot-based</strong> — each turn produces a fresh embed; Agent cannot observe in-iframe edits. See <a href="#conversation-flow">Section 3</a> for the full flow and <a href="#progressive-levels">Section 7</a> for Level 2 postMessage bidirectional sync.</li>
       <li><strong>Limited device access</strong> — sandboxed iframes have restricted access to device APIs (GPS, camera, etc.). Expect standard web capabilities only.</li>
       <li><strong>URL size limits</strong> — state encoded in the URL hash is subject to browser URL length limits (~2KB safe, ~8KB max). For larger datasets, use an API call to fetch data inside the embed page.</li>
     </ul>
@@ -246,7 +246,7 @@ iframe.contentWindow.postMessage({
         <tr><td><strong>Works today</strong></td><td>All platforms</td><td>MCP-enabled only</td><td>A2UI-enabled only</td></tr>
       </tbody>
     </table>
-    <p>ERI is the on-ramp: broadest reach, least effort. The embed page you build for ERI is the same page you'd package for MCP Apps later. Embed today, adopt richer protocols when your platforms support them.</p>
+    <p>ERI is the on-ramp: broadest reach, least effort. The embed page you build for ERI is the one you'd package for MCP Apps later. Embed today, adopt richer protocols when your platforms support them.</p>
 
     <hr>
     <p class="meta"><a href="./adopt.html">Adopt in your team</a> · <a href="./blog.html">Read the blog</a> · <a href="https://2234839.github.io/eri-spec/">Try the demo</a></p>

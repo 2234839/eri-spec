@@ -143,19 +143,19 @@
     <h2>Common Objections</h2>
 
     <h3>"Isn't iframe outdated?"</h3>
-    <p>Iframe is how every major platform (YouTube, Stripe, Google Maps) embeds third-party content. ChatGPT, Claude, and Gemini all render iframes in Agent output today. The web hasn't replaced iframes — it's standardized them with <code>sandbox</code> attributes for security.</p>
+    <p>Iframe is how every major platform (YouTube, Stripe, Google Maps) embeds third-party content. ChatGPT, Claude, and Gemini all render iframes in Agent output today. The web hasn't replaced iframes — it standardized them with <code>sandbox</code> attributes for security.</p>
 
     <h3>"What about security?"</h3>
-    <p>Platforms sandbox iframes (<code>sandbox="allow-scripts"</code>) — no access to parent cookies, tokens, or DOM. Just follow standard XSS prevention. See <a href="./spec.html#security">spec security section</a>.</p>
+    <p>Platforms sandbox iframes (<code>sandbox="allow-scripts"</code>) — no access to parent cookies, tokens, or DOM. Follow standard XSS prevention. See <a href="./spec.html#security">spec security section</a>.</p>
 
     <h3>"MCP Apps will replace this, right?"</h3>
-    <p>MCP Apps only work on MCP-enabled platforms. ERI is just a URL — works <em>everywhere</em>. And the embed page you build for ERI is the same page you'd package for MCP Apps later. ERI is the on-ramp, not a dead end.</p>
+    <p>MCP Apps only work on MCP-enabled platforms. ERI is a URL — works <em>everywhere</em>. And the embed page you build for ERI is the same page you'd package for MCP Apps later. ERI is the on-ramp, not a dead end.</p>
 
     <h3>"Our API requires authentication — how does the Agent pass credentials?"</h3>
     <p>The Agent calls your API from its server, not from the user's browser. Provide a dedicated <strong>public API endpoint</strong> for Agent access — rate-limited, scoped to safe operations. For sensitive operations, let users authenticate within the embed page itself (OAuth popup, etc.). The iframe only renders results — it doesn't call your API.</p>
 
     <h3>"What if our platform doesn't support iframes?"</h3>
-    <p>ERI falls back to plain text output — the Agent still provides value via text. Most major platforms (ChatGPT, Claude, Gemini) render iframes today, so this is rarely an issue.</p>
+    <p>ERI falls back to plain text — the Agent still provides value. Most major platforms (ChatGPT, Claude, Gemini) render iframes today, so this is rarely an issue.</p>
 
     <h2>Internal Pitch Template</h2>
     <blockquote>
@@ -171,7 +171,7 @@
         <tr><td><strong>Speed</strong></td><td>Working demo in under a day. No platform approval cycle.</td></tr>
         <tr><td><strong>Coverage</strong></td><td>One implementation reaches ChatGPT, Claude, Gemini — and future platforms.</td></tr>
         <tr><td><strong>Cost</strong></td><td>~40 lines of embed code + one <code>skill.md</code>. No SDK license, no vendor lock-in.</td></tr>
-        <tr><td><strong>Risk</strong></td><td>Zero protocol commitment. The embed page we build today is the same page we'd package for MCP Apps tomorrow. ERI is the on-ramp, not a dead end.</td></tr>
+        <tr><td><strong>Risk</strong></td><td>Zero protocol commitment. The embed page we build today is the one we'd package for MCP Apps tomorrow. ERI is the on-ramp, not a dead end.</td></tr>
         <tr><td><strong>User experience</strong></td><td>Users tweak results directly — change a number, drag a slider — without waiting for Agent round trips.</td></tr>
         <tr><td><strong>Business value</strong></td><td>Our product lives inside the Agent conversation — users never leave. First-mover advantage in the Agent ecosystem.</td></tr>
       </tbody>
