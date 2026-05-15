@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0f0f0f">
   <link rel="icon" href="/eri-spec/favicon.svg" type="image/svg+xml">
   <title>Beyond Text: Why AI Agents Need Interactive UI — ERI</title>
-  <meta name="description" content="AI Agents output text. ERI lets your web app appear as interactive UI inside every Agent conversation — ChatGPT, Claude, Gemini. One embed page, one skill file, all platforms.">
+  <meta name="description" content="AI Agents output text. ERI lets your web app appear as interactive UI inside every Agent conversation — ChatGPT, Claude, Gemini. One embed page, one skill file, most platforms today.">
   <meta name="keywords" content="ERI, AI Agent, interactive UI, iframe embed, agent output, A2UI, embedded interface, beyond text, embed web app in ChatGPT, embed in Claude">
   <meta property="og:title" content="Beyond Text: Why AI Agents Need Interactive UI">
   <meta property="og:description" content="AI Agents solved input. Output is still text. ERI lets your web app appear as interactive UI inside any Agent conversation.">
@@ -115,7 +115,7 @@
     <h2>Yes, You Can Already Embed an Iframe</h2>
     <p>Right. You can tell an Agent "embed this URL" and it will produce an iframe. So why a spec?</p>
     <p>Because without a convention, every Agent-provider integration is ad-hoc. One Agent embeds your URL with the data in the hash. Another puts it in query params. A third forgets to include a text fallback for platforms that strip iframes. Your API gets called differently each time, and your embed page has no consistent contract.</p>
-    <p>ERI defines the contract: a <code>skill.md</code> instructs the Agent to call a specific API, encode the result, embed a specific URL, and include a plain text fallback. Same pattern, every Agent, every platform. The embed page has a clear spec to build against. The result is consistent and discoverable — not a lucky coincidence.</p>
+    <p>ERI defines the contract: a <code>skill.md</code> instructs the Agent to call a specific API, encode the result, embed a specific URL, and include a plain text fallback. Same pattern, every Agent, every platform that renders iframes. The embed page has a clear spec to build against. The result is consistent and discoverable — not a lucky coincidence.</p>
 
     <h2>Three Paths to Interactive Agent Output</h2>
     <p>The industry is converging on the same problem from three directions:</p>

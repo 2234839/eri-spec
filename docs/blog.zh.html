@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0f0f0f">
   <link rel="icon" href="/eri-spec/favicon.svg" type="image/svg+xml">
   <title>超越文字：为什么 AI Agent 需要交互式 UI — ERI</title>
-  <meta name="description" content="AI Agent 输出文字。ERI 让你的 Web 应用以交互式 UI 出现在所有 Agent 对话中——ChatGPT、Claude、Gemini。一个嵌入页面，一个 skill 文件，所有平台。">
+  <meta name="description" content="AI Agent 输出文字。ERI 让你的 Web 应用以交互式 UI 出现在 Agent 对话中——ChatGPT、Claude、Gemini。一个嵌入页面，一个 skill 文件，大多数平台今天就能用。">
   <meta name="keywords" content="ERI, AI Agent, 交互式 UI, iframe 嵌入, Agent 输出, A2UI, 嵌入式界面, 超越文字, 嵌入 ChatGPT, 嵌入 Claude, 嵌入 Gemini">
   <meta property="og:title" content="超越文字：为什么 AI Agent 需要交互式 UI">
   <meta property="og:description" content="Agent 解决了输入，输出仍是文字。ERI 让任何 Web 应用以交互式 UI 出现在 Agent 对话中。">
@@ -115,7 +115,7 @@
     <h2>你当然可以直接嵌入 iframe</h2>
     <p>没错。你可以直接告诉 Agent "嵌入这个 URL"，它会生成一个 iframe。那为什么还需要一个规范？</p>
     <p>因为没有一个约定，每次 Agent-提供者的集成都是临时拼凑。一个 Agent 把数据放在 hash 里嵌入你的 URL。另一个放在 query 参数里。第三个忘了在不支持 iframe 的平台提供纯文本降级。你的 API 每次被不同的方式调用，嵌入页面没有一个一致的契约。</p>
-    <p>ERI 定义了这个契约：<code>skill.md</code> 指导 Agent 调用特定 API、编码结果、嵌入特定 URL、并包含纯文本降级。同样的模式，每个 Agent，每个平台。嵌入页面有清晰的规范可以遵循。结果是一致且可复用的——不是一次碰巧。</p>
+    <p>ERI 定义了这个契约：<code>skill.md</code> 指导 Agent 调用特定 API、编码结果、嵌入特定 URL、并包含纯文本降级。同样的模式，每个 Agent，每个支持 iframe 的平台。嵌入页面有清晰的规范可以遵循。结果是一致且可复用的——不是一次碰巧。</p>
 
     <h2>三条路径到交互式 Agent 输出</h2>
     <p>业界从三个方向收敛到同一个问题：</p>
