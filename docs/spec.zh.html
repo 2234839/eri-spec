@@ -58,6 +58,11 @@
     .doc-content th { background: var(--surface-2); }
     .doc-content hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
     .meta { color: var(--text-dim); font-size: 0.9em; margin: 4px 0 16px; }
+    .tag { display: inline-block; font-size: 0.7em; padding: 1px 7px; border-radius: 4px; font-weight: 600; vertical-align: middle; margin-left: 4px; letter-spacing: 0.02em; }
+    .tag-agent { background: rgba(34,197,94,0.15); color: #22c55e; }
+    .tag-platform { background: rgba(251,191,36,0.15); color: #fbbf24; }
+    .tag-provider { background: rgba(99,102,241,0.15); color: #818cf8; }
+    .role-note { font-size: 0.85em; color: var(--text-dim); margin: 4px 0; padding: 6px 12px; background: var(--surface-2); border-radius: 6px; border-left: 3px solid var(--accent); }
     .flow { display: flex; align-items: center; gap: 6px; margin: 16px 0; overflow-x: auto; padding: 4px 0; }
     .flow-step { background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; min-width: 140px; text-align: center; flex-shrink: 0; }
     .flow-step strong { display: block; font-size: 0.95em; margin-bottom: 2px; }
@@ -85,6 +90,12 @@
 
     <h2>1. 定义</h2>
     <p>ERI（Embedded Result Interface，嵌入式结果界面）是一种 Skill 编写模式。Agent 处理用户请求后，输出一个可交互的嵌入式 UI（iframe 或截图），而不是（或不仅是）纯文本。用户可以直接在该 UI 上进行交互。</p>
+    <p>ERI 中谁做什么：</p>
+    <ul>
+      <li><span class="tag tag-agent">Agent</span> <strong>理解意图、调用 API、构造嵌入 URL、输出 UI</strong>——这是任何 AI Agent 已有的能力（读取 skill、调用 API、输出文本）。不需要平台改动。</li>
+      <li><span class="tag tag-provider">提供者</span> <strong>编写 <code>skill.md</code> 并提供一个 HTTPS 嵌入页面</strong>——这是第三方应用唯一需要做的事。约 40 行代码。</li>
+      <li><span class="tag tag-platform">平台</span> <strong>仅在 Level 2+ 需要配合（渲染 iframe）</strong>——大多数平台已经支持 iframe。Level 1（截图）完全不需要平台支持。</li>
+    </ul>
     <p>核心约束：</p>
     <ul>
       <li><strong>无新协议、无新字段</strong>——仅通过 <code>skill.md</code> 中的约定写法实现</li>
@@ -104,6 +115,7 @@
     </div>
 
     <h3>2.1 理解意图</h3>
+    <p class="role-note"><span class="tag tag-agent">Agent</span> Agent 的天然能力——读取 skill 并从用户输入中提取参数。</p>
     <p>Agent 从用户输入中提取结构化参数。例如：</p>
     <ul>
       <li>"帮我算 3 件商品，每件 99.5 元" → 表达式 <code>99.5 * 3</code></li>
@@ -111,16 +123,19 @@
     </ul>
 
     <h3>2.2 调用 API</h3>
+    <p class="role-note"><span class="tag tag-agent">Agent</span> 标准工具调用——Agent 天然知道如何调用 HTTP API。</p>
     <p>Agent 调用第三方应用的 API 获取计算结果。API 返回结构化的 JSON。</p>
     <pre><code>POST /api/calculate
 Body: {"content": "99.5 * 3"}
 Response: {"result": 298.5}</code></pre>
 
     <h3>2.3 构造嵌入 URL</h3>
+    <p class="role-note"><span class="tag tag-agent">Agent</span> 字符串构造——Agent 按照 skill.md 模板拼接 URL。</p>
     <p>将初始数据编码到 URL 中（hash 参数、query 参数、或后端会话）。</p>
     <pre><code>https://app.example.com/embed#99.5 * 3</code></pre>
 
     <h3>2.4 输出 UI</h3>
+    <p class="role-note"><span class="tag tag-agent">Agent</span> 输出标记。<span class="tag tag-platform">平台</span> 负责渲染。</p>
     <p>优先级：<strong>iframe &gt; 截图 &gt; 纯文本</strong></p>
 
     <p><strong>iframe 模式（Level 2）</strong></p>
@@ -149,7 +164,7 @@ Agent: [输出 iframe: 99.5 * 3 = 298.5]
 Agent: 读取上下文 last_result=298.5，计算 298.5 * 1.08
        [输出新 iframe: 298.5 * 1.08 = 322.38]</code></pre>
 
-    <h2>4. Skill 编写</h2>
+    <h2>4. Skill 编写 <span class="tag tag-provider">提供者</span></h2>
     <p>一个最小化的 ERI Skill（<code>skill.md</code>）：</p>
     <pre><code>---
 name: 工具名称
@@ -170,7 +185,7 @@ Content-Type: application/json
 {"expr": "99.5 * 3"}
 → {"result": 298.5}</code></pre>
 
-    <h2>5. 嵌入式页面要求</h2>
+    <h2>5. 嵌入式页面要求 <span class="tag tag-provider">提供者</span></h2>
     <table>
       <thead><tr><th>要求</th><th>说明</th></tr></thead>
       <tbody>
@@ -191,13 +206,13 @@ Content-Type: application/json
     </table>
 
     <h2>6. 安全</h2>
-    <h3>Agent 平台侧</h3>
+    <h3>Agent 平台侧 <span class="tag tag-platform">平台</span></h3>
     <ul>
       <li>iframe 必须添加 <code>sandbox</code> 属性限制权限</li>
       <li>建议添加 <code>sandbox="allow-scripts allow-same-origin"</code></li>
       <li>不应将用户凭证传递给第三方 iframe</li>
     </ul>
-    <h3>第三方应用侧</h3>
+    <h3>第三方应用侧 <span class="tag tag-provider">提供者</span></h3>
     <ul>
       <li>不依赖 <code>document.cookie</code>（沙箱环境可能不可用）</li>
       <li>不使用 <code>window.opener</code> 或 <code>window.top</code></li>
@@ -206,12 +221,12 @@ Content-Type: application/json
 
     <h2>7. 渐进等级</h2>
     <table>
-      <thead><tr><th>等级</th><th>能力</th><th>要求</th></tr></thead>
+      <thead><tr><th>等级</th><th>能力</th><th>谁需要做什么</th></tr></thead>
       <tbody>
-        <tr><td>0</td><td>纯文本输出</td><td>无</td></tr>
-        <tr><td>1</td><td>截图输出</td><td>嵌入页面 + 截图服务</td></tr>
-        <tr><td>2</td><td>iframe 嵌入</td><td>嵌入页面 + Agent 平台 iframe 支持</td></tr>
-        <tr><td>3</td><td>双向通信</td><td>Level 2 + postMessage 协议</td></tr>
+        <tr><td>0</td><td>纯文本输出</td><td><span class="tag tag-agent">Agent</span> 即可——不需要其他任何配合</td></tr>
+        <tr><td>1</td><td>截图输出</td><td><span class="tag tag-provider">提供者</span> 嵌入页面 + 截图服务。不需要平台改动。</td></tr>
+        <tr><td>2</td><td>iframe 嵌入</td><td><span class="tag tag-provider">提供者</span> 嵌入页面 + <span class="tag tag-platform">平台</span> iframe 支持（大多数平台已有）</td></tr>
+        <tr><td>3</td><td>双向通信</td><td>Level 2 + <span class="tag tag-provider">提供者</span> <span class="tag tag-platform">平台</span> 双方实现 postMessage</td></tr>
       </tbody>
     </table>
     <p>Level 3 的 postMessage 协议：</p>

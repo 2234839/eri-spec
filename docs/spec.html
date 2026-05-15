@@ -58,6 +58,11 @@
     .doc-content th { background: var(--surface-2); }
     .doc-content hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
     .meta { color: var(--text-dim); font-size: 0.9em; margin: 4px 0 16px; }
+    .tag { display: inline-block; font-size: 0.7em; padding: 1px 7px; border-radius: 4px; font-weight: 600; vertical-align: middle; margin-left: 4px; letter-spacing: 0.02em; }
+    .tag-agent { background: rgba(34,197,94,0.15); color: #22c55e; }
+    .tag-platform { background: rgba(251,191,36,0.15); color: #fbbf24; }
+    .tag-provider { background: rgba(99,102,241,0.15); color: #818cf8; }
+    .role-note { font-size: 0.85em; color: var(--text-dim); margin: 4px 0; padding: 6px 12px; background: var(--surface-2); border-radius: 6px; border-left: 3px solid var(--accent); }
     .flow { display: flex; align-items: center; gap: 6px; margin: 16px 0; overflow-x: auto; padding: 4px 0; }
     .flow-step { background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; min-width: 140px; text-align: center; flex-shrink: 0; }
     .flow-step strong { display: block; font-size: 0.95em; margin-bottom: 2px; }
@@ -85,6 +90,12 @@
 
     <h2>1. Definition</h2>
     <p>ERI (Embedded Result Interface) is a Skill authoring pattern. After an Agent processes a user request, it outputs an interactive embedded UI (iframe or screenshot) instead of (or in addition to) plain text. The user can directly interact with this UI.</p>
+    <p>Who does what in ERI:</p>
+    <ul>
+      <li><span class="tag tag-agent">Agent</span> <strong>Understands intent, calls API, constructs embed URL, outputs UI</strong> — this is what any AI Agent already does (read a skill, call APIs, output text). No platform change needed.</li>
+      <li><span class="tag tag-provider">Provider</span> <strong>Writes <code>skill.md</code> and provides an HTTPS embed page</strong> — this is the only thing a third-party app needs to do. ~40 lines of code.</li>
+      <li><span class="tag tag-platform">Platform</span> <strong>Required only for Level 2+ (iframe rendering)</strong> — most platforms already render iframes. Level 1 (screenshot) needs zero platform support.</li>
+    </ul>
     <p>Core constraints:</p>
     <ul>
       <li><strong>No new protocol, no new fields</strong> — implemented through conventions in <code>skill.md</code></li>
@@ -104,6 +115,7 @@
     </div>
 
     <h3>2.1 Understand Intent</h3>
+    <p class="role-note"><span class="tag tag-agent">Agent</span> Agent's natural capability — reading a skill and extracting parameters from user input.</p>
     <p>The Agent extracts structured parameters from user input. For example:</p>
     <ul>
       <li>"Calculate 3 items at $99.5 each" → expression <code>99.5 * 3</code></li>
@@ -111,16 +123,19 @@
     </ul>
 
     <h3>2.2 Call API</h3>
+    <p class="role-note"><span class="tag tag-agent">Agent</span> Standard tool calling — the Agent already knows how to call HTTP APIs.</p>
     <p>The Agent calls the third-party app's API to compute results. The API returns structured JSON.</p>
     <pre><code>POST /api/calculate
 Body: {"content": "99.5 * 3"}
 Response: {"result": 298.5}</code></pre>
 
     <h3>2.3 Construct Embed URL</h3>
+    <p class="role-note"><span class="tag tag-agent">Agent</span> String construction — the Agent follows the skill.md template to build a URL.</p>
     <p>Encode the initial data into the URL (hash params, query params, or backend session).</p>
     <pre><code>https://app.example.com/embed#99.5 * 3</code></pre>
 
     <h3>2.4 Output UI</h3>
+    <p class="role-note"><span class="tag tag-agent">Agent</span> outputs markup. <span class="tag tag-platform">Platform</span> renders it.</p>
     <p>Priority: <strong>iframe &gt; screenshot &gt; plain text</strong></p>
 
     <p><strong>iframe mode (Level 2)</strong></p>
@@ -149,7 +164,7 @@ User: "Add 8% tax"
 Agent: Reads context last_result=298.5, computes 298.5 * 1.08
        [outputs new iframe: 298.5 * 1.08 = 322.38]</code></pre>
 
-    <h2>4. Skill Authoring</h2>
+    <h2>4. Skill Authoring <span class="tag tag-provider">Provider</span></h2>
     <p>A minimal ERI Skill in <code>skill.md</code>:</p>
     <pre><code>---
 name: tool-name
@@ -170,7 +185,7 @@ Content-Type: application/json
 {"expr": "99.5 * 3"}
 → {"result": 298.5}</code></pre>
 
-    <h2>5. Embed Page Requirements</h2>
+    <h2>5. Embed Page Requirements <span class="tag tag-provider">Provider</span></h2>
     <table>
       <thead><tr><th>Requirement</th><th>Description</th></tr></thead>
       <tbody>
@@ -191,13 +206,13 @@ Content-Type: application/json
     </table>
 
     <h2>6. Security</h2>
-    <h3>Agent platform side</h3>
+    <h3>Agent platform side <span class="tag tag-platform">Platform</span></h3>
     <ul>
       <li>iframes must include <code>sandbox</code> attribute to restrict permissions</li>
       <li>Recommended: <code>sandbox="allow-scripts allow-same-origin"</code></li>
       <li>User credentials must not be passed to third-party iframes</li>
     </ul>
-    <h3>Third-party app side</h3>
+    <h3>Third-party app side <span class="tag tag-provider">Provider</span></h3>
     <ul>
       <li>Don't rely on <code>document.cookie</code> (may be unavailable in sandbox)</li>
       <li>Don't use <code>window.opener</code> or <code>window.top</code></li>
@@ -206,12 +221,12 @@ Content-Type: application/json
 
     <h2>7. Progressive Levels</h2>
     <table>
-      <thead><tr><th>Level</th><th>Capability</th><th>Requirements</th></tr></thead>
+      <thead><tr><th>Level</th><th>Capability</th><th>Who needs to act</th></tr></thead>
       <tbody>
-        <tr><td>0</td><td>Plain text output</td><td>None</td></tr>
-        <tr><td>1</td><td>Screenshot output</td><td>Embed page + screenshot service</td></tr>
-        <tr><td>2</td><td>iframe embedding</td><td>Embed page + Agent platform iframe support</td></tr>
-        <tr><td>3</td><td>Bidirectional communication</td><td>Level 2 + postMessage protocol</td></tr>
+        <tr><td>0</td><td>Plain text output</td><td><span class="tag tag-agent">Agent</span> only — nothing else needed</td></tr>
+        <tr><td>1</td><td>Screenshot output</td><td><span class="tag tag-provider">Provider</span> embed page + screenshot service. No platform change.</td></tr>
+        <tr><td>2</td><td>iframe embedding</td><td><span class="tag tag-provider">Provider</span> embed page + <span class="tag tag-platform">Platform</span> iframe support (most already have this)</td></tr>
+        <tr><td>3</td><td>Bidirectional communication</td><td>Level 2 + <span class="tag tag-provider">Provider</span> <span class="tag tag-platform">Platform</span> both implement postMessage</td></tr>
       </tbody>
     </table>
     <p>Level 3 postMessage protocol:</p>
