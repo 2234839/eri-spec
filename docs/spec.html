@@ -190,6 +190,27 @@ description: What this Skill does
       </tbody>
     </table>
 
+    <h3>Minimal Embed Page Example</h3>
+    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;input id="expr" style="width:100%;font-size:18px"&gt;
+&lt;div id="result" style="font-size:24px;margin-top:8px"&gt;&lt;/div&gt;
+&lt;script&gt;
+  const expr = decodeURIComponent(location.hash.slice(1));
+  document.getElementById('expr').value = expr;
+  function update() {
+    const v = document.getElementById('expr').value;
+    try { document.getElementById('result').textContent = eval(v); }
+    catch(e) { document.getElementById('result').textContent = ''; }
+  }
+  document.getElementById('expr').oninput = update;
+  update();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    <p>20 lines. Reads from URL hash, self-contained, instant interaction. Deploy this to any HTTPS host and you have a working ERI embed page.</p>
+
     <h2>6. Security</h2>
     <h3>Agent platform side <span class="tag tag-platform">Platform</span></h3>
     <ul>
