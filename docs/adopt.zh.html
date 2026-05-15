@@ -116,7 +116,14 @@
           <li>校验和清理所有来自 URL 的输入（绝不要对用户数据使用 <code>eval()</code>）</li>
         </ul>
       </li>
-      <li>写一个 <code>skill.md</code>——从<a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">可复制模板</a>开始
+      <li>写一个 <code>skill.md</code>——从<a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">可复制模板</a>开始，或直接改编：
+        <pre><code>---
+name: my-app
+description: 工具描述
+---
+## 工作流
+1. 调用 POST https://my-api.example.com/endpoint
+2. 嵌入: https://my-app.example.com/embed#data</code></pre>
         <ul>
           <li>放置方式因平台而异：Custom Instructions（ChatGPT）、<code>CLAUDE.md</code> 或技能文件（Claude）、系统指令（Gemini）、或任何 Agent 行为定义机制</li>
         </ul>

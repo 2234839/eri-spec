@@ -1,12 +1,12 @@
 # ERI — Embedded Result Interface
 
-> Agents solve input. Their output is still text. ERI solves output.
+> AI Agents output text. ERI lets them output interactive UI — embed your web app inside any Agent conversation via a `skill.md` and a URL.
 
 **[Try the Live Demo](https://2234839.github.io/eri-spec/)** · [Spec](https://2234839.github.io/eri-spec/docs/spec.html) · [Blog](https://2234839.github.io/eri-spec/docs/blog.html) · [Adopt](https://2234839.github.io/eri-spec/docs/adopt.html) · [中文](./README.zh.md) · `v1.0 Stable`
 
 ---
 
-ERI embeds your web app as an interactive UI inside AI Agent conversations — ChatGPT, Claude, Gemini, and any platform that renders iframes. You write a `skill.md` that tells the Agent how to call your API and which URL to embed.
+Works on ChatGPT, Claude, Gemini — any platform that renders iframes.
 
 ## The Idea in One Example
 

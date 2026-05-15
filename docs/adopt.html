@@ -116,7 +116,14 @@
           <li>Validate and sanitize all URL-sourced inputs (never <code>eval()</code> user data)</li>
         </ul>
       </li>
-      <li>Write a <code>skill.md</code> — start from the <a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">copy-paste template</a>
+      <li>Write a <code>skill.md</code> — start from the <a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">copy-paste template</a>, or adapt this:
+        <pre><code>---
+name: my-app
+description: What it does.
+---
+## Workflow
+1. Call POST https://my-api.example.com/endpoint
+2. Embed: https://my-app.example.com/embed#data</code></pre>
         <ul>
           <li>Placement varies by platform: Custom Instructions (ChatGPT), <code>CLAUDE.md</code> or skill files (Claude), system instructions (Gemini), or any Agent behavior definition mechanism</li>
         </ul>

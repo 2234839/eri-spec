@@ -1,12 +1,12 @@
 # ERI — Embedded Result Interface
 
-> Agent 解决了输入，输出仍是文字。ERI 改变这一点。
+> AI Agent 输出文字。ERI 让它们输出可交互的 UI——通过一个 `skill.md` 和一个 URL，把你的 Web 应用嵌入任何 Agent 对话。
 
 **[在线演示](https://2234839.github.io/eri-spec/)** · [规范](https://2234839.github.io/eri-spec/docs/spec.zh.html) · [博客](https://2234839.github.io/eri-spec/docs/blog.zh.html) · [采用](https://2234839.github.io/eri-spec/docs/adopt.zh.html) · [English](./README.md) · `v1.0 Stable`
 
 ---
 
-ERI 让你的 Web 应用以交互式 UI 出现在 AI Agent 对话中——ChatGPT、Claude、Gemini 以及任何能渲染 iframe 的平台。你写一个 `skill.md`，告诉 Agent 如何调用你的 API、嵌入哪个 URL。
+适用于 ChatGPT、Claude、Gemini——任何能渲染 iframe 的平台。
 
 ## 一个例子讲清楚
 
