@@ -152,7 +152,7 @@
     <p>MCP Apps only work on MCP-enabled platforms. ERI is just a URL — works <em>everywhere</em>. And the embed page you build for ERI is the same page you'd package for MCP Apps later. ERI is the on-ramp, not a dead end.</p>
 
     <h3>"Our API requires authentication — how does the Agent pass credentials?"</h3>
-    <p>The Agent calls your API from its server, not from the user's browser. Provide a dedicated <strong>public-facing API endpoint</strong> for Agent access — rate-limited, scoped to read-only or safe operations. For sensitive operations, require the user to authenticate within the embed page itself (OAuth popup, etc.). The embed page (iframe) renders results — it doesn't need to call your API directly.</p>
+    <p>The Agent calls your API from its server, not from the user's browser. Provide a dedicated <strong>public API endpoint</strong> for Agent access — rate-limited, scoped to safe operations. For sensitive operations, let users authenticate within the embed page itself (OAuth popup, etc.). The iframe only renders results — it doesn't call your API.</p>
 
     <h3>"What if our platform doesn't support iframes?"</h3>
     <p>ERI falls back to plain text output — the Agent still provides value via text. Most major platforms (ChatGPT, Claude, Gemini) render iframes today, so this is rarely an issue.</p>
