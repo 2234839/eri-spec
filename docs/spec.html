@@ -116,6 +116,10 @@
     </table>
     <p><strong>Snapshot-based</strong> — the Agent does not monitor the output UI. Each new instruction generates a fresh embed (see <a href="#conversation-flow">Section 3</a>). The third-party app runs independently — it only needs to provide an HTTPS page.</p>
     <p><strong>Conformance</strong> — an implementation is ERI-compliant at <a href="#progressive-levels">Level 1</a> when: (1) the Provider serves an HTTPS embed page that reads initial state from URL parameters; (2) the Agent follows the <a href="#workflow">four-step workflow</a>; (3) the Platform renders the iframe with <code>sandbox="allow-scripts"</code>. No registration, no certification.</p>
+    <div class="role-note">
+      <strong>Level 1 Self-Certification Checklist</strong><br>
+      ☐ Embed page served over HTTPS &nbsp;·&nbsp; ☐ Reads initial state from URL hash or query params &nbsp;·&nbsp; ☐ Self-contained (no host JS/CSS dependencies) &nbsp;·&nbsp; ☐ Handles invalid/missing URL params gracefully &nbsp;·&nbsp; ☐ <code>skill.md</code> has frontmatter + <code>## Workflow</code> &nbsp;·&nbsp; ☐ Agent calls API server-side (not from user's browser) &nbsp;·&nbsp; ☐ Agent includes plain text fallback &nbsp;·&nbsp; ☐ Iframe uses <code>sandbox="allow-scripts"</code>
+    </div>
 
     <h2 id="workflow">2. Workflow</h2>
     <div class="flow">
@@ -168,6 +172,15 @@ description: What this Skill does
    (fallback to plain text if platform cannot render)</code></pre>
     <p>The Agent reads this workflow, executes each step, and outputs an iframe.</p>
     <p>The frontmatter (<code>name</code>, <code>description</code>) follows standard YAML convention. The body section heading (<code>## Workflow</code>, <code>## 工作流</code>, or any heading you choose) and its content are freeform — write in whatever natural language the Agent understands. The format is plain Markdown.</p>
+    <table>
+      <thead><tr><th>Platform</th><th>Where to place skill.md content</th></tr></thead>
+      <tbody>
+        <tr><td>ChatGPT</td><td>Custom Instructions, or GPT Actions in a custom GPT</td></tr>
+        <tr><td>Claude</td><td><code>CLAUDE.md</code> file, or skill files in <code>.claude/</code> directory</td></tr>
+        <tr><td>Gemini</td><td>System Instructions (Gemini API or Google AI Studio)</td></tr>
+        <tr><td>Custom Agent</td><td>Any mechanism for defining Agent behavior (system prompt, config file, etc.)</td></tr>
+      </tbody>
+    </table>
     <p>Complete examples: <a href="https://github.com/2234839/eri-spec/blob/main/examples/notecalc.md">NoteCalc</a> (real implementation) · <a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">Template</a> (copy and fill in).</p>
 
     <h2 id="embed-page">5. Embed Page Requirements <span class="tag tag-provider">Provider</span></h2>
@@ -257,8 +270,21 @@ iframe.contentWindow.postMessage({
     <ul>
       <li><strong>Snapshot-based</strong> — each turn produces a fresh embed; Agent cannot observe in-iframe edits. See <a href="#conversation-flow">Section 3</a> for the full flow and <a href="#progressive-levels">Section 7</a> for Level 2 postMessage bidirectional sync.</li>
       <li><strong>Limited device access</strong> — sandboxed iframes have restricted access to device APIs (GPS, camera, etc.). Expect standard web capabilities only.</li>
-      <li><strong>URL size limits</strong> — state encoded in the URL hash is subject to browser URL length limits (~2KB safe, ~8KB max). For larger datasets, use an API call to fetch data inside the embed page.</li>
+      <li><strong>URL size limits</strong> — state encoded in the URL hash is subject to browser URL length limits (~2KB safe, ~8KB max). For larger datasets, use the <a href="#large-data-pattern">large data pattern</a>.</li>
     </ul>
+
+    <h3 id="large-data-pattern">Large Data Pattern</h3>
+    <p>When the API response exceeds URL size limits, use a token-based approach instead of encoding data in the URL:</p>
+    <pre><code>/** Agent: call API, receive a result token instead of full data */
+POST /api/report
+Response: {"resultToken": "abc123", "summary": "Q1 revenue: $1.2M"}
+
+/** Agent: embed with token, include text summary as fallback */
+&lt;iframe src="https://app.example.com/embed#abc123" ...&gt;&lt;/iframe&gt;
+
+/** Embed page: fetch full data using the token */
+const token = decodeURIComponent(location.hash.slice(1));
+const data = await fetch('/api/results/' + token).then(r =&gt; r.json());</code></pre>
 
     <h2 id="error-handling">10. Error Handling</h2>
     <table>

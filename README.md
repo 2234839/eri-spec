@@ -4,9 +4,9 @@
 
 **[Try the Live Demo](https://2234839.github.io/eri-spec/)** · [Spec](https://2234839.github.io/eri-spec/docs/spec.html) · [Blog](https://2234839.github.io/eri-spec/docs/blog.html) · [Adopt](https://2234839.github.io/eri-spec/docs/adopt.html) · [中文](./README.zh.md) · `v1.0 Stable`
 
----
+Works on **ChatGPT, Claude, Gemini** — any platform that renders iframes.
 
-Works on ChatGPT, Claude, Gemini — any platform that renders iframes.
+---
 
 ## The Idea in One Example
 
@@ -16,8 +16,6 @@ Agent: [embeds a live calculator]
        User changes 3 → 4: instant update
        User adds shipping: no Agent needed
 ```
-
-You write a `skill.md` that says: call this API, embed this URL. The Agent follows it.
 
 ```markdown
 ---
@@ -31,25 +29,21 @@ description: Math calculator with variables and unit conversion.
 4. Output as iframe (fallback to plain text)
 ```
 
-## Live Demo
-
-**[2234839.github.io/eri-spec/](https://2234839.github.io/eri-spec/)** — interact with the embedded calculator. The demo uses a live LLM to run the full Agent flow.
-
 ## Start in 3 Steps
 
 **You have a web app. You want it in Agent conversations. Here's how:**
 
 1. **Add an embed page** — Create a stripped-down version of your app that reads initial state from URL params. A [minimal page is 10 lines](https://2234839.github.io/eri-spec/docs/spec.html#minimal-example); a production-ready page with responsive layout, error handling, and theme support is typically 100–200 lines.
 2. **Write a skill.md** — Tell the Agent how to call your API and construct the embed URL. [Start from the template](./examples/template.md).
-3. **Ship it** — iframe embedding works on ChatGPT, Claude, Gemini today. Add postMessage bidirectional communication when ready.
+3. **Ship it** — iframe embedding works on ChatGPT, Claude, Gemini today. Add [postMessage bidirectional communication](https://2234839.github.io/eri-spec/docs/spec.html#progressive-levels) when ready.
 
 ## How It's Different
 
 | | ERI | MCP Apps (Anthropic / OpenAI) | A2UI (Google) |
 |---|---|---|---|
 | **Works today?** | **Yes — all platforms** | MCP-enabled only | A2UI-enabled only |
-| **What you build** | An HTTPS embed page | MCP-compatible app package | Component catalog + A2UI schema |
-| **Rich capabilities** | Standard web only | Platform APIs, real-time sync | Native rendering |
+| **What you build** | An HTTPS embed page + a skill.md | MCP-compatible app package | Component catalog + A2UI schema |
+| **Capabilities** | Full web platform (HTML/CSS/JS/Canvas/WebGL) | Platform APIs, real-time sync | Native rendering |
 | **Effort** | **< 1 day** | Days | Days |
 
 ## Documentation

@@ -116,6 +116,10 @@
     </table>
     <p><strong>快照式输出</strong>——Agent 不监听已输出的界面，每次新指令生成全新嵌入（见<a href="#conversation-flow">第 3 节</a>）。第三方应用独立运行——只需提供一个 HTTPS 页面。</p>
     <p><strong>符合性</strong>——满足以下条件即达到 ERI <a href="#progressive-levels">Level 1</a> 合规：（1）提供者提供从 URL 参数读取初始状态的 HTTPS 嵌入页面；（2）Agent 遵循<a href="#workflow">四步工作流</a>；（3）平台以 <code>sandbox="allow-scripts"</code> 渲染 iframe。无需注册，无需认证。</p>
+    <div class="role-note">
+      <strong>Level 1 自证合规清单</strong><br>
+      ☐ 嵌入页面使用 HTTPS &nbsp;·&nbsp; ☐ 从 URL hash 或 query 参数读取初始状态 &nbsp;·&nbsp; ☐ 自包含（不依赖宿主 JS/CSS） &nbsp;·&nbsp; ☐ 正确处理无效/缺失的 URL 参数 &nbsp;·&nbsp; ☐ <code>skill.md</code> 包含 frontmatter + <code>## 工作流</code> &nbsp;·&nbsp; ☐ Agent 从服务端调用 API（非用户浏览器） &nbsp;·&nbsp; ☐ Agent 包含纯文本降级 &nbsp;·&nbsp; ☐ iframe 使用 <code>sandbox="allow-scripts"</code>
+    </div>
 
     <h2 id="workflow">2. 工作流</h2>
     <div class="flow">
@@ -168,6 +172,15 @@ description: 工具描述
    （平台无法渲染时降级为纯文本）</code></pre>
     <p>Agent 读取这个工作流，执行每一步，输出 iframe。</p>
     <p>Frontmatter（<code>name</code>、<code>description</code>）遵循标准 YAML 约定。正文标题（<code>## Workflow</code>、<code>## 工作流</code> 或任意标题）及其内容都是自由格式——用 Agent 能理解的自然语言编写即可。格式为纯 Markdown。</p>
+    <table>
+      <thead><tr><th>平台</th><th>skill.md 内容放置位置</th></tr></thead>
+      <tbody>
+        <tr><td>ChatGPT</td><td>Custom Instructions，或自定义 GPT 的 GPT Actions</td></tr>
+        <tr><td>Claude</td><td><code>CLAUDE.md</code> 文件，或 <code>.claude/</code> 目录下的技能文件</td></tr>
+        <tr><td>Gemini</td><td>System Instructions（Gemini API 或 Google AI Studio）</td></tr>
+        <tr><td>自建 Agent</td><td>任何定义 Agent 行为的机制（系统提示词、配置文件等）</td></tr>
+      </tbody>
+    </table>
     <p>完整示例：<a href="https://github.com/2234839/eri-spec/blob/main/examples/notecalc.md">NoteCalc</a>（真实实现） · <a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">模板</a>（复制后填入自己的内容）。</p>
 
     <h2 id="embed-page">5. 嵌入式页面要求 <span class="tag tag-provider">提供者</span></h2>
@@ -257,8 +270,21 @@ iframe.contentWindow.postMessage({
     <ul>
       <li><strong>快照式输出</strong>——每轮对话产生全新的嵌入，Agent 无法观察 iframe 内的编辑。完整流程见<a href="#conversation-flow">第 3 节</a>，Level 2 postMessage 双向同步见<a href="#progressive-levels">第 7 节</a>。</li>
       <li><strong>设备能力受限</strong>——沙箱 iframe 对设备 API（GPS、摄像头等）的访问受限。仅支持标准 Web 能力。</li>
-      <li><strong>URL 大小限制</strong>——编码到 URL hash 中的状态受浏览器 URL 长度限制（安全范围约 2KB，上限约 8KB）。数据量较大时，应在嵌入页面内通过 API 调用获取数据。</li>
+      <li><strong>URL 大小限制</strong>——编码到 URL hash 中的状态受浏览器 URL 长度限制（安全范围约 2KB，上限约 8KB）。数据量较大时，使用<a href="#large-data-pattern">大数据集模式</a>。</li>
     </ul>
+
+    <h3 id="large-data-pattern">大数据集模式</h3>
+    <p>当 API 响应超过 URL 大小限制时，使用令牌方式替代直接编码数据：</p>
+    <pre><code>/** Agent：调用 API，获取结果令牌而非完整数据 */
+POST /api/report
+Response: {"resultToken": "abc123", "summary": "Q1 收入：120 万"}
+
+/** Agent：用令牌嵌入，并包含文本摘要作为降级 */
+&lt;iframe src="https://app.example.com/embed#abc123" ...&gt;&lt;/iframe&gt;
+
+/** 嵌入页面：用令牌获取完整数据 */
+const token = decodeURIComponent(location.hash.slice(1));
+const data = await fetch('/api/results/' + token).then(r =&gt; r.json());</code></pre>
 
     <h2 id="error-handling">10. 错误处理</h2>
     <table>
