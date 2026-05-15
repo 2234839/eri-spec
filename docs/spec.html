@@ -151,9 +151,9 @@ description: What this Skill does
 1. Extract parameters from user input
 2. Call API: POST https://api.example.com/calculate
    Body: {"expr": "expression"}
-3. Construct embed URL with API response:
-   https://app.example.com/embed#URLEncode({"expr":"...","result":...})
-4. Output as iframe (fallback to plain text if platform cannot render)</code></pre>
+3. Encode API response as URL hash
+4. Output as iframe: https://app.example.com/embed#&lt;encoded_response&gt;
+   (fallback to plain text if platform cannot render)</code></pre>
     <p>The Agent reads this workflow, executes each step, and outputs an iframe.</p>
     <p>The frontmatter (<code>name</code>, <code>description</code>) follows standard YAML convention. The <code>## Workflow</code> section is freeform — write it in whatever natural language the Agent understands. No special syntax needed.</p>
 

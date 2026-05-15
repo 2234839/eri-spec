@@ -149,7 +149,7 @@
     <p>平台对 iframe 加沙箱（<code>sandbox="allow-scripts allow-same-origin"</code>）——无法访问父页面 cookie、token 或 DOM。遵循标准 XSS 防护即可。详见<a href="./spec.zh.html#security">规范安全章节</a>。</p>
 
     <h3>"MCP Apps 不是会替代这个吗？"</h3>
-    <p>MCP Apps 只在 MCP 平台上运行。ERI 只是一个 URL——<em>所有</em>平台通用。最广覆盖，最小代价。</p>
+    <p>MCP Apps 只在 MCP 平台上运行。ERI 只是一个 URL——<em>所有</em>平台通用。而且你为 ERI 构建的嵌入页面，就是日后打包给 MCP Apps 的同一个页面。ERI 是入口，不是死胡同。</p>
 
     <h3>"我们的 API 需要认证——Agent 怎么传凭证？"</h3>
     <p>Agent 从服务端调用你的 API，不是从用户浏览器。提供一个专门的<strong>公开 API 端点</strong>供 Agent 访问——限流、限定为只读或安全操作。对于敏感操作，让用户在嵌入页面内自行认证（OAuth 弹窗等）。嵌入页面（iframe）只负责渲染结果——不需要直接调用你的 API。</p>
