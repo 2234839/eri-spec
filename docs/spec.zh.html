@@ -305,8 +305,8 @@ const data = await fetch('/api/results/' + token).then(r =&gt; r.json());</code>
       <tbody>
         <tr><td><strong>方式</strong></td><td>通过 URL 嵌入</td><td>沙箱小应用</td><td>Agent 以 JSON 声明 UI</td></tr>
         <tr><td><strong>平台要求</strong></td><td>渲染 iframe（已有）</td><td>MCP 运行时</td><td>A2UI 渲染器</td></tr>
-        <tr><td><strong>今天可用</strong></td><td>所有平台</td><td>仅 MCP 平台</td><td>仅 A2UI 平台</td></tr>
-        <tr><td><strong>丰富能力</strong></td><td>仅标准 Web</td><td>平台 API、实时通信</td><td>原生渲染</td></tr>
+        <tr><td><strong>今天可用</strong></td><td>大多数平台</td><td>仅 MCP 平台</td><td>仅 A2UI 平台</td></tr>
+        <tr><td><strong>能力</strong></td><td>完整 Web 平台</td><td>平台 API、实时通信</td><td>原生渲染</td></tr>
       </tbody>
     </table>
     <p>MCP Apps 和 A2UI 提供更丰富的能力——原生 API、实时同步、平台集成。ERI 用这些能力换取了今天的通用可用性。随着 MCP 和 A2UI 的采用增长，ERI 的"处处可用"优势会收窄——但其简洁性不会：一个嵌入页面，无需平台特定的打包。从 ERI 开始；嵌入页面构成日后打包给更丰富协议的核心。</p>
