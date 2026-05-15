@@ -58,6 +58,7 @@ description: Math calculator with variables and unit conversion.
 | [Spec](https://2234839.github.io/eri-spec/docs/spec.html) | Technical specification — workflow, security, levels, postMessage protocol |
 | [Blog](https://2234839.github.io/eri-spec/docs/blog.html) | Why ERI exists — the three-way landscape (ERI / MCP Apps / A2UI) |
 | [Adopt](https://2234839.github.io/eri-spec/docs/adopt.html) | Team adoption guide — checklist, decision matrix, pitch template |
+| [Examples](./examples/) | Copy-paste skill.md templates — [template](./examples/template.md) and [real implementation](./examples/notecalc.md) |
 
 ## License
 
