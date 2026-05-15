@@ -110,12 +110,11 @@
         </ul>
       </li>
       <li>按照<a href="./spec.zh.html">规范</a>写一个 <code>skill.md</code></li>
-      <li>在你的 Agent 平台上测试——确认 iframe 能正确渲染</li>
+      <li>在你的 Agent 平台上测试——确认 iframe 能以 <code>sandbox="allow-scripts allow-same-origin"</code> 正确渲染</li>
     </ul>
 
     <h3>第二阶段：集成（1 周）</h3>
     <ul class="checklist">
-      <li>验证你的 Agent 平台在渲染 iframe 时使用了 <code>sandbox="allow-scripts allow-same-origin"</code></li>
       <li>测试不同嵌入宽度下的响应式表现</li>
       <li>确认嵌入页面没有使用 <code>document.cookie</code>、<code>window.top</code> 或 <code>window.opener</code></li>
       <li>处理边界情况：无效 URL 参数、慢网络、空状态</li>
