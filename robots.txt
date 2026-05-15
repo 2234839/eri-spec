@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://2234839.github.io/eri-spec/sitemap.xml

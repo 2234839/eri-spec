@@ -3,7 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ERI Demo — Embedded Result Interface</title>
+  <title>ERI — Embedded Result Interface: Interactive AI Agent Output</title>
+  <meta name="description" content="ERI (Embedded Result Interface) lets AI Agents embed interactive UI in conversations instead of plain text. Try the live demo — no SDKs, no protocols, just a URL.">
+  <meta name="keywords" content="ERI, Embedded Result Interface, AI Agent, interactive UI, iframe embed, agent output, A2UI, skill pattern">
+  <meta property="og:title" content="ERI — Embedded Result Interface">
+  <meta property="og:description" content="See how AI Agents can embed interactive UI instead of plain text. Live demo with NoteCalc calculator.">
+  <meta property="og:url" content="https://2234839.github.io/eri-spec/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ERI Spec">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ERI — Embedded Result Interface">
+  <meta name="twitter:description" content="See how AI Agents can embed interactive UI instead of plain text. Live demo.">
+  <link rel="canonical" href="https://2234839.github.io/eri-spec/">
+  <link rel="alternate" hreflang="zh" href="https://2234839.github.io/eri-spec/">
+  <link rel="alternate" hreflang="en" href="https://2234839.github.io/eri-spec/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareSourceCode",
+    "name": "ERI — Embedded Result Interface",
+    "description": "A Skill authoring pattern that enables AI Agents to embed interactive UI (iframe/screenshot) instead of plain text output.",
+    "programmingLanguage": "Markdown",
+    "codeRepository": "https://github.com/2234839/eri-spec",
+    "license": "https://opensource.org/licenses/MIT",
+    "version": "1.0"
+  }
+  </script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -406,6 +431,7 @@
       .input-area { padding: 12px; }
       .header { padding: 10px 12px; }
       .header h1 { font-size: 14px; }
+      .eri-embed iframe { height: 220px; }
     }
   </style>
 </head>
@@ -417,8 +443,8 @@
     </div>
     <div style="display:flex;gap:12px;align-items:center;">
       <a href="https://github.com/2234839/eri-spec">GitHub</a>
-      <a href="./SPEC.md" data-i18n="nav.spec">Spec</a>
-      <a href="./BLOG.md" data-i18n="nav.blog">Blog</a>
+      <a href="./docs/spec.html" data-i18n="nav.spec">Spec</a>
+      <a href="./docs/blog.html" data-i18n="nav.blog">Blog</a>
       <button class="lang-switch" onclick="toggleLang()" id="langBtn">中文</button>
       <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn" title="Toggle theme">🌙</button>
       <button class="settings-toggle" onclick="toggleSettings()">⚙ <span data-i18n="nav.settings">Settings</span></button>

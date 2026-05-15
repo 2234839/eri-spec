@@ -3,7 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ERI 规范</title>
+  <title>ERI 规范 — 嵌入式结果界面 v1.0</title>
+  <meta name="description" content="ERI（嵌入式结果界面）规范 v1.0。一种 Skill 编写模式，让 AI Agent 输出可交互的嵌入式 UI（iframe/截图），而非纯文本。">
+  <meta name="keywords" content="ERI, 嵌入式结果界面, AI Agent, 交互式 UI, iframe 嵌入, Skill 模式, Agent 输出, 规范">
+  <meta property="og:title" content="ERI 规范 — 嵌入式结果界面 v1.0">
+  <meta property="og:description" content="一种 Skill 编写模式，让 AI Agent 输出可交互的嵌入式 UI 而非纯文本。无需新协议、无需 SDK，只需一个 skill.md。">
+  <meta property="og:url" content="https://2234839.github.io/eri-spec/docs/spec.zh.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="ERI Spec">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ERI 规范 — 嵌入式结果界面 v1.0">
+  <meta name="twitter:description" content="一种 Skill 编写模式，让 AI Agent 输出可交互的嵌入式 UI 而非纯文本。">
+  <link rel="canonical" href="https://2234839.github.io/eri-spec/docs/spec.zh.html">
+  <link rel="alternate" hreflang="en" href="https://2234839.github.io/eri-spec/docs/spec.html">
+  <link rel="alternate" hreflang="zh" href="https://2234839.github.io/eri-spec/docs/spec.zh.html">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "ERI 规范 — 嵌入式结果界面 v1.0",
+    "description": "一种 Skill 编写模式，让 AI Agent 输出可交互的嵌入式 UI（iframe/截图），而非纯文本。",
+    "version": "1.0",
+    "license": "https://opensource.org/licenses/MIT"
+  }
+  </script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root { --accent: #6366f1; --accent-hover: #818cf8; }
@@ -20,11 +43,9 @@
     .header button:hover { color: var(--text); }
     .header-right { display: flex; gap: 8px; align-items: center; }
     .doc-content { max-width: 800px; margin: 0 auto; padding: 32px 20px 80px; }
-    .loading { text-align: center; padding: 80px 0; color: var(--text-dim); }
     .doc-content h1 { font-size: 1.8em; margin: 24px 0 8px; }
     .doc-content h2 { font-size: 1.4em; margin: 32px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
     .doc-content h3 { font-size: 1.15em; margin: 20px 0 8px; }
-    .doc-content h4 { font-size: 1em; margin: 16px 0 6px; }
     .doc-content p { margin: 8px 0; }
     .doc-content ul, .doc-content ol { margin: 8px 0 8px 24px; }
     .doc-content li { margin: 4px 0; }
@@ -32,22 +53,19 @@
     .doc-content code { background: var(--code-bg); padding: 2px 6px; border-radius: 3px; font-size: 0.9em; font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; }
     .doc-content pre { background: var(--code-bg); padding: 16px; border-radius: 8px; overflow-x: auto; margin: 12px 0; border: 1px solid var(--border); }
     .doc-content pre code { background: none; padding: 0; font-size: 0.88em; }
-    .doc-content blockquote { border-left: 3px solid var(--accent); padding: 4px 16px; margin: 12px 0; color: var(--text-dim); }
     .doc-content table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 0.95em; }
     .doc-content th, .doc-content td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
     .doc-content th { background: var(--surface-2); }
     .doc-content hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
-    .doc-content img { max-width: 100%; border-radius: 8px; }
+    .meta { color: var(--text-dim); font-size: 0.9em; margin: 4px 0 16px; }
     @media (max-width: 640px) { .doc-content { padding: 20px 12px 60px; } }
   </style>
 </head>
 <body>
   <div class="header">
-    <div class="header-left">
-      <h1>ERI</h1>
-    </div>
+    <div class="header-left"><h1>ERI</h1></div>
     <div class="header-right">
-      <a href="./">演示</a>
+      <a href="../">演示</a>
       <a href="./spec.zh.html" class="active">规范</a>
       <a href="./blog.zh.html">博客</a>
       <a href="https://github.com/2234839/eri-spec">GitHub</a>
@@ -55,8 +73,170 @@
       <button onclick="toggleTheme()" id="themeBtn">🌙</button>
     </div>
   </div>
-  <div class="doc-content" id="content"><div class="loading">加载中...</div></div>
-  <script src="./md.js"></script>
+  <div class="doc-content">
+    <h1>ERI 规范 — Embedded Result Interface</h1>
+    <p class="meta"><strong>版本</strong>：1.0 &nbsp;|&nbsp; <strong>状态</strong>：Stable &nbsp;|&nbsp; <strong>许可</strong>：MIT</p>
+
+    <h2>1. 定义</h2>
+    <p>ERI（Embedded Result Interface，嵌入式结果界面）是一种 Skill 编写模式。Agent 处理用户请求后，输出一个可交互的嵌入式 UI（iframe 或截图），而不是（或不仅是）纯文本。用户可以直接在该 UI 上进行交互。</p>
+    <p>核心约束：</p>
+    <ul>
+      <li><strong>无新协议、无新字段</strong>——仅通过 <code>skill.md</code> 中的约定写法实现</li>
+      <li><strong>Agent 不主动监听</strong>已输出的界面——每次新指令生成全新界面</li>
+      <li><strong>第三方应用独立运行</strong>——只需提供一个 HTTPS 页面</li>
+    </ul>
+
+    <h2>2. 工作流</h2>
+    <pre><code>┌─────────────┐    ┌──────────────┐    ┌──────────────┐    ┌──────────────┐
+│  1. 理解意图  │ →  │ 2. 调用 API   │ →  │ 3. 构造嵌入   │ →  │ 4. 输出 UI    │
+│  提取参数     │    │  获取结构数据  │    │    URL        │    │  iframe/截图  │
+└─────────────┘    └──────────────┘    └──────────────┘    └──────────────┘</code></pre>
+
+    <h3>2.1 理解意图</h3>
+    <p>Agent 从用户输入中提取结构化参数。例如：</p>
+    <ul>
+      <li>"帮我算 3 件商品，每件 99.5 元" → 表达式 <code>99.5 * 3</code></li>
+      <li>"5 公斤等于多少克" → 单位转换 <code>5 kg to g</code></li>
+    </ul>
+
+    <h3>2.2 调用 API</h3>
+    <p>Agent 调用第三方应用的 API 获取计算结果。API 返回结构化的 JSON。</p>
+    <pre><code>POST /api/calculate
+Body: {"content": "99.5 * 3"}
+Response: {"result": 298.5}</code></pre>
+
+    <h3>2.3 构造嵌入 URL</h3>
+    <p>将初始数据编码到 URL 中（hash 参数、query 参数、或后端会话）。</p>
+    <pre><code>https://app.example.com/embed#99.5 * 3</code></pre>
+
+    <h3>2.4 输出 UI</h3>
+    <p>优先级：<strong>iframe &gt; 截图 &gt; 纯文本</strong></p>
+
+    <p><strong>iframe 模式（Level 2）</strong></p>
+    <pre><code>&lt;iframe src="https://app.example.com/embed#encoded_data" width="100%" height="400"&gt;&lt;/iframe&gt;</code></pre>
+    <p>安全属性由 Agent 平台自动添加（<code>sandbox</code> 等）。</p>
+
+    <p><strong>截图模式（Level 1）</strong></p>
+    <pre><code>https://api.microlink.io/?url={encoded_embed_url}&amp;screenshot=true&amp;embed=screenshot.url</code></pre>
+
+    <p><strong>纯文本模式（Level 0）</strong></p>
+    <p>直接输出文本结果（兜底方案，退化为传统模式）。</p>
+
+    <h2>3. 对话流程</h2>
+    <p>用户在嵌入式界面上的修改不会自动通知 Agent。当用户发起新一轮对话时：</p>
+    <ol>
+      <li>Agent 从对话上下文中读取上一次的结果</li>
+      <li>结合新输入，重新调用 API</li>
+      <li>输出全新的嵌入式界面（不更新旧界面）</li>
+    </ol>
+    <pre><code>用户: "帮我算 3 件商品，每件 99.5 元"
+Agent: [输出 iframe: 99.5 * 3 = 298.5]
+
+（用户在 iframe 中修改数值，Agent 不感知）
+
+用户: "再加上 8% 的税"
+Agent: 读取上下文 last_result=298.5，计算 298.5 * 1.08
+       [输出新 iframe: 298.5 * 1.08 = 322.38]</code></pre>
+
+    <h2>4. Skill 编写</h2>
+    <p>一个最小化的 ERI Skill（<code>skill.md</code>）：</p>
+    <pre><code>---
+name: 工具名称
+description: 工具描述
+---
+## 工作流
+1. 从用户输入中提取参数
+2. 调用 API：POST https://api.example.com/calculate
+   Body: {"expr": "表达式"}
+3. 构造嵌入 URL：https://app.example.com/embed#URLEncoded(expr)
+4. 输出 UI（优先级：iframe &gt; 截图 &gt; 纯文本）</code></pre>
+    <p>Agent 读取这个工作流，执行每一步，输出 iframe 或截图。</p>
+
+    <h3>API 契约</h3>
+    <p>Agent 像任何 HTTP 客户端一样调用第三方 API：</p>
+    <pre><code>POST https://api.example.com/calculate
+Content-Type: application/json
+{"expr": "99.5 * 3"}
+→ {"result": 298.5}</code></pre>
+
+    <h2>5. 嵌入式页面要求</h2>
+    <table>
+      <thead><tr><th>要求</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td>HTTPS</td><td>必须使用 HTTPS</td></tr>
+        <tr><td>URL 参数读取</td><td>能从 URL hash / query 中读取初始状态</td></tr>
+        <tr><td>自包含</td><td>页面内所有交互自行处理，不依赖宿主</td></tr>
+        <tr><td>响应式</td><td>适应不同宽度的嵌入容器</td></tr>
+        <tr><td>无外部依赖</td><td>不依赖宿主页面的 JS/CSS</td></tr>
+      </tbody>
+    </table>
+    <p>可选增强：</p>
+    <table>
+      <thead><tr><th>能力</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td><code>postMessage</code> 通信</td><td>iframe 内变化可通过 postMessage 通知宿主</td></tr>
+        <tr><td>主题适配</td><td>读取 URL 参数或宿主颜色方案适配明暗主题</td></tr>
+      </tbody>
+    </table>
+
+    <h2>6. 安全</h2>
+    <h3>Agent 平台侧</h3>
+    <ul>
+      <li>iframe 必须添加 <code>sandbox</code> 属性限制权限</li>
+      <li>建议添加 <code>sandbox="allow-scripts allow-same-origin"</code></li>
+      <li>不应将用户凭证传递给第三方 iframe</li>
+    </ul>
+    <h3>第三方应用侧</h3>
+    <ul>
+      <li>不依赖 <code>document.cookie</code>（沙箱环境可能不可用）</li>
+      <li>不使用 <code>window.opener</code> 或 <code>window.top</code></li>
+      <li>所有输入做 XSS 防护</li>
+    </ul>
+
+    <h2>7. 渐进等级</h2>
+    <table>
+      <thead><tr><th>等级</th><th>能力</th><th>要求</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>纯文本输出</td><td>无</td></tr>
+        <tr><td>1</td><td>截图输出</td><td>嵌入页面 + 截图服务</td></tr>
+        <tr><td>2</td><td>iframe 嵌入</td><td>嵌入页面 + Agent 平台 iframe 支持</td></tr>
+        <tr><td>3</td><td>双向通信</td><td>Level 2 + postMessage 协议</td></tr>
+      </tbody>
+    </table>
+    <p>Level 3 的 postMessage 协议：</p>
+    <pre><code>// iframe → Agent 平台
+window.parent.postMessage({
+  type: "eri:valueChanged",
+  path: "field.path",
+  value: newValue
+}, "*");
+
+// Agent 平台 → iframe（可选）
+iframe.contentWindow.postMessage({
+  type: "eri:update",
+  data: { ... }
+}, "*");</code></pre>
+
+    <h2>8. 适用场景</h2>
+    <table>
+      <thead><tr><th>场景</th><th>示例</th></tr></thead>
+      <tbody>
+        <tr><td>计算工具</td><td>数学表达式、单位转换、货币换算</td></tr>
+        <tr><td>表单/问卷</td><td>Agent 生成表单，用户微调</td></tr>
+        <tr><td>数据可视化</td><td>Agent 生成图表，用户调整参数</td></tr>
+        <tr><td>文档编辑</td><td>Agent 生成草稿，用户直接编辑</td></tr>
+        <tr><td>设计工具</td><td>Agent 生成配色/布局，用户微调</td></tr>
+        <tr><td>代码编辑器</td><td>Agent 生成代码片段，用户修改</td></tr>
+      </tbody>
+    </table>
+
+    <h2>9. 反模式</h2>
+    <ul>
+      <li>纯信息查询——不需要交互</li>
+      <li>长文本生成——嵌入式编辑器不适合</li>
+      <li>需要实时同步的场景——ERI 是"快照式"输出，不是实时同步</li>
+    </ul>
+  </div>
   <script>
     (function() {
       const t = localStorage.getItem('eri-theme');
@@ -71,11 +251,6 @@
     }
     document.getElementById('themeBtn').textContent =
       document.documentElement.getAttribute('data-theme') === 'dark' ? '🌙' : '☀️';
-
-    fetch('../SPEC.zh.md')
-      .then(r => { if (!r.ok) throw new Error(); return r.text(); })
-      .then(src => { document.getElementById('content').innerHTML = md.parse(src); })
-      .catch(() => { document.getElementById('content').innerHTML = '<p>加载失败。</p>'; });
   </script>
 </body>
 </html>

@@ -189,4 +189,4 @@ Agent:
 
 - [Live NoteCalc](https://tsfullstack.heartstack.space/noteCalc)
 - [Embed page example](https://tsfullstack.heartstack.space/noteCalc/embed#price%20%3D%2099.5%5Cntotal%20%3D%20price%20*%203)
-- [Interactive demo with Agent](../docs/index.html)
+- [Interactive demo with Agent](https://2234839.github.io/eri-spec/)

@@ -36,15 +36,16 @@ description: 数学计算器，支持变量和单位转换。
 
 ## 有什么不同
 
-| | ERI | A2UI (Google) |
-|---|---|---|
-| **路径** | 通过 URL 嵌入已有应用 | Agent 以 JSON 声明 UI，客户端渲染 |
-| **Agent 需要** | 一个 `skill.md` | SDK + Schema 定义 |
-| **平台需要** | 渲染 iframe（已经有了） | A2UI 渲染器 + 组件目录 |
-| **第三方需要** | 一个 HTTPS 嵌入页面 | 组件目录 + A2UI Schema |
-| **成本** | 10 分钟 | 数天 |
+| | ERI | MCP Apps (Anthropic / OpenAI) | A2UI (Google) |
+|---|---|---|---|
+| **路径** | 通过 URL 嵌入已有应用 | MCP 生态中的沙箱 iframe 小应用 | Agent 以 JSON 声明 UI，客户端渲染 |
+| **Agent 需要** | 一个 `skill.md` | MCP 服务器 + 应用清单 | SDK + Schema 定义 |
+| **平台需要** | 渲染 iframe（已经有了） | MCP 运行时 + 沙箱 | A2UI 渲染器 + 组件目录 |
+| **第三方需要** | 一个 HTTPS 嵌入页面 | MCP 兼容的应用包 | 组件目录 + A2UI Schema |
+| **今天能用？** | 是——零集成 | 需要 MCP 采用 | 需要渲染器 |
+| **成本** | 10 分钟 | 数天 | 数天 |
 
-同一个目标——交互式 Agent 输出。不同的路。ERI 今天就能用。[读博客 →](./BLOG.zh.md)
+同一个终点——交互式 Agent 输出。三条路径。ERI 今天就能用。[读博客 →](./BLOG.zh.md)
 
 ## 文档
 

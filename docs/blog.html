@@ -3,7 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ERI Blog — Beyond Text</title>
+  <title>Beyond Text: Why AI Agents Need Interactive UI — ERI Blog</title>
+  <meta name="description" content="AI Agents solve input, but output is still trapped in text. ERI (Embedded Result Interface) lets Agents embed interactive UI in conversations. No SDKs, no protocols — just a URL.">
+  <meta name="keywords" content="ERI, AI Agent, interactive UI, iframe embed, agent output, A2UI, embedded interface, beyond text">
+  <meta property="og:title" content="Beyond Text: Why AI Agents Need Interactive UI">
+  <meta property="og:description" content="AI Agents solve input, but output is still trapped in text. ERI lets Agents embed interactive UI in conversations — no SDKs, no protocols, just a URL.">
+  <meta property="og:url" content="https://2234839.github.io/eri-spec/docs/blog.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="ERI Spec">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Beyond Text: Why AI Agents Need Interactive UI">
+  <meta name="twitter:description" content="AI Agents solve input, but output is still trapped in text. ERI lets Agents embed interactive UI — no SDKs, just a URL.">
+  <link rel="canonical" href="https://2234839.github.io/eri-spec/docs/blog.html">
+  <link rel="alternate" hreflang="zh" href="https://2234839.github.io/eri-spec/docs/blog.zh.html">
+  <link rel="alternate" hreflang="en" href="https://2234839.github.io/eri-spec/docs/blog.html">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Beyond Text: Why AI Agents Need Interactive UI",
+    "description": "AI Agents solve input, but output is still trapped in text. ERI lets Agents embed interactive UI in conversations.",
+    "datePublished": "2026-05-15"
+  }
+  </script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root { --accent: #6366f1; --accent-hover: #818cf8; }
@@ -20,34 +42,30 @@
     .header button:hover { color: var(--text); }
     .header-right { display: flex; gap: 8px; align-items: center; }
     .doc-content { max-width: 800px; margin: 0 auto; padding: 32px 20px 80px; }
-    .loading { text-align: center; padding: 80px 0; color: var(--text-dim); }
     .doc-content h1 { font-size: 1.8em; margin: 24px 0 8px; }
     .doc-content h2 { font-size: 1.4em; margin: 32px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
-    .doc-content h3 { font-size: 1.15em; margin: 20px 0 8px; }
-    .doc-content h4 { font-size: 1em; margin: 16px 0 6px; }
     .doc-content p { margin: 8px 0; }
-    .doc-content ul, .doc-content ol { margin: 8px 0 8px 24px; }
+    .doc-content ul { margin: 8px 0 8px 24px; }
     .doc-content li { margin: 4px 0; }
     .doc-content a { color: var(--accent); }
     .doc-content code { background: var(--code-bg); padding: 2px 6px; border-radius: 3px; font-size: 0.9em; font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; }
     .doc-content pre { background: var(--code-bg); padding: 16px; border-radius: 8px; overflow-x: auto; margin: 12px 0; border: 1px solid var(--border); }
     .doc-content pre code { background: none; padding: 0; font-size: 0.88em; }
-    .doc-content blockquote { border-left: 3px solid var(--accent); padding: 4px 16px; margin: 12px 0; color: var(--text-dim); }
     .doc-content table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 0.95em; }
     .doc-content th, .doc-content td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
     .doc-content th { background: var(--surface-2); }
     .doc-content hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
-    .doc-content img { max-width: 100%; border-radius: 8px; }
+    .doc-content strong { color: var(--text); }
+    .meta { color: var(--text-dim); font-size: 0.9em; margin: 4px 0 16px; }
+    .footnote { color: var(--text-dim); font-size: 0.9em; margin-top: 32px; }
     @media (max-width: 640px) { .doc-content { padding: 20px 12px 60px; } }
   </style>
 </head>
 <body>
   <div class="header">
-    <div class="header-left">
-      <h1>ERI</h1>
-    </div>
+    <div class="header-left"><h1>ERI</h1></div>
     <div class="header-right">
-      <a href="./">Demo</a>
+      <a href="../">Demo</a>
       <a href="./spec.html">Spec</a>
       <a href="./blog.html" class="active">Blog</a>
       <a href="https://github.com/2234839/eri-spec">GitHub</a>
@@ -55,8 +73,69 @@
       <button onclick="toggleTheme()" id="themeBtn">🌙</button>
     </div>
   </div>
-  <div class="doc-content" id="content"><div class="loading">Loading...</div></div>
-  <script src="./md.js"></script>
+  <div class="doc-content">
+    <h1>Beyond Text: Why AI Agents Need Interactive UI</h1>
+    <p class="meta">Published: 2026-05-15</p>
+
+    <h2>The Text Trap</h2>
+    <p>Every AI Agent today has the same problem. You ask it to calculate something, and it responds with:</p>
+    <pre><code>99.5 × 3 = 298.5</code></pre>
+    <p>Correct. But now you want to see 4 items. Or 5. Or with 8% tax. Each variation means another round of conversation — describe what changed, wait for a response, describe the next change.</p>
+    <p>The problem isn't accuracy. The problem is the medium.</p>
+    <p>It's not just calculations. When an Agent generates a chart, you want to adjust the axes. When it creates a form, you want to tweak the fields. When it picks colors, you want to drag the sliders. Every time, the Agent forces you back into text — when what you need is a UI.</p>
+    <p>The ecosystem has solved input — natural language, tool calls, multimodal. It hasn't solved output. Everything comes back as text.</p>
+
+    <h2>Enter ERI</h2>
+    <p>ERI (Embedded Result Interface) is a convention for making Agent output interactive. The Agent calls a third-party API, constructs an embed URL, and outputs an iframe or screenshot. The user interacts directly — no Agent in the loop.</p>
+    <p>No new protocols. No SDKs. Just a <code>skill.md</code>.</p>
+    <pre><code>---
+name: notecalc
+description: Math calculator with variables and unit conversion.
+---
+
+## Workflow
+1. Parse user request into expressions
+2. Call POST /api/calculate with expressions
+3. Embed result as iframe: https://app.com/embed#encoded_expr</code></pre>
+    <p>10 minutes to write. Half a day for the embed page. Zero platform changes. <a href="./spec.html">Level 1 (screenshot)</a> works everywhere today — no platform support needed. Ship it, upgrade to Level 2 (iframe) when ready. Nothing breaks.</p>
+    <p>Try it: <a href="https://2234839.github.io/eri-spec/">2234839.github.io/eri-spec/</a></p>
+
+    <h2>Three Paths to Interactive Agent Output</h2>
+    <p>The industry is converging on the same problem from three directions:</p>
+    <table>
+      <thead><tr><th></th><th>ERI</th><th>MCP Apps (Anthropic / OpenAI)</th><th>A2UI (Google)</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Approach</strong></td><td>Embed existing apps via URL</td><td>Sandboxed iframe mini-apps in MCP</td><td>Agent declares UI as JSON, client renders</td></tr>
+        <tr><td><strong>Agent needs</strong></td><td>A <code>skill.md</code> file</td><td>MCP server + app manifest</td><td>SDK + schema definition</td></tr>
+        <tr><td><strong>Platform needs</strong></td><td>Render iframes (already done)</td><td>MCP runtime + sandbox</td><td>A2UI renderer + widget catalog</td></tr>
+        <tr><td><strong>Third party needs</strong></td><td>An HTTPS embed page</td><td>MCP-compatible app package</td><td>Component catalog + A2UI schema</td></tr>
+        <tr><td><strong>Works today?</strong></td><td>Yes — zero integration</td><td>Requires MCP adoption</td><td>Requires renderer</td></tr>
+        <tr><td><strong>Effort</strong></td><td>10 min</td><td>Days</td><td>Days</td></tr>
+      </tbody>
+    </table>
+    <p><strong>MCP Apps</strong> (Anthropic &amp; OpenAI, 2025) standardize interactive UI within the MCP ecosystem — sandboxed iframes that behave like mini-apps. The right answer if you're building for MCP-first platforms.</p>
+    <p><strong>A2UI</strong> (Google, 2025) takes a declarative, cross-platform path — Agent sends JSON component descriptions, client libraries (Flutter, Web Components) render natively. The right answer for platforms building their own rendering pipeline.</p>
+    <p><strong>ERI</strong> takes the simplest path — embed what already exists. An app with a web UI can appear in Agent conversations in half a day. No SDKs, no schemas, no renderers, no MCP integration. Just a URL. Ship today, adopt MCP Apps or A2UI later. All three converge at the same destination.</p>
+    <pre><code>┌──────────────────────────────────────────────────────┐
+│                  Agent Output Layer                    │
+│                                                       │
+│   Level 2: User interacts directly                    │
+│   ┌───────────┐  ┌───────────────┐  ┌─────────────┐ │
+│   │    ERI    │  │   MCP Apps    │  │    A2UI     │  │
+│   │ embed URL │  │ sandboxed     │  │ JSON schema │  │
+│   │ → iframe  │  │ iframe apps   │  │ + renderer  │  │
+│   └───────────┘  └───────────────┘  └─────────────┘ │
+│                                                       │
+│   Level 1: Screenshot (ERI fallback)                  │
+│   Level 0: Plain text (status quo)                    │
+├──────────────────────────────────────────────────────┤
+│                Tool Invocation Layer                   │
+│   MCP  ·  Function Calling  ·  REST                  │
+└──────────────────────────────────────────────────────┘</code></pre>
+
+    <hr>
+    <p class="footnote">ERI is MIT licensed. <a href="./spec.html">Read the spec</a>, write a Skill, embed a URL.</p>
+  </div>
   <script>
     (function() {
       const t = localStorage.getItem('eri-theme');
@@ -71,11 +150,6 @@
     }
     document.getElementById('themeBtn').textContent =
       document.documentElement.getAttribute('data-theme') === 'dark' ? '🌙' : '☀️';
-
-    fetch('../BLOG.md')
-      .then(r => { if (!r.ok) throw new Error(); return r.text(); })
-      .then(src => { document.getElementById('content').innerHTML = md.parse(src); })
-      .catch(() => { document.getElementById('content').innerHTML = '<p>Failed to load blog post.</p>'; });
   </script>
 </body>
 </html>

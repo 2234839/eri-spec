@@ -3,7 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ERI Specification</title>
+  <title>ERI Specification — Embedded Result Interface v1.0</title>
+  <meta name="description" content="ERI (Embedded Result Interface) specification v1.0. A Skill authoring pattern for AI Agents to embed interactive UI (iframe/screenshot) instead of plain text.">
+  <meta name="keywords" content="ERI, Embedded Result Interface, AI Agent, interactive UI, iframe embed, skill pattern, agent output, specification">
+  <meta property="og:title" content="ERI Specification — Embedded Result Interface v1.0">
+  <meta property="og:description" content="A Skill authoring pattern for AI Agents to embed interactive UI instead of plain text. No new protocols, no SDKs, just a skill.md.">
+  <meta property="og:url" content="https://2234839.github.io/eri-spec/docs/spec.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="ERI Spec">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ERI Specification — Embedded Result Interface v1.0">
+  <meta name="twitter:description" content="A Skill authoring pattern for AI Agents to embed interactive UI instead of plain text.">
+  <link rel="canonical" href="https://2234839.github.io/eri-spec/docs/spec.html">
+  <link rel="alternate" hreflang="zh" href="https://2234839.github.io/eri-spec/docs/spec.zh.html">
+  <link rel="alternate" hreflang="en" href="https://2234839.github.io/eri-spec/docs/spec.html">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "ERI Specification — Embedded Result Interface v1.0",
+    "description": "A Skill authoring pattern for AI Agents to embed interactive UI (iframe/screenshot) instead of plain text.",
+    "version": "1.0",
+    "license": "https://opensource.org/licenses/MIT"
+  }
+  </script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root { --accent: #6366f1; --accent-hover: #818cf8; }
@@ -20,11 +43,9 @@
     .header button:hover { color: var(--text); }
     .header-right { display: flex; gap: 8px; align-items: center; }
     .doc-content { max-width: 800px; margin: 0 auto; padding: 32px 20px 80px; }
-    .loading { text-align: center; padding: 80px 0; color: var(--text-dim); }
     .doc-content h1 { font-size: 1.8em; margin: 24px 0 8px; }
     .doc-content h2 { font-size: 1.4em; margin: 32px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
     .doc-content h3 { font-size: 1.15em; margin: 20px 0 8px; }
-    .doc-content h4 { font-size: 1em; margin: 16px 0 6px; }
     .doc-content p { margin: 8px 0; }
     .doc-content ul, .doc-content ol { margin: 8px 0 8px 24px; }
     .doc-content li { margin: 4px 0; }
@@ -32,22 +53,19 @@
     .doc-content code { background: var(--code-bg); padding: 2px 6px; border-radius: 3px; font-size: 0.9em; font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; }
     .doc-content pre { background: var(--code-bg); padding: 16px; border-radius: 8px; overflow-x: auto; margin: 12px 0; border: 1px solid var(--border); }
     .doc-content pre code { background: none; padding: 0; font-size: 0.88em; }
-    .doc-content blockquote { border-left: 3px solid var(--accent); padding: 4px 16px; margin: 12px 0; color: var(--text-dim); }
     .doc-content table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 0.95em; }
     .doc-content th, .doc-content td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
     .doc-content th { background: var(--surface-2); }
     .doc-content hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
-    .doc-content img { max-width: 100%; border-radius: 8px; }
+    .meta { color: var(--text-dim); font-size: 0.9em; margin: 4px 0 16px; }
     @media (max-width: 640px) { .doc-content { padding: 20px 12px 60px; } }
   </style>
 </head>
 <body>
   <div class="header">
-    <div class="header-left">
-      <h1>ERI</h1>
-    </div>
+    <div class="header-left"><h1>ERI</h1></div>
     <div class="header-right">
-      <a href="./">Demo</a>
+      <a href="../">Demo</a>
       <a href="./spec.html" class="active">Spec</a>
       <a href="./blog.html">Blog</a>
       <a href="https://github.com/2234839/eri-spec">GitHub</a>
@@ -55,10 +73,171 @@
       <button onclick="toggleTheme()" id="themeBtn">🌙</button>
     </div>
   </div>
-  <div class="doc-content" id="content"><div class="loading">Loading...</div></div>
-  <script src="./md.js"></script>
+  <div class="doc-content">
+    <h1>ERI Specification — Embedded Result Interface</h1>
+    <p class="meta"><strong>Version</strong>: 1.0 &nbsp;|&nbsp; <strong>Status</strong>: Stable &nbsp;|&nbsp; <strong>License</strong>: MIT</p>
+
+    <h2>1. Definition</h2>
+    <p>ERI (Embedded Result Interface) is a Skill authoring pattern. After an Agent processes a user request, it outputs an interactive embedded UI (iframe or screenshot) instead of (or in addition to) plain text. The user can directly interact with this UI.</p>
+    <p>Core constraints:</p>
+    <ul>
+      <li><strong>No new protocol, no new fields</strong> — implemented through conventions in <code>skill.md</code></li>
+      <li><strong>Agent does not actively monitor</strong> the output UI — each new instruction generates a fresh UI</li>
+      <li><strong>Third-party app runs independently</strong> — only needs to provide an HTTPS page</li>
+    </ul>
+
+    <h2>2. Workflow</h2>
+    <pre><code>┌──────────────┐    ┌──────────────┐    ┌──────────────┐    ┌──────────────┐
+│ 1. Understand │ →  │ 2. Call API  │ →  │ 3. Construct │ →  │ 4. Output UI │
+│    intent     │    │              │    │   embed URL  │    │  iframe/img  │
+└──────────────┘    └──────────────┘    └──────────────┘    └──────────────┘</code></pre>
+
+    <h3>2.1 Understand Intent</h3>
+    <p>The Agent extracts structured parameters from user input. For example:</p>
+    <ul>
+      <li>"Calculate 3 items at $99.5 each" → expression <code>99.5 * 3</code></li>
+      <li>"Convert 5 kg to grams" → unit conversion <code>5 kg to g</code></li>
+    </ul>
+
+    <h3>2.2 Call API</h3>
+    <p>The Agent calls the third-party app's API to compute results. The API returns structured JSON.</p>
+    <pre><code>POST /api/calculate
+Body: {"content": "99.5 * 3"}
+Response: {"result": 298.5}</code></pre>
+
+    <h3>2.3 Construct Embed URL</h3>
+    <p>Encode the initial data into the URL (hash params, query params, or backend session).</p>
+    <pre><code>https://app.example.com/embed#99.5 * 3</code></pre>
+
+    <h3>2.4 Output UI</h3>
+    <p>Priority: <strong>iframe &gt; screenshot &gt; plain text</strong></p>
+
+    <p><strong>iframe mode (Level 2)</strong></p>
+    <pre><code>&lt;iframe src="https://app.example.com/embed#encoded_data" width="100%" height="400"&gt;&lt;/iframe&gt;</code></pre>
+    <p>Security attributes are added automatically by the Agent platform (<code>sandbox</code>, etc.).</p>
+
+    <p><strong>Screenshot mode (Level 1)</strong></p>
+    <pre><code>https://api.microlink.io/?url={encoded_embed_url}&amp;screenshot=true&amp;embed=screenshot.url</code></pre>
+
+    <p><strong>Plain text mode (Level 0)</strong></p>
+    <p>Output text results directly (fallback, degrades to traditional mode).</p>
+
+    <h2>3. Conversation Flow</h2>
+    <p>User modifications in the embedded UI do not automatically notify the Agent. When the user starts a new turn:</p>
+    <ol>
+      <li>The Agent reads previous results from conversation context</li>
+      <li>Combines the new input with previous context, calls the API again</li>
+      <li>Outputs a brand new embedded UI (does not update the old one)</li>
+    </ol>
+    <pre><code>User: "Calculate 3 items at $99.5 each"
+Agent: [outputs iframe: 99.5 * 3 = 298.5]
+
+(user modifies values in the iframe — Agent is unaware)
+
+User: "Add 8% tax"
+Agent: Reads context last_result=298.5, computes 298.5 * 1.08
+       [outputs new iframe: 298.5 * 1.08 = 322.38]</code></pre>
+
+    <h2>4. Skill Authoring</h2>
+    <p>A minimal ERI Skill in <code>skill.md</code>:</p>
+    <pre><code>---
+name: tool-name
+description: What this Skill does
+---
+## Workflow
+1. Extract parameters from user input
+2. Call API: POST https://api.example.com/calculate
+   Body: {"expr": "expression"}
+3. Construct embed URL: https://app.example.com/embed#URLEncoded(expr)
+4. Output UI (priority: iframe &gt; screenshot &gt; plain text)</code></pre>
+    <p>The Agent reads this workflow, executes each step, and outputs an iframe or screenshot.</p>
+
+    <h3>API Contract</h3>
+    <p>The Agent calls the third-party API exactly as any HTTP client would:</p>
+    <pre><code>POST https://api.example.com/calculate
+Content-Type: application/json
+{"expr": "99.5 * 3"}
+→ {"result": 298.5}</code></pre>
+
+    <h2>5. Embed Page Requirements</h2>
+    <table>
+      <thead><tr><th>Requirement</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>HTTPS</td><td>Must serve over HTTPS</td></tr>
+        <tr><td>URL param reading</td><td>Read initial state from URL hash / query</td></tr>
+        <tr><td>Self-contained</td><td>Handle all interactions internally, no host dependencies</td></tr>
+        <tr><td>Responsive</td><td>Adapt to different embed container widths</td></tr>
+        <tr><td>No external deps</td><td>Don't depend on host page's JS/CSS</td></tr>
+      </tbody>
+    </table>
+    <p>Optional enhancements:</p>
+    <table>
+      <thead><tr><th>Capability</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><code>postMessage</code></td><td>Notify host of changes inside the iframe</td></tr>
+        <tr><td>Theme adaptation</td><td>Read URL params or host colors to match light/dark theme</td></tr>
+      </tbody>
+    </table>
+
+    <h2>6. Security</h2>
+    <h3>Agent platform side</h3>
+    <ul>
+      <li>iframes must include <code>sandbox</code> attribute to restrict permissions</li>
+      <li>Recommended: <code>sandbox="allow-scripts allow-same-origin"</code></li>
+      <li>User credentials must not be passed to third-party iframes</li>
+    </ul>
+    <h3>Third-party app side</h3>
+    <ul>
+      <li>Don't rely on <code>document.cookie</code> (may be unavailable in sandbox)</li>
+      <li>Don't use <code>window.opener</code> or <code>window.top</code></li>
+      <li>Sanitize all inputs against XSS</li>
+    </ul>
+
+    <h2>7. Progressive Levels</h2>
+    <table>
+      <thead><tr><th>Level</th><th>Capability</th><th>Requirements</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>Plain text output</td><td>None</td></tr>
+        <tr><td>1</td><td>Screenshot output</td><td>Embed page + screenshot service</td></tr>
+        <tr><td>2</td><td>iframe embedding</td><td>Embed page + Agent platform iframe support</td></tr>
+        <tr><td>3</td><td>Bidirectional communication</td><td>Level 2 + postMessage protocol</td></tr>
+      </tbody>
+    </table>
+    <p>Level 3 postMessage protocol:</p>
+    <pre><code>// iframe → Agent platform
+window.parent.postMessage({
+  type: "eri:valueChanged",
+  path: "field.path",
+  value: newValue
+}, "*");
+
+// Agent platform → iframe (optional)
+iframe.contentWindow.postMessage({
+  type: "eri:update",
+  data: { ... }
+}, "*");</code></pre>
+
+    <h2>8. Use Cases</h2>
+    <table>
+      <thead><tr><th>Scenario</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>Calculators</td><td>Math expressions, unit conversion, currency exchange</td></tr>
+        <tr><td>Forms &amp; Surveys</td><td>Agent generates a form, user tweaks it</td></tr>
+        <tr><td>Data Visualization</td><td>Agent creates a chart, user adjusts parameters</td></tr>
+        <tr><td>Document Editing</td><td>Agent drafts content, user edits directly</td></tr>
+        <tr><td>Design Tools</td><td>Agent generates a color palette, user fine-tunes</td></tr>
+        <tr><td>Code Editors</td><td>Agent generates a snippet, user modifies it</td></tr>
+      </tbody>
+    </table>
+
+    <h2>9. Anti-Patterns</h2>
+    <ul>
+      <li>Pure information queries — no interaction needed</li>
+      <li>Long-form text generation — embed editors aren't suitable</li>
+      <li>Real-time sync scenarios — ERI is snapshot-based, not real-time</li>
+    </ul>
+  </div>
   <script>
-    /** Read persisted theme */
     (function() {
       const t = localStorage.getItem('eri-theme');
       if (t) document.documentElement.setAttribute('data-theme', t);
@@ -70,14 +249,8 @@
       localStorage.setItem('eri-theme', next);
       document.getElementById('themeBtn').textContent = next === 'dark' ? '🌙' : '☀️';
     }
-    /** Init theme button icon */
     document.getElementById('themeBtn').textContent =
       document.documentElement.getAttribute('data-theme') === 'dark' ? '🌙' : '☀️';
-
-    fetch('../SPEC.md')
-      .then(r => { if (!r.ok) throw new Error(); return r.text(); })
-      .then(src => { document.getElementById('content').innerHTML = md.parse(src); })
-      .catch(() => { document.getElementById('content').innerHTML = '<p>Failed to load specification.</p>'; });
   </script>
 </body>
 </html>

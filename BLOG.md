@@ -44,39 +44,42 @@ description: Math calculator with variables and unit conversion.
 
 Try it: [2234839.github.io/eri-spec/](https://2234839.github.io/eri-spec/)
 
-## ERI vs A2UI
+## Three Paths to Interactive Agent Output
 
-Two paths to interactive Agent output:
+The industry is converging on the same problem from three directions:
 
-| | ERI | A2UI (Google) |
-|---|---|---|
-| **Approach** | Embed existing apps via URL | Agent declares UI as JSON, client renders |
-| **Agent needs** | A `skill.md` file | SDK + schema definition |
-| **Platform needs** | Render iframes (already done) | A2UI renderer + widget catalog |
-| **Third party needs** | An HTTPS embed page | Component catalog + A2UI schema |
-| **Effort** | 10 min | Days |
+| | ERI | MCP Apps (Anthropic / OpenAI) | A2UI (Google) |
+|---|---|---|---|
+| **Approach** | Embed existing apps via URL | Sandboxed iframe mini-apps in MCP | Agent declares UI as JSON, client renders |
+| **Agent needs** | A `skill.md` file | MCP server + app manifest | SDK + schema definition |
+| **Platform needs** | Render iframes (already done) | MCP runtime + sandbox | A2UI renderer + widget catalog |
+| **Third party needs** | An HTTPS embed page | MCP-compatible app package | Component catalog + A2UI schema |
+| **Works today?** | Yes — zero integration | Requires MCP adoption | Requires renderer |
+| **Effort** | 10 min | Days | Days |
 
-A2UI is the right answer for platforms building their own rendering pipeline. But it takes days of integration and platform buy-in before anything appears on screen.
+**MCP Apps** (Anthropic & OpenAI, 2025) standardize interactive UI within the MCP ecosystem — sandboxed iframes that behave like mini-apps. The right answer if you're building for MCP-first platforms.
 
-ERI gets you there now. An app with a web UI can appear in Agent conversations in half a day. No SDKs, no schemas, no renderers. Just a URL. Both converge at the same destination.
+**A2UI** (Google, 2025) takes a declarative, cross-platform path — Agent sends JSON component descriptions, client libraries (Flutter, Web Components) render natively. The right answer for platforms building their own rendering pipeline.
+
+**ERI** takes the simplest path — embed what already exists. An app with a web UI can appear in Agent conversations in half a day. No SDKs, no schemas, no renderers, no MCP integration. Just a URL. Ship today, adopt MCP Apps or A2UI later. All three converge at the same destination.
 
 ```
-┌─────────────────────────────────────────────┐
-│              Agent Output Layer              │
-│                                             │
-│   Level 2: User interacts directly          │
-│   ┌─────────────┐    ┌──────────────────┐  │
-│   │     ERI     │    │      A2UI        │  │
-│   │  embed URL  │    │  JSON schema +   │  │
-│   │  → iframe   │    │  renderer        │  │
-│   └─────────────┘    └──────────────────┘  │
-│                                             │
-│   Level 1: Screenshot (ERI fallback)        │
-│   Level 0: Plain text (status quo)          │
-├─────────────────────────────────────────────┤
-│           Tool Invocation Layer             │
-│   MCP  ·  Function Calling  ·  REST        │
-└─────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────┐
+│                  Agent Output Layer                    │
+│                                                       │
+│   Level 2: User interacts directly                    │
+│   ┌───────────┐  ┌───────────────┐  ┌─────────────┐ │
+│   │    ERI    │  │   MCP Apps    │  │    A2UI     │  │
+│   │ embed URL │  │ sandboxed     │  │ JSON schema │  │
+│   │ → iframe  │  │ iframe apps   │  │ + renderer  │  │
+│   └───────────┘  └───────────────┘  └─────────────┘ │
+│                                                       │
+│   Level 1: Screenshot (ERI fallback)                  │
+│   Level 0: Plain text (status quo)                    │
+├──────────────────────────────────────────────────────┤
+│                Tool Invocation Layer                   │
+│   MCP  ·  Function Calling  ·  REST                  │
+└──────────────────────────────────────────────────────┘
 ```
 
 ---

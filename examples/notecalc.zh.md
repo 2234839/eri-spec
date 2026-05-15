@@ -189,4 +189,4 @@ Agent:
 
 - [在线 NoteCalc](https://tsfullstack.heartstack.space/noteCalc)
 - [嵌入页面示例](https://tsfullstack.heartstack.space/noteCalc/embed#price%20%3D%2099.5%5Cntotal%20%3D%20price%20*%203)
-- [交互式 Agent 演示](../docs/index.html)
+- [交互式 Agent 演示](https://2234839.github.io/eri-spec/)
