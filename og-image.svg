@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f0f0f"/>
+      <stop offset="100%" stop-color="#1a1a2e"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#818cf8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <!-- Decorative circles -->
+  <circle cx="950" cy="150" r="200" fill="#6366f1" opacity="0.06"/>
+  <circle cx="200" cy="500" r="150" fill="#6366f1" opacity="0.04"/>
+  <!-- Logo mark -->
+  <rect x="80" y="120" width="90" height="90" rx="18" fill="url(#accent)"/>
+  <text x="125" y="185" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="52" font-weight="700" fill="white" text-anchor="middle">E</text>
+  <!-- Title -->
+  <text x="80" y="300" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="56" font-weight="700" fill="#e4e4e4">ERI</text>
+  <text x="185" y="300" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="56" font-weight="300" fill="#888">Embedded Result Interface</text>
+  <!-- Tagline -->
+  <text x="80" y="370" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="28" fill="#999">AI Agents output text. ERI lets them output interactive UI.</text>
+  <!-- Bottom bar -->
+  <rect x="80" y="480" width="160" height="4" rx="2" fill="url(#accent)"/>
+  <!-- Footer -->
+  <text x="80" y="530" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="20" fill="#666">One skill.md. One URL. All Agent platforms.</text>
+  <text x="80" y="560" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="18" fill="#555">2234839.github.io/eri-spec</text>
+</svg>

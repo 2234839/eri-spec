@@ -14,7 +14,11 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ERI Spec">
   <meta property="og:locale" content="en_US">
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://2234839.github.io/eri-spec/og-image.svg">
+  <meta property="og:image" content="https://2234839.github.io/eri-spec/og-image.svg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta name="twitter:title" content="ERI — Embed your web app inside AI Agent conversations">
   <meta name="twitter:description" content="Your web app, embedded as interactive UI inside ChatGPT, Claude, and Gemini. Live demo.">
   <link rel="canonical" href="https://2234839.github.io/eri-spec/">
@@ -490,7 +494,7 @@
   <main class="chat-area" id="chatArea">
     <div class="chat-main" id="chatMain">
       <div class="info-banner" data-i18n-html="banner.info">
-        <strong>This calculator is a live third-party app, embedded by the Agent via ERI.</strong> Your app can be here too — any HTTPS page works. Edit the numbers to see it in action. <a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">Copy the template</a> · <a href="./docs/spec.html">Spec</a> · <a href="./docs/adopt.html">Adopt</a>
+        <strong>This calculator is a live third-party app, embedded by the Agent via ERI.</strong> Your app can be here too — any HTTPS page works. Edit the numbers to see it in action. <a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">Copy the template</a> · <a href="./docs/spec.html">Spec</a> · <a href="./docs/blog.html">Blog</a> · <a href="./docs/adopt.html">Adopt</a>
       </div>
       <!-- Messages will be rendered here -->
     </div>
@@ -514,6 +518,7 @@ description: What it does
         <div class="sidebar-card-body" data-i18n-html="sidebar.next">
           <p><a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md"><b>Copy the Template</b></a> — fill in your API and embed URL.</p>
           <p><a href="./docs/spec.html"><b>Read the Spec</b></a> — workflow, security, levels.</p>
+          <p><a href="./docs/blog.html"><b>Read the Blog</b></a> — why interactive Agent output matters.</p>
           <p><a href="./docs/adopt.html"><b>Adopt in Your Team</b></a> — checklist and pitch template.</p>
           <p><a href="https://github.com/2234839/eri-spec"><b>View on GitHub</b></a> — MIT licensed.</p>
         </div>
@@ -547,7 +552,7 @@ description: What it does
         'nav.blog': 'Blog',
         'nav.adopt': 'Adopt',
         'nav.settings': 'Settings',
-        'banner.info': '<strong>This calculator is a live third-party app, embedded by the Agent via ERI.</strong> Your app can be here too — any HTTPS page works. Edit the numbers to see it in action. <a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">Copy the template</a> · <a href="./docs/spec.html">Spec</a> · <a href="./docs/adopt.html">Adopt</a>',
+        'banner.info': '<strong>This calculator is a live third-party app, embedded by the Agent via ERI.</strong> Your app can be here too — any HTTPS page works. Edit the numbers to see it in action. <a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">Copy the template</a> · <a href="./docs/spec.html">Spec</a> · <a href="./docs/blog.html">Blog</a> · <a href="./docs/adopt.html">Adopt</a>',
         'input.placeholder': 'Ask me to calculate something... (e.g. "Calculate 3 items at $99.5 each")',
         'input.send': 'Send',
         'settings.endpoint': 'LLM API Endpoint',
@@ -557,7 +562,7 @@ description: What it does
         'embed.header': 'NoteCalc — Interactive Calculator (ERI)',
         'thirdParty.badge': '🔗 <b>Third-party service</b><br>This interactive UI is provided by <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a>, not by this page. This is the essence of ERI: the Agent embeds an external app\'s UI directly.',
         'sidebar.body': '<p><span class="highlight">The Agent called NoteCalc\'s API, then embedded <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a> as an interactive iframe.</span></p><p>Your app can be here too — any HTTPS page works.</p><div class="skill-preview">---\nname: your-app\ndescription: What it does\n---\n## Workflow\n1. Call your API\n2. Embed: https://app.com/embed#data</div>',
-        'sidebar.next': '<p><a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md"><b>Copy the Template</b></a> — fill in your API and embed URL.</p><p><a href="./docs/spec.html"><b>Read the Spec</b></a> — workflow, security, levels.</p><p><a href="./docs/adopt.html"><b>Adopt in Your Team</b></a> — checklist and pitch template.</p><p><a href="https://github.com/2234839/eri-spec"><b>View on GitHub</b></a> — MIT licensed.</p>',
+        'sidebar.next': '<p><a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md"><b>Copy the Template</b></a> — fill in your API and embed URL.</p><p><a href="./docs/spec.html"><b>Read the Spec</b></a> — workflow, security, levels.</p><p><a href="./docs/blog.html"><b>Read the Blog</b></a> — why interactive Agent output matters.</p><p><a href="./docs/adopt.html"><b>Adopt in Your Team</b></a> — checklist and pitch template.</p><p><a href="https://github.com/2234839/eri-spec"><b>View on GitHub</b></a> — MIT licensed.</p>',
         'msg.you': 'You',
         'msg.agent': 'Agent',
         'demo.user1': 'Calculate 3 items at $99.5 each, then add 8% tax',
@@ -591,7 +596,7 @@ Always show the iframe embed after your text explanation so the user can interac
         'nav.blog': '博客',
         'nav.adopt': '采用',
         'nav.settings': '设置',
-        'banner.info': '<strong>这个计算器是一个实时第三方应用，Agent 通过 ERI 嵌入。</strong>你的应用也可以——任何 HTTPS 页面都行。编辑数字试试。 <a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">复制模板</a> · <a href="./docs/spec.zh.html">规范</a> · <a href="./docs/adopt.zh.html">采用</a>',
+        'banner.info': '<strong>这个计算器是一个实时第三方应用，Agent 通过 ERI 嵌入。</strong>你的应用也可以——任何 HTTPS 页面都行。编辑数字试试。 <a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">复制模板</a> · <a href="./docs/spec.zh.html">规范</a> · <a href="./docs/blog.zh.html">博客</a> · <a href="./docs/adopt.zh.html">采用</a>',
         'input.placeholder': '问我任何计算问题...（例如："计算单价 $99.5 的商品 3 件合计"）',
         'input.send': '发送',
         'settings.endpoint': 'LLM API 地址',
@@ -601,7 +606,7 @@ Always show the iframe embed after your text explanation so the user can interac
         'embed.header': 'NoteCalc — 交互式计算器（ERI）',
         'thirdParty.badge': '🔗 <b>第三方服务</b><br>此交互式 UI 由 <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a> 提供，并非本站自带。这正是 ERI 的精髓：Agent 直接嵌入第三方应用的界面。',
         'sidebar.body': '<p><span class="highlight">Agent 调用了 NoteCalc 的 API，然后将 <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a> 嵌入为可交互的 iframe。</span></p><p>你的应用也可以出现在这里——任何 HTTPS 页面都行。</p><div class="skill-preview">---\nname: your-app\ndescription: 工具描述\n---\n## 工作流\n1. 调用你的 API\n2. 嵌入: https://app.com/embed#data</div>',
-        'sidebar.next': '<p><a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md"><b>复制模板</b></a> — 填入你的 API 和嵌入 URL。</p><p><a href="./docs/spec.zh.html"><b>阅读规范</b></a> — 工作流、安全、等级。</p><p><a href="./docs/adopt.zh.html"><b>团队采用</b></a> — 清单和推介模板。</p><p><a href="https://github.com/2234839/eri-spec"><b>GitHub 仓库</b></a> — MIT 许可。</p>',
+        'sidebar.next': '<p><a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md"><b>复制模板</b></a> — 填入你的 API 和嵌入 URL。</p><p><a href="./docs/spec.zh.html"><b>阅读规范</b></a> — 工作流、安全、等级。</p><p><a href="./docs/blog.zh.html"><b>阅读博客</b></a> — 为什么 Agent 输出需要交互。</p><p><a href="./docs/adopt.zh.html"><b>团队采用</b></a> — 清单和推介模板。</p><p><a href="https://github.com/2234839/eri-spec"><b>GitHub 仓库</b></a> — MIT 许可。</p>',
         'msg.you': '你',
         'msg.agent': 'Agent',
         'demo.user1': '计算单价 $99.5 的商品 3 件，再加 8% 税费',
