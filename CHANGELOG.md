@@ -4,6 +4,15 @@ All notable changes to the ERI specification are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.9] - 2026-05-16
+
+### Changed
+- template.md: added `sandbox="allow-scripts"` to iframe output, changed height from 400 to 300 (matching spec recommendation), changed "is the fallback" → "is the baseline" in steps and checklist.
+- notecalc.md: changed "is the fallback" → "is the baseline" in step 5.
+- Demo skill.prompt (EN/ZH): added `sandbox="allow-scripts"` to iframe template output by the Agent.
+
+[1.0.9]: https://github.com/2234839/eri-spec/compare/v1.0.8...v1.0.9
+
 ## [1.0.8] - 2026-05-16
 
 ### Changed

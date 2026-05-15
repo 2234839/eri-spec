@@ -12,7 +12,7 @@ description: Math calculator with variables, unit conversion, and percentage.
 4. Output an iframe embed:
    `<iframe sandbox="allow-scripts" src="https://tsfullstack.heartstack.space/noteCalc/embed#URLENCODED_EXPRESSIONS" width="100%" height="300"></iframe>`
    Where `URLENCODED_EXPRESSIONS` is `encodeURIComponent(expressions)`
-5. If the platform cannot render iframes, the plain text result from step 3 is the fallback
+5. If the platform cannot render iframes, the plain text from step 3 is the baseline — the user still gets the result
 
 ## Example Agent Output
 

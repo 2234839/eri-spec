@@ -575,7 +575,7 @@ When the user asks you to calculate something, follow this workflow:
 2. Call the notecalc API: POST ${NOTECALC_API} with body [{"content":"expressions here"}]
 3. Show the result to the user
 4. After showing the text result, output an iframe embed using this format:
-   <iframe src="${NOTECALC_EMBED_BASE}#URLENCODED_CONTENT" width="100%" height="300"></iframe>
+   <iframe sandbox="allow-scripts" src="${NOTECALC_EMBED_BASE}#URLENCODED_CONTENT" width="100%" height="300"></iframe>
    Where URLENCODED_CONTENT is the URL-encoded version of the expressions.
 
 Expression syntax:
@@ -620,7 +620,7 @@ Always show the iframe embed after your text explanation so the user can interac
 2. 调用 notecalc API：POST ${NOTECALC_API}，请求体为 [{"content":"表达式"}]
 3. 向用户展示结果
 4. 在展示文本结果后，以以下格式输出 iframe 嵌入：
-   <iframe src="${NOTECALC_EMBED_BASE}#URL编码的内容" width="100%" height="300"></iframe>
+   <iframe sandbox="allow-scripts" src="${NOTECALC_EMBED_BASE}#URL编码的内容" width="100%" height="300"></iframe>
    其中 URL编码的内容 是表达式的 URL 编码版本。
 
 表达式语法：
