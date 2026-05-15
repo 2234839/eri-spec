@@ -76,9 +76,9 @@
   </style>
 </head>
 <body>
-  <div class="header">
+  <div class="header" role="banner">
     <div class="header-left"><span class="logo">ERI</span></div>
-    <div class="header-right">
+    <nav class="header-right">
       <a href="../">演示</a>
       <a href="./spec.zh.html">规范</a>
       <a href="./blog.zh.html" class="active">博客</a>
@@ -86,9 +86,9 @@
       <a href="https://github.com/2234839/eri-spec">GitHub</a>
       <button onclick="location.href='./blog.html'" aria-label="Switch to English">EN</button>
       <button onclick="toggleTheme()" id="themeBtn" aria-label="Toggle theme">🌙</button>
-    </div>
+    </nav>
   </div>
-  <div class="doc-content">
+  <main class="doc-content">
     <h1>超越文字：为什么 AI Agent 需要交互式 UI</h1>
     <p class="meta">发布日期：2026-05-15</p>
 
@@ -138,7 +138,7 @@
 
     <hr>
     <p class="meta">ERI 基于 MIT 许可。<a href="./spec.zh.html">阅读规范</a> · <a href="./adopt.zh.html">团队采用</a> · <a href="https://2234839.github.io/eri-spec/">在线演示</a></p>
-  </div>
+  </main>
   <script>
     (function() {
       const saved = localStorage.getItem('eri-theme');

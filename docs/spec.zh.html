@@ -78,9 +78,9 @@
   </style>
 </head>
 <body>
-  <div class="header">
+  <div class="header" role="banner">
     <div class="header-left"><span class="logo">ERI</span></div>
-    <div class="header-right">
+    <nav class="header-right">
       <a href="../">演示</a>
       <a href="./spec.zh.html" class="active">规范</a>
       <a href="./blog.zh.html">博客</a>
@@ -88,9 +88,9 @@
       <a href="https://github.com/2234839/eri-spec">GitHub</a>
       <button onclick="location.href='./spec.html'" aria-label="Switch to English">EN</button>
       <button onclick="toggleTheme()" id="themeBtn" aria-label="Toggle theme">🌙</button>
-    </div>
+    </nav>
   </div>
-  <div class="doc-content">
+  <main class="doc-content">
     <h1>ERI 规范 — Embedded Result Interface</h1>
     <p class="meta"><strong>版本</strong>：1.0 &nbsp;|&nbsp; <strong>状态</strong>：Stable &nbsp;|&nbsp; <strong>许可</strong>：MIT</p>
     <p class="toc"><a href="#definition">1. 定义</a> · <a href="#workflow">2. 工作流</a> · <a href="#conversation-flow">3. 对话流程</a> · <a href="#skill-authoring">4. Skill 编写</a> · <a href="#embed-page">5. 嵌入页面</a> · <a href="#security">6. 安全</a> · <a href="#progressive-levels">7. 等级</a> · <a href="#use-cases">8. 场景</a> · <a href="#limitations">9. 局限性</a> · <a href="#industry-landscape">10. 格局</a></p>
@@ -253,7 +253,7 @@ iframe.contentWindow.postMessage({
 
     <hr>
     <p class="meta"><a href="./adopt.zh.html">团队采用</a> · <a href="./blog.zh.html">阅读博客</a> · <a href="https://2234839.github.io/eri-spec/">在线演示</a></p>
-  </div>
+  </main>
   <script>
     (function() {
       const saved = localStorage.getItem('eri-theme');

@@ -78,9 +78,9 @@
   </style>
 </head>
 <body>
-  <div class="header">
+  <div class="header" role="banner">
     <div class="header-left"><span class="logo">ERI</span></div>
-    <div class="header-right">
+    <nav class="header-right">
       <a href="../">Demo</a>
       <a href="./spec.html" class="active">Spec</a>
       <a href="./blog.html">Blog</a>
@@ -88,9 +88,9 @@
       <a href="https://github.com/2234839/eri-spec">GitHub</a>
       <button onclick="location.href='./spec.zh.html'" aria-label="Switch to Chinese">中文</button>
       <button onclick="toggleTheme()" id="themeBtn" aria-label="Toggle theme">🌙</button>
-    </div>
+    </nav>
   </div>
-  <div class="doc-content">
+  <main class="doc-content">
     <h1>ERI Specification — Embedded Result Interface</h1>
     <p class="meta"><strong>Version</strong>: 1.0 &nbsp;|&nbsp; <strong>Status</strong>: Stable &nbsp;|&nbsp; <strong>License</strong>: MIT</p>
     <p class="toc"><a href="#definition">1. Definition</a> · <a href="#workflow">2. Workflow</a> · <a href="#conversation-flow">3. Conversation Flow</a> · <a href="#skill-authoring">4. Skill Authoring</a> · <a href="#embed-page">5. Embed Page</a> · <a href="#security">6. Security</a> · <a href="#progressive-levels">7. Levels</a> · <a href="#use-cases">8. Use Cases</a> · <a href="#limitations">9. Limitations</a> · <a href="#industry-landscape">10. Landscape</a></p>
@@ -253,7 +253,7 @@ iframe.contentWindow.postMessage({
 
     <hr>
     <p class="meta"><a href="./adopt.html">Adopt in your team</a> · <a href="./blog.html">Read the blog</a> · <a href="https://2234839.github.io/eri-spec/">Try the demo</a></p>
-  </div>
+  </main>
   <script>
     (function() {
       const saved = localStorage.getItem('eri-theme');

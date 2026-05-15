@@ -456,12 +456,12 @@
   </style>
 </head>
 <body>
-  <div class="header">
+  <div class="header" role="banner">
     <div class="header-left">
       <span class="logo">ERI</span>
       <span class="badge">Demo</span>
     </div>
-    <div class="header-right">
+    <nav class="header-right">
       <a href="./docs/spec.html" data-i18n="nav.spec" data-href-en="./docs/spec.html" data-href-zh="./docs/spec.zh.html">Spec</a>
       <a href="./docs/blog.html" data-i18n="nav.blog" data-href-en="./docs/blog.html" data-href-zh="./docs/blog.zh.html">Blog</a>
       <a href="./docs/adopt.html" data-i18n="nav.adopt" data-href-en="./docs/adopt.html" data-href-zh="./docs/adopt.zh.html">Adopt</a>
@@ -469,7 +469,7 @@
       <button class="lang-switch" onclick="toggleLang()" id="langBtn" aria-label="Switch language">中文</button>
       <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn" title="Toggle theme" aria-label="Toggle dark/light theme">🌙</button>
       <button class="settings-toggle" onclick="toggleSettings()" aria-label="Settings">⚙ <span data-i18n="nav.settings">Settings</span></button>
-    </div>
+    </nav>
   </div>
 
   <div class="settings-panel" id="settings">
@@ -484,7 +484,7 @@
     <input type="text" id="model" value="gpt-4o-mini" placeholder="gpt-4o-mini">
   </div>
 
-  <div class="chat-area" id="chatArea">
+  <main class="chat-area" id="chatArea">
     <div class="chat-main" id="chatMain">
       <div class="info-banner" data-i18n-html="banner.info">
         <strong>Make any web app appear inside AI Agent conversations.</strong> The calculator below is embedded by the Agent — not part of this page. Edit the numbers, results update instantly. <a href="./docs/spec.html">Read the spec</a> · <a href="./docs/adopt.html">Adopt in your team</a>
@@ -521,7 +521,7 @@ description: What it does
         </div>
       </div>
     </aside>
-  </div>
+  </main>
 
   <div class="input-area">
     <div class="input-wrapper">

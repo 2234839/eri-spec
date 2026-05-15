@@ -70,9 +70,9 @@
   </style>
 </head>
 <body>
-  <div class="header">
+  <div class="header" role="banner">
     <div class="header-left"><span class="logo">ERI</span></div>
-    <div class="header-right">
+    <nav class="header-right">
       <a href="../">Demo</a>
       <a href="./spec.html">Spec</a>
       <a href="./blog.html">Blog</a>
@@ -80,9 +80,9 @@
       <a href="https://github.com/2234839/eri-spec">GitHub</a>
       <button onclick="location.href='./adopt.zh.html'" aria-label="Switch to Chinese">中文</button>
       <button onclick="toggleTheme()" id="themeBtn" aria-label="Toggle theme">🌙</button>
-    </div>
+    </nav>
   </div>
-  <div class="doc-content">
+  <main class="doc-content">
     <h1>Adopting ERI — Team Guide</h1>
     <p class="meta">Evaluate, plan, and ship interactive Agent output in your organization.</p>
 
@@ -181,7 +181,7 @@
 
     <hr>
     <p class="meta"><a href="./spec.html">Read the spec</a> · <a href="./blog.html">Read the blog</a> · <a href="https://2234839.github.io/eri-spec/">Try the demo</a></p>
-  </div>
+  </main>
   <script>
     (function() {
       const saved = localStorage.getItem('eri-theme');

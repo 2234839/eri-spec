@@ -76,9 +76,9 @@
   </style>
 </head>
 <body>
-  <div class="header">
+  <div class="header" role="banner">
     <div class="header-left"><span class="logo">ERI</span></div>
-    <div class="header-right">
+    <nav class="header-right">
       <a href="../">Demo</a>
       <a href="./spec.html">Spec</a>
       <a href="./blog.html" class="active">Blog</a>
@@ -86,9 +86,9 @@
       <a href="https://github.com/2234839/eri-spec">GitHub</a>
       <button onclick="location.href='./blog.zh.html'" aria-label="Switch to Chinese">中文</button>
       <button onclick="toggleTheme()" id="themeBtn" aria-label="Toggle theme">🌙</button>
-    </div>
+    </nav>
   </div>
-  <div class="doc-content">
+  <main class="doc-content">
     <h1>Beyond Text: Why AI Agents Need Interactive UI</h1>
     <p class="meta">Published: 2026-05-15</p>
 
@@ -138,7 +138,7 @@
 
     <hr>
     <p class="meta">ERI is MIT licensed. <a href="./spec.html">Read the spec</a> · <a href="./adopt.html">Adopt in your team</a> · <a href="https://2234839.github.io/eri-spec/">Try the demo</a></p>
-  </div>
+  </main>
   <script>
     (function() {
       const saved = localStorage.getItem('eri-theme');
