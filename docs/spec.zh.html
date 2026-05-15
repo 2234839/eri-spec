@@ -15,8 +15,8 @@
   <meta property="og:site_name" content="ERI Spec">
   <meta property="og:locale" content="zh_CN">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://2234839.github.io/eri-spec/og-image.svg">
-  <meta property="og:image" content="https://2234839.github.io/eri-spec/og-image.svg">
+  <meta name="twitter:image" content="https://2234839.github.io/eri-spec/og-image.png">
+  <meta property="og:image" content="https://2234839.github.io/eri-spec/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:title" content="ERI 规范 — 嵌入式结果界面 v1.0">
@@ -24,6 +24,7 @@
   <link rel="canonical" href="https://2234839.github.io/eri-spec/docs/spec.zh.html">
   <link rel="alternate" hreflang="en" href="https://2234839.github.io/eri-spec/docs/spec.html">
   <link rel="alternate" hreflang="zh" href="https://2234839.github.io/eri-spec/docs/spec.zh.html">
+  <link rel="alternate" hreflang="x-default" href="https://2234839.github.io/eri-spec/docs/spec.html">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -90,7 +91,7 @@
   <a href="#content" class="skip-link">跳到主要内容</a>
   <div class="header" role="banner">
     <div class="header-left"><span class="logo">ERI</span></div>
-    <nav class="header-right">
+    <nav class="header-right" aria-label="Main navigation">
       <a href="../">演示</a>
       <a href="./spec.zh.html" class="active">规范</a>
       <a href="./blog.zh.html">博客</a>
@@ -330,7 +331,16 @@ const data = await fetch('/api/results/' + token).then(r =&gt; r.json());</code>
       </tbody>
     </table>
     <p><a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a>（2026 年 1 月发布，现隶属于 <a href="https://modelcontextprotocol.io/">Linux Foundation</a>）和 <a href="https://github.com/google/a2ui">A2UI</a>（Google 于 2025 年 12 月开源）提供更丰富的能力——原生 API、实时同步、平台集成。值得注意的是，MCP Apps 同样在沙箱 iframe 中渲染——因此 ERI 嵌入页面天然与 MCP Apps 运行时结构兼容。ERI 用更丰富的能力换取今天的通用可用性。从 ERI 开始；嵌入页面构成日后打包给更丰富协议的核心。</p>
-    <p><strong>ERI 相比普通 iframe 增加了什么</strong>：ERI 定义了一个可复用、跨平台的模式——<code>skill.md</code> 指导 Agent 调用特定 API、编码结果、嵌入特定 URL，并提供纯文本降级。没有这个约定，每个 Agent-提供者集成都是临时拼凑。ERI 使其一致且可发现。</p>
+    <p><strong>ERI 相比普通 iframe 增加了什么</strong>：</p>
+    <table>
+      <thead><tr><th></th><th>没有 ERI（临时 iframe）</th><th>有 ERI</th></tr></thead>
+      <tbody>
+        <tr><td><strong>可发现性</strong></td><td>Agent 不知道你的应用存在</td><td><code>skill.md</code> 告诉 Agent 何时、如何使用你的应用</td></tr>
+        <tr><td><strong>API 契约</strong></td><td>每个 Agent-提供者对都是定制开发</td><td>标准化：调用 API → 编码结果 → 嵌入 URL</td></tr>
+        <tr><td><strong>降级方案</strong></td><td>iframe 失败 = 输出异常</td><td>Agent 自动降级为纯文本</td></tr>
+        <tr><td><strong>跨平台</strong></td><td>每个 Agent 平台分别调优 prompt</td><td>一个 <code>skill.md</code> 在 ChatGPT、Claude、Gemini 上通用</td></tr>
+      </tbody>
+    </table>
 
     <hr>
     <p class="meta"><a href="./adopt.zh.html">团队采用</a> · <a href="./blog.zh.html">阅读博客</a> · <a href="https://2234839.github.io/eri-spec/">在线演示</a></p>
