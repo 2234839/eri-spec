@@ -122,8 +122,8 @@
     <h3 id="call-api">2.1 Call API <span class="tag tag-agent">Agent</span></h3>
     <p>The Agent calls the third-party app's API from the server side (not from the user's browser). Standard HTTP, structured JSON. No CORS configuration needed.</p>
     <pre><code>POST /api/calculate
-Body: {"content": "99.5 * 3"}
-Response: {"result": 298.5}</code></pre>
+Body: {"expr": "99.5 * 3"}
+Response: {"expr": "99.5 * 3", "result": 298.5}</code></pre>
 
     <h3 id="output-ui">2.2 Output UI <span class="tag tag-agent">Agent</span> <span class="tag tag-platform">Platform</span></h3>
     <pre><code>&lt;iframe src="https://app.example.com/embed#encoded_data" width="100%" height="400"&gt;&lt;/iframe&gt;</code></pre>
@@ -138,13 +138,13 @@ Response: {"result": 298.5}</code></pre>
     </ol>
     <p>Context comes from the Agent platform's conversation history — the Agent sees its own previous text output (including API results). No special state mechanism needed.</p>
     <pre><code>User: "Calculate 3 items at $99.5 each"
-Agent: [outputs iframe: 99.5 * 3 = 298.5]
+Agent: Calls API → outputs iframe showing 99.5 * 3 = 298.5
 
 (user modifies values in the iframe — Agent is unaware)
 
 User: "Add 8% tax"
-Agent: Reads context last_result=298.5, computes 298.5 * 1.08
-       [outputs new iframe: 298.5 * 1.08 = 322.38]</code></pre>
+Agent: Reads context (last result: 298.5), calls API with 298.5 * 1.08
+       → outputs new iframe showing 298.5 * 1.08 = 322.38</code></pre>
 
     <h2 id="skill-authoring">4. Skill Authoring <span class="tag tag-provider">Provider</span></h2>
     <p>A <code>skill.md</code> file is placed where the Agent can discover it — as a custom instruction, a GPT action, a Claude skill file, or any mechanism the platform provides for defining Agent behavior. The format is the same across all platforms.</p>
@@ -157,7 +157,8 @@ description: What this Skill does
 1. Extract parameters from user input
 2. Call API: POST https://api.example.com/calculate
    Body: {"expr": "expression"}
-3. Construct embed URL: https://app.example.com/embed#URLEncoded(expr)
+3. Construct embed URL with API response:
+   https://app.example.com/embed#URLEncode({"expr":"...","result":...})
 4. Output as iframe (fallback to plain text if platform cannot render)</code></pre>
     <p>The Agent reads this workflow, executes each step, and outputs an iframe.</p>
     <p>The frontmatter (<code>name</code>, <code>description</code>) follows standard YAML convention. The <code>## Workflow</code> section is freeform — write it in whatever natural language the Agent understands. No special syntax needed.</p>
@@ -167,7 +168,7 @@ description: What this Skill does
       <thead><tr><th>Requirement</th><th>Description</th></tr></thead>
       <tbody>
         <tr><td>HTTPS</td><td>Must serve over HTTPS</td></tr>
-        <tr><td>URL param reading</td><td>Read initial state from URL hash / query</td></tr>
+        <tr><td>URL param reading</td><td>Read initial state from URL hash (recommended) or query params</td></tr>
         <tr><td>Self-contained</td><td>Handle all interactions internally. No host JS/CSS dependencies. Responsive layout.</td></tr>
         <tr><td><code>postMessage</code> <em>(optional)</em></td><td>Notify host of changes inside the iframe</td></tr>
         <tr><td>Theme adaptation <em>(optional)</em></td><td>Read URL params or host colors to match light/dark theme</td></tr>

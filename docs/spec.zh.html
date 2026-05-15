@@ -122,8 +122,8 @@
     <h3 id="call-api">2.1 调用 API <span class="tag tag-agent">Agent</span></h3>
     <p>Agent 从服务端调用第三方应用的 API（不是从用户浏览器）。标准 HTTP，结构化 JSON。无需配置 CORS。</p>
     <pre><code>POST /api/calculate
-Body: {"content": "99.5 * 3"}
-Response: {"result": 298.5}</code></pre>
+Body: {"expr": "99.5 * 3"}
+Response: {"expr": "99.5 * 3", "result": 298.5}</code></pre>
 
     <h3 id="output-ui">2.2 输出 UI <span class="tag tag-agent">Agent</span> <span class="tag tag-platform">平台</span></h3>
     <pre><code>&lt;iframe src="https://app.example.com/embed#encoded_data" width="100%" height="400"&gt;&lt;/iframe&gt;</code></pre>
@@ -138,13 +138,13 @@ Response: {"result": 298.5}</code></pre>
     </ol>
     <p>上下文来自 Agent 平台的对话历史——Agent 能看到自己之前的文字输出（包括 API 结果）。无需额外的状态机制。</p>
     <pre><code>用户: "帮我算 3 件商品，每件 99.5 元"
-Agent: [输出 iframe: 99.5 * 3 = 298.5]
+Agent: 调用 API → 输出 iframe 显示 99.5 * 3 = 298.5
 
 （用户在 iframe 中修改数值，Agent 不感知）
 
 用户: "再加上 8% 的税"
-Agent: 读取上下文 last_result=298.5，计算 298.5 * 1.08
-       [输出新 iframe: 298.5 * 1.08 = 322.38]</code></pre>
+Agent: 读取上下文（上次结果：298.5），调用 API 传入 298.5 * 1.08
+       → 输出新 iframe 显示 298.5 * 1.08 = 322.38</code></pre>
 
     <h2 id="skill-authoring">4. Skill 编写 <span class="tag tag-provider">提供者</span></h2>
     <p><code>skill.md</code> 放在 Agent 能发现的位置——可以是自定义指令、GPT Action、Claude 技能文件，或平台提供的任何 Agent 行为定义机制。格式在所有平台上都一样。</p>
@@ -157,7 +157,8 @@ description: 工具描述
 1. 从用户输入中提取参数
 2. 调用 API：POST https://api.example.com/calculate
    Body: {"expr": "表达式"}
-3. 构造嵌入 URL：https://app.example.com/embed#URLEncoded(expr)
+3. 用 API 响应构造嵌入 URL：
+   https://app.example.com/embed#URLEncode({"expr":"...","result":...})
 4. 输出为 iframe（平台无法渲染时降级为纯文本）</code></pre>
     <p>Agent 读取这个工作流，执行每一步，输出 iframe。</p>
     <p>Frontmatter（<code>name</code>、<code>description</code>）遵循标准 YAML 约定。<code>## 工作流</code> 部分是自由格式——用 Agent 能理解的自然语言编写即可。无需特殊语法。</p>
@@ -167,7 +168,7 @@ description: 工具描述
       <thead><tr><th>要求</th><th>说明</th></tr></thead>
       <tbody>
         <tr><td>HTTPS</td><td>必须使用 HTTPS</td></tr>
-        <tr><td>URL 参数读取</td><td>能从 URL hash / query 中读取初始状态</td></tr>
+        <tr><td>URL 参数读取</td><td>从 URL hash 中读取初始状态（推荐），或使用 query 参数</td></tr>
         <tr><td>自包含</td><td>所有交互自行处理。不依赖宿主 JS/CSS。响应式布局。</td></tr>
         <tr><td><code>postMessage</code> <em>（可选）</em></td><td>iframe 内变化可通过 postMessage 通知宿主</td></tr>
         <tr><td>主题适配 <em>（可选）</em></td><td>读取 URL 参数或宿主颜色方案适配明暗主题</td></tr>
