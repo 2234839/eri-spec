@@ -1,12 +1,12 @@
 # ERI — Embedded Result Interface
 
-> 生态解决了输入，没解决输出。
+> AI Agent 能调用任何 API，但输出仍然是文字。
 
 **[在线演示](https://2234839.github.io/eri-spec/)** · [规范](https://2234839.github.io/eri-spec/docs/spec.zh.html) · [博客](https://2234839.github.io/eri-spec/docs/blog.zh.html) · [采用](https://2234839.github.io/eri-spec/docs/adopt.zh.html) · [English](./README.md)
 
 ---
 
-AI Agent 只能返回文字。ERI 让任何 Web 应用以交互式 UI 出现在 ChatGPT、Claude、Gemini 以及更多 Agent 的对话中——只需一个 `skill.md` 和一个 URL。无需 SDK。无需平台审批。无需等待。
+ERI 让你的 Web 应用以交互式 UI 出现在 AI Agent 对话中——ChatGPT、Claude、Gemini 以及任何能渲染 iframe 的平台。你写一个 `skill.md`，告诉 Agent 如何调用你的 API、嵌入哪个 URL。这就是整个模式。
 
 ## 一个例子讲清楚
 
@@ -17,7 +17,7 @@ Agent: [嵌入一个实时计算器]
        用户加运费：不需要 Agent 参与
 ```
 
-提供者写一个 `skill.md`：调这个 API，嵌入这个 URL。就这样。
+你写一个 `skill.md`：调这个 API，嵌入这个 URL。Agent 按照执行。
 
 ```markdown
 ---
@@ -33,7 +33,7 @@ description: 数学计算器，支持变量和单位转换。
 
 ## 在线演示
 
-**[2234839.github.io/eri-spec/](https://2234839.github.io/eri-spec/)** — 与嵌入的计算器直接交互。演示使用真实 LLM 模拟完整 Agent 流程。
+**[2234839.github.io/eri-spec/](https://2234839.github.io/eri-spec/)** — 与嵌入的计算器直接交互。演示使用真实 LLM 运行完整 Agent 流程。
 
 ## 三步开始
 

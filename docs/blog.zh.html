@@ -105,20 +105,14 @@
     <p>10 分钟写完。半天做好嵌入页面。零平台改动。今天就能上线。<a href="https://2234839.github.io/eri-spec/">现在试试</a>。</p>
 
     <h2>三条路径到交互式 Agent 输出</h2>
-    <p>业界从三个方向收敛到同一个问题。关键问题：<strong>你的方案今天就能在所有平台上用吗？</strong></p>
-    <table>
-      <thead><tr><th></th><th>ERI</th><th>MCP Apps (Anthropic / OpenAI)</th><th>A2UI (Google)</th></tr></thead>
-      <tbody>
-        <tr><td><strong>今天可用？</strong></td><td><strong>是——所有平台</strong></td><td>需要 MCP 采用</td><td>需要渲染器</td></tr>
-        <tr><td><strong>需要构建</strong></td><td>一个 HTTPS 嵌入页面</td><td>MCP 兼容的应用包</td><td>组件目录 + A2UI Schema</td></tr>
-        <tr><td><strong>成本</strong></td><td>&lt; 1 天</td><td>数天</td><td>数天</td></tr>
-      </tbody>
-    </table>
+    <p>业界从三个方向收敛到同一个问题：</p>
+    <p><strong>ERI</strong>——通过 URL 嵌入你的 Web 应用。因为用的是 iframe，今天所有平台都能用。你构建一个 HTTPS 页面，写一个 <code>skill.md</code>，然后上线。代价：只有标准 Web 能力——无原生 API、无实时同步。</p>
+    <p><strong>MCP Apps</strong>（Anthropic / OpenAI）——沙箱小应用，拥有平台 API 和实时通信。能力更丰富，但只能在支持 MCP 的平台上运行。需要按平台特定的格式打包。</p>
+    <p><strong>A2UI</strong>（Google）——Agent 以 JSON 声明 UI，平台渲染器将其转为原生控件。原生渲染质量，但需要 A2UI 渲染器——大多数平台还没有。</p>
 
     <h2>为什么先选 ERI</h2>
-    <p><strong>MCP Apps</strong> 和 <strong>A2UI</strong> 提供更丰富的能力——但只限于支持它们的平台。<strong>ERI</strong> 提供<em>所有平台即日可用</em>——一个 URL 在 iframe 里。无需运行时、无需渲染器、无需平台配合。</p>
-    <p>你为 ERI 构建的嵌入页面，就是日后打包给 MCP Apps 用的同一个页面。ERI 是入口：零成本上线，等目标平台支持更丰富的协议时再迁移。</p>
-    <p>ERI 有真实的权衡（快照式、无原生 API）。完整列表见<a href="./spec.zh.html#limitations">规范中的局限性章节</a>。</p>
+    <p><strong>ERI</strong> 让你今天就覆盖所有平台。等目标平台支持更丰富的协议时，嵌入页面可以直接沿用——不用从头开始。</p>
+    <p>代价：快照式输出，无原生设备 API。详见<a href="./spec.zh.html#limitations">规范局限性</a>和<a href="./spec.zh.html#error-handing">错误处理</a>。</p>
     <div class="arch">
       <div class="arch-layer">
         <div class="arch-level"><span class="arch-level-tag">可交互</span>

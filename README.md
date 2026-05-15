@@ -1,12 +1,12 @@
 # ERI — Embedded Result Interface
 
-> The ecosystem has solved input. It hasn't solved output.
+> AI Agents can call any API. Their output is still text.
 
 **[Try the Live Demo](https://2234839.github.io/eri-spec/)** · [Spec](https://2234839.github.io/eri-spec/docs/spec.html) · [Blog](https://2234839.github.io/eri-spec/docs/blog.html) · [Adopt](https://2234839.github.io/eri-spec/docs/adopt.html) · [中文](./README.zh.md)
 
 ---
 
-AI Agents return text. ERI embeds your web app as an interactive UI inside Agent conversations — ChatGPT, Claude, Gemini, and any platform that renders iframes — using only a `skill.md` and a URL. No SDKs. No platform approval. No waiting.
+ERI embeds your web app as an interactive UI inside AI Agent conversations — ChatGPT, Claude, Gemini, and any platform that renders iframes. You write a `skill.md` that tells the Agent how to call your API and which URL to embed. That's the whole pattern.
 
 ## The Idea in One Example
 
@@ -17,7 +17,7 @@ Agent: [embeds a live calculator]
        User adds shipping: no Agent needed
 ```
 
-The provider writes a `skill.md` that says: call this API, embed this URL. That's it.
+You write a `skill.md` that says: call this API, embed this URL. The Agent follows it.
 
 ```markdown
 ---
@@ -33,7 +33,7 @@ description: Math calculator with variables and unit conversion.
 
 ## Live Demo
 
-**[2234839.github.io/eri-spec/](https://2234839.github.io/eri-spec/)** — interact with the embedded calculator. The demo uses a live LLM to simulate the full Agent flow.
+**[2234839.github.io/eri-spec/](https://2234839.github.io/eri-spec/)** — interact with the embedded calculator. The demo uses a live LLM to run the full Agent flow.
 
 ## Start in 3 Steps
 

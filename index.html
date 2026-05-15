@@ -487,7 +487,7 @@
   <main class="chat-area" id="chatArea">
     <div class="chat-main" id="chatMain">
       <div class="info-banner" data-i18n-html="banner.info">
-        <strong>Make any web app appear inside AI Agent conversations.</strong> The calculator below is embedded by the Agent — not part of this page. Edit the numbers, results update instantly. <a href="./docs/spec.html">Read the spec</a> · <a href="./docs/adopt.html">Adopt in your team</a>
+        <strong>This calculator is a live third-party app, embedded by the Agent via ERI.</strong> Edit the numbers — results update instantly. <a href="./docs/spec.html">Read the spec</a> · <a href="./docs/adopt.html">Adopt in your team</a>
       </div>
       <!-- Messages will be rendered here -->
     </div>
@@ -495,8 +495,8 @@
       <div class="sidebar-card">
         <div class="sidebar-card-header">🔗 ERI</div>
         <div class="sidebar-card-body" data-i18n-html="sidebar.body">
-          <p><span class="highlight">This calculator is <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a> — a live third-party app, not part of this page.</span></p>
-          <p>Edit the numbers below — results update instantly, no Agent round trip needed.</p>
+          <p><span class="highlight">The Agent called NoteCalc's API, then embedded <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a> as an interactive iframe.</span></p>
+          <p>Your app can be here too — any HTTPS page works.</p>
         </div>
       </div>
       <div class="sidebar-card" style="margin-top:12px">
@@ -549,7 +549,7 @@ description: What it does
         'nav.blog': 'Blog',
         'nav.adopt': 'Adopt',
         'nav.settings': 'Settings',
-        'banner.info': '<strong>Make any web app appear inside AI Agent conversations.</strong> The calculator below is embedded by the Agent — not part of this page. Edit the numbers, results update instantly. <a href="./docs/spec.html">Read the spec</a> · <a href="./docs/adopt.html">Adopt in your team</a>',
+        'banner.info': '<strong>This calculator is a live third-party app, embedded by the Agent via ERI.</strong> Edit the numbers — results update instantly. <a href="./docs/spec.html">Read the spec</a> · <a href="./docs/adopt.html">Adopt in your team</a>',
         'input.placeholder': 'Ask me to calculate something... (e.g. "Calculate 3 items at $99.5 each")',
         'input.send': 'Send',
         'settings.endpoint': 'LLM API Endpoint',
@@ -558,7 +558,7 @@ description: What it does
         'settings.model': 'Model',
         'embed.header': 'NoteCalc — Interactive Calculator (ERI)',
         'thirdParty.badge': '🔗 <b>Third-party service</b><br>This interactive UI is provided by <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a>, not by this page. This is the essence of ERI: the Agent embeds an external app\'s UI directly.',
-        'sidebar.body': '<p><span class="highlight">This calculator is <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a> — a live third-party app, not part of this page.</span></p><p>Edit the numbers below — results update instantly, no Agent round trip needed.</p>',
+        'sidebar.body': '<p><span class="highlight">The Agent called NoteCalc\'s API, then embedded <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a> as an interactive iframe.</span></p><p>Your app can be here too — any HTTPS page works.</p>',
         'sidebar.skill': '<p>That\'s the whole Skill file:</p><div class="skill-preview">---\nname: your-app\ndescription: What it does\n---\n## Workflow\n1. Call your API\n2. Embed: https://app.com/embed#data</div>',
         'sidebar.next': '<p><a href="./docs/spec.html"><b>Read the Spec</b></a> — 5 min, covers workflow, security, and levels.</p><p><a href="./docs/adopt.html"><b>Adopt in Your Team</b></a> — checklist, decision matrix, pitch template.</p><p><a href="https://github.com/2234839/eri-spec"><b>View on GitHub</b></a> — MIT licensed.</p>',
         'msg.you': 'You',
@@ -594,7 +594,7 @@ Always show the iframe embed after your text explanation so the user can interac
         'nav.blog': '博客',
         'nav.adopt': '采用',
         'nav.settings': '设置',
-        'banner.info': '<strong>让你的 Web 应用出现在 AI Agent 对话中。</strong>下方的计算器是 Agent 嵌入的第三方应用——不是本页自带的。修改数字，结果即时更新。 <a href="./docs/spec.zh.html">阅读规范</a> · <a href="./docs/adopt.zh.html">团队采用</a>',
+        'banner.info': '<strong>这个计算器是一个实时第三方应用，Agent 通过 ERI 嵌入。</strong>直接编辑数字——结果即时更新。<a href="./docs/spec.zh.html">阅读规范</a> · <a href="./docs/adopt.zh.html">团队采用</a>',
         'input.placeholder': '问我任何计算问题...（例如："计算单价 $99.5 的商品 3 件合计"）',
         'input.send': '发送',
         'settings.endpoint': 'LLM API 地址',
@@ -603,7 +603,7 @@ Always show the iframe embed after your text explanation so the user can interac
         'settings.model': '模型',
         'embed.header': 'NoteCalc — 交互式计算器（ERI）',
         'thirdParty.badge': '🔗 <b>第三方服务</b><br>此交互式 UI 由 <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a> 提供，并非本站自带。这正是 ERI 的精髓：Agent 直接嵌入第三方应用的界面。',
-        'sidebar.body': '<p><span class="highlight">这个计算器是 <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a>——一个实时第三方应用，不是本页自带的。</span></p><p>直接编辑下方的数字——结果即时更新，无需等待 Agent。</p>',
+        'sidebar.body': '<p><span class="highlight">Agent 调用了 NoteCalc 的 API，然后将 <a href="https://tsfullstack.heartstack.space/noteCalc" target="_blank" rel="noopener">NoteCalc</a> 嵌入为可交互的 iframe。</span></p><p>你的应用也可以出现在这里——任何 HTTPS 页面都行。</p>',
         'sidebar.skill': '<p>这就是完整的 Skill 文件：</p><div class="skill-preview">---\nname: your-app\ndescription: 工具描述\n---\n## 工作流\n1. 调用你的 API\n2. 嵌入: https://app.com/embed#data</div>',
         'sidebar.next': '<p><a href="./docs/spec.zh.html"><b>阅读规范</b></a> — 5 分钟，涵盖工作流、安全和等级。</p><p><a href="./docs/adopt.zh.html"><b>团队采用</b></a> — 清单、决策矩阵、推介模板。</p><p><a href="https://github.com/2234839/eri-spec"><b>GitHub 仓库</b></a> — MIT 许可。</p>',
         'msg.you': '你',

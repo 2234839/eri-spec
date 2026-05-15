@@ -105,20 +105,14 @@
     <p>10 minutes to write. Half a day for the embed page. Zero platform changes. Ship today. <a href="https://2234839.github.io/eri-spec/">Try it now</a>.</p>
 
     <h2>Three Paths to Interactive Agent Output</h2>
-    <p>The industry is converging on the same problem from three directions. The key question: <strong>does your approach work today, on every platform?</strong></p>
-    <table>
-      <thead><tr><th></th><th>ERI</th><th>MCP Apps (Anthropic / OpenAI)</th><th>A2UI (Google)</th></tr></thead>
-      <tbody>
-        <tr><td><strong>Works today?</strong></td><td><strong>Yes — all platforms</strong></td><td>Requires MCP adoption</td><td>Requires renderer</td></tr>
-        <tr><td><strong>What you build</strong></td><td>An HTTPS embed page</td><td>MCP-compatible app package</td><td>Component catalog + A2UI schema</td></tr>
-        <tr><td><strong>Effort</strong></td><td>&lt; 1 day</td><td>Days</td><td>Days</td></tr>
-      </tbody>
-    </table>
+    <p>The industry is converging on the same problem from three directions:</p>
+    <p><strong>ERI</strong> — embed your web app via URL. Works on every platform today because it uses iframes. You build an HTTPS page, write a <code>skill.md</code>, and ship. The trade-off: standard web capabilities only — no native APIs, no real-time sync.</p>
+    <p><strong>MCP Apps</strong> (Anthropic / OpenAI) — sandboxed mini-apps with platform APIs and real-time communication. Richer capabilities, but only on MCP-enabled platforms. Requires packaging in a platform-specific format.</p>
+    <p><strong>A2UI</strong> (Google) — the Agent declares UI as JSON, and a platform renderer turns it into native controls. Native rendering quality, but requires an A2UI renderer that most platforms don't have yet.</p>
 
     <h2>Why ERI First</h2>
-    <p><strong>MCP Apps</strong> and <strong>A2UI</strong> offer richer capabilities — but only on platforms that support them. <strong>ERI</strong> gives you <em>every platform today</em> — it's a URL in an iframe. No runtime, no renderer, no platform buy-in.</p>
-    <p>ERI is the on-ramp: ship today, adopt richer protocols when your platforms support them. Zero lock-in — the embed page you build today is the one you'd package for MCP Apps later.</p>
-    <p>ERI has real trade-offs (snapshot-based, no native APIs). See <a href="./spec.html#limitations">Limitations in the spec</a> for the full list.</p>
+    <p><strong>ERI</strong> gives you every platform today. When your target platforms support richer protocols, the embed page carries forward — you're not starting over.</p>
+    <p>Trade-offs: snapshot-based output, no native device APIs. See <a href="./spec.html#limitations">spec limitations</a> for details and <a href="./spec.html#error-handing">error handling</a> for failure modes.</p>
     <div class="arch">
       <div class="arch-layer">
         <div class="arch-level"><span class="arch-level-tag">Interactive</span>
