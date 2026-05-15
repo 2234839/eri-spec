@@ -23,9 +23,9 @@
     <div class="badge">ERI Level 1</div>
   </div>
   <script>
-    /** Read initial state from URL params */
-    const params = new URLSearchParams(window.location.search);
-    const initialName = params.get('name') || params.get('data') || 'World';
+    /** Read initial state from URL hash (per ERI spec recommendation) */
+    const raw = decodeURIComponent(location.hash.slice(1));
+    const initialName = raw || 'World';
 
     /** Sanitize: strip HTML tags */
     function sanitize(str) {
@@ -36,8 +36,8 @@
 
     /** Display the sanitized name */
     function updateName() {
-      const raw = document.getElementById('nameInput').value;
-      document.getElementById('name').textContent = raw || 'World';
+      const val = document.getElementById('nameInput').value;
+      document.getElementById('name').textContent = val || 'World';
     }
 
     /** Initialize */

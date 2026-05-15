@@ -113,7 +113,7 @@
   </div>
   <main class="doc-content" id="content">
     <h1>ERI 规范 — Embedded Result Interface</h1>
-    <p class="meta"><strong>版本</strong>：1.0 &nbsp;|&nbsp; <strong>状态</strong>：Stable &nbsp;|&nbsp; <strong>许可</strong>：MIT &nbsp;|&nbsp; <strong>稳定性</strong>：Level 1 合规标准已冻结——不会有破坏性变更。</p>
+    <p class="meta"><strong>版本</strong>：1.0 &nbsp;|&nbsp; <strong>状态</strong>：Stable &nbsp;|&nbsp; <strong>许可</strong>：MIT &nbsp;|&nbsp; <strong>稳定性</strong>：Level 1 核心工作流已稳定——我们承诺不做破坏性变更。<a href="https://github.com/2234839/eri-spec/blob/main/CHANGELOG.md">更新日志</a></p>
     <details class="quickstart" open>
       <summary>快速开始——不到一天即可上线</summary>
       <ol>
@@ -309,8 +309,10 @@ window.parent.postMessage({
     <h2 id="limitations">9. 局限性</h2>
     <ul>
       <li><strong>快照式输出</strong>——每轮对话产生全新的嵌入，Agent 无法观察 iframe 内的编辑。完整流程见<a href="#conversation-flow">第 3 节</a>，Level 2 postMessage 双向同步见<a href="#progressive-levels">第 7 节</a>。</li>
-      <li><strong>设备能力受限</strong>——沙箱 iframe 对设备 API（GPS、摄像头等）的访问受限。仅支持标准 Web 能力。</li>
+      <li><strong>每轮重新加载</strong>——每次用户对话触发全新的 iframe 加载。嵌入页面较重时会产生可见的重载闪烁。保持嵌入页面轻量。</li>
+      <li><strong>设备能力受限</strong>——沙箱 iframe 对设备 API（GPS、摄像头、麦克风、蓝牙）的访问受限。仅支持标准 Web 能力。</li>
       <li><strong>URL 大小限制</strong>——编码到 URL hash 中的状态受浏览器 URL 长度限制（安全范围约 2KB，上限约 8KB）。数据量较大时，使用<a href="#large-data-pattern">大数据集模式</a>。</li>
+      <li><strong>无离线支持</strong>——嵌入页面需要网络访问。用户断网时 iframe 无法渲染。</li>
     </ul>
 
     <h3 id="large-data-pattern">大数据集模式</h3>

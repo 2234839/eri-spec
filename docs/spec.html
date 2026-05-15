@@ -113,7 +113,7 @@
   </div>
   <main class="doc-content" id="content">
     <h1>ERI Specification — Embedded Result Interface</h1>
-    <p class="meta"><strong>Version</strong>: 1.0 &nbsp;|&nbsp; <strong>Status</strong>: Stable &nbsp;|&nbsp; <strong>License</strong>: MIT &nbsp;|&nbsp; <strong>Stability</strong>: Level 1 conformance is frozen — no breaking changes.</p>
+    <p class="meta"><strong>Version</strong>: 1.0 &nbsp;|&nbsp; <strong>Status</strong>: Stable &nbsp;|&nbsp; <strong>License</strong>: MIT &nbsp;|&nbsp; <strong>Stability</strong>: Level 1 core workflow is stable — we commit to no breaking changes. <a href="https://github.com/2234839/eri-spec/blob/main/CHANGELOG.md">Changelog</a></p>
     <details class="quickstart" open>
       <summary>Quick Start — Ship in under a day</summary>
       <ol>
@@ -153,7 +153,7 @@
       <div class="flow-step"><strong>4. Output UI</strong><span>iframe / plain text</span></div>
     </div>
     <p>Steps 1 and 3 are things the Agent already knows how to do. The remaining two steps involve external systems:</p>
-    <p><strong>Call API</strong> <span class="tag tag-agent">Agent</span> — The Agent calls the third-party app's API from the server side (not from the user's browser). Standard HTTP, structured JSON. No CORS configuration needed.</p>
+    <p><strong>Call API</strong> <span class="tag tag-agent">Agent</span> — The Agent calls the third-party app's API from the server side (not from the user's browser). Standard HTTP, structured JSON. No CORS (Cross-Origin Resource Sharing) configuration needed.</p>
     <pre><code>POST /api/calculate
 Body: {"expr": "99.5 * 3"}
 Response: {"expr": "99.5 * 3", "result": 298.5}</code></pre>
@@ -243,8 +243,8 @@ description: What this Skill does
     <table>
       <thead><tr><th>Role</th><th>Rules</th></tr></thead>
       <tbody>
-        <tr><td><span class="tag tag-platform">Platform</span></td><td>Add <code>sandbox="allow-scripts"</code> to iframes. <strong>Warning: adding <code>allow-same-origin</code> together with <code>allow-scripts</code> lets the iframe access its own origin's cookies and storage</strong> — only use it if the embed page needs its own cookies/storage. The iframe still cannot access the parent page across origins. Never pass user credentials to third-party iframes. If the platform uses Content Security Policy, add the embed page's origin to <code>frame-src</code>.</td></tr>
-        <tr><td><span class="tag tag-provider">Provider</span></td><td>Don't rely on <code>document.cookie</code> (may be unavailable in sandbox). Don't use <code>window.opener</code> or <code>window.top</code> for navigation/DOM access (<code>window.parent.postMessage</code> for Level 2 is safe). Sanitize all inputs against XSS. <strong>Never place PII or sensitive data in URL hash/query params</strong> — URLs are logged in browser history, proxy logs, and referrer headers. For sensitive data, pass a short-lived token in the URL and fetch actual data via an API call inside the embed page.</td></tr>
+        <tr><td><span class="tag tag-platform">Platform</span></td><td>Add <code>sandbox="allow-scripts"</code> to iframes. <strong>Warning: adding <code>allow-same-origin</code> together with <code>allow-scripts</code> lets the iframe access its own origin's cookies and storage</strong> — only use it if the embed page needs its own cookies/storage. The iframe still cannot access the parent page across origins. Never pass user credentials to third-party iframes. If the platform uses Content Security Policy (CSP), add the embed page's origin to <code>frame-src</code>.</td></tr>
+        <tr><td><span class="tag tag-provider">Provider</span></td><td>Don't rely on <code>document.cookie</code> (may be unavailable in sandbox). Don't use <code>window.opener</code> or <code>window.top</code> for navigation/DOM access (<code>window.parent.postMessage</code> for Level 2 is safe). Sanitize all inputs against XSS (Cross-Site Scripting). <strong>Never place PII (Personally Identifiable Information) or sensitive data in URL hash/query params</strong> — URLs are logged in browser history, proxy logs, and referrer headers. For sensitive data, pass a short-lived token in the URL and fetch actual data via an API call inside the embed page.</td></tr>
       </tbody>
     </table>
 
@@ -309,8 +309,10 @@ window.parent.postMessage({
     <h2 id="limitations">9. Limitations</h2>
     <ul>
       <li><strong>Snapshot-based</strong> — each turn produces a fresh embed; Agent cannot observe in-iframe edits. See <a href="#conversation-flow">Section 3</a> for the full flow and <a href="#progressive-levels">Section 7</a> for Level 2 postMessage bidirectional sync.</li>
-      <li><strong>Limited device access</strong> — sandboxed iframes have restricted access to device APIs (GPS, camera, etc.). Expect standard web capabilities only.</li>
-      <li><strong>URL size limits</strong> — state encoded in the URL hash is subject to browser URL length limits (~2KB safe, ~8KB max). For larger datasets, use the <a href="#large-data-pattern">large data pattern</a>.</li>
+      <li><strong>Page load per turn</strong> — each user turn triggers a fresh iframe load. For heavy embed pages, this causes a visible reload. Keep embed pages lightweight.</li>
+      <li><strong>Limited device access</strong> — sandboxed iframes have restricted access to device APIs (GPS, camera, microphone, bluetooth). Expect standard web capabilities only.</li>
+      <li><strong>URL size limits</strong> — state encoded in the URL hash is subject to browser URL length limits (~2KB safe, ~8KB max per <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986</a> practical limits). For larger datasets, use the <a href="#large-data-pattern">large data pattern</a>.</li>
+      <li><strong>No offline support</strong> — embed pages require network access. If the user loses connectivity, the iframe cannot render.</li>
     </ul>
 
     <h3 id="large-data-pattern">Large Data Pattern</h3>
