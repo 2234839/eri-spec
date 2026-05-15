@@ -162,7 +162,7 @@ description: 工具描述
       <thead><tr><th>要求</th><th>说明</th></tr></thead>
       <tbody>
         <tr><td>HTTPS</td><td>必须使用 HTTPS</td></tr>
-        <tr><td>URL 参数读取</td><td>从 URL hash 中读取初始状态（推荐），或使用 query 参数</td></tr>
+        <tr><td>URL 参数读取</td><td>从 URL hash 中读取初始状态（推荐），或使用 query 参数。推荐编码：<code>encodeURIComponent(JSON.stringify(data))</code></td></tr>
         <tr><td>自包含</td><td>所有交互自行处理。不依赖宿主 JS/CSS。响应式布局。</td></tr>
         <tr><td><code>postMessage</code> <em>（可选）</em></td><td>iframe 内变化可通过 postMessage 通知宿主</td></tr>
         <tr><td>主题适配 <em>（可选）</em></td><td>读取 URL 参数或宿主颜色方案适配明暗主题</td></tr>
