@@ -12,12 +12,15 @@ Works on **ChatGPT, Claude, Gemini** — any platform that renders iframes.
 
 ```
 User: "Calculate 3 items at $99.5 each with 8% tax"
-Agent: [calls API → embeds a live calculator]
-       User changes 3 → 4: instant update
-       User adds shipping: no Agent needed
+  ↓
+Agent reads skill.md → calls Provider API → gets result
+  ↓
+Agent outputs iframe → User sees live calculator
+  ↓
+User changes 3→4: instant update, no Agent round trip
 ```
 
-Under the hood: the Agent follows a `skill.md` that tells it to call your API, encode the result into a URL, and output an iframe. Four steps, no new protocol.
+Four steps, no new protocol: understand intent → call API → construct URL → output iframe.
 
 ## Start in 3 Steps
 

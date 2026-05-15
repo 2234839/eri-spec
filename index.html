@@ -194,6 +194,8 @@
       color: var(--text);
       font-weight: 500;
     }
+    .sidebar-next { margin-top: 12px; }
+    .sidebar-next-header { background: rgba(34,197,94,0.12); color: #22c55e; }
 
     .message {
       max-width: 800px;
@@ -499,12 +501,10 @@
   <div class="settings-panel" id="settings">
     <label data-i18n="settings.endpoint">LLM API Endpoint</label>
     <input type="text" id="apiEndpoint" value="https://api.openai.com/v1/chat/completions" placeholder="https://api.openai.com/v1/chat/completions">
-    <div style="height:10px"></div>
-    <label data-i18n="settings.apiKey">API Key</label>
+    <label data-i18n="settings.apiKey" style="margin-top:10px">API Key</label>
     <input type="password" id="apiKey" placeholder="sk-...">
     <div class="hint" data-i18n="settings.hint">Your key stays in the browser. This is a fully static page — no data is sent to any server except the LLM API you configure above.</div>
-    <div style="height:10px"></div>
-    <label data-i18n="settings.model">Model</label>
+    <label data-i18n="settings.model" style="margin-top:10px">Model</label>
     <input type="text" id="model" value="gpt-4o-mini" placeholder="gpt-4o-mini">
   </div>
 
@@ -529,8 +529,8 @@ description: What it does
 2. Embed: https://app.com/embed#data</div>
         </div>
       </div>
-      <div class="sidebar-card" style="margin-top:12px">
-        <div class="sidebar-card-header" style="background:rgba(34,197,94,0.12);color:#22c55e">⚡ Next Steps</div>
+      <div class="sidebar-card sidebar-next">
+        <div class="sidebar-card-header sidebar-next-header">⚡ Next Steps</div>
         <div class="sidebar-card-body" data-i18n-html="sidebar.next">
           <p><a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md"><b>Copy the Template</b></a> — fill in your API and embed URL.</p>
           <p><a href="./docs/spec.html"><b>Read the Spec</b></a> — workflow, security, levels.</p>
