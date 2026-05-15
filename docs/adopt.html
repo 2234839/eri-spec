@@ -156,6 +156,9 @@
     <h3>"Our API requires authentication — how does the Agent pass credentials?"</h3>
     <p>The Agent calls your API from its server, not from the user's browser. Provide a dedicated <strong>public API endpoint</strong> for Agent access — rate-limited, scoped to safe operations. For sensitive operations, let users authenticate within the embed page itself (OAuth popup, etc.). The iframe only renders results — it doesn't call your API.</p>
 
+    <h3>"What about PII and compliance?"</h3>
+    <p>Never place PII in URL hash or query params — URLs are logged in browser history, proxy logs, and referrer headers. For data that involves PII, pass a short-lived token in the URL and fetch actual data via an API call inside the embed page. The embed page runs under the platform's iframe sandbox — no access to parent cookies or tokens.</p>
+
     <h3>"What if our platform doesn't support iframes?"</h3>
     <p>ERI falls back to plain text — the Agent still provides value. Most major platforms (ChatGPT, Claude, Gemini) render iframes today, so this is rarely an issue.</p>
 
