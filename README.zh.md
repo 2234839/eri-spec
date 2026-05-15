@@ -48,6 +48,14 @@ Agent 输出 iframe → 用户看到实时计算器
 | [采用](https://2234839.github.io/eri-spec/docs/adopt.zh.html) | 团队采用指南——清单、决策矩阵、推介模板 |
 | [示例](./examples/) | 可复制的 skill.md 模板——[模板](./examples/template.md)、[hello world](./examples/hello-world.html)和[真实实现](./examples/notecalc.md) |
 
+## 采用者
+
+| 项目 | 说明 |
+|------|------|
+| [NoteCalc](https://tsfullstack.heartstack.space/noteCalc) | 数学计算器——支持变量、单位换算和百分比，[skill.md](./examples/notecalc.md) |
+
+用 ERI 构建了什么？[在此添加](https://github.com/2234839/eri-spec/edit/main/README.zh.md)——提交 PR 即可。
+
 ## 许可
 
 [MIT](./LICENSE) — 自由实现，无需声明。参见[更新日志](./CHANGELOG.md)和[贡献指南](./CONTRIBUTING.md)。

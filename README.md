@@ -48,6 +48,14 @@ Four steps, no new protocol: understand intent → call API → construct URL �
 | [Adopt](https://2234839.github.io/eri-spec/docs/adopt.html) | Team adoption guide — checklist, decision matrix, pitch template |
 | [Examples](./examples/) | Copy-paste skill.md templates — [template](./examples/template.md), [hello world](./examples/hello-world.html), and [real implementation](./examples/notecalc.md) |
 
+## Adopters
+
+| Project | Description |
+|---------|-------------|
+| [NoteCalc](https://tsfullstack.heartstack.space/noteCalc) | Math calculator with variables, unit conversion, and percentage — [skill.md](./examples/notecalc.md) |
+
+Built something with ERI? [Add yours here](https://github.com/2234839/eri-spec/edit/main/README.md) — open a PR.
+
 ## License
 
 [MIT](./LICENSE) — free to implement, no attribution required. See [CHANGELOG](./CHANGELOG.md) for version history and [CONTRIBUTING](./CONTRIBUTING.md) to participate.
