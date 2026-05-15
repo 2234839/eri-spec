@@ -27,7 +27,7 @@ Four steps, no new protocol: understand intent → call API → construct URL �
 **You have a web app. You want it in Agent conversations. Here's how:**
 
 1. **Add an embed page** — Create a stripped-down version of your app that reads initial state from URL params. A [minimal page is 10 lines](https://2234839.github.io/eri-spec/docs/spec.html#minimal-example); a production-ready page is typically 100–200 lines.
-2. **Write a skill.md** — Tell the Agent how to call your API and construct the embed URL. [Start from the template](./examples/template.md).
+2. **Write a skill.md** — Tell the Agent how to call your API and construct the embed URL. [Start from the template](./examples/template.md) or see a [real implementation](./examples/notecalc.md) (15 lines).
 3. **Ship it** — iframe embedding works on ChatGPT, Claude, Gemini today. Add [postMessage bidirectional communication](https://2234839.github.io/eri-spec/docs/spec.html#progressive-levels) when ready.
 
 ## How It's Different

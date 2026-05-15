@@ -27,7 +27,7 @@ Agent 输出 iframe → 用户看到实时计算器
 **你有一个 Web 应用，想让它出现在 Agent 对话中。这样做：**
 
 1. **添加嵌入页面** — 创建一个精简版应用，从 URL 参数读取初始状态。[最小示例只需 10 行](https://2234839.github.io/eri-spec/docs/spec.zh.html#minimal-example)；生产级页面通常 100–200 行。
-2. **写一个 skill.md** — 告诉 Agent 如何调用你的 API 和构造嵌入 URL。[从模板开始](./examples/template.md)。
+2. **写一个 skill.md** — 告诉 Agent 如何调用你的 API 和构造嵌入 URL。[从模板开始](./examples/template.md)，或参考[真实实现](./examples/notecalc.md)（仅 15 行）。
 3. **上线** — iframe 嵌入在 ChatGPT、Claude、Gemini 上都能用。需要时再加 [postMessage 双向通信](https://2234839.github.io/eri-spec/docs/spec.zh.html#progressive-levels)。
 
 ## 有什么不同
