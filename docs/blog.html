@@ -114,6 +114,11 @@
     <p>You write a <code>skill.md</code> telling the Agent how to call your API and which URL to embed. <a href="./spec.html#skill-authoring">See the spec</a> for a minimal example, or grab the <a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">copy-paste template</a>.</p>
     <p>Under a day from zero to working embed. <a href="https://2234839.github.io/eri-spec/">Try it now</a>.</p>
 
+    <h2>Yes, You Can Already Embed an Iframe</h2>
+    <p>Right. You can tell an Agent "embed this URL" and it will produce an iframe. So why a spec?</p>
+    <p>Because without a convention, every Agent-provider integration is ad-hoc. One Agent embeds your URL with the data in the hash. Another puts it in query params. A third forgets to include a text fallback for platforms that strip iframes. Your API gets called differently each time, and your embed page has no consistent contract.</p>
+    <p>ERI defines the contract: a <code>skill.md</code> instructs the Agent to call a specific API, encode the result, embed a specific URL, and include a plain text fallback. Same pattern, every Agent, every platform. The embed page has a clear spec to build against. The result is consistent and discoverable — not a lucky coincidence.</p>
+
     <h2>Three Paths to Interactive Agent Output</h2>
     <p>The industry is converging on the same problem from three directions:</p>
     <p><strong>ERI</strong> — embed your web app via URL. Works on every platform today because it uses iframes. You build an HTTPS page, write a <code>skill.md</code>, and ship. The trade-off: full web platform (HTML/CSS/JS/Canvas/WebGL), but no native device APIs or real-time sync.</p>
@@ -121,8 +126,10 @@
     <p><strong>A2UI</strong> (Google) — the Agent declares UI as JSON, and a platform renderer turns it into native controls. Native rendering quality, but requires an A2UI renderer that most platforms don't have yet.</p>
 
     <h2>Why ERI First</h2>
-    <p><strong>ERI</strong> gives you every platform today. When your target platforms support richer protocols, the embed page carries forward — you're not starting over.</p>
-    <p>Trade-offs: snapshot-based output, no native device APIs. See <a href="./spec.html#limitations">spec limitations</a> for details and <a href="./spec.html#error-handling">error handling</a> for failure modes.</p>
+    <p><strong>Ship today, upgrade later.</strong> ERI works on most platforms today because it uses what platforms already have: iframe rendering. When your target platforms support MCP Apps or A2UI, your embed page carries forward — it becomes the core you package for those protocols. You're building an asset, not a throwaway prototype.</p>
+    <p><strong>One implementation, all platforms.</strong> ChatGPT, Claude, and Gemini all render iframes in Agent output. One embed page + one <code>skill.md</code> reaches all three. No per-platform SDK, no platform approval cycle, no vendor-specific packaging.</p>
+    <p><strong>Zero protocol commitment.</strong> ERI is not a runtime dependency. Your embed page runs independently — it's a regular HTTPS page. If you decide to migrate to MCP Apps or A2UI, the embed page doesn't change. You add a packaging layer on top.</p>
+    <p>Trade-offs: snapshot-based output (each user turn produces a fresh embed), no native device APIs, URL size limits for encoded data. See <a href="./spec.html#limitations">spec limitations</a> and <a href="./spec.html#large-data-pattern">large data pattern</a> for mitigations.</p>
     <div class="arch">
       <div class="arch-layer">
         <div class="arch-level"><span class="arch-level-tag">Interactive</span>

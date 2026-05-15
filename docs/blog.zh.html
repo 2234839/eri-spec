@@ -114,6 +114,11 @@
     <p>你写一个 <code>skill.md</code>，告诉 Agent 如何调用你的 API、嵌入哪个 URL。<a href="./spec.zh.html#skill-authoring">见规范</a>中的最小示例，或直接使用<a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">可复制模板</a>。</p>
     <p>从零到可运行嵌入，不到一天。<a href="https://2234839.github.io/eri-spec/">现在试试</a>。</p>
 
+    <h2>你当然可以直接嵌入 iframe</h2>
+    <p>没错。你可以直接告诉 Agent "嵌入这个 URL"，它会生成一个 iframe。那为什么还需要一个规范？</p>
+    <p>因为没有一个约定，每次 Agent-提供者的集成都是临时拼凑。一个 Agent 把数据放在 hash 里嵌入你的 URL。另一个放在 query 参数里。第三个忘了在不支持 iframe 的平台提供纯文本降级。你的 API 每次被不同的方式调用，嵌入页面没有一个一致的契约。</p>
+    <p>ERI 定义了这个契约：<code>skill.md</code> 指导 Agent 调用特定 API、编码结果、嵌入特定 URL、并包含纯文本降级。同样的模式，每个 Agent，每个平台。嵌入页面有清晰的规范可以遵循。结果是一致且可复用的——不是一次碰巧。</p>
+
     <h2>三条路径到交互式 Agent 输出</h2>
     <p>业界从三个方向收敛到同一个问题：</p>
     <p><strong>ERI</strong>——通过 URL 嵌入你的 Web 应用。因为用的是 iframe，今天大多数平台都能用。你构建一个 HTTPS 页面，写一个 <code>skill.md</code>，然后上线。代价：完整 Web 平台（HTML/CSS/JS/Canvas/WebGL），但没有原生设备 API 或实时同步。</p>
@@ -121,8 +126,10 @@
     <p><strong>A2UI</strong>（Google）——Agent 以 JSON 声明 UI，平台渲染器将其转为原生控件。原生渲染质量，但需要 A2UI 渲染器——大多数平台还没有。</p>
 
     <h2>为什么先选 ERI</h2>
-    <p><strong>ERI</strong> 让你今天就覆盖所有平台。等目标平台支持更丰富的协议时，嵌入页面可以直接沿用——不用从头开始。</p>
-    <p>代价：快照式输出，无原生设备 API。详见<a href="./spec.zh.html#limitations">规范局限性</a>和<a href="./spec.zh.html#error-handling">错误处理</a>。</p>
+    <p><strong>今天就上线，以后再升级。</strong>ERI 利用平台已有的能力——iframe 渲染——所以今天大多数平台都能用。等目标平台支持 MCP Apps 或 A2UI，你的嵌入页面可以直接沿用——它构成打包给更丰富协议的核心。你在构建资产，不是一次性原型。</p>
+    <p><strong>一次实现，所有平台。</strong>ChatGPT、Claude、Gemini 都在 Agent 输出中渲染 iframe。一个嵌入页面 + 一个 <code>skill.md</code> 覆盖三个平台。无需逐平台 SDK，无需平台审批流程，无需供应商特定的打包。</p>
+    <p><strong>零协议承诺。</strong>ERI 不是运行时依赖。你的嵌入页面独立运行——它就是一个普通的 HTTPS 页面。如果日后决定迁移到 MCP Apps 或 A2UI，嵌入页面不用改。你只需在上面加一层打包。</p>
+    <p>代价：快照式输出（每轮用户对话产生全新嵌入），无原生设备 API，URL 大小限制。详见<a href="./spec.zh.html#limitations">规范局限性</a>和<a href="./spec.zh.html#large-data-pattern">大数据集模式</a>。</p>
     <div class="arch">
       <div class="arch-layer">
         <div class="arch-level"><span class="arch-level-tag">可交互</span>
