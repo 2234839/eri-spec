@@ -243,7 +243,7 @@ iframe.contentWindow.postMessage({
     <h2 id="limitations">9. Limitations</h2>
     <ul>
       <li><strong>Snapshot-based</strong> — Agent cannot see iframe edits in real time. Use Level 2 postMessage for bidirectional sync.</li>
-      <li><strong>No native device access</strong> — iframes cannot use GPS, camera, or other device-native APIs.</li>
+      <li><strong>Limited device access</strong> — sandboxed iframes have restricted access to device APIs (GPS, camera, etc.). Expect standard web capabilities only.</li>
       <li><strong>No SEO indexing</strong> — iframe content is invisible to search engines (irrelevant for Agent output).</li>
     </ul>
 
