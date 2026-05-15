@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-ERI (Embedded Result Interface) is an **open specification** for a Skill authoring pattern that enables AI Agents to embed interactive UI (iframe/screenshot) instead of plain text. This is a documentation-only repository — no build system, no tests, no runtime code.
+ERI (Embedded Result Interface) is an **open specification** for a Skill authoring pattern that enables AI Agents to embed interactive UI (iframe) instead of plain text. This is a documentation-only repository — no build system, no tests, no runtime code.
 
 ## Repository Structure
 
@@ -17,8 +17,8 @@ ERI (Embedded Result Interface) is an **open specification** for a Skill authori
 ## Key Concepts
 
 - **No new protocol or fields** — ERI is a convention expressed in `skill.md` files
-- **Four-step workflow**: understand intent → call API → construct embed URL → output iframe/screenshot
-- **Progressive levels**: Level 0 (text) → Level 1 (screenshot) → Level 2 (iframe) → Level 3 (postMessage bidirectional)
+- **Four-step workflow**: understand intent → call API → construct embed URL → output iframe
+- **Progressive levels**: Level 0 (text) → Level 1 (iframe) → Level 2 (postMessage bidirectional)
 - **Agent does not monitor** the embedded UI — each new user turn produces a fresh embed
 - **Third-party apps only need** an HTTPS embed page that reads initial state from URL params
 - **Third-party provider advantage**: ERI works on ALL Agent platforms (ChatGPT, Claude, Gemini) — no per-platform integration needed
@@ -31,7 +31,6 @@ All content exists in English and Chinese pairs. HTML pages use `?lang=` or sepa
 
 - NoteCalc API: `https://tsfullstack.heartstack.space/app-api/noteCalcApi.evaluate`
 - NoteCalc Embed: `https://tsfullstack.heartstack.space/noteCalc/embed`
-- Screenshot service: `https://api.microlink.io`
 
 ## Editing Guidelines
 

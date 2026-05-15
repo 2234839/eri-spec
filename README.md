@@ -1,8 +1,8 @@
 # ERI — Embedded Result Interface
 
-> A convention for embedding interactive UI in Agent output. Zero protocols, zero SDKs, zero platform changes.
+> Let your web app run inside every AI Agent. One embed page, one skill file, all platforms.
 
-AI Agents return text. ERI lets them return interactive apps — calculators, charts, forms, editors — embedded directly in the conversation. Users can touch, tweak, and explore results without another round trip to the Agent.
+AI Agents return text. ERI lets any web app — yours or your users' — appear as an interactive UI inside Agent conversations on ChatGPT, Claude, Gemini, and beyond. No SDKs. No platform approval. No waiting.
 
 **[中文文档](./README.zh.md)** | [Live Demo](https://2234839.github.io/eri-spec/) | [Spec](https://2234839.github.io/eri-spec/docs/spec.html) | [Blog](https://2234839.github.io/eri-spec/docs/blog.html) | [Adopt](https://2234839.github.io/eri-spec/docs/adopt.html)
 
@@ -40,7 +40,7 @@ description: Math calculator with variables and unit conversion.
 
 1. **Add an embed page** — Create a stripped-down version of your app that reads initial state from URL params. ~40 lines of code.
 2. **Write a skill.md** — Tell the Agent how to call your API and construct the embed URL. 10 minutes.
-3. **Ship it** — Level 1 (screenshot) works everywhere today, no platform support needed. Upgrade to Level 2 (iframe) when ready.
+3. **Ship it** — iframe embedding works on most Agent platforms today. Add postMessage bidirectional communication when ready.
 
 ## How It's Different
 

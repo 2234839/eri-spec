@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Beyond Text: Why AI Agents Need Interactive UI — ERI Blog</title>
-  <meta name="description" content="AI Agents solve input, but output is still trapped in text. ERI (Embedded Result Interface) lets Agents embed interactive UI in conversations. No SDKs, no protocols — just a URL.">
+  <title>Beyond Text: Why AI Agents Need Interactive UI — ERI</title>
+  <meta name="description" content="AI Agents output text. ERI lets your web app appear as interactive UI inside every Agent conversation — ChatGPT, Claude, Gemini. One embed page, one skill file, all platforms.">
   <meta name="keywords" content="ERI, AI Agent, interactive UI, iframe embed, agent output, A2UI, embedded interface, beyond text">
   <meta property="og:title" content="Beyond Text: Why AI Agents Need Interactive UI">
   <meta property="og:description" content="AI Agents solve input, but output is still trapped in text. ERI lets Agents embed interactive UI in conversations — no SDKs, no protocols, just a URL.">
@@ -100,8 +100,10 @@
     <p>The ecosystem has solved input — natural language, tool calls, multimodal. It hasn't solved output. Everything comes back as text.</p>
 
     <h2>Enter ERI</h2>
-    <p>ERI (Embedded Result Interface) is a convention for making Agent output interactive. The Agent calls a third-party API, constructs an embed URL, and outputs an iframe or screenshot. The user interacts directly — no Agent in the loop.</p>
-    <p>No new protocols. No SDKs. Just a <code>skill.md</code>.</p>
+    <p>ERI (Embedded Result Interface) is a convention for making Agent output interactive. Your web app appears as a live, editable UI inside any Agent conversation — ChatGPT, Claude, Gemini, any of them. You control the experience. The user interacts directly — no Agent in the loop.</p>
+    <p>No new protocols. No SDKs. No platform approval. Just a <code>skill.md</code> and a URL.</p>
+    <p>10 minutes to write. Half a day for the embed page. Zero platform changes. Ship today.</p>
+    <p>Try it: <a href="https://2234839.github.io/eri-spec/">2234839.github.io/eri-spec/</a></p>
     <pre><code>---
 name: notecalc
 description: Math calculator with variables and unit conversion.
@@ -111,7 +113,7 @@ description: Math calculator with variables and unit conversion.
 1. Parse user request into expressions
 2. Call POST /api/calculate with expressions
 3. Embed result as iframe: https://app.com/embed#encoded_expr</code></pre>
-    <p>10 minutes to write. Half a day for the embed page. Zero platform changes. <a href="./spec.html">Level 1 (screenshot)</a> works everywhere today — no platform support needed. Ship it, upgrade to Level 2 (iframe) when ready. Nothing breaks.</p>
+    <p>10 minutes to write. Half a day for the embed page. Zero platform changes. Ship today.</p>
     <p>Try it: <a href="https://2234839.github.io/eri-spec/">2234839.github.io/eri-spec/</a></p>
 
     <h2>Three Paths to Interactive Agent Output</h2>
@@ -132,15 +134,14 @@ description: Math calculator with variables and unit conversion.
     <p><strong>ERI</strong> works on <em>all</em> platforms today. As a third-party service provider, you write one embed page and one skill file — your app appears in ChatGPT, Claude, Gemini, and any future Agent. No SDKs, no schemas, no platform-specific code. Just a URL. Ship today, adopt MCP Apps or A2UI later when your target platforms support them. All three converge at the same destination.</p>
     <div class="arch">
       <div class="arch-layer">
-        <div class="arch-level"><span class="arch-level-tag">Level 2</span>
+        <div class="arch-level"><span class="arch-level-tag">Interactive</span>
           <div class="arch-boxes">
             <div class="arch-box eri"><b>ERI</b><span>embed URL → iframe</span></div>
             <div class="arch-box"><b>MCP Apps</b><span>sandboxed iframe apps</span></div>
             <div class="arch-box"><b>A2UI</b><span>JSON schema + renderer</span></div>
           </div>
         </div>
-        <div class="arch-level"><span class="arch-level-tag">Level 1</span> Screenshot (ERI fallback)</div>
-        <div class="arch-level"><span class="arch-level-tag">Level 0</span> Plain text (status quo)</div>
+        <div class="arch-level"><span class="arch-level-tag">Fallback</span> Plain text (status quo)</div>
       </div>
       <div class="arch-layer arch-sep">
         <div class="arch-layer-title">Tool Invocation Layer</div>

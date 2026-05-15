@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>超越文字：为什么 AI Agent 需要交互式 UI — ERI 博客</title>
-  <meta name="description" content="AI Agent 解决了输入，但输出仍困在文字中。ERI（嵌入式结果界面）让 Agent 在对话中嵌入可交互的 UI。无需 SDK、无需协议——只需要一个 URL。">
+  <title>超越文字：为什么 AI Agent 需要交互式 UI — ERI</title>
+  <meta name="description" content="AI Agent 输出文字。ERI 让你的 Web 应用以交互式 UI 出现在所有 Agent 对话中——ChatGPT、Claude、Gemini。一个嵌入页面，一个 skill 文件，所有平台。">
   <meta name="keywords" content="ERI, AI Agent, 交互式 UI, iframe 嵌入, Agent 输出, A2UI, 嵌入式界面, 超越文字">
   <meta property="og:title" content="超越文字：为什么 AI Agent 需要交互式 UI">
   <meta property="og:description" content="AI Agent 解决了输入，但输出仍困在文字中。ERI 让 Agent 在对话中嵌入可交互的 UI——无需 SDK、无需协议，只需要一个 URL。">
@@ -100,8 +100,8 @@
     <p>Agent 生态解决了输入——自然语言、工具调用、多模态。没解决输出。结果都回到文字。</p>
 
     <h2>引入 ERI</h2>
-    <p>ERI（Embedded Result Interface）是一种让 Agent 输出可交互的约定。Agent 调用第三方 API，构造嵌入 URL，输出 iframe 或截图。用户直接交互——Agent 不在循环中。</p>
-    <p>不需要新协议。不需要 SDK。只需要一个 <code>skill.md</code>。</p>
+    <p>ERI（Embedded Result Interface）是一种让 Agent 输出可交互的约定。你的 Web 应用以实时可编辑的 UI 出现在任何 Agent 对话中——ChatGPT、Claude、Gemini，全都支持。你控制体验。用户直接交互——Agent 不在循环中。</p>
+    <p>不需要新协议。不需要 SDK。不需要平台审批。只需要一个 <code>skill.md</code> 和一个 URL。</p>
     <pre><code>---
 name: notecalc
 description: 数学计算器，支持变量和单位转换。
@@ -111,7 +111,7 @@ description: 数学计算器，支持变量和单位转换。
 1. 将用户请求转化为表达式
 2. 调用 POST /api/calculate 传入表达式
 3. 以 iframe 嵌入结果: https://app.com/embed#encoded_expr</code></pre>
-    <p>10 分钟写完。半天做好嵌入页面。零平台改动。<a href="./spec.zh.html">Level 1（截图）</a>现在就能用——不需要平台支持。上线，准备好时升级到 Level 2（iframe）。不会破坏任何东西。</p>
+    <p>10 分钟写完。半天做好嵌入页面。零平台改动。今天就能上线。</p>
     <p>试一下：<a href="https://2234839.github.io/eri-spec/">2234839.github.io/eri-spec/</a></p>
 
     <h2>三条路径到交互式 Agent 输出</h2>
@@ -132,15 +132,14 @@ description: 数学计算器，支持变量和单位转换。
     <p><strong>ERI</strong> 在<em>所有</em>平台上都能用。作为第三方服务提供者，你只需写一个嵌入页面和一个 skill 文件——你的应用就能出现在 ChatGPT、Claude、Gemini 以及任何未来的 Agent 上。无需 SDK、无需 Schema、无需平台特定代码。一个 URL。今天就能用，等目标平台支持 MCP Apps 或 A2UI 时再采用。三条路收敛到同一个终点。</p>
     <div class="arch">
       <div class="arch-layer">
-        <div class="arch-level"><span class="arch-level-tag">Level 2</span>
+        <div class="arch-level"><span class="arch-level-tag">可交互</span>
           <div class="arch-boxes">
             <div class="arch-box eri"><b>ERI</b><span>嵌入 URL → iframe</span></div>
             <div class="arch-box"><b>MCP Apps</b><span>沙箱 iframe 小应用</span></div>
             <div class="arch-box"><b>A2UI</b><span>JSON Schema + 渲染器</span></div>
           </div>
         </div>
-        <div class="arch-level"><span class="arch-level-tag">Level 1</span> 截图（ERI 兜底）</div>
-        <div class="arch-level"><span class="arch-level-tag">Level 0</span> 纯文本（现状）</div>
+        <div class="arch-level"><span class="arch-level-tag">兜底</span> 纯文本（现状）</div>
       </div>
       <div class="arch-layer arch-sep">
         <div class="arch-layer-title">工具调用层</div>

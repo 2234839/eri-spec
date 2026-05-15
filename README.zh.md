@@ -1,8 +1,8 @@
 # ERI — Embedded Result Interface
 
-> 一种在 Agent 输出中嵌入交互式 UI 的约定。零协议、零 SDK、零平台改动。
+> 让你的 Web 应用运行在所有 AI Agent 中。一个嵌入页面，一个 skill 文件，所有平台。
 
-AI Agent 只能返回文字。ERI 让它们返回交互式应用——计算器、图表、表单、编辑器——直接嵌入对话中。用户可以触摸、调整、探索结果，不需要再来回对话。
+AI Agent 只能返回文字。ERI 让任何 Web 应用——你的或你的用户的——以交互式 UI 出现在 ChatGPT、Claude、Gemini 以及更多 Agent 的对话中。无需 SDK。无需平台审批。无需等待。
 
 **[English](./README.md)** | [在线演示](https://2234839.github.io/eri-spec/) | [规范](https://2234839.github.io/eri-spec/docs/spec.zh.html) | [博客](https://2234839.github.io/eri-spec/docs/blog.zh.html) | [采用](https://2234839.github.io/eri-spec/docs/adopt.zh.html)
 
@@ -40,7 +40,7 @@ description: 数学计算器，支持变量和单位转换。
 
 1. **添加嵌入页面** — 创建一个精简版应用，从 URL 参数读取初始状态。约 40 行代码。
 2. **写一个 skill.md** — 告诉 Agent 如何调用你的 API 和构造嵌入 URL。10 分钟。
-3. **上线** — Level 1（截图）现在就能用，不需要平台支持。准备好时升级到 Level 2（iframe）。
+3. **上线** — iframe 嵌入在大多数 Agent 平台上都能用。需要时再加 postMessage 双向通信。
 
 ## 有什么不同
 

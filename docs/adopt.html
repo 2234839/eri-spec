@@ -111,22 +111,21 @@
         </ul>
       </li>
       <li>Write a <code>skill.md</code> following the <a href="./spec.html">spec</a></li>
-      <li>Test with screenshot mode (Level 1) — works everywhere, no platform support needed</li>
+      <li>Test with your Agent platform — confirm iframes render correctly</li>
     </ul>
 
     <h3>Phase 2: Integration (1 week)</h3>
     <ul class="checklist">
-      <li>Confirm your Agent platform renders iframes (most do)</li>
-      <li>Add <code>sandbox="allow-scripts allow-same-origin"</code> to iframe rendering</li>
-      <li>Switch from screenshot to iframe mode (Level 2)</li>
+      <li>Ensure <code>sandbox="allow-scripts allow-same-origin"</code> is set on iframe rendering</li>
       <li>Test responsive behavior at different embed widths</li>
       <li>Verify no <code>document.cookie</code>, <code>window.top</code>, or <code>window.opener</code> usage in embed page</li>
+      <li>Handle edge cases: invalid URL params, slow networks, empty state</li>
     </ul>
 
     <h3>Phase 3: Polish (optional)</h3>
     <ul class="checklist">
       <li>Add theme adaptation (light/dark) via URL param or <code>prefers-color-scheme</code></li>
-      <li>Implement <code>postMessage</code> for Level 3 bidirectional communication</li>
+      <li>Implement <code>postMessage</code> for Level 2 bidirectional communication</li>
       <li>Add error handling for invalid URL params</li>
       <li>Monitor embed page performance and load time</li>
     </ul>
@@ -154,8 +153,8 @@
     <h3>"MCP Apps will replace this, right?"</h3>
     <p>MCP Apps require platform integration — your app only works on MCP-enabled platforms. ERI works on <em>every</em> platform because it's just a URL. As a third-party provider, ERI gives you the broadest reach with the least effort.</p>
 
-    <h3>"Can we start with screenshots only?"</h3>
-    <p>Yes. Level 1 (screenshot) works everywhere today — no iframe support needed. Upgrade when ready.</p>
+    <h3>"What if our platform doesn't support iframes?"</h3>
+    <p>ERI falls back to plain text output — the Agent still provides value via text. Most major platforms (ChatGPT, Claude, Gemini) render iframes today, so this is rarely an issue.</p>
 
     <h2>Internal Pitch Template</h2>
     <p>When presenting ERI to your team or leadership:</p>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ERI 规范 — 嵌入式结果界面 v1.0</title>
-  <meta name="description" content="ERI（嵌入式结果界面）规范 v1.0。一种 Skill 编写模式，让 AI Agent 输出可交互的嵌入式 UI（iframe/截图），而非纯文本。">
+  <meta name="description" content="ERI 规范 v1.0。让你的 Web 应用运行在所有 AI Agent 中。清晰标注 Agent 天然能力、提供者需实现什么、平台需支持什么。">
   <meta name="keywords" content="ERI, 嵌入式结果界面, AI Agent, 交互式 UI, iframe 嵌入, Skill 模式, Agent 输出, 规范">
   <meta property="og:title" content="ERI 规范 — 嵌入式结果界面 v1.0">
   <meta property="og:description" content="一种 Skill 编写模式，让 AI Agent 输出可交互的嵌入式 UI 而非纯文本。无需新协议、无需 SDK，只需一个 skill.md。">
@@ -22,7 +22,7 @@
     "@context": "https://schema.org",
     "@type": "TechArticle",
     "headline": "ERI 规范 — 嵌入式结果界面 v1.0",
-    "description": "一种 Skill 编写模式，让 AI Agent 输出可交互的嵌入式 UI（iframe/截图），而非纯文本。",
+    "description": "一种 Skill 编写模式，让 AI Agent 输出可交互的嵌入式 UI（iframe），而非纯文本。",
     "version": "1.0",
     "license": "https://opensource.org/licenses/MIT"
   }
@@ -89,12 +89,12 @@
     <p class="meta"><strong>版本</strong>：1.0 &nbsp;|&nbsp; <strong>状态</strong>：Stable &nbsp;|&nbsp; <strong>许可</strong>：MIT</p>
 
     <h2>1. 定义</h2>
-    <p>ERI（Embedded Result Interface，嵌入式结果界面）是一种 Skill 编写模式。Agent 处理用户请求后，输出一个可交互的嵌入式 UI（iframe 或截图），而不是（或不仅是）纯文本。用户可以直接在该 UI 上进行交互。</p>
+    <p>ERI（Embedded Result Interface，嵌入式结果界面）是一种 Skill 编写模式。Agent 处理用户请求后，输出一个可交互的嵌入式 UI（iframe），而不是（或不仅是）纯文本。用户可以直接在该 UI 上进行交互。</p>
     <p>ERI 中谁做什么：</p>
     <ul>
       <li><span class="tag tag-agent">Agent</span> <strong>理解意图、调用 API、构造嵌入 URL、输出 UI</strong>——这是任何 AI Agent 已有的能力（读取 skill、调用 API、输出文本）。不需要平台改动。</li>
       <li><span class="tag tag-provider">提供者</span> <strong>编写 <code>skill.md</code> 并提供一个 HTTPS 嵌入页面</strong>——这是第三方应用唯一需要做的事。约 40 行代码。</li>
-      <li><span class="tag tag-platform">平台</span> <strong>仅在 Level 2+ 需要配合（渲染 iframe）</strong>——大多数平台已经支持 iframe。Level 1（截图）完全不需要平台支持。</li>
+      <li><span class="tag tag-platform">平台</span> <strong>需要在渲染 iframe 时配合</strong>——大多数平台已经支持 iframe。纯文本兜底完全不需要平台支持。</li>
     </ul>
     <p>核心约束：</p>
     <ul>
@@ -111,7 +111,7 @@
       <div class="flow-arrow">→</div>
       <div class="flow-step"><strong>3. 构造 URL</strong><span>编码参数</span></div>
       <div class="flow-arrow">→</div>
-      <div class="flow-step"><strong>4. 输出 UI</strong><span>iframe / 截图</span></div>
+      <div class="flow-step"><strong>4. 输出 UI</strong><span>iframe / 纯文本</span></div>
     </div>
 
     <h3>2.1 理解意图</h3>
@@ -136,17 +136,14 @@ Response: {"result": 298.5}</code></pre>
 
     <h3>2.4 输出 UI</h3>
     <p class="role-note"><span class="tag tag-agent">Agent</span> 输出标记。<span class="tag tag-platform">平台</span> 负责渲染。</p>
-    <p>优先级：<strong>iframe &gt; 截图 &gt; 纯文本</strong></p>
+    <p>优先级：<strong>iframe &gt; 纯文本</strong></p>
 
-    <p><strong>iframe 模式（Level 2）</strong></p>
+    <p><strong>iframe 模式</strong></p>
     <pre><code>&lt;iframe src="https://app.example.com/embed#encoded_data" width="100%" height="400"&gt;&lt;/iframe&gt;</code></pre>
     <p>安全属性由 Agent 平台自动添加（<code>sandbox</code> 等）。</p>
 
-    <p><strong>截图模式（Level 1）</strong></p>
-    <pre><code>https://api.microlink.io/?url={encoded_embed_url}&amp;screenshot=true&amp;embed=screenshot.url</code></pre>
-
-    <p><strong>纯文本模式（Level 0）</strong></p>
-    <p>直接输出文本结果（兜底方案，退化为传统模式）。</p>
+    <p><strong>纯文本模式（兜底）</strong></p>
+    <p>直接输出文本结果（退化为传统 Agent 输出）。</p>
 
     <h2>3. 对话流程</h2>
     <p>用户在嵌入式界面上的修改不会自动通知 Agent。当用户发起新一轮对话时：</p>
@@ -175,8 +172,8 @@ description: 工具描述
 2. 调用 API：POST https://api.example.com/calculate
    Body: {"expr": "表达式"}
 3. 构造嵌入 URL：https://app.example.com/embed#URLEncoded(expr)
-4. 输出 UI（优先级：iframe &gt; 截图 &gt; 纯文本）</code></pre>
-    <p>Agent 读取这个工作流，执行每一步，输出 iframe 或截图。</p>
+4. 输出 UI（优先级：iframe &gt; 纯文本）</code></pre>
+    <p>Agent 读取这个工作流，执行每一步，输出 iframe。</p>
 
     <h3>API 契约</h3>
     <p>Agent 像任何 HTTP 客户端一样调用第三方 API：</p>
@@ -224,12 +221,11 @@ Content-Type: application/json
       <thead><tr><th>等级</th><th>能力</th><th>谁需要做什么</th></tr></thead>
       <tbody>
         <tr><td>0</td><td>纯文本输出</td><td><span class="tag tag-agent">Agent</span> 即可——不需要其他任何配合</td></tr>
-        <tr><td>1</td><td>截图输出</td><td><span class="tag tag-provider">提供者</span> 嵌入页面 + 截图服务。不需要平台改动。</td></tr>
-        <tr><td>2</td><td>iframe 嵌入</td><td><span class="tag tag-provider">提供者</span> 嵌入页面 + <span class="tag tag-platform">平台</span> iframe 支持（大多数平台已有）</td></tr>
-        <tr><td>3</td><td>双向通信</td><td>Level 2 + <span class="tag tag-provider">提供者</span> <span class="tag tag-platform">平台</span> 双方实现 postMessage</td></tr>
+        <tr><td>1</td><td>iframe 嵌入</td><td><span class="tag tag-provider">提供者</span> 嵌入页面 + <span class="tag tag-platform">平台</span> iframe 支持（大多数平台已有）</td></tr>
+        <tr><td>2</td><td>双向通信</td><td>Level 1 + <span class="tag tag-provider">提供者</span> <span class="tag tag-platform">平台</span> 双方实现 postMessage</td></tr>
       </tbody>
     </table>
-    <p>Level 3 的 postMessage 协议：</p>
+    <p>Level 2 的 postMessage 协议：</p>
     <pre><code>// iframe → Agent 平台
 window.parent.postMessage({
   type: "eri:valueChanged",
