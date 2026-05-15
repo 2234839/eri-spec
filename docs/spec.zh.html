@@ -221,7 +221,7 @@ description: 工具描述
     <table>
       <thead><tr><th>角色</th><th>规则</th></tr></thead>
       <tbody>
-        <tr><td><span class="tag tag-platform">平台</span></td><td>为 iframe 添加 <code>sandbox="allow-scripts"</code>。<strong>警告：<code>allow-same-origin</code> 与 <code>allow-scripts</code> 组合实际上取消了沙箱限制</strong>——仅在嵌入页面需要自身 cookie/storage 时使用。不得将用户凭证传递给第三方 iframe。如果平台使用 Content Security Policy，需将嵌入页面的 origin 加入 <code>frame-src</code>。</td></tr>
+        <tr><td><span class="tag tag-platform">平台</span></td><td>为 iframe 添加 <code>sandbox="allow-scripts"</code>。<strong>警告：<code>allow-same-origin</code> 与 <code>allow-scripts</code> 组合允许 iframe 访问自身 origin 的 cookie 和 storage</strong>——仅在嵌入页面需要自身 cookie/storage 时使用。iframe 仍无法跨域访问父页面。不得将用户凭证传递给第三方 iframe。如果平台使用 Content Security Policy，需将嵌入页面的 origin 加入 <code>frame-src</code>。</td></tr>
         <tr><td><span class="tag tag-provider">提供者</span></td><td>不依赖 <code>document.cookie</code>（沙箱环境可能不可用）。不使用 <code>window.opener</code> 或 <code>window.top</code> 做导航/DOM 访问（Level 2 的 <code>window.parent.postMessage</code> 是安全的）。所有输入做 XSS 防护。<strong>绝不在 URL hash/query 参数中放置 PII 或敏感数据</strong>——URL 会被记录在浏览器历史、代理日志和 Referrer 头中。对于敏感数据，应在 URL 中传递短期令牌，由嵌入页面通过 API 调用获取实际数据。</td></tr>
       </tbody>
     </table>
@@ -323,6 +323,7 @@ const data = await fetch('/api/results/' + token).then(r =&gt; r.json());</code>
       <thead><tr><th></th><th>ERI</th><th><a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a></th><th><a href="https://github.com/google/a2ui">A2UI</a> (Google)</th></tr></thead>
       <tbody>
         <tr><td><strong>方式</strong></td><td>通过 URL 嵌入</td><td>沙箱 iframe 小应用</td><td>声明式 JSON UI Schema</td></tr>
+        <tr><td><strong>需要构建</strong></td><td>HTTPS 嵌入页面 + <code>skill.md</code></td><td>MCP 兼容的应用包</td><td>组件目录 + A2UI Schema</td></tr>
         <tr><td><strong>平台要求</strong></td><td>渲染 iframe（已有）</td><td>MCP 运行时</td><td>A2UI 渲染器</td></tr>
         <tr><td><strong>今天可用？</strong></td><td><strong>是——大多数平台</strong></td><td>仅 MCP 平台</td><td>仅 A2UI 平台</td></tr>
         <tr><td><strong>能力</strong></td><td>完整 Web 平台</td><td>平台 API、实时通信</td><td>原生渲染</td></tr>

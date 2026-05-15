@@ -221,7 +221,7 @@ description: What this Skill does
     <table>
       <thead><tr><th>Role</th><th>Rules</th></tr></thead>
       <tbody>
-        <tr><td><span class="tag tag-platform">Platform</span></td><td>Add <code>sandbox="allow-scripts"</code> to iframes. <strong>Warning: adding <code>allow-same-origin</code> together with <code>allow-scripts</code> effectively removes the sandbox restriction</strong> — only use it if the embed page needs its own cookies/storage. Never pass user credentials to third-party iframes. If the platform uses Content Security Policy, add the embed page's origin to <code>frame-src</code>.</td></tr>
+        <tr><td><span class="tag tag-platform">Platform</span></td><td>Add <code>sandbox="allow-scripts"</code> to iframes. <strong>Warning: adding <code>allow-same-origin</code> together with <code>allow-scripts</code> lets the iframe access its own origin's cookies and storage</strong> — only use it if the embed page needs its own cookies/storage. The iframe still cannot access the parent page across origins. Never pass user credentials to third-party iframes. If the platform uses Content Security Policy, add the embed page's origin to <code>frame-src</code>.</td></tr>
         <tr><td><span class="tag tag-provider">Provider</span></td><td>Don't rely on <code>document.cookie</code> (may be unavailable in sandbox). Don't use <code>window.opener</code> or <code>window.top</code> for navigation/DOM access (<code>window.parent.postMessage</code> for Level 2 is safe). Sanitize all inputs against XSS. <strong>Never place PII or sensitive data in URL hash/query params</strong> — URLs are logged in browser history, proxy logs, and referrer headers. For sensitive data, pass a short-lived token in the URL and fetch actual data via an API call inside the embed page.</td></tr>
       </tbody>
     </table>
@@ -323,6 +323,7 @@ const data = await fetch('/api/results/' + token).then(r =&gt; r.json());</code>
       <thead><tr><th></th><th>ERI</th><th><a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a></th><th><a href="https://github.com/google/a2ui">A2UI</a> (Google)</th></tr></thead>
       <tbody>
         <tr><td><strong>How</strong></td><td>Embed via URL</td><td>Sandboxed iframe mini-apps</td><td>Declarative JSON UI schema</td></tr>
+        <tr><td><strong>You build</strong></td><td>HTTPS embed page + <code>skill.md</code></td><td>MCP-compatible app package</td><td>Component catalog + A2UI schema</td></tr>
         <tr><td><strong>Platform needs</strong></td><td>Render iframes (already done)</td><td>MCP runtime</td><td>A2UI renderer</td></tr>
         <tr><td><strong>Works today?</strong></td><td><strong>Yes — most platforms</strong></td><td>MCP-enabled only</td><td>A2UI-enabled only</td></tr>
         <tr><td><strong>Capabilities</strong></td><td>Full web platform</td><td>Platform APIs, real-time sync</td><td>Native rendering</td></tr>
