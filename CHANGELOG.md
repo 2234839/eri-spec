@@ -4,6 +4,14 @@ All notable changes to the ERI specification are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.24] - 2026-05-16
+
+### Changed
+- Spec EN/ZH: added Governance section — maintenance model, frozen Level 1, open proposal process, PR review.
+- Adopt ZH: fixed JSON-LD FAQPage to match EN's 8-question structure (was 10 — merged standalone PII and performance entries).
+
+[1.0.24]: https://github.com/2234839/eri-spec/compare/v1.0.23...v1.0.24
+
 ## [1.0.23] - 2026-05-16
 
 ### Changed
