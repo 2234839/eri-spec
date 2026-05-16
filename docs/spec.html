@@ -327,7 +327,7 @@ window.parent.postMessage({
 
     <h2 id="limitations">9. Limitations</h2>
     <ul>
-      <li><strong>Snapshot-based</strong> — each turn produces a fresh embed; Agent cannot observe in-iframe edits. See <a href="#conversation-flow">Section 3</a> for the full flow and <a href="#progressive-levels">Section 7</a> for Level 2 <code>ui/*</code> JSON-RPC bidirectional sync.</li>
+      <li><strong>Snapshot-based</strong> — each turn produces a fresh embed; Agent cannot observe in-iframe edits (<a href="#definition">Section 1</a>). Level 2 <code>ui/*</code> JSON-RPC enables bidirectional sync (<a href="#progressive-levels">Section 7</a>).</li>
       <li><strong>Page load per turn</strong> — each user turn triggers a fresh iframe load. For heavy embed pages, this causes a visible reload. Keep embed pages lightweight.</li>
       <li><strong>Limited device access</strong> — sandboxed iframes have restricted access to device APIs (GPS, camera, microphone, bluetooth). Expect standard web capabilities only.</li>
       <li><strong>URL size limits</strong> — state encoded in the URL hash is subject to browser URL length limits (~2KB safe, ~8KB max per <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986</a> practical limits). For larger datasets, use the <a href="#large-data-pattern">large data pattern</a>.</li>
@@ -372,8 +372,8 @@ const data = await fetch('/api/results/' + token).then(r =&gt; r.json());</code>
         <tr><td><strong>Capabilities</strong></td><td>Full web platform</td><td>Platform APIs, real-time sync</td><td>Native rendering</td></tr>
       </tbody>
     </table>
-    <p><a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a> and <a href="https://github.com/google/a2ui">A2UI</a> offer richer capabilities (native APIs, real-time sync, platform integrations) — ERI trades those for universal availability today.</p>
-    <p>MCP Apps also render inside sandboxed iframes — an ERI embed page is already structurally compatible with the MCP Apps runtime. ERI Level 2 uses the same <code>ui/*</code> JSON-RPC 2.0 host bridge, so the embed page and its bridge code carry forward unchanged. What ERI adds over a plain ad-hoc iframe:</p>
+    <p><a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a> and <a href="https://github.com/google/a2ui">A2UI</a> offer richer capabilities (native APIs, real-time sync, platform integrations) — ERI trades those for universal availability today. Since MCP Apps also uses sandboxed iframes and the same <code>ui/*</code> bridge (<a href="#progressive-levels">Section 7</a>), ERI embed pages carry forward unchanged.</p>
+    <p>What ERI adds over a plain ad-hoc iframe:</p>
     <table>
       <thead><tr><th></th><th>Without ERI</th><th>With ERI</th></tr></thead>
       <tbody>

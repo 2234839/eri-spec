@@ -28,9 +28,9 @@ Open a [GitHub Issue](https://github.com/2234839/eri-spec/issues) for:
 
 ### Add Your Implementation
 
-Built something with ERI? Add it to the adopters list:
+Built something with ERI? Add it to the "Who Uses ERI" table:
 1. Fork the repository
-2. Add your project to the "Adopters" section in the README
+2. Add your project to the "Who Uses ERI" table in README.md and README.zh.md
 3. Submit a Pull Request
 
 ## Governance

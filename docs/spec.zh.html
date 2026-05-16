@@ -327,7 +327,7 @@ window.parent.postMessage({
 
     <h2 id="limitations">9. 局限性</h2>
     <ul>
-      <li><strong>快照式输出</strong>——每轮对话产生全新的嵌入，Agent 无法观察 iframe 内的编辑。完整流程见<a href="#conversation-flow">第 3 节</a>，Level 2 <code>ui/*</code> JSON-RPC 双向同步见<a href="#progressive-levels">第 7 节</a>。</li>
+      <li><strong>快照式输出</strong>——每轮对话产生全新的嵌入，Agent 无法观察 iframe 内的编辑（<a href="#definition">第 1 节</a>）。Level 2 <code>ui/*</code> JSON-RPC 可实现双向同步（<a href="#progressive-levels">第 7 节</a>）。</li>
       <li><strong>每轮重新加载</strong>——每次用户对话触发全新的 iframe 加载。嵌入页面较重时会产生可见的重载闪烁。保持嵌入页面轻量。</li>
       <li><strong>设备能力受限</strong>——沙箱 iframe 对设备 API（GPS、摄像头、麦克风、蓝牙）的访问受限。仅支持标准 Web 能力。</li>
       <li><strong>URL 大小限制</strong>——编码到 URL hash 中的状态受浏览器 URL 长度限制（安全范围约 2KB，上限约 8KB，参见 <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986</a> 实际限制）。数据量较大时，使用<a href="#large-data-pattern">大数据集模式</a>。</li>
@@ -372,8 +372,8 @@ const data = await fetch('/api/results/' + token).then(r =&gt; r.json());</code>
         <tr><td><strong>能力</strong></td><td>完整 Web 平台</td><td>平台 API、实时通信</td><td>原生渲染</td></tr>
       </tbody>
     </table>
-    <p><a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a> 和 <a href="https://github.com/google/a2ui">A2UI</a> 提供更丰富的能力（原生 API、实时同步、平台集成）——ERI 用这些换取今天的通用可用性。</p>
-    <p>MCP Apps 同样在沙箱 iframe 中渲染——ERI 嵌入页面天然与 MCP Apps 运行时结构兼容。ERI Level 2 使用与 MCP Apps 相同的 <code>ui/*</code> JSON-RPC 2.0 宿主桥，嵌入页面及其桥接代码无需修改即可沿用。ERI 相比普通临时 iframe 增加了什么：</p>
+    <p><a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a> 和 <a href="https://github.com/google/a2ui">A2UI</a> 提供更丰富的能力（原生 API、实时同步、平台集成）——ERI 用这些换取今天的通用可用性。由于 MCP Apps 同样使用沙箱 iframe 和相同的 <code>ui/*</code> 桥接（<a href="#progressive-levels">第 7 节</a>），ERI 嵌入页面无需修改即可沿用。</p>
+    <p>ERI 相比普通临时 iframe 增加了什么：</p>
     <table>
       <thead><tr><th></th><th>没有 ERI</th><th>有 ERI</th></tr></thead>
       <tbody>
