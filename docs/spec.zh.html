@@ -126,7 +126,7 @@
         <li><strong>上线</strong>——大多数平台今天就能用。无需 SDK，无需审批。</li>
       </ol>
     </details>
-    <p class="toc"><a href="#definition">1. 定义</a> · <a href="#self-certification">合规清单</a> · <a href="#workflow">2. 工作流</a> · <a href="#conversation-flow">3. 对话流程</a> · <a href="#skill-authoring">4. Skill 编写</a> · <a href="#embed-page">5. 嵌入页面</a> · <a href="#security">6. 安全</a> · <a href="#progressive-levels">7. 等级</a> · <a href="#use-cases">8. 场景</a> · <a href="#limitations">9. 局限性</a> · <a href="#error-handling">10. 错误处理</a> · <a href="#industry-landscape">11. 格局</a></p>
+    <p class="toc"><a href="#definition">1. 定义</a> · <a href="#self-certification">合规清单</a> · <a href="#workflow">2. 工作流</a> · <a href="#conversation-flow">3. 对话流程</a> · <a href="#skill-authoring">4. Skill 编写</a> · <a href="#embed-page">5. 嵌入页面</a> · <a href="#security">6. 安全</a> · <a href="#progressive-levels">7. 等级</a> · <a href="#use-cases">8. 场景</a> · <a href="#limitations">9. 局限性</a> · <a href="#error-handling">10. 错误处理</a> · <a href="#industry-landscape">11. 格局</a> · <a href="#governance">治理</a></p>
 
     <h2 id="definition">1. 定义</h2>
     <p>AI Agent 输出文字。ERI（嵌入式结果界面）让它们直接嵌入可交互的 UI——只需一个 <code>skill.md</code> 和一个 URL。</p>
@@ -394,6 +394,9 @@ const data = await fetch('/api/results/' + token).then(r =&gt; r.json());</code>
       <li><a href="https://www.jsonrpc.org/specification">JSON-RPC 2.0 规范</a> — Level 2 消息传输格式</li>
       <li><a href="https://developers.openai.com/apps-sdk/mcp-apps-in-chatgpt">MCP Apps 宿主桥</a> — Level 2 双向通信的 <code>ui/*</code> JSON-RPC 方法</li>
     </ul>
+
+    <h2 id="governance">治理</h2>
+    <p>ERI 是由原作者维护的社区规范。Level 1 核心工作流已冻结——不做破坏性变更。增量变更（新场景、Level 2 消息类型）通过 <a href="https://github.com/2234839/eri-spec/issues">GitHub Issues</a> 的开放提案流程进行。所有实质性变更需要经评审的 Pull Request。详见 <a href="https://github.com/2234839/eri-spec/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>。</p>
 
     <hr>
     <footer><p class="meta"><a href="./adopt.zh.html">团队采用</a> · <a href="./blog.zh.html">为什么这很重要</a> · <a href="https://2234839.github.io/eri-spec/">在线演示</a> · <a href="https://github.com/2234839/eri-spec">GitHub</a></p></footer>

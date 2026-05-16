@@ -126,7 +126,7 @@
         <li><strong>Ship it</strong> — works on most platforms today. No SDK, no approval cycle.</li>
       </ol>
     </details>
-    <p class="toc"><a href="#definition">1. Definition</a> · <a href="#self-certification">Checklist</a> · <a href="#workflow">2. Workflow</a> · <a href="#conversation-flow">3. Conversation Flow</a> · <a href="#skill-authoring">4. Skill Authoring</a> · <a href="#embed-page">5. Embed Page</a> · <a href="#security">6. Security</a> · <a href="#progressive-levels">7. Levels</a> · <a href="#use-cases">8. Use Cases</a> · <a href="#limitations">9. Limitations</a> · <a href="#error-handling">10. Error Handling</a> · <a href="#industry-landscape">11. Landscape</a></p>
+    <p class="toc"><a href="#definition">1. Definition</a> · <a href="#self-certification">Checklist</a> · <a href="#workflow">2. Workflow</a> · <a href="#conversation-flow">3. Conversation Flow</a> · <a href="#skill-authoring">4. Skill Authoring</a> · <a href="#embed-page">5. Embed Page</a> · <a href="#security">6. Security</a> · <a href="#progressive-levels">7. Levels</a> · <a href="#use-cases">8. Use Cases</a> · <a href="#limitations">9. Limitations</a> · <a href="#error-handling">10. Error Handling</a> · <a href="#industry-landscape">11. Landscape</a> · <a href="#governance">Governance</a></p>
 
     <h2 id="definition">1. Definition</h2>
     <p>AI Agents output text. ERI (Embedded Result Interface) lets them embed interactive UI instead — using only a <code>skill.md</code> and a URL.</p>
@@ -394,6 +394,9 @@ const data = await fetch('/api/results/' + token).then(r =&gt; r.json());</code>
       <li><a href="https://www.jsonrpc.org/specification">JSON-RPC 2.0 Specification</a> — Level 2 message transport format</li>
       <li><a href="https://developers.openai.com/apps-sdk/mcp-apps-in-chatgpt">MCP Apps Host Bridge</a> — <code>ui/*</code> JSON-RPC methods for Level 2 bidirectional communication</li>
     </ul>
+
+    <h2 id="governance">Governance</h2>
+    <p>ERI is a community specification maintained by the original author. Level 1 core workflow is frozen — no breaking changes. Additive changes (new use cases, Level 2 message types) follow an open proposal process via <a href="https://github.com/2234839/eri-spec/issues">GitHub Issues</a>. All substantive changes require a Pull Request with review. See <a href="https://github.com/2234839/eri-spec/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a> for details.</p>
 
     <hr>
     <footer><p class="meta"><a href="./adopt.html">Adopt in your team</a> · <a href="./blog.html">Why this matters</a> · <a href="https://2234839.github.io/eri-spec/">Try the demo</a> · <a href="https://github.com/2234839/eri-spec">GitHub</a></p></footer>

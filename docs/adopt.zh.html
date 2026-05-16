@@ -53,10 +53,10 @@
       },
       {
         "@type": "Question",
-        "name": "安全怎么办？",
+        "name": "安全和数据隐私怎么办？",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "平台对 iframe 加沙箱（sandbox=\"allow-scripts\"）——无法访问父页面 cookie、token 或 DOM。遵循标准 XSS 防护即可。"
+          "text": "平台对 iframe 加沙箱（sandbox=\"allow-scripts\"）——无法访问父页面 cookie、token 或 DOM。遵循标准 XSS 防护。绝不在 URL hash 或 query 参数中放置 PII——URL 会被记录在浏览器历史、代理日志和 Referrer 头中。对于敏感数据，应在 URL 中传递短期令牌，由嵌入页面通过 API 调用获取实际数据。"
         }
       },
       {
@@ -64,7 +64,7 @@
         "name": "MCP Apps 不是会替代这个吗？",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "MCP Apps 只在 MCP 平台上运行。ERI 只是一个 URL——今天大多数平台通用。你为 ERI 构建的嵌入页面构成日后打包给 MCP Apps 的核心，所以现在采用 ERI 不是一次性工作。"
+          "text": "MCP Apps 只在 MCP 平台上运行。ERI 只是一个 URL——今天大多数平台通用。你为 ERI 构建的嵌入页面构成日后打包给 MCP Apps 的核心，所以现在采用 ERI 不是一次性工作。ERI 是入口，不是死胡同。"
         }
       },
       {
@@ -72,23 +72,15 @@
         "name": "我们的 API 需要认证——Agent 怎么传凭证？",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Agent 从服务端调用你的 API，不是从用户浏览器。提供一个公开 API 端点供 Agent 访问——限流、限定为安全操作。敏感操作让用户在嵌入页面内自行认证。"
+          "text": "Agent 从服务端调用你的 API，不是从用户浏览器。提供一个公开 API 端点供 Agent 访问——限流、限定为安全操作。敏感操作让用户在嵌入页面内自行认证（OAuth 弹窗等）。iframe 只渲染结果——不调用你的 API。"
         }
       },
       {
         "@type": "Question",
-        "name": "PII 和合规怎么办？",
+        "name": "可靠性——iframe 被拦截、嵌入页面挂了、性能影响？",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "绝不在 URL hash 或 query 参数中放置 PII——URL 会被记录在浏览器历史、代理日志和 Referrer 头中。应在 URL 中传递短期令牌，由嵌入页面通过 API 调用获取实际数据。"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "平台不支持 iframe——或者嵌入页面挂了怎么办？",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "无论哪种情况，Agent 总是附带纯文本降级——用户仍然能得到结果。大多数主流平台今天都支持渲染 iframe。把嵌入页面当作普通 HTTPS 端点来管理：监控可用性、维护 SLO。"
+          "text": "Agent 总是附带纯文本降级——即使 iframe 失败，用户仍然能得到结果。iframe 在文字响应之后加载，用户立刻看到答案。把嵌入页面当作普通 HTTPS 端点来管理：保持轻量、监控可用性、维护 SLO。大多数应用加载不到一秒。"
         }
       },
       {
@@ -96,7 +88,7 @@
         "name": "Agent 发送了错误数据怎么办？",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "验证和清理所有来自 URL 的输入。如果数据不可用，显示友好的错误状态。Agent 是不可靠的叙述者——你的嵌入页面必须做好防御性编码。"
+          "text": "验证和清理所有来自 URL 的输入——绝不 eval() 或直接渲染用户数据。如果数据不可用，显示友好的错误状态。Agent 是不可靠的叙述者——你的嵌入页面必须做好防御性编码。"
         }
       },
       {
@@ -104,7 +96,7 @@
         "name": "如何灰度发布？",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "为嵌入页面 URL 加版本号。准备好时更新 skill.md 指向新版本。旧 URL 继续工作。先从一个内部团队开始，收集反馈，再逐步扩大。"
+          "text": "为嵌入页面 URL 加版本号（如 /embed/v1/、/embed/v2/）。准备好时更新 skill.md 指向新版本。旧 URL 继续工作——没有破坏性变更。先从一个内部团队开始，收集反馈，再逐步扩大。"
         }
       },
       {
@@ -113,14 +105,6 @@
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "MCP 工具调用你的 API 并返回文字。ERI 添加的是输出层：一个用户可以直接微调的交互式 UI。它们是互补的——你现有的 MCP 工具调用不变，只需在 Agent 的响应中加上嵌入 URL。ERI 在尚未支持 MCP 的平台上也能用。"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "性能影响呢——iframe 会拖慢聊天吗？",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "iframe 在文字响应之后加载，用户立刻看到答案。把嵌入页面当作普通 HTTPS 端点管理：保持轻量、监控加载时间、维护 SLO。大多数应用的嵌入页面加载不到一秒。"
         }
       }
     ]
