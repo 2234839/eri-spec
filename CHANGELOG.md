@@ -4,6 +4,14 @@ All notable changes to the ERI specification are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.12] - 2026-05-16
+
+### Changed
+- Demo: banner copy reframed from "Agent embedded a calculator" to "Your web app can appear inside any Agent conversation" — shifts focus to the reader's capability.
+- Demo: removed redundant skill-preview code block from sidebar (content already shown in spec/template pages); deleted associated CSS.
+
+[1.0.12]: https://github.com/2234839/eri-spec/compare/v1.0.11...v1.0.12
+
 ## [1.0.11] - 2026-05-16
 
 ### Changed
