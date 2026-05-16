@@ -4,6 +4,14 @@ All notable changes to the ERI specification are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.22] - 2026-05-16
+
+### Changed
+- Spec EN/ZH: Quick Start items tightened — removed redundant descriptions, aligned "most platforms" with comparison table.
+- Adopt EN/ZH: added suggested email subject line to pitch template.
+
+[1.0.22]: https://github.com/2234839/eri-spec/compare/v1.0.21...v1.0.22
+
 ## [1.0.21] - 2026-05-16
 
 ### Changed
