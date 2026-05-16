@@ -4,6 +4,13 @@ All notable changes to the ERI specification are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.18] - 2026-05-16
+
+### Changed
+- Blog EN/ZH: major restructure to differentiate from README — removed "Enter ERI" section (repeated README definition), replaced comparison table with prose summary linking to spec (table already in README and spec), Blog now focuses on argument ("why a spec", "why ERI") rather than re-introducing ERI.
+
+[1.0.18]: https://github.com/2234839/eri-spec/compare/v1.0.17...v1.0.18
+
 ## [1.0.17] - 2026-05-16
 
 ### Changed

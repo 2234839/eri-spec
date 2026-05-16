@@ -107,33 +107,18 @@
     <p>对的——但是死的。改成 4 件？新的一轮。加税？再来一轮。图表、表单、滑块——全部被压扁成你无法交互的文字。</p>
     <blockquote>生态解决了输入（MCP、Function Calling、REST），输出仍是文字。</blockquote>
 
-    <h2>引入 ERI</h2>
-    <p>ERI（嵌入式结果界面）让你的 Web 应用以实时可编辑的 UI 出现在任何 Agent 对话中——ChatGPT、Claude、Gemini。用户直接交互——无需等待 Agent 来回。</p>
-    <p>你只需写一个简短的指令文件（<code>skill.md</code>），告诉 Agent 如何调用你的 API、嵌入哪个 URL。<a href="./spec.zh.html#skill-authoring">见规范</a>中的最小示例，或直接使用<a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">可复制模板</a>。</p>
-    <p>从零到可运行嵌入，不到一天——NoteCalc 参考实现中，<a href="https://github.com/2234839/eri-spec/blob/main/examples/notecalc.md">skill.md</a> 约十分钟，嵌入页面一个下午。<a href="https://2234839.github.io/eri-spec/">现在试试</a>。</p>
-
     <h2>你当然可以直接嵌入 iframe</h2>
-    <p>没错。你可以直接告诉 Agent "嵌入这个 URL"，它会生成一个 iframe。那为什么还需要一个规范？</p>
-    <p>因为没有一个约定，每次 Agent-提供者的集成都是临时拼凑。一个 Agent 把数据放在 hash 里嵌入你的 URL。另一个放在 query 参数里。第三个忘了在不支持 iframe 的平台提供纯文本降级。你的 API 每次被不同的方式调用，嵌入页面没有一个一致的契约。</p>
-    <p>ERI 定义了这个契约：<code>skill.md</code> 指导 Agent 调用特定 API、编码结果、嵌入特定 URL、并包含纯文本降级。同样的模式，每个 Agent，每个支持 iframe 的平台。嵌入页面有清晰的规范可以遵循。结果是一致且可复用的——不是一次碰巧。</p>
+    <p>那为什么还需要一个规范？因为没有约定，每次 Agent-提供者的集成都是临时拼凑。一个 Agent 把数据放在 hash 里嵌入你的 URL。另一个放在 query 参数里。第三个忘了在不支持 iframe 的平台提供纯文本降级。你的 API 每次被不同的方式调用，嵌入页面没有一个一致的契约。</p>
+    <p>ERI 定义了这个契约：<code>skill.md</code> 指导 Agent 调用特定 API、编码结果、嵌入特定 URL、并包含纯文本降级。同样的模式，每个 Agent，每个支持 iframe 的平台。结果是一致且可复用的——不是一次碰巧。</p>
 
-    <h2>三条路径到交互式 Agent 输出</h2>
-    <p>业界从三个方向收敛到同一个问题：</p>
-    <table>
-      <thead><tr><th></th><th>ERI</th><th><a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a>（Anthropic / OpenAI）</th><th><a href="https://github.com/google/a2ui">A2UI</a>（Google）</th></tr></thead>
-      <tbody>
-        <tr><td><strong>机制</strong></td><td>通过 URL 嵌入 iframe</td><td>沙箱 iframe 小应用</td><td>JSON Schema + 原生渲染器</td></tr>
-        <tr><td><strong>今天可用？</strong></td><td><strong>大多数平台</strong></td><td>仅 MCP 平台</td><td>仅 A2UI 平台</td></tr>
-        <tr><td><strong>工作量</strong></td><td><strong>&lt; 1 天</strong>——只需嵌入页面 + skill.md</td><td>数天——MCP 应用包</td><td>数天——组件目录 + schema</td></tr>
-        <tr><td><strong>能力</strong></td><td>完整 Web（HTML/CSS/JS/Canvas/WebGL）</td><td>平台 API + 实时同步</td><td>原生渲染</td></tr>
-      </tbody>
-    </table>
+    <h2>行业格局</h2>
+    <p>交互式 Agent 输出存在三种方案。ERI 利用平台已有的 iframe 渲染，大多数平台今天就能用。<a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a> 和 <a href="https://github.com/google/a2ui">A2UI</a> 提供更丰富的能力但需要平台特定的运行时。详见<a href="./spec.zh.html#industry-landscape">规范对比表</a>——或直接看<a href="https://2234839.github.io/eri-spec/">在线演示</a>。</p>
+    <p><strong>关键点：</strong>MCP Apps 同样在沙箱 iframe 中渲染。ERI 嵌入页面天然与 MCP Apps 运行时结构兼容，而且 Level 2 使用相同的 <code>ui/*</code> JSON-RPC 桥。从 ERI 开始，嵌入页面无需修改即可沿用。</p>
 
     <h2>为什么选 ERI</h2>
-    <p><strong>一次实现，全平台通用。</strong>ERI 利用平台已有的能力——iframe 渲染。ChatGPT、Claude、Gemini 都在 Agent 输出中渲染 iframe（已在 GPT-4o、Claude 3.5+、Gemini 2.0+ 上验证）。一个嵌入页面 + 一个 <code>skill.md</code> 覆盖所有平台。无需逐平台 SDK，无需供应商特定的打包——MCP Apps 兼容性详见<a href="./spec.zh.html#industry-landscape">规范对比</a>。</p>
-    <p><strong>低承诺。</strong>你的嵌入页面无论有没有 ERI 都能独立运行。<code>skill.md</code> 约十五行 Markdown。MIT 许可规范，任何人可以 fork。</p>
+    <p><strong>低承诺。</strong>你的嵌入页面无论有没有 ERI 都能独立运行。<code>skill.md</code> 约十五行 Markdown。MIT 许可规范，任何人可以 fork。从零到可运行嵌入，不到一天。</p>
     <p>代价：快照式输出（每轮用户对话产生全新嵌入），无原生设备 API，URL 大小限制。详见<a href="./spec.zh.html#limitations">规范局限性</a>和<a href="./spec.zh.html#large-data-pattern">大数据集模式</a>。</p>
-    <p><strong>被说服了？</strong><a href="https://2234839.github.io/eri-spec/">试试演示</a>，或阅读<a href="./adopt.zh.html">团队采用指南</a>。</p>
+    <p><strong>被说服了？</strong><a href="https://2234839.github.io/eri-spec/">试试演示</a>、阅读<a href="./adopt.zh.html">团队采用指南</a>、或直接用<a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">可复制模板</a>开始。</p>
 
     <h2>分享这篇文章</h2>
     <blockquote>

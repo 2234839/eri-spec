@@ -107,33 +107,18 @@
     <p>Correct — but inert. Change 3 to 4? New round. Add tax? Another round. Charts, forms, sliders — all flattened to text you can't interact with.</p>
     <blockquote>The ecosystem solved input (MCP, Function Calling, REST). Output is still text.</blockquote>
 
-    <h2>Enter ERI</h2>
-    <p>ERI (Embedded Result Interface) lets your web app appear as a live, editable UI inside any Agent conversation — ChatGPT, Claude, Gemini. The user interacts directly — no Agent round trips needed.</p>
-    <p>You write a short instruction file (<code>skill.md</code>) telling the Agent how to call your API and which URL to embed. <a href="./spec.html#skill-authoring">See the spec</a> for a minimal example, or grab the <a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">copy-paste template</a>.</p>
-    <p>Under a day from zero to working embed — the NoteCalc reference took ~10 min for the <a href="https://github.com/2234839/eri-spec/blob/main/examples/notecalc.md">skill.md</a> and an afternoon for the embed page. <a href="https://2234839.github.io/eri-spec/">Try it now</a>.</p>
-
     <h2>Yes, You Can Already Embed an Iframe</h2>
-    <p>Right. You can tell an Agent "embed this URL" and it will produce an iframe. So why a spec?</p>
-    <p>Because without a convention, every Agent-provider integration is ad-hoc. One Agent embeds your URL with the data in the hash. Another puts it in query params. A third forgets to include a text fallback for platforms that strip iframes. Your API gets called differently each time, and your embed page has no consistent contract.</p>
-    <p>ERI defines the contract: a <code>skill.md</code> instructs the Agent to call a specific API, encode the result, embed a specific URL, and include a plain text fallback. Same pattern, every Agent, every platform that renders iframes. The embed page has a clear spec to build against. The result is consistent and discoverable — not a lucky coincidence.</p>
+    <p>So why a spec? Because without a convention, every Agent-provider integration is ad-hoc. One Agent embeds your URL with the data in the hash. Another puts it in query params. A third forgets to include a text fallback for platforms that strip iframes. Your API gets called differently each time, and your embed page has no consistent contract.</p>
+    <p>ERI defines the contract: a <code>skill.md</code> instructs the Agent to call a specific API, encode the result, embed a specific URL, and include a plain text fallback. Same pattern, every Agent, every platform that renders iframes. The result is consistent and discoverable — not a lucky coincidence.</p>
 
-    <h2>Three Paths to Interactive Agent Output</h2>
-    <p>The industry is converging on the same problem from three directions:</p>
-    <table>
-      <thead><tr><th></th><th>ERI</th><th><a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a> (Anthropic / OpenAI)</th><th><a href="https://github.com/google/a2ui">A2UI</a> (Google)</th></tr></thead>
-      <tbody>
-        <tr><td><strong>Mechanism</strong></td><td>URL embed via iframe</td><td>Sandboxed iframe mini-apps</td><td>JSON schema + native renderer</td></tr>
-        <tr><td><strong>Works today?</strong></td><td><strong>Most platforms</strong></td><td>MCP-enabled only</td><td>A2UI-enabled only</td></tr>
-        <tr><td><strong>Effort</strong></td><td><strong>&lt; 1 day</strong> — just an embed page + skill.md</td><td>Days — MCP app package</td><td>Days — component catalog + schema</td></tr>
-        <tr><td><strong>Capabilities</strong></td><td>Full web (HTML/CSS/JS/Canvas/WebGL)</td><td>Platform APIs + real-time sync</td><td>Native rendering</td></tr>
-      </tbody>
-    </table>
+    <h2>The Landscape</h2>
+    <p>Three approaches exist for interactive Agent output. ERI works on most platforms today using only what they already have — iframe rendering. <a href="https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/">MCP Apps</a> and <a href="https://github.com/google/a2ui">A2UI</a> offer richer capabilities but require platform-specific runtimes. See the <a href="./spec.html#industry-landscape">spec comparison table</a> for details — or the <a href="https://2234839.github.io/eri-spec/">live demo</a> to see it in action.</p>
+    <p><strong>Key point:</strong> MCP Apps also render inside sandboxed iframes. An ERI embed page is structurally compatible with the MCP Apps runtime, and ERI Level 2 uses the same <code>ui/*</code> JSON-RPC bridge. Start with ERI; the embed page carries forward unchanged.</p>
 
     <h2>Why ERI</h2>
-    <p><strong>One implementation, all platforms.</strong> ERI uses what platforms already have — iframe rendering. ChatGPT, Claude, and Gemini all render iframes in Agent output (verified on GPT-4o, Claude 3.5+, Gemini 2.0+). One embed page + one <code>skill.md</code> reaches all three. No per-platform SDK, no vendor-specific packaging — see <a href="./spec.html#industry-landscape">spec comparison</a> for MCP Apps compatibility.</p>
-    <p><strong>Low commitment.</strong> Your embed page works with or without ERI. The <code>skill.md</code> is ~15 lines of Markdown. MIT-licensed spec, anyone can fork.</p>
+    <p><strong>Low commitment.</strong> Your embed page works with or without ERI. The <code>skill.md</code> is ~15 lines of Markdown. MIT-licensed spec, anyone can fork. Under a day from zero to working embed.</p>
     <p>Trade-offs: snapshot-based output (each user turn produces a fresh embed), no native device APIs, URL size limits for encoded data. See <a href="./spec.html#limitations">spec limitations</a> and <a href="./spec.html#large-data-pattern">large data pattern</a> for mitigations.</p>
-    <p><strong>Convinced?</strong> <a href="https://2234839.github.io/eri-spec/">Try the demo</a> or read the <a href="./adopt.html">team adoption guide</a>.</p>
+    <p><strong>Convinced?</strong> <a href="https://2234839.github.io/eri-spec/">Try the demo</a>, read the <a href="./adopt.html">team adoption guide</a>, or grab the <a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">copy-paste template</a>.</p>
 
     <h2>Share This</h2>
     <blockquote>
