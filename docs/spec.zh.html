@@ -224,6 +224,7 @@ description: 工具描述
         <tr><td>HTTPS</td><td>必须使用 HTTPS</td></tr>
         <tr><td>URL 参数读取</td><td>从 URL hash 中读取初始状态（推荐），或使用 query 参数。推荐编码：<code>encodeURIComponent(JSON.stringify(data))</code>——但嵌入页面能理解的任何格式都有效。</td></tr>
         <tr><td>自包含</td><td>所有交互自行处理。不依赖宿主 JS/CSS。响应式布局。</td></tr>
+        <tr><td>可访问性 <em>（推荐）</em></td><td>ARIA 标签、键盘导航、焦点管理。尽可能遵循 <a href="https://www.w3.org/WAI/standards-guidelines/wcag/">WCAG</a> 指南。</td></tr>
         <tr><td>Level 2 桥接 <em>（可选）</em></td><td>实现 <code>ui/*</code> JSON-RPC 桥接以支持双向通信——见<a href="#progressive-levels">第 7 节</a></td></tr>
         <tr><td>主题适配 <em>（可选）</em></td><td>读取 URL 参数或宿主颜色方案适配明暗主题</td></tr>
         <tr><td>Iframe 尺寸 <em>（推荐）</em></td><td>设计为响应式宽度（Agent 通常设置 <code>width="100%"</code>）。默认高度 300–400px 适用于大多数嵌入。Level 2 可使用 <code>ui/message</code> JSON-RPC 方法动态调整高度。</td></tr>

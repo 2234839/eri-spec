@@ -224,6 +224,7 @@ description: What this Skill does
         <tr><td>HTTPS</td><td>Must serve over HTTPS</td></tr>
         <tr><td>URL param reading</td><td>Read initial state from URL hash (recommended) or query params. Recommended encoding: <code>encodeURIComponent(JSON.stringify(data))</code> — but any format the embed page understands is valid.</td></tr>
         <tr><td>Self-contained</td><td>Handle all interactions internally. No host JS/CSS dependencies. Responsive layout.</td></tr>
+        <tr><td>Accessibility <em>(recommended)</em></td><td>ARIA labels, keyboard navigation, focus management. Follow <a href="https://www.w3.org/WAI/standards-guidelines/wcag/">WCAG</a> guidelines where practical.</td></tr>
         <tr><td>Level 2 bridge <em>(optional)</em></td><td>Implement <code>ui/*</code> JSON-RPC bridge for bidirectional communication — see <a href="#progressive-levels">Section 7</a></td></tr>
         <tr><td>Theme adaptation <em>(optional)</em></td><td>Read URL params or host colors to match light/dark theme</td></tr>
         <tr><td>Iframe sizing <em>(recommended)</em></td><td>Design for a responsive width (agents typically set <code>width="100%"</code>). Default height of 300–400px works for most embeds. For Level 2, use the <code>ui/message</code> JSON-RPC method to dynamically adjust height.</td></tr>
