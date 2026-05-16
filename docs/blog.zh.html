@@ -108,6 +108,7 @@
     <blockquote>生态解决了输入（MCP、Function Calling、REST），输出仍是文字。</blockquote>
 
     <h2>你当然可以直接嵌入 iframe</h2>
+    <p>ERI（嵌入式结果界面）是一个开放规范，把临时的 iframe 嵌入变成可复用的模式：你的 Web 应用通过一个 <code>skill.md</code> 和一个 URL，以可交互 UI 出现在任何 Agent 对话中。</p>
     <p>那为什么还需要一个规范？因为没有约定，每次 Agent-提供者的集成都是临时拼凑。一个 Agent 把数据放在 hash 里嵌入你的 URL。另一个放在 query 参数里。第三个忘了在不支持 iframe 的平台提供纯文本降级。你的 API 每次被不同的方式调用，嵌入页面没有一个一致的契约。</p>
     <p>ERI 定义了这个契约：<code>skill.md</code> 指导 Agent 调用特定 API、编码结果、嵌入特定 URL、并包含纯文本降级。同样的模式，每个 Agent，每个支持 iframe 的平台。结果是一致且可复用的——不是一次碰巧。</p>
 

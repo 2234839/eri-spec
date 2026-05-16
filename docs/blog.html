@@ -108,6 +108,7 @@
     <blockquote>The ecosystem solved input (MCP, Function Calling, REST). Output is still text.</blockquote>
 
     <h2>Yes, You Can Already Embed an Iframe</h2>
+    <p>ERI (Embedded Result Interface) is an open spec that turns ad-hoc iframe embedding into a repeatable pattern: your web app appears as interactive UI inside any Agent conversation, via a <code>skill.md</code> and a URL.</p>
     <p>So why a spec? Because without a convention, every Agent-provider integration is ad-hoc. One Agent embeds your URL with the data in the hash. Another puts it in query params. A third forgets to include a text fallback for platforms that strip iframes. Your API gets called differently each time, and your embed page has no consistent contract.</p>
     <p>ERI defines the contract: a <code>skill.md</code> instructs the Agent to call a specific API, encode the result, embed a specific URL, and include a plain text fallback. Same pattern, every Agent, every platform that renders iframes. The result is consistent and discoverable — not a lucky coincidence.</p>
 

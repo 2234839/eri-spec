@@ -4,6 +4,13 @@ All notable changes to the ERI specification are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.19] - 2026-05-16
+
+### Changed
+- Blog EN/ZH: added one-line ERI definition before "Yes, You Can Already Embed an Iframe" — Blog now works as standalone entry point from social media links without requiring the reader to have seen README first.
+
+[1.0.19]: https://github.com/2234839/eri-spec/compare/v1.0.18...v1.0.19
+
 ## [1.0.18] - 2026-05-16
 
 ### Changed
