@@ -4,11 +4,20 @@
 
 **[在线演示](https://2234839.github.io/eri-spec/)** · [规范](https://2234839.github.io/eri-spec/docs/spec.zh.html) · [博客](https://2234839.github.io/eri-spec/docs/blog.zh.html) · [采用](https://2234839.github.io/eri-spec/docs/adopt.zh.html) · [English](./README.md) · [![ERI v1.0](https://img.shields.io/badge/ERI-v1.0_Stable-6366f1)](https://2234839.github.io/eri-spec/)
 
-**ERI 对 Agent 输出，就像 MCP 对 Agent 输入。** MCP（模型上下文协议）让 Agent 调用你的 API；ERI 让 Agent 展示你的 UI。它们工作在不同层——配合使用。
+**ERI 对 Agent 输出，就像 MCP 对 Agent 输入。** MCP 让 Agent 调用你的 API；ERI 让 Agent 展示你的 UI。它们工作在不同层——配合使用。
 
-适用于 **ChatGPT、Claude、Gemini**——任何能渲染 iframe 的平台。无需 SDK，无需平台审批。面向想把产品放进 Agent 对话的 Web 开发者和 SaaS 团队。
+适用于 **ChatGPT、Claude、Gemini**——任何能渲染 iframe 的平台。无需 SDK，无需平台审批。面向 Web 开发者和 SaaS 团队。
 
 ---
+
+## 有什么不同
+
+| | ERI | [MCP Apps](https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/) (Anthropic / OpenAI) | [A2UI](https://github.com/google/a2ui) (Google) |
+|---|---|---|---|
+| **今天可用？** | **是——大多数平台** | 仅 MCP 平台 | 仅 A2UI 平台 |
+| **需要构建** | 一个 HTTPS 嵌入页面 + 一个 skill.md | MCP 兼容的应用包 | 组件目录 + A2UI Schema |
+| **能力** | 完整 Web 平台（HTML/CSS/JS/Canvas/WebGL） | 平台 API、实时通信 | 原生渲染 |
+| **工作量** | **< 1 天** | 数天 | 数天 |
 
 ## 一个例子讲清楚
 
@@ -26,8 +35,6 @@ Agent 输出 iframe → 用户看到实时计算器
 
 ## 三步开始
 
-**你有一个 Web 应用，想让它出现在 Agent 对话中。这样做：**
-
 1. **添加嵌入页面** — 最小页面从 URL hash 读取初始状态：
    ```html
    <body><script>
@@ -39,14 +46,21 @@ Agent 输出 iframe → 用户看到实时计算器
 2. **写一个 skill.md** — 告诉 Agent 如何调用你的 API 和构造嵌入 URL。[从模板开始](./examples/template.md)，或参考[真实实现](./examples/notecalc.md)（仅 15 行）。
 3. **上线** — iframe 嵌入在 ChatGPT、Claude、Gemini 上都能用。需要时再加 [Level 2 双向通信（MCP Apps `ui/*` 桥接）](https://2234839.github.io/eri-spec/docs/spec.zh.html#progressive-levels)。
 
-## 有什么不同
+## 谁在用 ERI
 
-| | ERI | [MCP Apps](https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/) (Anthropic / OpenAI) | [A2UI](https://github.com/google/a2ui) (Google) |
-|---|---|---|---|
-| **今天可用？** | **是——大多数平台** | 仅 MCP 平台 | 仅 A2UI 平台 |
-| **需要构建** | 一个 HTTPS 嵌入页面 + 一个 skill.md | MCP 兼容的应用包 | 组件目录 + A2UI Schema |
-| **能力** | 完整 Web 平台（HTML/CSS/JS/Canvas/WebGL） | 平台 API、实时通信 | 原生渲染 |
-| **工作量** | **< 1 天** | 数天 | 数天 |
+任何用户需要**调整** Agent 输出的 Web 应用或 SaaS：
+
+| 场景 | 嵌入页面做什么 |
+|------|----------------|
+| 计算器 / 电子表格 | 渲染表达式和结果；用户内联编辑数值 |
+| 图表 / 仪表盘 | 渲染可视化；用户调整筛选条件 |
+| 表单 / 问卷构建器 | 渲染预览；用户重排字段 |
+| 设计工具 | 渲染预览；用户调整颜色或间距 |
+| 代码游乐场 | 渲染代码；用户编辑并查看输出 |
+
+参考实现：[NoteCalc](https://tsfullstack.heartstack.space/noteCalc)——数学计算器（[skill.md](./examples/notecalc.md)，仅 15 行）。
+
+用 ERI 构建了什么？[在此添加](https://github.com/2234839/eri-spec/edit/main/README.zh.md)——提交 PR 即可。展示你的支持：`[![ERI Compatible](https://img.shields.io/badge/ERI-Compatible-6366f1)](https://github.com/2234839/eri-spec)`
 
 ## 文档
 
@@ -55,15 +69,7 @@ Agent 输出 iframe → 用户看到实时计算器
 | [规范](https://2234839.github.io/eri-spec/docs/spec.zh.html) | 技术规范——工作流、安全、等级、`ui/*` JSON-RPC 桥接 |
 | [博客](https://2234839.github.io/eri-spec/docs/blog.zh.html) | 为什么需要 ERI — 三方格局（ERI / MCP Apps / A2UI） |
 | [采用](https://2234839.github.io/eri-spec/docs/adopt.zh.html) | 团队采用指南——清单、决策矩阵、推介模板 |
-| [示例](./examples/) | 可复制的 skill.md 模板——[模板](./examples/template.md)、[hello world](./examples/hello-world.html)和[真实实现](./examples/notecalc.md) |
-
-## 采用者
-
-| 项目 | 说明 |
-|------|------|
-| [NoteCalc](https://tsfullstack.heartstack.space/noteCalc) | 数学计算器——支持变量、单位换算和百分比，[skill.md](./examples/notecalc.md) |
-
-用 ERI 构建了什么？[在此添加](https://github.com/2234839/eri-spec/edit/main/README.zh.md)——提交 PR 即可。展示你的支持：`[![ERI Compatible](https://img.shields.io/badge/ERI-Compatible-6366f1)](https://github.com/2234839/eri-spec)`
+| [示例](./examples/) | 可复制的 skill.md——[模板](./examples/template.md)、[hello world](./examples/hello-world.html)、[真实实现](./examples/notecalc.md) |
 
 ## 许可
 

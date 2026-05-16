@@ -4,6 +4,14 @@ All notable changes to the ERI specification are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.15] - 2026-05-16
+
+### Changed
+- README EN/ZH: restructured section order — comparison table moved before "Start in 3 Steps" (evaluators see "why ERI" before "how to start").
+- README EN/ZH: "Adopters" section replaced with "Who Uses ERI" — use case table with 5 scenarios, more compelling than a single-adopter list.
+
+[1.0.15]: https://github.com/2234839/eri-spec/compare/v1.0.14...v1.0.15
+
 ## [1.0.14] - 2026-05-16
 
 ### Changed
