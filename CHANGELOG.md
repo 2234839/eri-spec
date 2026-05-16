@@ -4,6 +4,14 @@ All notable changes to the ERI specification are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.23] - 2026-05-16
+
+### Changed
+- Spec EN/ZH: added Accessibility (recommended) row to Embed Page Requirements table — signals enterprise-grade intent with WCAG reference.
+- Adopt EN/ZH: moved keyboard/screen reader support from Phase 3 (optional) to Phase 2 (integration).
+
+[1.0.23]: https://github.com/2234839/eri-spec/compare/v1.0.22...v1.0.23
+
 ## [1.0.22] - 2026-05-16
 
 ### Changed
