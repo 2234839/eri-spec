@@ -53,10 +53,10 @@
       },
       {
         "@type": "Question",
-        "name": "What about security?",
+        "name": "What about security and data privacy?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Platforms sandbox iframes (sandbox=\"allow-scripts\") — no access to parent cookies, tokens, or DOM. Follow standard XSS prevention."
+          "text": "Platforms sandbox iframes (sandbox=\"allow-scripts\") — no access to parent cookies, tokens, or DOM. Follow standard XSS prevention. Never place PII in URL hash or query params — URLs are logged in browser history, proxy logs, and referrer headers. For sensitive data, pass a short-lived token in the URL and fetch actual data via an API call inside the embed page."
         }
       },
       {
@@ -77,18 +77,10 @@
       },
       {
         "@type": "Question",
-        "name": "What about PII and compliance?",
+        "name": "What about reliability — iframe blocked, embed page down, performance?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Never place PII in URL hash or query params — URLs are logged in browser history, proxy logs, and referrer headers. Pass a short-lived token in the URL and fetch actual data via an API call inside the embed page."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What if our platform doesn't support iframes — or our embed page goes down?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Either way, the Agent always includes a plain text fallback — the user still gets value. Most major platforms render iframes today. Treat your embed page like any HTTPS endpoint: monitor uptime, maintain an SLO."
+          "text": "The Agent always includes a plain text fallback — the user still gets value even if the iframe fails. The iframe loads after the text response, so the user sees the answer immediately. Treat your embed page like any HTTPS endpoint: keep it lightweight, monitor uptime, maintain an SLO."
         }
       },
       {
@@ -115,14 +107,6 @@
           "text": "MCP tools call your API and return text. ERI adds the output layer: an interactive UI that the user can tweak directly. They're complementary — your existing MCP tool call stays the same; you just add an embed URL to the Agent's response. ERI also works on platforms that haven't adopted MCP yet."
         }
       },
-      {
-        "@type": "Question",
-        "name": "What about performance — does the iframe slow down the chat?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The iframe loads after the text response, so the user sees the answer immediately. Treat the embed page like any HTTPS endpoint: keep it lightweight, monitor load time, maintain an SLO. For most apps, a well-built embed page loads in under a second."
-        }
-      }
     ]
   }
   </script>
@@ -291,8 +275,8 @@ description: What it does.
     <h3>"Isn't iframe outdated?"</h3>
     <p>Iframe is how every major platform (YouTube, Stripe, Google Maps) embeds third-party content. ChatGPT, Claude, and Gemini all render iframes in Agent output today. The web hasn't replaced iframes — it standardized them with <code>sandbox</code> attributes for security.</p>
 
-    <h3>"What about security?"</h3>
-    <p>Platforms sandbox iframes (<code>sandbox="allow-scripts"</code>) — no access to parent cookies, tokens, or DOM. Follow standard XSS prevention. See <a href="./spec.html#security">spec security section</a>.</p>
+    <h3>"What about security and data privacy?"</h3>
+    <p>Platforms sandbox iframes (<code>sandbox="allow-scripts"</code>) — no access to parent cookies, tokens, or DOM. Follow standard XSS prevention. See <a href="./spec.html#security">spec security section</a>. Never place PII in URL hash or query params — URLs are logged in browser history, proxy logs, and referrer headers. For sensitive data, pass a short-lived token in the URL and fetch actual data via an API call inside the embed page.</p>
 
     <h3>"MCP Apps will replace this, right?"</h3>
     <p>MCP Apps only work on MCP-enabled platforms. ERI is a URL — works on <em>most platforms</em> today. The embed page you build for ERI forms the core of what you'd package for MCP Apps later, so adopting ERI now is not throwaway work. ERI is the on-ramp, not a dead end.</p>
@@ -300,11 +284,8 @@ description: What it does.
     <h3>"Our API requires authentication — how does the Agent pass credentials?"</h3>
     <p>The Agent calls your API from its server, not from the user's browser. Provide a dedicated <strong>public API endpoint</strong> for Agent access — rate-limited, scoped to safe operations. For sensitive operations, let users authenticate within the embed page itself (OAuth popup, etc.). The iframe only renders results — it doesn't call your API.</p>
 
-    <h3>"What about PII and compliance?"</h3>
-    <p>Never place PII in URL hash or query params — URLs are logged in browser history, proxy logs, and referrer headers. For data that involves PII, pass a short-lived token in the URL and fetch actual data via an API call inside the embed page. The embed page runs under the platform's iframe sandbox — no access to parent cookies or tokens.</p>
-
-    <h3>"What if our platform doesn't support iframes — or our embed page goes down?"</h3>
-    <p>Either way, the Agent always includes a plain text fallback — the user still gets value. Most major platforms (ChatGPT, Claude, Gemini) render iframes today. Treat your embed page like any HTTPS endpoint: monitor uptime, maintain an SLO. The fallback means a degraded experience, not a broken one.</p>
+    <h3>"What about reliability — iframe blocked, embed page down, performance?"</h3>
+    <p>The Agent always includes a plain text fallback — the user still gets value even if the iframe fails. The iframe loads after the text response, so the user sees the answer immediately. Treat your embed page like any HTTPS endpoint: keep it lightweight, monitor uptime, maintain an SLO. Most apps load in under a second.</p>
 
     <h3>"How do we roll out incrementally?"</h3>
     <p>Version your embed page URL (e.g., <code>/embed/v1/</code>, <code>/embed/v2/</code>). Update <code>skill.md</code> to point to the new version when ready. Old URLs keep working — no breaking changes. Start with one internal team, gather feedback, then expand. The skill.md format is small enough to iterate quickly.</p>
@@ -314,9 +295,6 @@ description: What it does.
 
     <h3>"We already have MCP tools — why add ERI?"</h3>
     <p>MCP tools call your API and return text. ERI adds the output layer: an interactive UI that the user can tweak directly. They're complementary — your existing MCP tool call stays the same; you just add an embed URL to the Agent's response. And ERI works on platforms that haven't adopted MCP yet.</p>
-
-    <h3>"What about performance — does the iframe slow down the chat?"</h3>
-    <p>The iframe loads after the text response, so the user sees the answer immediately. Treat the embed page like any HTTPS endpoint: keep it lightweight, monitor load time, maintain an SLO. For most apps, a well-built embed page loads in under a second.</p>
 
     <h2>Internal Pitch Template</h2>
     <p><strong>Slack / short version:</strong></p>

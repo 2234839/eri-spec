@@ -4,6 +4,15 @@ All notable changes to the ERI specification are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.16] - 2026-05-16
+
+### Changed
+- Adopt EN/ZH: merged "What about security?" + "What about PII and compliance?" into "What about security and data privacy?".
+- Adopt EN/ZH: merged "What if platform doesn't support iframes" + "What about performance" into "What about reliability?".
+- Adopt: FAQ count reduced from 10 to 8, LD+JSON structured data updated to match.
+
+[1.0.16]: https://github.com/2234839/eri-spec/compare/v1.0.15...v1.0.16
+
 ## [1.0.15] - 2026-05-16
 
 ### Changed

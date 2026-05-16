@@ -289,8 +289,8 @@ description: 工具描述
     <h3>"iframe 不是过时了吗？"</h3>
     <p>iframe 是所有主要平台（YouTube、Stripe、Google Maps）嵌入第三方内容的方式。ChatGPT、Claude、Gemini 都在 Agent 输出中渲染 iframe。Web 并没有淘汰 iframe——而是通过 <code>sandbox</code> 属性将其标准化和安全化。</p>
 
-    <h3>"安全怎么办？"</h3>
-    <p>平台对 iframe 加沙箱（<code>sandbox="allow-scripts"</code>）——无法访问父页面 cookie、token 或 DOM。遵循标准 XSS 防护即可。详见<a href="./spec.zh.html#security">规范安全章节</a>。</p>
+    <h3>"安全和数据隐私怎么办？"</h3>
+    <p>平台对 iframe 加沙箱（<code>sandbox="allow-scripts"</code>）——无法访问父页面 cookie、token 或 DOM。遵循标准 XSS 防护即可。详见<a href="./spec.zh.html#security">规范安全章节</a>。绝不在 URL hash 或 query 参数中放置 PII——URL 会被记录在浏览器历史、代理日志和 Referrer 头中。对于敏感数据，应在 URL 中传递短期令牌，由嵌入页面通过 API 调用获取实际数据。</p>
 
     <h3>"MCP Apps 不是会替代这个吗？"</h3>
     <p>MCP Apps 只在 MCP 平台上运行。ERI 只是一个 URL——<em>大多数</em>平台通用。你为 ERI 构建的嵌入页面构成日后打包给 MCP Apps 的核心，所以现在采用 ERI 不是一次性工作。ERI 是入口，不是死胡同。</p>
@@ -298,11 +298,8 @@ description: 工具描述
     <h3>"我们的 API 需要认证——Agent 怎么传凭证？"</h3>
     <p>Agent 从服务端调用你的 API，不是从用户浏览器。提供一个<strong>公开 API 端点</strong>供 Agent 访问——限流、限定为安全操作。敏感操作让用户在嵌入页面内自行认证（OAuth 弹窗等）。iframe 只渲染结果——不调用你的 API。</p>
 
-    <h3>"PII 和合规怎么办？"</h3>
-    <p>绝不在 URL hash 或 query 参数中放置 PII——URL 会被记录在浏览器历史、代理日志和 Referrer 头中。对于涉及 PII 的数据，应在 URL 中传递短期令牌，由嵌入页面通过 API 调用获取实际数据。嵌入页面在平台的 iframe 沙箱中运行——无法访问父页面 cookie 或 token。</p>
-
-    <h3>"平台不支持 iframe——或者嵌入页面挂了怎么办？"</h3>
-    <p>无论哪种情况，Agent 总是附带纯文本降级——用户仍然能得到结果。大多数主流平台（ChatGPT、Claude、Gemini）今天都支持渲染 iframe。把嵌入页面当作普通 HTTPS 端点来管理：监控可用性、维护 SLO。降级意味着体验减弱，而不是完全中断。</p>
+    <h3>"可靠性——iframe 被拦截、嵌入页面挂了、性能影响？"</h3>
+    <p>Agent 总是附带纯文本降级——即使 iframe 失败，用户仍然能得到结果。iframe 在文字响应之后加载，用户立刻看到答案。把嵌入页面当作普通 HTTPS 端点来管理：保持轻量、监控可用性、维护 SLO。大多数应用加载不到一秒。</p>
 
     <h3>"Agent 发送了错误数据怎么办？"</h3>
     <p>验证和清理所有来自 URL 的输入——绝不 <code>eval()</code> 或直接渲染用户数据。如果数据不可用，显示友好的错误状态。Agent 是不可靠的叙述者——你的嵌入页面必须做好防御性编码。</p>
@@ -312,9 +309,6 @@ description: 工具描述
 
     <h3>"我们已经有 MCP 工具了——为什么还需要 ERI？"</h3>
     <p>MCP 工具调用你的 API 并返回文字。ERI 添加的是输出层：一个用户可以直接微调的交互式 UI。它们是互补的——你现有的 MCP 工具调用不变，只需在 Agent 的响应中加上嵌入 URL。而且 ERI 在尚未支持 MCP 的平台上也能用。</p>
-
-    <h3>"性能影响呢——iframe 会拖慢聊天吗？"</h3>
-    <p>iframe 在文字响应之后加载，所以用户立刻就能看到答案。把嵌入页面当作普通 HTTPS 端点来管理：保持轻量、监控加载时间、维护 SLO。对于大多数应用，一个构建良好的嵌入页面加载时间不到一秒。</p>
 
     <h2>内部推介模板</h2>
     <p><strong>Slack / 短版本：</strong></p>
