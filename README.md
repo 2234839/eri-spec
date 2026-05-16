@@ -54,6 +54,7 @@ Any web app or SaaS where the user wants to **tweak** the Agent's output:
 |----------|--------------------------|
 | Calculator / spreadsheet | Renders expressions; user edits values inline |
 | Chart / dashboard | Renders visualization; user adjusts filters |
+| Map / location | Renders interactive map; user pans, zooms, or selects pins |
 | Form / survey builder | Renders preview; user reorders fields |
 | Design tool | Renders preview; user tweaks colors or spacing |
 | Code playground | Renders code; user edits and sees output |

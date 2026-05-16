@@ -4,6 +4,20 @@ All notable changes to the ERI specification are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.20] - 2026-05-16
+
+### Changed
+- README EN/ZH: added Map / Location use case row to "Who Uses ERI" table — now consistent with spec (7 scenarios) and more compelling (map is intuitively understood as an embed).
+- Demo: removed duplicate `.sidebar-next` CSS rule.
+- Demo: replaced hardcoded `#22c55e` with `var(--success)` for consistency with CSS variable system.
+- Demo: extracted footer inline styles to `.site-footer` / `.site-footer a` CSS classes.
+- Demo: added `aria-label="Related information"` to sidebar `<aside>`.
+- Demo: added `aria-label` and `aria-describedby` to chat `<textarea>`, linked input hint via `id="inputHint"`.
+- Demo: added `title="Embedded NoteCalc calculator"` to dynamically created iframe (WCAG 2.4.1).
+- Demo: added `type="button"` to send button.
+
+[1.0.20]: https://github.com/2234839/eri-spec/compare/v1.0.19...v1.0.20
+
 ## [1.0.19] - 2026-05-16
 
 ### Changed
