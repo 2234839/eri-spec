@@ -4,6 +4,15 @@ All notable changes to the ERI specification are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.21] - 2026-05-16
+
+### Changed
+- Spec EN/ZH: deduplicated "snapshot-based" in Limitations — cross-references Section 1 instead of restating definition; merged two landscape paragraphs into one with Section 7 cross-reference.
+- Adopt EN/ZH: maintenance cost changed from "~0" to "Low" — more credible to technical audiences.
+- CONTRIBUTING.md: fixed stale "Adopters" reference to match current "Who Uses ERI" table name.
+
+[1.0.21]: https://github.com/2234839/eri-spec/compare/v1.0.20...v1.0.21
+
 ## [1.0.20] - 2026-05-16
 
 ### Changed
