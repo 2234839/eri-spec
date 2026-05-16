@@ -4,6 +4,16 @@ All notable changes to the ERI specification are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.25] - 2026-05-16
+
+### Changed
+- Demo banner EN/ZH: leads with "One skill.md + one URL = your web app inside ChatGPT, Claude, and Gemini" — concrete mechanism and platform names replace abstract capability statement.
+- Demo banner EN/ZH: added "ERI is to Agent output what MCP is to Agent input" positioning.
+- Demo OG/Twitter descriptions: added MCP positioning analogy for social share impact.
+- Demo embed header: "NoteCalc — Interactive Calculator (ERI)" → "Embedded via ERI — NoteCalc" — clarifies third-party embed.
+
+[1.0.25]: https://github.com/2234839/eri-spec/compare/v1.0.24...v1.0.25
+
 ## [1.0.24] - 2026-05-16
 
 ### Changed
