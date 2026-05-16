@@ -166,7 +166,7 @@
       <div class="flow-arrow">→</div>
       <div class="flow-step"><strong>4. Output UI</strong><span>iframe / plain text</span></div>
     </div>
-    <p>Steps 1 and 3 are things the Agent already knows how to do. The remaining two steps involve external systems:</p>
+    <p>Steps 2 and 4 involve external systems:</p>
     <p><strong>Call API</strong> <span class="tag tag-agent">Agent</span> — The Agent calls the third-party app's API from the server side (not from the user's browser). Standard HTTP, structured JSON. No CORS (Cross-Origin Resource Sharing) configuration needed.</p>
     <pre><code>POST /api/calculate
 Body: {"expr": "99.5 * 3"}

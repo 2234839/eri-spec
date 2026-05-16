@@ -166,7 +166,7 @@
       <div class="flow-arrow">→</div>
       <div class="flow-step"><strong>4. 输出 UI</strong><span>iframe / 纯文本</span></div>
     </div>
-    <p>步骤 1 和 3 是 Agent 本身就会做的事。剩余两步涉及外部系统：</p>
+    <p>步骤 2 和 4 涉及外部系统：</p>
     <p><strong>调用 API</strong> <span class="tag tag-agent">Agent</span> — Agent 从服务端调用第三方应用的 API（不是从用户浏览器）。标准 HTTP，结构化 JSON。无需配置 CORS（跨源资源共享）。</p>
     <pre><code>POST /api/calculate
 Body: {"expr": "99.5 * 3"}

@@ -4,6 +4,15 @@ All notable changes to the ERI specification are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.13] - 2026-05-16
+
+### Changed
+- Adopt EN/ZH: removed "Key Talking Points" table — content already covered by Common Objections and Pitch Template sections.
+- Adopt EN/ZH: removed "We want to prototype this week" row from Decision Matrix — redundant with exec summary.
+- Spec EN/ZH: simplified workflow intro — "Steps 1 and 3 are things the Agent already knows how to do" → "Steps 2 and 4 involve external systems".
+
+[1.0.13]: https://github.com/2234839/eri-spec/compare/v1.0.12...v1.0.13
+
 ## [1.0.12] - 2026-05-16
 
 ### Changed

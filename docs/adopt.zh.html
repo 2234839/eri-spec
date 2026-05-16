@@ -260,7 +260,6 @@ description: 工具描述
       <thead><tr><th>场景</th><th>推荐方案</th></tr></thead>
       <tbody>
         <tr><td>"我们有 Web 应用 / SaaS——想放进 Agent 对话"</td><td><strong>ERI</strong> — 大多数平台通用</td></tr>
-        <tr><td>"这周就要出原型"</td><td><strong>ERI</strong></td></tr>
         <tr><td>"我们全面投入 MCP"</td><td>MCP Apps</td></tr>
         <tr><td>"需要原生移动端渲染"</td><td>A2UI</td></tr>
         <tr><td>"先等等看——文字输出够用了"</td><td>文字能用，但用户越来越期待交互式结果。ERI 试用成本低：一个嵌入页面、一个 <code>skill.md</code>，随时可以撤回。</td></tr>
@@ -341,19 +340,6 @@ description: 工具描述
         <tr><td>2–3</td><td><strong>原理：</strong>展示<a href="https://github.com/2234839/eri-spec/blob/main/examples/notecalc.md">15 行 skill.md</a>。"Agent 读取这个文件，调用我们的 API，嵌入我们的页面。就这样。"</td></tr>
         <tr><td>3–4</td><td><strong>兼容性：</strong>"同一个嵌入页面在 ChatGPT、Claude、Gemini 上都能用。而且它和 MCP Apps 的 iframe 运行时完全相同——Level 2 直接使用它们的 <code>ui/*</code> 桥接。"</td></tr>
         <tr><td>4–5</td><td><strong>行动：</strong>"一天试点。选一个功能，复制<a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">模板</a>，测试。零风险——嵌入页面有没有 ERI 都能独立运行。"</td></tr>
-      </tbody>
-    </table>
-
-    <h2>关键说服要点</h2>
-    <table>
-      <thead><tr><th>要点</th><th>怎么说</th></tr></thead>
-      <tbody>
-        <tr><td><strong>速度</strong></td><td>不到一天出可运行的原型。NoteCalc 的嵌入页面约 120 行 HTML。一个 <code>skill.md</code> 约 15 行。不需要平台审批流程。</td></tr>
-        <tr><td><strong>覆盖</strong></td><td>一次实现，覆盖 ChatGPT、Claude、Gemini——以及未来平台。</td></tr>
-        <tr><td><strong>成本</strong></td><td>无需 SDK，无需基础设施，无需平台审批。</td></tr>
-        <tr><td><strong>风险</strong></td><td>零绑定。嵌入页面是标准的 HTTPS 页面——无论有没有 ERI 都能运行。<code>skill.md</code> 仅 15 行 Markdown，维护或丢弃的成本极低。即使 ERI 规范不再维护，你仍然拥有一个可用的嵌入页面。MIT 许可——任何人都可以 fork。</td></tr>
-        <tr><td><strong>用户体验</strong></td><td>用户直接调整结果——改数字、拖滑块——无需等待 Agent 来回。</td></tr>
-        <tr><td><strong>业务价值</strong></td><td>产品直接出现在 Agent 对话中——用户无需跳出即可交互。</td></tr>
       </tbody>
     </table>
 

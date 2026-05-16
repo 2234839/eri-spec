@@ -262,7 +262,6 @@ description: What it does.
       <thead><tr><th>Scenario</th><th>Recommended</th></tr></thead>
       <tbody>
         <tr><td>"We have a web app / SaaS — want it in Agent chat"</td><td><strong>ERI</strong> — works on most platforms</td></tr>
-        <tr><td>"We want to prototype this week"</td><td><strong>ERI</strong></td></tr>
         <tr><td>"We're all-in on MCP"</td><td>MCP Apps</td></tr>
         <tr><td>"We need native mobile rendering"</td><td>A2UI</td></tr>
         <tr><td>"Let's wait and see — text output is fine"</td><td>Text works, but users increasingly expect interactive results. ERI is low-cost to try: one embed page, one <code>skill.md</code>, reversible at any time.</td></tr>
@@ -343,19 +342,6 @@ description: What it does.
         <tr><td>2–3</td><td><strong>How it works:</strong> Show the <a href="https://github.com/2234839/eri-spec/blob/main/examples/notecalc.md">15-line skill.md</a>. "The Agent reads this file, calls our API, and embeds our page. That's it."</td></tr>
         <tr><td>3–4</td><td><strong>Compatibility:</strong> "Same embed page works on ChatGPT, Claude, Gemini. And it's the same iframe runtime as MCP Apps — Level 2 uses their <code>ui/*</code> bridge directly."</td></tr>
         <tr><td>4–5</td><td><strong>The ask:</strong> "1-day pilot. Pick one feature, copy <a href="https://github.com/2234839/eri-spec/blob/main/examples/template.md">the template</a>, test it. Zero risk — the embed page works with or without ERI."</td></tr>
-      </tbody>
-    </table>
-
-    <h2>Key Talking Points</h2>
-    <table>
-      <thead><tr><th>Point</th><th>What to say</th></tr></thead>
-      <tbody>
-        <tr><td><strong>Speed</strong></td><td>Working demo in under a day. The NoteCalc embed page is ~120 lines of HTML. A <code>skill.md</code> is ~15 lines. No platform approval cycle.</td></tr>
-        <tr><td><strong>Coverage</strong></td><td>One implementation reaches ChatGPT, Claude, Gemini — and future platforms.</td></tr>
-        <tr><td><strong>Cost</strong></td><td>No SDK, no infrastructure, no platform approval cycle.</td></tr>
-        <tr><td><strong>Risk</strong></td><td>Zero lock-in. The embed page is a standard HTTPS page — it works with or without ERI. The <code>skill.md</code> is 15 lines of markdown: trivial to maintain or discard. If ERI itself becomes irrelevant, you keep a working embed page. MIT-licensed spec: anyone can fork it.</td></tr>
-        <tr><td><strong>User experience</strong></td><td>Users tweak results directly — change a number, drag a slider — without waiting for Agent round trips.</td></tr>
-        <tr><td><strong>Business value</strong></td><td>Our product lives inside the Agent conversation — users interact directly without leaving the chat.</td></tr>
       </tbody>
     </table>
 
