@@ -4,6 +4,14 @@ All notable changes to the ERI specification are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.17] - 2026-05-16
+
+### Changed
+- Blog EN/ZH: merged "Protocol-agnostic" and "One implementation, three platforms" into single "One implementation, all platforms" paragraph — same information, less vertical space.
+- Adopt EN: removed dead `.dt-branch` CSS (decision tree was deleted in v1.0.6).
+
+[1.0.17]: https://github.com/2234839/eri-spec/compare/v1.0.16...v1.0.17
+
 ## [1.0.16] - 2026-05-16
 
 ### Changed

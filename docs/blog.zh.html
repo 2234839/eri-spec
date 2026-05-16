@@ -130,8 +130,7 @@
     </table>
 
     <h2>为什么选 ERI</h2>
-    <p><strong>协议无关。</strong>ERI 利用平台已有的能力——iframe 渲染。你的嵌入页面是独立的 HTTPS 应用，不绑定任何协议——MCP Apps 兼容性详见<a href="./spec.zh.html#industry-landscape">规范对比</a>。</p>
-    <p><strong>一次实现，覆盖三大平台。</strong>ChatGPT、Claude、Gemini 都在 Agent 输出中渲染 iframe（已在 GPT-4o、Claude 3.5+、Gemini 2.0+ 上验证，2026 年 5 月）。一个嵌入页面 + 一个 <code>skill.md</code> 覆盖三个平台。无需逐平台 SDK，无需供应商特定的打包。</p>
+    <p><strong>一次实现，全平台通用。</strong>ERI 利用平台已有的能力——iframe 渲染。ChatGPT、Claude、Gemini 都在 Agent 输出中渲染 iframe（已在 GPT-4o、Claude 3.5+、Gemini 2.0+ 上验证）。一个嵌入页面 + 一个 <code>skill.md</code> 覆盖所有平台。无需逐平台 SDK，无需供应商特定的打包——MCP Apps 兼容性详见<a href="./spec.zh.html#industry-landscape">规范对比</a>。</p>
     <p><strong>低承诺。</strong>你的嵌入页面无论有没有 ERI 都能独立运行。<code>skill.md</code> 约十五行 Markdown。MIT 许可规范，任何人可以 fork。</p>
     <p>代价：快照式输出（每轮用户对话产生全新嵌入），无原生设备 API，URL 大小限制。详见<a href="./spec.zh.html#limitations">规范局限性</a>和<a href="./spec.zh.html#large-data-pattern">大数据集模式</a>。</p>
     <p><strong>被说服了？</strong><a href="https://2234839.github.io/eri-spec/">试试演示</a>，或阅读<a href="./adopt.zh.html">团队采用指南</a>。</p>
