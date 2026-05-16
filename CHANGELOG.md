@@ -4,6 +4,15 @@ All notable changes to the ERI specification are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.14] - 2026-05-16
+
+### Changed
+- Blog EN/ZH: added "— ERI" to og:title and twitter:title for brand visibility in social shares.
+- Spec EN/ZH: meta description and og:description differentiated from landing page — now emphasizes "technical specification" positioning.
+- Demo: footer links now update on language toggle (was hardcoded to English paths).
+
+[1.0.14]: https://github.com/2234839/eri-spec/compare/v1.0.13...v1.0.14
+
 ## [1.0.13] - 2026-05-16
 
 ### Changed
